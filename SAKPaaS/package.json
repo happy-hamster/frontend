@@ -7,7 +7,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "ng-openapi-gen": "ng-openapi-gen",
+    "generate.api": "ng-openapi-gen --input openapi.yaml --output src/app/generated"
   },
   "private": true,
   "dependencies": {
