@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {HomeComponent} from "./components/home/home.component";
-import {LocationDetailsComponent} from "./components/location-details/location-details.component";
+import {OccupanyReportComponent} from "./components/occupany-report/occupany-report.component";
 
 
 const routes: Routes = [
-  {path: '', component: HomeComponent, children:[{
-      path: 'locationDetails/:id', component: LocationDetailsComponent
-    }]},
+  {path: '', component: HomeComponent},
   {path: '*', redirectTo: ''},
-  {path: ''}
+  {path: 'home', redirectTo: ''},
+  {path: 'reportOccupancy', component: OccupanyReportComponent}
 ];
 
 @NgModule({
