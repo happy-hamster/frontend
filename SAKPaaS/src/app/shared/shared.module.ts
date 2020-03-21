@@ -4,14 +4,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
-  declarations: [
-  ],
+  declarations: [],
   exports: [
     CommonModule,
     BrowserAnimationsModule
   ],
-  providers: [
-
-  ],
+  providers: [],
 })
-export class AppModule { }
+export class SharedModule { }
