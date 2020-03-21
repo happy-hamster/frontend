@@ -69,7 +69,8 @@ paths:
         style: simple
         explode: false
         schema:
-          type: string
+          type: integer
+          format: int64
       responses:
         "200":
           description: Success
@@ -93,7 +94,8 @@ paths:
         style: simple
         explode: false
         schema:
-          type: string
+          type: integer
+          format: int64
       requestBody:
         description: The estimated occupancy by the buyer
         content:
@@ -124,7 +126,8 @@ paths:
         style: simple
         explode: false
         schema:
-          type: string
+          type: integer
+          format: int64
       responses:
         "204":
           description: Success
