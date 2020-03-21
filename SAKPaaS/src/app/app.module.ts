@@ -15,7 +15,8 @@ import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { OccupancyViewComponent } from './components/occupancy-view/occupancy-view.component';
-import {MatCardModule} from "@angular/material/card";
+import {MatCardModule} from '@angular/material/card';
+import { SnackBarModule } from 'src/app/components/snack-bar/snack-bar.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {MatCardModule} from "@angular/material/card";
     MatBottomSheetModule,
     MatGridListModule,
     MatSlideToggleModule,
-    MatCardModule
+    MatCardModule,
+    SnackBarModule
   ],
   providers: [
   ],
