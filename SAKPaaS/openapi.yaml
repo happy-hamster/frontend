@@ -69,7 +69,8 @@ paths:
         style: simple
         explode: false
         schema:
-          type: string
+          type: integer
+          format: int64
       responses:
         "200":
           description: Success
@@ -93,7 +94,8 @@ paths:
         style: simple
         explode: false
         schema:
-          type: string
+          type: integer
+          format: int64
       requestBody:
         description: The estimated occupancy by the buyer
         content:
@@ -124,34 +126,13 @@ paths:
         style: simple
         explode: false
         schema:
-          type: string
+          type: integer
+          format: int64
       responses:
         "204":
           description: Success
         "404":
           description: Not found
-  /locations/{id}/check-out:
-    post:
-      tags:
-      - Occupancy
-      description: |
-        Check out of the Supermarket.
-      parameters:
-      - name: id
-        in: path
-        description: id of the place
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
-      responses:
-        "204":
-          description: Success
-        "404":
-          description: Not found
-        "424":
-          description: Not checked in
 components:
   schemas:
     Location:
@@ -170,6 +151,21 @@ components:
         name:
           type: string
           example: LIDL Mannheim Marktplatz
+        country:
+          type: string
+          example: DE
+        city:
+          type: string
+          example: Mannheim
+        postcode:
+          type: string
+          example: "68161"
+        street:
+          type: string
+          example: Hauptstraße
+        housenumber:
+          type: string
+          example: 1-5
         occupancy:
           title: Occupancy
           maximum: 1

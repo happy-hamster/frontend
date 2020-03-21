@@ -36,7 +36,7 @@ export class LocationProviderService {
     );
   }
 
-  public fetchLocationById(id: string) {
+  public fetchLocationById(id: number) {
     return this.locationApiService.locationsIdGet({ id });
   }
 }

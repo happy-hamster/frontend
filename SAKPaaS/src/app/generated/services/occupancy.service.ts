@@ -40,7 +40,7 @@ export class OccupancyService extends BaseService {
     /**
      * id of the place
      */
-    id: string;
+    id: number;
   
     /**
      * The estimated occupancy by the buyer
@@ -79,7 +79,7 @@ export class OccupancyService extends BaseService {
     /**
      * id of the place
      */
-    id: string;
+    id: number;
   
     /**
      * The estimated occupancy by the buyer
@@ -110,7 +110,7 @@ export class OccupancyService extends BaseService {
     /**
      * id of the place
      */
-    id: string;
+    id: number;
 
   }): Observable<StrictHttpResponse<void>> {
 
@@ -144,72 +144,11 @@ export class OccupancyService extends BaseService {
     /**
      * id of the place
      */
-    id: string;
+    id: number;
 
   }): Observable<void> {
 
     return this.locationsIdCheckInPost$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
-    );
-  }
-
-  /**
-   * Path part for operation locationsIdCheckOutPost
-   */
-  static readonly LocationsIdCheckOutPostPath = '/locations/{id}/check-out';
-
-  /**
-   * Check out of the Supermarket.
-   *
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `locationsIdCheckOutPost()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  locationsIdCheckOutPost$Response(params: {
-
-    /**
-     * id of the place
-     */
-    id: string;
-
-  }): Observable<StrictHttpResponse<void>> {
-
-    const rb = new RequestBuilder(this.rootUrl, OccupancyService.LocationsIdCheckOutPostPath, 'post');
-    if (params) {
-
-      rb.path('id', params.id);
-
-    }
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-      })
-    );
-  }
-
-  /**
-   * Check out of the Supermarket.
-   *
-   * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `locationsIdCheckOutPost$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  locationsIdCheckOutPost(params: {
-
-    /**
-     * id of the place
-     */
-    id: string;
-
-  }): Observable<void> {
-
-    return this.locationsIdCheckOutPost$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }

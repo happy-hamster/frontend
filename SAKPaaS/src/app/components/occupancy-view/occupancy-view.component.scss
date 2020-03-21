@@ -1,0 +1,28 @@
+::ng-deep .low {
+  color: var(--greenblue);
+}
+
+::ng-deep .mid {
+  color: var(--midnight-blue);
+}
+
+::ng-deep .high {
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: var(--grapefruit);
+}
+
+::ng-deep .noData {
+  color: var(--greenish-grey);
+}
+
+.holder {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  p, img {
+    display: inline-block;
+    margin-left: 1rem;
+    margin-bottom: 0;
+  }
+}
