@@ -1,0 +1,19 @@
+.content {
+  background-color: white;
+  border-radius: 10px;
+  padding: 0.3rem 1rem 0.3rem 1rem;
+  margin: 0;
+  min-width: 150px;
+  max-width: 500px;
+  width: 80%;
+  position: fixed;
+  top: 3rem;
+  left: 2.5rem;
+  mat-form-field {
+    width: 100%;
+  }
+  .option-img {
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+}

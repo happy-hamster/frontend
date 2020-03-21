@@ -1,0 +1,15 @@
+<form class="content">
+  <mat-form-field>
+    <input matInput
+           placeholder="Supermarkt Suchen"
+           aria-label="Supermarkt Suchen"
+           [matAutocomplete]="auto"
+           [formControl]="searchControl">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let location of filteredLocations$ | async" [value]="location.name">
+        <span>{{ location.name }}</span>
+        <app-occupancy-view occupancy="{{ location.occupancy }}" style="display: inline-block;"></app-occupancy-view>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
