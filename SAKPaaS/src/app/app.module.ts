@@ -10,6 +10,10 @@ import { HomeComponent } from './components/home/home.component';
 import { LocationDetailsComponent } from './components/location-details/location-details.component';
 import { OccupanyReportComponent } from './components/occupany-report/occupany-report.component';
 import { ApiModule } from 'src/app/generated/api.module';
+import {MatListModule} from '@angular/material/list';
+import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,11 @@ import { ApiModule } from 'src/app/generated/api.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MapModule
+    MapModule,
+    MatListModule,
+    MatBottomSheetModule,
+    MatGridListModule,
+    MatSlideToggleModule
   ],
   providers: [
   ],
