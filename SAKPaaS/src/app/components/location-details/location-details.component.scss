@@ -1,21 +1,12 @@
-.goThereButton {
-  width: 90%;
-  height: 70%;
-  border-radius: 16px;
-  border: none;
-  box-shadow: 0 5px 20px 0 rgba(38, 196, 133, 0.4);
-  background-color: var(--greenblue);
-  cursor: pointer;
-  color: white;
-}
-
 .submitReportButton {
-  width: 90%;
+  margin-top: 1rem;
+  width: 80%;
   height: 70%;
   border-radius: 16px;
   border: none;
   box-shadow: 0 5px 20px 0 rgba(11, 0, 51, 0.3);
-  background-color: var(--midnight-blue);
+  background-color: var(--greenblue);
   cursor: pointer;
   color: white;
+  text-align: center;
 }

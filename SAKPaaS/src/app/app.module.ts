@@ -12,6 +12,7 @@ import { OccupanyReportComponent } from './components/occupany-report/occupany-r
 import {MatListModule} from "@angular/material/list";
 import {MatBottomSheetModule} from "@angular/material/bottom-sheet";
 import {MatGridListModule} from "@angular/material/grid-list";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {MatGridListModule} from "@angular/material/grid-list";
     MapModule,
     MatListModule,
     MatBottomSheetModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSlideToggleModule
   ],
   providers: [
   ],

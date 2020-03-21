@@ -4,11 +4,8 @@
   <p class="mat-card-subtitle">Auslastung</p>
   <mat-divider></mat-divider>
   <mat-grid-list cols="2" rowHeight="5rem">
-    <mat-grid-tile colspan="1">
-      <button class="goThereButton button">GO THERE</button>
-    </mat-grid-tile>
-    <mat-grid-tile colspan="1">
-      <button class="submitReportButton button">SUBMIT REPORT</button>
+    <mat-grid-tile colspan="2">
+      <button class="submitReportButton button mat-title" routerLink="reportOccupancy/{{ location.id }}">Ich bin hier!</button>
     </mat-grid-tile>
   </mat-grid-list>
 </mat-nav-list>
