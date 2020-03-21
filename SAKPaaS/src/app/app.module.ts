@@ -23,7 +23,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
   ],
   imports: [
     HttpClientModule,
-    ApiModule.forRoot({rootUrl: 'http://dev.robspot.de:8080/api/v1'}),
+    // ApiModule.forRoot({rootUrl: 'http://dev.robspot.de:8080/api/v1'}),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

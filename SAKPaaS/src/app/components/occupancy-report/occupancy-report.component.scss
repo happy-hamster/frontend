@@ -1,11 +1,12 @@
 .container {
-  margin-top: 67px;
-  margin-left: 23px;
-  margin-right: 23px;
-  margin-bottom: 23px;
+  padding-top: 60px;
+  padding-left: 23px;
+  padding-right: 23px;
+  padding-bottom: 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100%;
 }
 
 .title {
@@ -82,3 +83,4 @@ mat-radio-group {
   letter-spacing: 0.17px;
   color: #9da9a0;
 }
+
