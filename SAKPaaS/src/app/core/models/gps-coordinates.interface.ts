@@ -1,4 +1,5 @@
 export interface GpsCoordinates {
-    longitude: number;
-    latitude: number;
+  longitude: number;
+  latitude: number;
+  fromDevice?: boolean;
 }

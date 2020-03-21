@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
@@ -78,16 +78,26 @@ export class MapComponent implements OnInit {
       this.vectorSource.addFeatures(next);
     })*/
 
+    this.customMap.addEventListener('moveend', () => {
+      const center = this.customMap.getView().getCenter();
+      const centerLonLat = olProj.toLonLat(center);
+      this.gpsService.setLocation({ longitude: centerLonLat[0], latitude: centerLonLat[1] });
+      console.log(centerLonLat);
+      return true;
+    });
+
     this.locationService.fetchLocations().subscribe((next) => {
+      console.log('Fetched new locations');
       this.vectorSource.clear();
       const markers = next.map((l) => new OLMapMarker(l));
       this.vectorSource.addFeatures(markers);
     });
 
     this.gpsService.getLocation().subscribe(gpsCoordinates => {
-      console.log('Setting map center...');
-      this.customMap.getView().setCenter(olProj.fromLonLat([gpsCoordinates.longitude, gpsCoordinates.latitude]));
-      this.customMap.getView().setZoom(15);
+      if (gpsCoordinates.fromDevice) {
+        this.customMap.getView().setCenter(olProj.fromLonLat([gpsCoordinates.longitude, gpsCoordinates.latitude]));
+        this.customMap.getView().setZoom(15);
+      }
     });
   }
 
