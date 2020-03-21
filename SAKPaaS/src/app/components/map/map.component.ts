@@ -68,10 +68,10 @@ export class MapComponent implements OnInit {
       console.log(target)
     })
 
-    this.markers.subscribe((next) => {
+    /*this.markers.subscribe((next) => {
       this.vectorSource.clear();
       this.vectorSource.addFeatures(next);
-    })
+    })*/
 
     this.locationService.fetchLocations().subscribe((next) => {
       this.vectorSource.clear();
