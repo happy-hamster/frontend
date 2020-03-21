@@ -9,11 +9,24 @@
   position: fixed;
   top: 3rem;
   left: 2.5rem;
+  box-shadow: 0 5px 20px 0 rgba(11, 0, 51, 0.2);
+
   mat-form-field {
     width: 100%;
   }
   .option-img {
-    vertical-align: middle;
     margin-right: 8px;
   }
+}
+
+.option {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+::ng-deep app-occupancy-view {
+  display: inline-flex;
 }

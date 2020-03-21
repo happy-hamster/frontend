@@ -17,6 +17,9 @@ export class SearchBarComponent implements OnInit {
 
   constructor(private locationsService: LocationProviderService) {
     this.locations$ = locationsService.fetchLocations(5000);
+  }
+
+  ngOnInit(): void {
     this.filteredLocations$ = this.searchControl.valueChanges.pipe(
       switchMap(value => {
         console.log("1"+value);
@@ -32,10 +35,7 @@ export class SearchBarComponent implements OnInit {
           tap(e => console.log(e))
         )
       })
-    )
-  }
-
-  ngOnInit(): void {
+    );
     this.filteredLocations$.subscribe(item => {console.log("log: "+item)});
   }
 }

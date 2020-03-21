@@ -6,10 +6,15 @@
            [matAutocomplete]="auto"
            [formControl]="searchControl">
     <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let location of filteredLocations$ | async" [value]="location.name">
-        <span>{{ location.name }}</span>
-        <app-occupancy-view occupancy="{{ location.occupancy }}" style="display: inline-block;"></app-occupancy-view>
+      <mat-option *ngFor="let location of locations$ | async" [value]="location.name">
+        <div class="option">
+          <span>{{ location.name }}</span>
+          <span>
+            <app-occupancy-view occupancy="{{ location.occupancy }}"></app-occupancy-view>
+          </span>
+        </div>
       </mat-option>
     </mat-autocomplete>
+    <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
 </form>
