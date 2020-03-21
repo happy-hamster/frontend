@@ -1,8 +1,8 @@
 /* tslint:disable */
 export interface Location {
-  id: string;
+  id: number;
   latitude: number;
-  longtitude: number;
+  longitude: number;
   name: string;
   occupancy: number;
 }

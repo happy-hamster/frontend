@@ -47,7 +47,7 @@ export class LocationsService extends BaseService {
     longitude: number;
 
     /**
-     * Radius
+     * Radius in kilometers
      */
     radius?: number;
 
@@ -93,7 +93,7 @@ export class LocationsService extends BaseService {
     longitude: number;
 
     /**
-     * Radius
+     * Radius in kilometers
      */
     radius?: number;
 
@@ -120,7 +120,7 @@ export class LocationsService extends BaseService {
   locationsIdGet$Response(params: {
 
     /**
-     * pass an optional search string for looking up inventory
+     * id
      */
     id: string;
 
@@ -154,7 +154,7 @@ export class LocationsService extends BaseService {
   locationsIdGet(params: {
 
     /**
-     * pass an optional search string for looking up inventory
+     * id
      */
     id: string;
 
