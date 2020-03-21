@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '../../generated/models/location'
-import {Observable, of} from "rxjs";
-import {MatBottomSheet} from "@angular/material/bottom-sheet";
-import {LocationDetailsComponent} from "../location-details/location-details.component";
+import { Observable, of, Subject } from "rxjs";
+import { MatBottomSheet } from "@angular/material/bottom-sheet";
+import { LocationDetailsComponent } from "../location-details/location-details.component";
+import { MapComponent } from '../map/map.component';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +12,9 @@ import {LocationDetailsComponent} from "../location-details/location-details.com
 })
 export class HomeComponent implements OnInit {
   selectedLocation$: Observable<Location>;
+
+  @ViewChild(MapComponent) mapComp: MapComponent;
+
   constructor(private _bottomSheet: MatBottomSheet) {
   }
 
@@ -23,12 +27,20 @@ export class HomeComponent implements OnInit {
       latitude: 12,
       longitude: 13,
       name: 'Rewe Center',
-      occupancy: 5
+      occupancy: 0.2
     });
     this.openBottomSheet()
   }
 
+  onLocationEmitted(location: Location) {
+    this.selectedLocation$ = of(location);
+    this.openBottomSheet();
+  }
+
   openBottomSheet(): void {
-    this._bottomSheet.open(LocationDetailsComponent, {data: this.selectedLocation$});
+    const bottomSheetRef = this._bottomSheet.open(LocationDetailsComponent, { data: this.selectedLocation$ })
+    bottomSheetRef.afterDismissed().subscribe(() => {
+      this.mapComp.deselect();
+    });
   }
 }

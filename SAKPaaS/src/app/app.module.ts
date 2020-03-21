@@ -14,16 +14,20 @@ import {MatListModule} from '@angular/material/list';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { OccupancyViewComponent } from './components/occupancy-view/occupancy-view.component';
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LocationDetailsComponent,
+    OccupanyReportComponent,
+    OccupancyViewComponent
   ],
   imports: [
     HttpClientModule,
-    // ApiModule.forRoot({rootUrl: 'http://dev.robspot.de:8080/api/v1'}),
+    ApiModule.forRoot({ rootUrl: 'http://dev.robspot.de:8080/sakpaas/api/v1' }),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -32,7 +36,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     MatListModule,
     MatBottomSheetModule,
     MatGridListModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatCardModule
   ],
   providers: [
   ],

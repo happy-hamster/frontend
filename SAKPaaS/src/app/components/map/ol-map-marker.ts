@@ -1,16 +1,19 @@
 import { Feature } from 'ol';
-import { MapMarker } from 'src/app/core/models/map-marker.interface';
 import Point from 'ol/geom/Point';
 import * as olProj from 'ol/proj';
 import { Style, Icon } from 'ol/style';
 import IconAnchorUnits from 'ol/style/IconAnchorUnits';
+import { Location } from 'src/app/generated/models';
 
 export class OLMapMarker extends Feature {
-  constructor(mapMarker: MapMarker) {
+
+  public location: Location
+
+  constructor(locationMarker: Location) {
     super({
-      geometry: new Point(olProj.fromLonLat([mapMarker.longitude, mapMarker.latitude])),
-      color: mapMarker.colorHex
+      geometry: new Point(olProj.fromLonLat([locationMarker.longitude, locationMarker.latitude])),
     });
+    this.location = locationMarker
     this.setStyle(OLMapMarker.markerStyle)
   }
 
