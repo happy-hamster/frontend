@@ -5,12 +5,13 @@ import {LocationDetailsComponent} from './components/location-details/location-d
 import { OccupancyReportComponent } from 'src/app/components/occupancy-report/occupancy-report.component';
 
 
+
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: '*', redirectTo: ''},
   {path: 'home', redirectTo: ''},
   {path: 'reportOccupancy/:id', component: OccupancyReportComponent},
-  {path: 'test', component: LocationDetailsComponent}
+  {path: 'test', component: LocationDetailsComponent},
+  {path: '**', redirectTo: ''},
 ];
 
 @NgModule({
