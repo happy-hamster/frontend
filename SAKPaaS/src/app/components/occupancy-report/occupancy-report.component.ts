@@ -15,7 +15,7 @@ export class OccupancyReportComponent implements OnInit {
 
   selectedLocation$: Observable<Location>;
 
-  occupancyInput = new FormControl();
+  occupancyInput = new FormControl('0.33');
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -34,10 +34,18 @@ export class OccupancyReportComponent implements OnInit {
 
     this.selectedLocation$.subscribe(location => console.log(location));
 
+    this.occupancyInput.valueChanges.subscribe(val => console.log(val));
+
   }
 
-  public setRadioButton(value: number): void {
+  public setRadioButton(value: string): void {
     this.occupancyInput.setValue(value);
+  }
+
+  public onSubmit() {
+    console.log(this.occupancyInput.value);
+    const value = +this.occupancyInput.value;
+    console.log(value);
   }
 
 }

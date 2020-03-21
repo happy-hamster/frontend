@@ -1,10 +1,11 @@
 <ng-container *ngIf="selectedLocation$ | async as location">
     <div class="container">
         <h2 class="title">How full is <span class="title-accent">{{ location.name }}</span>?</h2>
-        <mat-radio-group>
-            <div class="radio" (click)="setRadioButton(0.33)">
-                <mat-radio-button [value]="0.33"></mat-radio-button>
+        <mat-radio-group [formControl]="occupancyInput">
+            <div class="radio" (click)="setRadioButton('0.33')">
+                <mat-radio-button [value]="'0.33'"></mat-radio-button>
                 <div class="radio-text">
+                    <img class="icons" src="assets/icons/icon-availability-low.svg">
                     <div class="occupancy-title">
                         Almost empty
                     </div>
@@ -15,9 +16,10 @@
                 </div>
             </div>
             <mat-divider></mat-divider>
-            <div class="radio" (click)="setRadioButton(0.66)">
-                <mat-radio-button [value]="0.66"></mat-radio-button>
+            <div class="radio" (click)="setRadioButton('0.66')">
+                <mat-radio-button [value]="'0.66'"></mat-radio-button>
                 <div class="radio-text">
+                    <img class="icons" src="assets/icons/icon-availability-moderate.svg">
                     <div class="occupancy-title">
                         Moderately busy
                     </div>
@@ -28,9 +30,10 @@
                 </div>
             </div>
             <mat-divider></mat-divider>
-            <div class="radio" (click)="setRadioButton(0.99)">
-                <mat-radio-button [value]="0.99"></mat-radio-button>
+            <div class="radio" (click)="setRadioButton('0.99')">
+                <mat-radio-button [value]="'0.99'"></mat-radio-button>
                 <div class="radio-text">
+                    <img class="icons" src="assets/icons/icon-availability-full.svg">
                     <div class="occupancy-title">
                         Very busy <span class="warning-accent"> Warning</span>
                     </div>
@@ -41,6 +44,6 @@
                 </div>
             </div>
         </mat-radio-group>
-        <button mat-raised-button class="submit">Submit</button>
+        <button mat-raised-button (click)="onSubmit()" class="submit">Submit</button>
     </div>    
 </ng-container>
