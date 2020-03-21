@@ -3,7 +3,7 @@ import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
-import * as ol from 'ol';
+import * as olProj from 'ol/proj';
 import { GpsService } from 'src/app/core/services/gps.service';
 
 @Component({
@@ -20,7 +20,8 @@ export class MapComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.gpsService.getLocation().subscribe( gpsCoordinates => {
+    this.gpsService.getLocation().subscribe(gpsCoordinates => {
+      console.log("Map will be loaded")
       this.customMap = new Map({
         target: 'map',
         layers: [
@@ -31,7 +32,7 @@ export class MapComponent implements OnInit {
           })
         ],
         view: new View({
-          center: ol.proj.fromLonLat([gpsCoordinates.longitude, gpsCoordinates.latitude]),
+          center: olProj.fromLonLat([gpsCoordinates.longitude, gpsCoordinates.latitude]),
           zoom: 2
         })
       });
