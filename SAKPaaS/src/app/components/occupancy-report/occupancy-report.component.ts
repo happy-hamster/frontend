@@ -1,18 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { Location } from 'src/app/generated/models';
-import { switchMap } from 'rxjs/operators';
 import { LocationProviderService } from 'src/app/core/services/location-provider.service';
+import { Location } from 'src/app/generated/models';
+import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'app-occupany-report',
-  templateUrl: './occupany-report.component.html',
-  styleUrls: ['./occupany-report.component.scss']
+  selector: 'app-occupancy-report',
+  templateUrl: './occupancy-report.component.html',
+  styleUrls: ['./occupancy-report.component.scss']
 })
-export class OccupanyReportComponent implements OnInit {
+export class OccupancyReportComponent implements OnInit {
 
   selectedLocation$: Observable<Location>;
+
+  occupancyInput = new FormControl();
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -30,6 +33,11 @@ export class OccupanyReportComponent implements OnInit {
     );
 
     this.selectedLocation$.subscribe(location => console.log(location));
+
+  }
+
+  public setRadioButton(value: number): void {
+    this.occupancyInput.setValue(value);
   }
 
 }
