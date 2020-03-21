@@ -9,6 +9,11 @@ import { MapModule } from 'src/app/components/map/map.module';
 import { HomeComponent } from './components/home/home.component';
 import { LocationDetailsComponent } from './components/location-details/location-details.component';
 import { OccupancyReportModule } from 'src/app/components/occupancy-report/occupancy-report.module';
+import { ApiModule } from 'src/app/generated/api.module';
+import {MatListModule} from '@angular/material/list';
+import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -18,11 +23,16 @@ import { OccupancyReportModule } from 'src/app/components/occupancy-report/occup
   ],
   imports: [
     HttpClientModule,
+    ApiModule.forRoot({rootUrl: 'http://dev.robspot.de:8080/api/v1'}),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MapModule,
-    OccupancyReportModule
+    OccupancyReportModule,
+    MatListModule,
+    MatBottomSheetModule,
+    MatGridListModule,
+    MatSlideToggleModule
   ],
   providers: [
   ],

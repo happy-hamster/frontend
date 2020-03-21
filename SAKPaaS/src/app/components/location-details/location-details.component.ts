@@ -1,5 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import { Location } from '../../generated/models/location'
+import {MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef} from "@angular/material/bottom-sheet";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-location-details',
@@ -7,10 +9,11 @@ import { Location } from '../../generated/models/location'
   styleUrls: ['./location-details.component.scss']
 })
 export class LocationDetailsComponent implements OnInit {
-  @Input() location: Location;
-  constructor() { }
-
-  ngOnInit(): void {
+  location$: Observable<Location>;
+  constructor(private _bottomSheetRef: MatBottomSheetRef<LocationDetailsComponent>, @Inject(MAT_BOTTOM_SHEET_DATA) public data: Observable<Location>) {
+    this.location$ = data
   }
+
+  ngOnInit(): void {}
 
 }
