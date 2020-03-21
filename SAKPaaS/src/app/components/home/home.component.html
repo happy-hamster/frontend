@@ -1,2 +1,3 @@
 <router-outlet></router-outlet>
-<app-map (locationEmitted)="onLocationEmitted($event)"></app-map>
+<app-map (locationEmitted)="onLocationEmitted($event)" style="z-index: 1;"></app-map>
+<app-search-bar style="z-index: 2;"></app-search-bar>

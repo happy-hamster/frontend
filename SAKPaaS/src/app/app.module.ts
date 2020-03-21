@@ -16,6 +16,11 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { OccupancyViewComponent } from './components/occupancy-view/occupancy-view.component';
 import {MatCardModule} from "@angular/material/card";
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {ReactiveFormsModule, FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -23,11 +28,14 @@ import {MatCardModule} from "@angular/material/card";
     HomeComponent,
     LocationDetailsComponent,
     OccupanyReportComponent,
-    OccupancyViewComponent
+    OccupancyViewComponent,
+    SearchBarComponent
   ],
   imports: [
+    ReactiveFormsModule,
+    FormsModule,
     HttpClientModule,
-    ApiModule.forRoot({ rootUrl: 'http://dev.robspot.de:8080/sakpaas/api/v1' }),
+    ApiModule.forRoot({rootUrl: 'http://dev.robspot.de:8080/sakpaas/api/v1'}),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -36,7 +44,10 @@ import {MatCardModule} from "@angular/material/card";
     MatBottomSheetModule,
     MatGridListModule,
     MatSlideToggleModule,
-    MatCardModule
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatAutocompleteModule
   ],
   providers: [
   ],
