@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '../../generated/models/location'
 import {Observable, of} from "rxjs";
-import {MatBottomSheet, MatBottomSheetRef} from "@angular/material/bottom-sheet";
+import {MatBottomSheet} from "@angular/material/bottom-sheet";
 import {LocationDetailsComponent} from "../location-details/location-details.component";
 
 @Component({
@@ -17,7 +17,18 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  testBottomSheet(): void {
+    this.selectedLocation$ = of({
+      id: 'string',
+      latitude: 12,
+      longtitude: 13,
+      name: 'Rewe Center',
+      occupancy: 5
+    });
+    this.openBottomSheet()
+  }
+
   openBottomSheet(): void {
-    this._bottomSheet.open(LocationDetailsComponent);
+    this._bottomSheet.open(LocationDetailsComponent, {data: this.selectedLocation$});
   }
 }

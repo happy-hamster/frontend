@@ -1,4 +1,4 @@
-<mat-nav-list>
+<mat-nav-list *ngIf="location$ | async as location">
   <p class="mat-title">{{ location.name }}</p>
   <p class="mat-card-subtitle">Testadresse</p>
   <p class="mat-card-subtitle">Auslastung</p>
