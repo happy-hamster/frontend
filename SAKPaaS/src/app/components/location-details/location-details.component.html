@@ -1,7 +1,7 @@
 <mat-nav-list *ngIf="location$ | async as location">
   <p class="mat-title">{{ location.name }}</p>
   <p class="mat-card-subtitle">Testadresse</p>
-  <p class="mat-card-subtitle">Auslastung</p>
+  <app-occupancy-view occupancy="{{ location.occupancy }}"></app-occupancy-view>
   <mat-divider></mat-divider>
   <mat-grid-list cols="2" rowHeight="5rem">
     <mat-grid-tile colspan="2">
