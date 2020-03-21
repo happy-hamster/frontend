@@ -19,9 +19,9 @@ export class HomeComponent implements OnInit {
 
   testBottomSheet(): void {
     this.selectedLocation$ = of({
-      id: 'string',
+      id: 234,
       latitude: 12,
-      longtitude: 13,
+      longitude: 13,
       name: 'Rewe Center',
       occupancy: 5
     });
