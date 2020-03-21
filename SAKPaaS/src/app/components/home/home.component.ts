@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '../../generated/models/location'
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-home',
@@ -7,7 +8,7 @@ import { Location } from '../../generated/models/location'
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  selectedLocation?: Location = undefined;
+  selectedLocation$: Observable<Location>;
   constructor() { }
 
   ngOnInit(): void {
