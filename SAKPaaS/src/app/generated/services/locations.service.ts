@@ -122,7 +122,7 @@ export class LocationsService extends BaseService {
     /**
      * id
      */
-    id: string;
+    id: number;
 
   }): Observable<StrictHttpResponse<Location>> {
 
@@ -156,7 +156,7 @@ export class LocationsService extends BaseService {
     /**
      * id
      */
-    id: string;
+    id: number;
 
   }): Observable<Location> {
 
