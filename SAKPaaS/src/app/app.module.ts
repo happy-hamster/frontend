@@ -27,7 +27,7 @@ import {MatCardModule} from "@angular/material/card";
   ],
   imports: [
     HttpClientModule,
-    ApiModule.forRoot({rootUrl: 'http://dev.robspot.de:8080/api/v1'}),
+    ApiModule.forRoot({ rootUrl: 'http://dev.robspot.de:8080/sakpaas/api/v1' }),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
