@@ -1,1 +1,5 @@
 <router-outlet></router-outlet>
+
+<ng-container *ngIf="locations$ | async as locations">
+  <pre>{{ locations | json }}</pre>
+</ng-container>
