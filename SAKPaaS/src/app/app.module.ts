@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MapModule } from 'src/app/components/map/map.module';
 import { HomeComponent } from './components/home/home.component';
 import { LocationDetailsComponent } from './components/location-details/location-details.component';
-import { OccupanyReportComponent } from './components/occupany-report/occupany-report.component';
+import { OccupancyReportModule } from 'src/app/components/occupancy-report/occupancy-report.module';
 import { ApiModule } from 'src/app/generated/api.module';
 import {MatListModule} from '@angular/material/list';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
@@ -28,7 +28,6 @@ import {MatIconModule} from "@angular/material/icon";
     AppComponent,
     HomeComponent,
     LocationDetailsComponent,
-    OccupanyReportComponent,
     OccupancyViewComponent,
     SearchBarComponent
   ],
@@ -41,6 +40,7 @@ import {MatIconModule} from "@angular/material/icon";
     AppRoutingModule,
     BrowserAnimationsModule,
     MapModule,
+    OccupancyReportModule,
     MatListModule,
     MatBottomSheetModule,
     MatGridListModule,
