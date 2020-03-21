@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
       latitude: 12,
       longitude: 13,
       name: 'Rewe Center',
-      occupancy: 5
+      occupancy: 0.2
     });
     this.openBottomSheet()
   }
