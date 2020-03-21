@@ -8,16 +8,16 @@
 
 ::ng-deep .high {
   font-weight: bold;
-  letter-spacing: 0.6px;
+  letter-spacing: 1px;
   color: var(--grapefruit);
 }
 
 .holder {
   width: 100%;
-  * {
+  padding: 0.5rem;
+  p, img {
     display: inline-block;
-  }
-  p {
-    margin-bottom: 2rem;
+    margin-left: 1rem;
+    margin-bottom: 0;
   }
 }

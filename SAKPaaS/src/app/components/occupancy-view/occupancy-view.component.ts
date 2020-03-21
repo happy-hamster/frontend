@@ -27,36 +27,44 @@ export class OccupancyViewComponent implements OnInit {
   }
 
   getIconPath(): string {
+    const noData = 'assets/icons/icon-availability-no-data.svg';
     const low = 'assets/icons/icon-availability-low.svg';
     const mid = 'assets/icons/icon-availability-moderate.svg';
     const high = 'assets/icons/icon-availability-full.svg';
 
-    return this.getStringForOcc(low, mid, high);
+    return this.getStringForOcc(low, mid, high, noData);
   }
 
   getText(): string {
+    const noData = 'Unbekannte Auslastung';
     const low = 'Geringe Auslastung';
     const mid = 'Normale Auslastung';
     const high = 'Hohe Auslastung!';
 
-    return this.getStringForOcc(low, mid, high);
+    return this.getStringForOcc(low, mid, high, noData);
   }
 
   getStyleClass(): string{
+    const noData = 'noData';
     const low = 'low';
     const mid = 'mid';
     const high = 'high';
 
-    return this.getStringForOcc(low, mid, high);
+    return this.getStringForOcc(low, mid, high, noData);
   }
 
-  getStringForOcc(low: string, mid: string, high: string): string {
+  getStringForOcc(low: string, mid: string, high: string, noData: string): string {
+    if(!this.occupancy || this.occupancy<0)
+      return noData;
     if(this.occupancy < this.lowBorder)
       return low;
 
     if(this.occupancy < this.midBorder)
       return mid;
 
-    return high;
+    if(this.occupancy<=1)
+      return high;
+
+    return noData;
   }
 }
