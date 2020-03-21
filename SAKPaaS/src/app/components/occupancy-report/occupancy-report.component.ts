@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { LocationProviderService } from 'src/app/core/services/location-provider.service';
 import { Location } from 'src/app/generated/models';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
-import { FormControl } from '@angular/forms';
+import { switchMap, catchError } from 'rxjs/operators';
+import { FormControl, Validators } from '@angular/forms';
+import { OccupancyProviderService } from 'src/app/core/services/occupancy-provider.service';
 
 @Component({
   selector: 'app-occupancy-report',
@@ -15,11 +16,12 @@ export class OccupancyReportComponent implements OnInit {
 
   selectedLocation$: Observable<Location>;
 
-  occupancyInput = new FormControl('0.33');
+  occupancyInput = new FormControl('0.33', Validators.required);
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private locationService: LocationProviderService
+    private locationService: LocationProviderService,
+    private occupancyService: OccupancyProviderService
   ) { }
 
   ngOnInit(): void {
@@ -28,7 +30,7 @@ export class OccupancyReportComponent implements OnInit {
         if (!params.id) {
           return undefined;
         }
-        return this.locationService.fetchLocationById(params.id);
+        return this.locationService.fetchLocationById(+params.id);
       })
     );
 
@@ -43,9 +45,29 @@ export class OccupancyReportComponent implements OnInit {
   }
 
   public onSubmit() {
-    console.log(this.occupancyInput.value);
+    if (this.occupancyInput.invalid) {
+
+      // TODO: Show notifcation :)
+
+      return undefined;
+    }
     const value = +this.occupancyInput.value;
-    console.log(value);
+
+    this.selectedLocation$.pipe(
+      switchMap( location => {
+        return this.occupancyService.sendOccupancy(location.id, value);
+      }),
+      catchError(err => {
+        // TODO: Show notification :)
+        return throwError(err);
+      })
+    ).subscribe(location => {
+      console.log(location);
+      // TODO: Show notification :)
+      // TODO: navigate To home;
+    });
+
+
   }
 
 }
