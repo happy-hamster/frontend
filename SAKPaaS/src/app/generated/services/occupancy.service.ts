@@ -40,7 +40,7 @@ export class OccupancyService extends BaseService {
     /**
      * id of the place
      */
-    id: string;
+    id: number;
   
     /**
      * The estimated occupancy by the buyer
@@ -79,7 +79,7 @@ export class OccupancyService extends BaseService {
     /**
      * id of the place
      */
-    id: string;
+    id: number;
   
     /**
      * The estimated occupancy by the buyer
@@ -110,7 +110,7 @@ export class OccupancyService extends BaseService {
     /**
      * id of the place
      */
-    id: string;
+    id: number;
 
   }): Observable<StrictHttpResponse<void>> {
 
@@ -144,7 +144,7 @@ export class OccupancyService extends BaseService {
     /**
      * id of the place
      */
-    id: string;
+    id: number;
 
   }): Observable<void> {
 
