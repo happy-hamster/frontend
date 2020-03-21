@@ -53,8 +53,8 @@ export class MapComponent implements OnInit {
         })
       ],
       view: new View({
-        center: [0, 0],
-        zoom: 2
+        center: olProj.fromLonLat([10.018343, 51.133481]),
+        zoom: 6
       }),
     });
 
