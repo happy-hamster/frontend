@@ -23,7 +23,6 @@ export class LocationProviderService {
   public fetchLocations(radius: number = 5000): Observable<Location[]> {
     return this.gpsService.getLocation().pipe(
       switchMap(gpsCoordinates => {
-        console.log(gpsCoordinates);
         if (!gpsCoordinates) {
           return undefined;
         }
