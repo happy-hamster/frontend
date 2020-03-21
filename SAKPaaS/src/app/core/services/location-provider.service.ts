@@ -20,12 +20,16 @@ export class LocationProviderService {
   }
 
   public fetchLocations(radius: number = 5000): Observable<Location[]> {
-    // const gpsCoordinates = this.gpsService.getLocation();
+    var gpsCoordinates: GpsCoordinates = this.gpsService.getLocation();
 
-    const gpsCoordinates: GpsCoordinates = {
-      latitude: 0,
-      longitude: 0
-    };
+    console.log("Coordinates: "+gpsCoordinates);
+
+    if(!gpsCoordinates){
+      gpsCoordinates = {
+        latitude: 0,
+        longitude: 0
+      };
+    }
     console.log(gpsCoordinates);
 
     if (!gpsCoordinates) {
