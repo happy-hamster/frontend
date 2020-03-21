@@ -23,7 +23,7 @@ import { SelectEvent } from 'ol/interaction/Select';
 })
 export class MapComponent implements OnInit {
 
-  @Output() locationEmitted = new EventEmitter<Location>()
+  @Output() locationEmitted = new EventEmitter<Location>();
 
   customMap: Map;
   markers = new Subject<OLMapMarker[]>();
@@ -40,7 +40,7 @@ export class MapComponent implements OnInit {
   ngOnInit(): void {
     this.vectorSource = new VectorSource({
       features: []
-    })
+    });
 
     this.customMap = new Map({
       target: 'map',
@@ -67,11 +67,11 @@ export class MapComponent implements OnInit {
 
     select.on('select', (e) => {
       const target = e.selected[0] as OLMapMarker;
-      if (!target) return;
+      if (!target) { return; }
       this.locationEmitted.emit(target.location);
       console.log(e.selected);
       this.selectEvent = e;
-    })
+    });
 
     /*this.markers.subscribe((next) => {
       this.vectorSource.clear();
@@ -82,10 +82,10 @@ export class MapComponent implements OnInit {
       this.vectorSource.clear();
       const markers = next.map((l) => new OLMapMarker(l));
       this.vectorSource.addFeatures(markers);
-    })
+    });
 
     this.gpsService.getLocation().subscribe(gpsCoordinates => {
-      console.log("Setting map center...")
+      console.log('Setting map center...');
       this.customMap.getView().setCenter(olProj.fromLonLat([gpsCoordinates.longitude, gpsCoordinates.latitude]));
       this.customMap.getView().setZoom(15);
     });
