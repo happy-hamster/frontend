@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { OccupancyService } from 'src/app/generated/services';
 import { Observable } from 'rxjs';
+import { Location } from 'src/app/generated/models';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,11 @@ export class OccupancyProviderService {
     private occupancyApiService: OccupancyService
   ) { }
 
-  public checkIn(id: string): Observable<void> {
+  public checkIn(id: number): Observable<void> {
     return this.occupancyApiService.locationsIdCheckInPost({ id });
   }
 
-  public checkOut(id: string): Observable<void> {
-    return this.occupancyApiService.locationsIdCheckOutPost({ id });
+  public sendOccupancy(id: number, occupancy: number): Observable<Location> {
+    return this.occupancyApiService.locationsIdOccupancyPost({id, body: { occupancy }});
   }
 }
