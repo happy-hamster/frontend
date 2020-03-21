@@ -13,6 +13,8 @@ import { Subject } from 'rxjs';
 import VectorLayer from 'ol/layer/Vector';
 import { MapMarker } from 'src/app/core/models/map-marker.interface';
 import { Observable } from 'ol';
+import { LocationProviderService } from 'src/app/core/services/location-provider.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-map',
@@ -28,6 +30,7 @@ export class MapComponent implements OnInit {
 
   constructor(
     private gpsService: GpsService,
+    private locationService: LocationProviderService
   ) {
   }
 
@@ -68,6 +71,16 @@ export class MapComponent implements OnInit {
     this.markers.subscribe((next) => {
       this.vectorSource.clear();
       this.vectorSource.addFeatures(next);
+    })
+
+    this.locationService.fetchLocations().subscribe((next) => {
+      this.vectorSource.clear();
+      const markers = next.map((l) => new OLMapMarker({
+        longitude: l.longitude,
+        latitude: l.latitude,
+        colorHex: ""
+      }));
+      this.vectorSource.addFeatures(markers);
     })
 
     this.gpsService.getLocation().subscribe(gpsCoordinates => {
