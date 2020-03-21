@@ -9,6 +9,7 @@ import { MapModule } from 'src/app/components/map/map.module';
 import { HomeComponent } from './components/home/home.component';
 import { LocationDetailsComponent } from './components/location-details/location-details.component';
 import { OccupanyReportComponent } from './components/occupany-report/occupany-report.component';
+import { ApiModule } from 'src/app/generated/api.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { OccupanyReportComponent } from './components/occupany-report/occupany-r
   ],
   imports: [
     HttpClientModule,
+    ApiModule.forRoot({rootUrl: 'http://dev.robspot.de:8080/api/v1'}),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
