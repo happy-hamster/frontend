@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl} from "@angular/forms";
-import {Observable} from "rxjs";
-import {Location} from "../../generated/models/location";
-import {LocationProviderService} from "../../core/services/location-provider.service";
-import {filter, map, startWith, switchMap, tap} from "rxjs/operators";
+import {FormControl} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {Location} from '../../generated/models/location';
+import {LocationProviderService} from '../../core/services/location-provider.service';
+import {map, switchMap, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-search-bar',
@@ -12,30 +12,22 @@ import {filter, map, startWith, switchMap, tap} from "rxjs/operators";
 })
 export class SearchBarComponent implements OnInit {
   searchControl = new FormControl();
-  locations$: Observable<Location[]>;
+  private locations: Location[];
   filteredLocations$: Observable<Location[]>;
 
-  constructor(private locationsService: LocationProviderService) {
-    this.locations$ = locationsService.fetchLocations(5000);
-  }
+  constructor(private locationsService: LocationProviderService) {}
 
   ngOnInit(): void {
+    this.locationsService.fetchLocations(5000)
+      .subscribe(locations => this.locations = locations);
+
     this.filteredLocations$ = this.searchControl.valueChanges.pipe(
-      switchMap(value => {
-        console.log("1"+value);
-        if (value == '') {
-          return this.locations$;
-        }
+      map(value => {
         value = value.toLowerCase();
-        return this.locations$.pipe(
-          tap(e => console.log("e"+e)),
-          map(locations => locations.filter(
-            location => location.name.toLowerCase().includes(value)
-          )),
-          tap(e => console.log(e))
-        )
+        return this.locations.filter(
+          location => location.name.toLowerCase().includes(value)
+        );
       })
     );
-    this.filteredLocations$.subscribe(item => {console.log("log: "+item)});
   }
 }
