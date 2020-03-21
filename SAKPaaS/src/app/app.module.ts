@@ -9,6 +9,10 @@ import { MapModule } from 'src/app/components/map/map.module';
 import { HomeComponent } from './components/home/home.component';
 import { LocationDetailsComponent } from './components/location-details/location-details.component';
 import { OccupanyReportComponent } from './components/occupany-report/occupany-report.component';
+import {MatListModule} from "@angular/material/list";
+import {MatBottomSheetModule} from "@angular/material/bottom-sheet";
+import {MatGridListModule} from "@angular/material/grid-list";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 @NgModule({
   declarations: [
@@ -22,7 +26,11 @@ import { OccupanyReportComponent } from './components/occupany-report/occupany-r
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MapModule
+    MapModule,
+    MatListModule,
+    MatBottomSheetModule,
+    MatGridListModule,
+    MatSlideToggleModule
   ],
   providers: [
   ],
