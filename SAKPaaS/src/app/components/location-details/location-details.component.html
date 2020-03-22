@@ -1,6 +1,6 @@
 <mat-nav-list *ngIf="location$ | async as location">
   <p class="mat-title">{{ location.name }}</p>
-  <p class="mat-card-subtitle">{{ location.street }} {{ location.housenumber }}</p>
+  <p class="mat-card-subtitle">{{ getAddressString(location) }}</p>
   <app-occupancy-view occupancy="{{ location.occupancy }}"></app-occupancy-view>
   <mat-divider></mat-divider>
   <mat-grid-list cols="2" rowHeight="5rem">
