@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
+import {Observable, merge, of} from 'rxjs';
 import {Location} from '../../generated/models/location';
 import {LocationProviderService} from '../../core/services/location-provider.service';
-import {map, switchMap, tap, concatMap} from 'rxjs/operators';
+import {map, switchMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-search-bar',
@@ -19,10 +19,13 @@ export class SearchBarComponent implements OnInit {
   ngOnInit(): void {
     this.filteredLocations$ = this.locationsService.fetchLocations(5000)
       .pipe(
-        switchMap(locations => this.searchControl.valueChanges.pipe(
-          map(value => {
-            return locations.filter(location => location.name.toLowerCase().includes(value));
-          })
+        switchMap(locations => merge(
+          of(locations),
+          this.searchControl.valueChanges.pipe(
+            map(value => {
+              return locations.filter(location => location.name.toLowerCase().includes(value));
+            })
+          )
         )
       )
     );
