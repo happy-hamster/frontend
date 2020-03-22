@@ -1,1 +1,6 @@
+<div class="loading-wrapper" *ngIf="'locations' | swIsLoading | async">
+    <mat-spinner diameter="50"></mat-spinner>
+    <span>Loading Locations ...</span>
+</div>
+
 <div id="map" class="map"></div>

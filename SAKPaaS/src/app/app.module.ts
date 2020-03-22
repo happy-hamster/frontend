@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { MapModule } from 'src/app/components/map/map.module';
 import { HomeComponent } from './components/home/home.component';
 import { LocationDetailsComponent } from './components/location-details/location-details.component';
 import { OccupancyReportModule } from 'src/app/components/occupancy-report/occupancy-report.module';
@@ -28,6 +27,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MapComponent } from 'src/app/components/map/map.component';
 import { ImpressumComponent } from './components/impressum/impressum.component';
 
 @NgModule({
@@ -37,6 +37,7 @@ import { ImpressumComponent } from './components/impressum/impressum.component';
     LocationDetailsComponent,
     OccupancyViewComponent,
     SearchBarComponent,
+    MapComponent,
     ImpressumComponent
   ],
   imports: [
@@ -48,7 +49,6 @@ import { ImpressumComponent } from './components/impressum/impressum.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MapModule,
     OccupancyReportModule,
     MatListModule,
     MatBottomSheetModule,
@@ -64,7 +64,7 @@ import { ImpressumComponent } from './components/impressum/impressum.component';
     IsLoadingPipeModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     MatButtonModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
   ],
   providers: [
   ],
