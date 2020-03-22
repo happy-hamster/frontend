@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LocationProviderService } from './core/services/location-provider.service';
 import { Observable } from 'rxjs';
 import { Location } from 'src/app/generated/models/location';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,12 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Quick fix http redirect
+    if (environment.production) {
+      if (location.protocol === 'http:') {
+        window.location.href = location.href.replace('http', 'https');
+      }
+    }
 
     this.locations$ = this.locationService.fetchLocations();
   }
