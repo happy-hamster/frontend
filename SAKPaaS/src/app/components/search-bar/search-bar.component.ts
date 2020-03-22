@@ -27,6 +27,9 @@ export class SearchBarComponent implements OnInit {
           of(locations),
           this.searchControl.valueChanges.pipe(
             map(value => {
+              if (!value) {
+                return locations
+              }
               value = value.toLowerCase();
               return locations.filter(location => {
                 if (!location.name) {

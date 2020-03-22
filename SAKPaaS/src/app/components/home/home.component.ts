@@ -23,27 +23,19 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  testBottomSheet(): void {
-    this.selectedLocation$ = of({
-      id: 234,
-      latitude: 12,
-      longitude: 13,
-      name: 'Rewe Center',
-      occupancy: 0.2
-    });
-    this.openBottomSheet()
-  }
-
-  onLocationEmitted(location: Location) {
+  onLocationEmitted(location: Location, fromMap: boolean) {
     this.selectedLocation$ = of(location);
-    this.openBottomSheet();
+    this.openBottomSheet(fromMap);
   }
 
-  openBottomSheet(): void {
+  openBottomSheet(fromMap: boolean): void {
     const bottomSheetRef = this._bottomSheet.open(LocationDetailsComponent, { data: this.selectedLocation$ });
     bottomSheetRef.afterDismissed().subscribe(() => {
-      this.searchComp.dismiss();
-      this.mapComp.deselect();
+      if (fromMap){
+        this.mapComp.deselect();
+      } else {
+        this.searchComp.dismiss();
+      }
     });
   }
 }
