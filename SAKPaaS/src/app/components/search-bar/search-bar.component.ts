@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable, merge, of} from 'rxjs';
 import {Location} from '../../generated/models/location';
@@ -14,6 +14,8 @@ export class SearchBarComponent implements OnInit {
   searchControl = new FormControl();
   filteredLocations$: Observable<Location[]>;
 
+  @Output() locationEmitted = new EventEmitter<Location>();
+
   constructor(private locationsService: LocationProviderService) {}
 
   ngOnInit(): void {
@@ -23,7 +25,14 @@ export class SearchBarComponent implements OnInit {
           of(locations),
           this.searchControl.valueChanges.pipe(
             map(value => {
-              return locations.filter(location => location.name.toLowerCase().includes(value));
+              value = value.toLowerCase();
+              return locations.filter(location => {
+                if (!location.name) {
+                  return false
+                } else {
+                  return location.name.toLowerCase().includes(value)
+                }
+              });
             })
           )
         )
