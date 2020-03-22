@@ -17,11 +17,7 @@ export class SnackBarComponent implements OnInit {
 
   ngOnInit(): void {
     this.snackBarService.getNotification().subscribe(notification => {
-      const config = new MatSnackBarConfig();
-      const cssClass = this.getCssClassForSnackBarType(notification.type);
-
-      config.panelClass = cssClass ? [cssClass] : null;
-      config.duration = 5000;
+      const config = this.getConfigForSnackBarType(notification.type);
 
       console.log(config);
 
@@ -31,12 +27,18 @@ export class SnackBarComponent implements OnInit {
 
   }
 
-  public getCssClassForSnackBarType(type: SnackBarTypes): string {
+  public getConfigForSnackBarType(type: SnackBarTypes): MatSnackBarConfig {
     if (type === SnackBarTypes.ERROR) {
-      return 'error-snack-bar';
+      return {
+        duration: 4000,
+        panelClass: ['error-snack-bar']
+      };
     }
     if (type === SnackBarTypes.SUCCESS) {
-      return 'success-snack-bar';
+      return {
+        duration: 2000,
+        panelClass: ['success-snack-bar']
+      };
     }
     return null;
   }
