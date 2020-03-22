@@ -7,11 +7,13 @@
   flex-direction: column;
   align-items: center;
   height: 100%;
+  max-width: 700px;
+  margin: auto;
 }
 
 .title {
   font-family: Roboto;
-  font-size: 18px;
+  font-size: 25px;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
@@ -40,6 +42,10 @@
   padding-top: 20px;
   padding-bottom: 20px;
   border-radius: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 mat-radio-group {
@@ -60,7 +66,7 @@ mat-radio-group {
 
 .occupancy-title {
   font-family: Roboto;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -70,12 +76,13 @@ mat-radio-group {
 }
 
 .warning-accent {
+  margin-left: 15px;
   color: #fe5f55;
 }
 
 .occupancy-description {
   font-family: Roboto;
-  font-size: 10px;
+  font-size: 13px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;

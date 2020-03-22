@@ -5,6 +5,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { IsLoadingModule } from '@service-work/is-loading';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -15,7 +18,10 @@ import { MatDividerModule } from '@angular/material/divider';
     MatButtonModule,
     MatRadioModule,
     ReactiveFormsModule,
-    MatDividerModule
+    MatDividerModule,
+    MatProgressSpinnerModule,
+    IsLoadingModule,
+    MatIconModule
   ],
   exports: [
     OccupancyReportComponent

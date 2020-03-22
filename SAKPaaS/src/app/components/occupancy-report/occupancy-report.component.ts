@@ -8,6 +8,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { OccupancyProviderService } from 'src/app/core/services/occupancy-provider.service';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { SnackBarTypes } from 'src/app/core/models/snack-bar.interface';
+import { IsLoadingService } from '@service-work/is-loading';
 
 @Component({
   selector: 'app-occupancy-report',
@@ -25,7 +26,8 @@ export class OccupancyReportComponent implements OnInit {
     private locationService: LocationProviderService,
     private occupancyService: OccupancyProviderService,
     private snackBarService: SnackBarService,
-    private router: Router
+    private router: Router,
+    private isLoadingService: IsLoadingService
   ) { }
 
   ngOnInit(): void {
@@ -37,11 +39,6 @@ export class OccupancyReportComponent implements OnInit {
         return this.locationService.fetchLocationById(+params.id);
       })
     );
-
-    this.selectedLocation$.subscribe(location => console.log(location));
-
-    this.occupancyInput.valueChanges.subscribe(val => console.log(val));
-
   }
 
   public setRadioButton(value: string): void {
@@ -50,21 +47,22 @@ export class OccupancyReportComponent implements OnInit {
 
   public onSubmit() {
     if (this.occupancyInput.invalid) {
-
       this.snackBarService.sendNotification({
         message: 'Bitte sage uns deine persönliche Einschätzung der Auslastung :)',
         type: SnackBarTypes.ERROR
       });
-
       return undefined;
     }
     const value = +this.occupancyInput.value;
+
+    this.isLoadingService.add({ key: 'sendOccupancy' });
 
     this.selectedLocation$.pipe(
       switchMap( location => {
         return this.occupancyService.sendOccupancy(location.id, value);
       }),
       catchError(err => {
+        this.isLoadingService.remove({ key: 'sendOccupancy' });
         this.snackBarService.sendNotification({
           message: 'Das hat leider nicht geklappt! Bitte versuche es erneut.',
           type: SnackBarTypes.ERROR
@@ -72,14 +70,14 @@ export class OccupancyReportComponent implements OnInit {
         return throwError(err);
       })
     ).subscribe(location => {
+      this.isLoadingService.remove({ key: 'sendOccupancy' });
       console.log(location);
       this.snackBarService.sendNotification({
         message: 'Vielen Dank für dein Feedback!',
         type: SnackBarTypes.SUCCESS
       });
+      this.router.navigate(['home']);
     });
-
-    this.router.navigate(['/'])
 
   }
 
