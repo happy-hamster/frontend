@@ -21,7 +21,7 @@ export class SearchBarComponent implements OnInit {
   constructor(private locationsService: LocationProviderService) {}
 
   ngOnInit(): void {
-    this.filteredLocations$ = this.locationsService.fetchLocations(5000)
+    this.filteredLocations$ = this.locationsService.fetchLocations()
       .pipe(
         switchMap(locations => merge(
           of(locations),

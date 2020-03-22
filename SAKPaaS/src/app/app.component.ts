@@ -20,6 +20,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
 
-    this.locations$ = this.locationService.fetchLocations(1000000);
+    this.locations$ = this.locationService.fetchLocations();
   }
 }

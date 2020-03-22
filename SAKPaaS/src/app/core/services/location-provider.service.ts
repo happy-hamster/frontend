@@ -3,7 +3,6 @@ import { Observable, Subject } from 'rxjs';
 import { Location } from 'src/app/generated/models';
 import { LocationsService } from 'src/app/generated/services';
 import { GpsService } from './gps.service';
-import { LocationsQuery } from '../models/locations-query.interface';
 import { switchMap } from 'rxjs/operators';
 
 @Injectable({
@@ -18,17 +17,13 @@ export class LocationProviderService {
 
   }
 
-  public fetchLocations(radius: number = 5000): Observable<Location[]> {
+  public fetchLocations(): Observable<Location[]> {
     return this.gpsService.getLocation().pipe(
       switchMap(gpsCoordinates => {
         if (!gpsCoordinates) {
           return undefined;
         }
-        const query: LocationsQuery = {
-          ...gpsCoordinates,
-          radius
-        };
-        return this.locationApiService.searchLocations(query);
+        return this.locationApiService.searchLocations(gpsCoordinates);
       })
     );
   }
