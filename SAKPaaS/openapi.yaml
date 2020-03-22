@@ -9,7 +9,7 @@ info:
 servers:
 - url: https://virtserver.swaggerhub.com/SAKPaaS/SAKPaaS/1.0.0
   description: SwaggerHub API Auto Mocking
-- url: api.happyhamster.org/v1
+- url: https://api.happyhamster.org/v1
   description: Production
 paths:
   /locations:
