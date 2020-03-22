@@ -26,6 +26,9 @@ export class HomeComponent implements OnInit {
   onLocationEmitted(location: Location, fromMap: boolean) {
     this.selectedLocation$ = of(location);
     this.openBottomSheet(fromMap);
+    if (!fromMap) {
+      this.mapComp.zoomToNewLocation(location);
+    }
   }
 
   openBottomSheet(fromMap: boolean): void {

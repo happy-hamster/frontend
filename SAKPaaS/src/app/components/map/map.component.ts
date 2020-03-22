@@ -132,5 +132,10 @@ export class MapComponent implements OnInit {
     this.selectEvent.target.getFeatures().clear();
     this.selectEvent = null;
   }
+
+  public zoomToNewLocation(location: Location): void {
+    this.customMap.getView().setCenter(olProj.fromLonLat([location.longitude, location.latitude]));
+    this.customMap.getView().setZoom(16);
+  }
 }
 
