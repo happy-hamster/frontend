@@ -1,17 +1,17 @@
 <ng-container *ngIf="selectedLocation$ | async as location">
     <div class="container">
-        <h2 class="title">How full is <span class="title-accent">{{ location.name }}</span>?</h2>
+        <h2 class="title">Wie voll ist <span class="title-accent">{{ location.name }}</span>?</h2>
         <mat-radio-group [formControl]="occupancyInput">
             <div class="radio" (click)="setRadioButton('0.33')">
                 <mat-radio-button [value]="'0.33'"></mat-radio-button>
                 <div class="radio-text">
                     <img src="assets/icons/icon-availability-low.svg">
                     <div class="occupancy-title">
-                        Almost empty
+                        Fast leer
                     </div>
                     <div class="occupancy-description">
-                        Checkout in less than 5 minutes <br>
-                        Safety distance of 1.5m always guaranteed
+                        Wartezeit an der Kasse weniger als 5 Minuten <br>
+                        Sicherheitsabstand von 1,5 Metern garantiert
                     </div>
                 </div>
             </div>
@@ -21,11 +21,11 @@
                 <div class="radio-text">
                     <img src="assets/icons/icon-availability-moderate.svg">
                     <div class="occupancy-title">
-                        Moderately busy
+                        Mittelmäßig ausgelastet
                     </div>
                     <div class="occupancy-description">
-                        Checkout in 5 to 15 minutes <br>
-                        Safety distance of 1.5m mostly guaranteed
+                        Wartezeit an der Kasse zwischen 5 Minuten bis 15 Minuten<br>
+                        Sicherheitsabstand von 1,5 Metern meistens garantiert
                     </div>
                 </div>
             </div>
@@ -35,15 +35,23 @@
                 <div class="radio-text">
                     <img src="assets/icons/icon-availability-full.svg">
                     <div class="occupancy-title">
-                        Very busy <span class="warning-accent"> Warning</span>
+                        Voll ausgelastet <span class="warning-accent"> Warnung!</span>
                     </div>
                     <div class="occupancy-description">
-                        Checkout in more than 15 minutes <br>
-                        Safety distance of 1.5m can't be guaranteed
+                        Wartezeit an der Kasse mehr als 15 Minuten<br>
+                        Sicherheitsabstand von 1,5 Metern nicht garantiert
                     </div>
                 </div>
             </div>
         </mat-radio-group>
-        <button mat-raised-button class="submit" (click)="onSubmit()" routerLink="home/">Submit</button>
+        <button mat-raised-button class="submit" (click)="onSubmit()" swIsLoading="'sendOccupancy'">
+            <span *ngIf="!('sendOccupancy' | swIsLoading | async)">Abschicken </span>
+            <span *ngIf="'sendOccupancy' | swIsLoading | async">
+                Wird abgeschickt ...
+                <mat-icon style="margin-top: -7px; margin-left: 20px;">
+                    <mat-spinner diameter="30"></mat-spinner>
+                </mat-icon>
+            </span>
+        </button>
     </div>
 </ng-container>
