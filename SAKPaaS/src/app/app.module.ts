@@ -30,6 +30,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MapComponent } from 'src/app/components/map/map.component';
 import { ImpressumComponent } from './components/impressum/impressum.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { LogoComponent } from './components/logo/logo.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { FooterComponent } from './components/footer/footer.component';
     SearchBarComponent,
     MapComponent,
     ImpressumComponent,
-    FooterComponent
+    FooterComponent,
+    LogoComponent
   ],
   imports: [
     MatIconModule,

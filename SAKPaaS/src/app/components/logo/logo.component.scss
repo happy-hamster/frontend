@@ -1,0 +1,25 @@
+.logo-container {
+    position: fixed;
+    z-index: 2;
+    background-color: white;
+    border-radius: 10px;
+    margin: 0;
+    top: 15px;
+    left: 15px;
+    width: 90px;
+    height: 120px;
+    padding: 5px;
+    right: auto;
+    box-shadow: 0 5px 20px 0 rgba(11, 0, 51, 0.2);
+}
+
+@media (max-width: 600px) {
+    .logo-container {
+        display: none;
+    }
+}
+
+.logo-container img {
+    height: 100%;
+    width: 100%
+}

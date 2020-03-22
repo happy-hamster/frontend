@@ -21,3 +21,28 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     background-color: #fe5f55;
     color: #ffffff;
 }
+
+div.ol-zoom {
+  top: 150px;
+  left: 15px;
+  background-color: transparent;
+}
+
+@media (max-width: 600px) {
+  div.ol-zoom {
+      top: 100px;
+  }
+}
+
+button.ol-zoom-in, button.ol-zoom-out {   
+  background-color: #26c485;
+  font-family: Roboto;
+  font-size: 20px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.3px;
+  color: #ffffff;
+  border-radius: 16px;
+}
