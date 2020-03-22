@@ -7,18 +7,18 @@
   max-width: 500px;
   width: 80%;
   position: fixed;
-  top: 25px;
-  left: 65px;
+  top: 15px;
+  left: 120px;
   right: auto;
   box-shadow: 0 5px 20px 0 rgba(11, 0, 51, 0.2);
 }
   
-@media (max-width: 750px) {
+@media (max-width: 600px) {
   .search-bar-form {
-    left: 65px;
-    right: 45px;
+    left: 15px;
+    right: 15px;
     width: auto;
-    max-width: 750px;
+    max-width: 600px;
   }
 }
 
