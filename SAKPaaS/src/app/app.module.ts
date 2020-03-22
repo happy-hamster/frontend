@@ -47,7 +47,7 @@ import { FooterComponent } from './components/footer/footer.component';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    ApiModule.forRoot({rootUrl: 'http://dev.robspot.de:8080/sakpaas/api/v1'}),
+    ApiModule.forRoot({rootUrl: 'https://api.happyhamster.org/v1'}),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
