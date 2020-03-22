@@ -22,6 +22,8 @@ import {MatInputModule} from "@angular/material/input";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {ReactiveFormsModule, FormsModule} from "@angular/forms";
 import {MatIconModule} from "@angular/material/icon";
+import {MatCardModule} from '@angular/material/card';
+import { SnackBarModule } from 'src/app/components/snack-bar/snack-bar.module';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,8 @@ import {MatIconModule} from "@angular/material/icon";
     MatInputModule,
     MatAutocompleteModule,
     MatIconModule
+    MatCardModule,
+    SnackBarModule
   ],
   providers: [
   ],

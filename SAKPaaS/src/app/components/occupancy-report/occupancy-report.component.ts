@@ -6,6 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 import { switchMap, catchError } from 'rxjs/operators';
 import { FormControl, Validators } from '@angular/forms';
 import { OccupancyProviderService } from 'src/app/core/services/occupancy-provider.service';
+import { SnackBarService } from 'src/app/core/services/snack-bar.service';
+import { SnackBarTypes } from 'src/app/core/models/snack-bar.interface';
 
 @Component({
   selector: 'app-occupancy-report',
@@ -16,12 +18,13 @@ export class OccupancyReportComponent implements OnInit {
 
   selectedLocation$: Observable<Location>;
 
-  occupancyInput = new FormControl('0.33', Validators.required);
+  occupancyInput = new FormControl(null, Validators.required);
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private locationService: LocationProviderService,
-    private occupancyService: OccupancyProviderService
+    private occupancyService: OccupancyProviderService,
+    private snackBarService: SnackBarService
   ) { }
 
   ngOnInit(): void {
@@ -47,7 +50,10 @@ export class OccupancyReportComponent implements OnInit {
   public onSubmit() {
     if (this.occupancyInput.invalid) {
 
-      // TODO: Show notifcation :)
+      this.snackBarService.sendNotification({
+        message: 'Bitte sage uns deine persönliche Einschätzung der Auslastung :)',
+        type: SnackBarTypes.ERROR
+      });
 
       return undefined;
     }
@@ -58,12 +64,18 @@ export class OccupancyReportComponent implements OnInit {
         return this.occupancyService.sendOccupancy(location.id, value);
       }),
       catchError(err => {
-        // TODO: Show notification :)
+        this.snackBarService.sendNotification({
+          message: 'Das hat leider nicht geklappt! Bitte versuche es erneut.',
+          type: SnackBarTypes.ERROR
+        });
         return throwError(err);
       })
     ).subscribe(location => {
       console.log(location);
-      // TODO: Show notification :)
+      this.snackBarService.sendNotification({
+        message: 'Vielen Dank für dein Feedback!',
+        type: SnackBarTypes.SUCCESS
+      });
       // TODO: navigate To home;
     });
 
