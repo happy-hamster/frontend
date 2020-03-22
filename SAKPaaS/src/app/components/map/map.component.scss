@@ -6,14 +6,15 @@
 .loading-wrapper {
     position: fixed;
     background-color: transparent;
-    top: 25px;
+    top: 50px;
     right: 25px;
     z-index: 2;
 }
 
-@media (max-width: 750px) {
+@media (max-width: 910px) {
     .loading-wrapper {
-        top: 115px;
+        top: auto;
+        bottom: 60px;
     }
 }
 

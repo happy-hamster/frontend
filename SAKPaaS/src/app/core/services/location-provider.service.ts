@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { Location } from 'src/app/generated/models';
 import { LocationsService } from 'src/app/generated/services';
 import { GpsService } from './gps.service';
@@ -9,6 +9,8 @@ import { switchMap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class LocationProviderService {
+
+  private isLoadingLocations = new BehaviorSubject<boolean>(false);
 
   constructor(
     private locationApiService: LocationsService,
@@ -30,5 +32,13 @@ export class LocationProviderService {
 
   public fetchLocationById(id: number) {
     return this.locationApiService.locationsIdGet({ id });
+  }
+
+  public updateLoadingState(value: boolean) {
+    this.isLoadingLocations.next(value);
+  }
+
+  public getLoadingLocationsState(): Observable<boolean> {
+    return this.isLoadingLocations;
   }
 }

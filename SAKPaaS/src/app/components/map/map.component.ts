@@ -15,7 +15,6 @@ import { LocationProviderService } from 'src/app/core/services/location-provider
 import { map, catchError } from 'rxjs/operators';
 import { Location } from 'src/app/generated/models';
 import { SelectEvent } from 'ol/interaction/Select';
-import { IsLoadingService } from '@service-work/is-loading';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { SnackBarTypes } from 'src/app/core/models/snack-bar.interface';
 
@@ -34,10 +33,11 @@ export class MapComponent implements OnInit {
   vectorSource: VectorSource;
   selectEvent: SelectEvent = null;
 
+  isLoadingLocations: Observable<boolean>;
+
   constructor(
     private gpsService: GpsService,
     private locationService: LocationProviderService,
-    private isLoadingService: IsLoadingService,
     private snackBarService: SnackBarService
   ) {
   }
@@ -46,8 +46,7 @@ export class MapComponent implements OnInit {
     this.vectorSource = new VectorSource({
       features: []
     });
-
-    this.isLoadingService.isLoading$({ key: 'locations' }).subscribe(x => console.log('ISLOADING: ' + x));
+    this.isLoadingLocations = this.locationService.getLoadingLocationsState();
 
     this.customMap = new Map({
       target: 'map',
@@ -80,13 +79,8 @@ export class MapComponent implements OnInit {
       this.selectEvent = e;
     });
 
-    /*this.markers.subscribe((next) => {
-      this.vectorSource.clear();
-      this.vectorSource.addFeatures(next);
-    })*/
-
     this.customMap.addEventListener('moveend', () => {
-      this.isLoadingService.add({ key: 'locations' });
+      this.locationService.updateLoadingState(true);
       const center = this.customMap.getView().getCenter();
       const centerLonLat = olProj.toLonLat(center);
       this.gpsService.setLocation({ longitude: centerLonLat[0], latitude: centerLonLat[1] });
@@ -96,7 +90,7 @@ export class MapComponent implements OnInit {
 
     this.locationService.fetchLocations().pipe(
       catchError(err => {
-        this.isLoadingService.remove({ key: 'locations' });
+        this.locationService.updateLoadingState(false);
         this.snackBarService.sendNotification({
           message: 'Beim Aktualisieren der Karte ist ein Fehler aufgetreten. Sorry :(',
           type: SnackBarTypes.ERROR
@@ -104,16 +98,15 @@ export class MapComponent implements OnInit {
         return throwError(err);
       })
     ).subscribe((next) => {
-      this.isLoadingService.remove({ key: 'locations' });
-      console.log('Fetched new locations');
-      this.vectorSource.clear();
-      const markers = next.map((l) => new OLMapMarker(l));
-      this.vectorSource.addFeatures(markers);
+        this.locationService.updateLoadingState(false);
+        console.log('Fetched new locations');
+        this.vectorSource.clear();
+        const markers = next.map((l) => new OLMapMarker(l));
+        this.vectorSource.addFeatures(markers);
     });
 
     this.gpsService.getLocation().pipe(
       catchError(err => {
-        this.isLoadingService.remove({ key: 'locations' });
         this.snackBarService.sendNotification({
           message: 'Beim Aktualisieren der Karte ist ein Fehler aufgetreten. Sorry :(',
           type: SnackBarTypes.ERROR
