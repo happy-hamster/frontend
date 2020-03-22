@@ -1,0 +1,14 @@
+.footer {
+    display: flex;
+    direction: row;
+    padding: 10px;
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+}
+
+.footer a {
+    text-decoration: none;
+    margin-right: 15px;
+    color: #505050;
+}
