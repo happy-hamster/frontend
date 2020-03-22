@@ -13,13 +13,21 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .success-snack-bar {
-  background-color: #0b0033 !important;
+  background-color:  var(--midnight-blue);
   color: #ffffff;
-  }
+}
+
+.success-snack-bar .mat-simple-snackbar-action {
+  color: var(--grapefruit);
+}
   
 .error-snack-bar {
-    background-color: #fe5f55;
+    background-color: var(--grapefruit);
     color: #ffffff;
+}
+
+.error-snack-bar .mat-simple-snackbar-action {
+  color: var(--midnight-blue);
 }
 
 div.ol-zoom {
@@ -40,7 +48,7 @@ div.ol-attribution a {
 }
 
 button.ol-zoom-in, button.ol-zoom-out {   
-  background-color: #26c485;
+  background-color: var(--greenblue);
   font-family: Roboto;
   font-size: 20px;
   font-weight: bold;
