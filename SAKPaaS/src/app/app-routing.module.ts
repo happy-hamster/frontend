@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {HomeComponent} from './components/home/home.component';
 import {LocationDetailsComponent} from './components/location-details/location-details.component';
 import { OccupancyReportComponent } from 'src/app/components/occupancy-report/occupancy-report.component';
+import {ImpressumComponent} from "./components/impressum/impressum.component";
 
 
 
@@ -11,7 +12,8 @@ const routes: Routes = [
   {path: 'home', redirectTo: ''},
   {path: 'reportOccupancy/:id', component: OccupancyReportComponent},
   {path: 'test', component: LocationDetailsComponent},
-  {path: '**', redirectTo: ''},
+  {path: 'impressum', component: ImpressumComponent},
+  {path: '**', redirectTo: ''}
 ];
 
 @NgModule({
