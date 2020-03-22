@@ -24,13 +24,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 div.ol-zoom {
   top: 150px;
-  left: 15px;
+  left: 42px; // 42 WUP WUP!
   background-color: transparent;
+}
+
+div.ol-attribution a {
+  color: var(--greenblue);
 }
 
 @media (max-width: 600px) {
   div.ol-zoom {
       top: 100px;
+      left: 15px;
   }
 }
 

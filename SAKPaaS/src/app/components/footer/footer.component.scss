@@ -12,3 +12,19 @@
     margin-right: 15px;
     color: #505050;
 }
+
+@media (max-width: 600px) {
+    .footer {
+        justify-content: space-between;
+        margin-left: 0px;
+        margin-right: 0px;
+        width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+        bottom: 15px;
+    }
+    
+    .footer a {
+        margin-right: 0px;
+    }
+}

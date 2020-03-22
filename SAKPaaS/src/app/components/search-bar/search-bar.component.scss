@@ -1,13 +1,13 @@
 .search-bar-form {
   background-color: white;
   border-radius: 10px;
-  padding: 0.3rem 1rem 0.3rem 1rem;
+  padding: 0.3rem 1rem 0rem 1rem;
   margin: 0;
   min-width: 150px;
   max-width: 500px;
   width: 80%;
   position: fixed;
-  top: 15px;
+  top: 45px;
   left: 120px;
   right: auto;
   box-shadow: 0 5px 20px 0 rgba(11, 0, 51, 0.2);
@@ -15,6 +15,7 @@
   
 @media (max-width: 600px) {
   .search-bar-form {
+    top: 15px;
     left: 15px;
     right: 15px;
     width: auto;
