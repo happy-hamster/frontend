@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { MapModule } from 'src/app/components/map/map.module';
 import { HomeComponent } from './components/home/home.component';
 import { LocationDetailsComponent } from './components/location-details/location-details.component';
 import { OccupancyReportModule } from 'src/app/components/occupancy-report/occupancy-report.module';
@@ -28,6 +27,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MapComponent } from 'src/app/components/map/map.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     HomeComponent,
     LocationDetailsComponent,
     OccupancyViewComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    MapComponent
   ],
   imports: [
     MatIconModule,
@@ -46,7 +47,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MapModule,
     OccupancyReportModule,
     MatListModule,
     MatBottomSheetModule,
@@ -62,7 +62,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     IsLoadingPipeModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     MatButtonModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
   ],
   providers: [
   ],

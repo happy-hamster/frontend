@@ -9,12 +9,13 @@ import { GpsService } from 'src/app/core/services/gps.service';
 import { click } from 'ol/events/condition';
 import VectorSource from 'ol/source/Vector';
 import { OLMapMarker } from './ol-map-marker';
-import { Subject, Subscription, Observable } from 'rxjs';
+import { Subject, Subscription, Observable, throwError } from 'rxjs';
 import VectorLayer from 'ol/layer/Vector';
 import { LocationProviderService } from 'src/app/core/services/location-provider.service';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { Location } from 'src/app/generated/models';
 import { SelectEvent } from 'ol/interaction/Select';
+import { IsLoadingService } from '@service-work/is-loading';
 
 @Component({
   selector: 'app-map',
@@ -33,7 +34,8 @@ export class MapComponent implements OnInit {
 
   constructor(
     private gpsService: GpsService,
-    private locationService: LocationProviderService
+    private locationService: LocationProviderService,
+    private isLoadingService: IsLoadingService
   ) {
   }
 
@@ -41,6 +43,8 @@ export class MapComponent implements OnInit {
     this.vectorSource = new VectorSource({
       features: []
     });
+
+    this.isLoadingService.isLoading$({ key: 'locations' }).subscribe(x => console.log('ISLOADING: ' + x));
 
     this.customMap = new Map({
       target: 'map',
@@ -79,6 +83,7 @@ export class MapComponent implements OnInit {
     })*/
 
     this.customMap.addEventListener('moveend', () => {
+      this.isLoadingService.add({ key: 'locations' });
       const center = this.customMap.getView().getCenter();
       const centerLonLat = olProj.toLonLat(center);
       this.gpsService.setLocation({ longitude: centerLonLat[0], latitude: centerLonLat[1] });
@@ -86,7 +91,14 @@ export class MapComponent implements OnInit {
       return true;
     });
 
-    this.locationService.fetchLocations().subscribe((next) => {
+    this.locationService.fetchLocations().pipe(
+      catchError(err => {
+        this.isLoadingService.remove({ key: 'locations' });
+        console.log('ERR!');
+        return throwError(err);
+      })
+    ).subscribe((next) => {
+      this.isLoadingService.remove({ key: 'locations' });
       console.log('Fetched new locations');
       this.vectorSource.clear();
       const markers = next.map((l) => new OLMapMarker(l));
