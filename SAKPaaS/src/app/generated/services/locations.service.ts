@@ -46,11 +46,6 @@ export class LocationsService extends BaseService {
      */
     longitude: number;
 
-    /**
-     * Radius in kilometers
-     */
-    radius?: number;
-
   }): Observable<StrictHttpResponse<Array<Location>>> {
 
     const rb = new RequestBuilder(this.rootUrl, LocationsService.SearchLocationsPath, 'get');
@@ -58,7 +53,6 @@ export class LocationsService extends BaseService {
 
       rb.query('latitude', params.latitude);
       rb.query('longitude', params.longitude);
-      rb.query('radius', params.radius);
 
     }
     return this.http.request(rb.build({
@@ -91,11 +85,6 @@ export class LocationsService extends BaseService {
      * Longitude
      */
     longitude: number;
-
-    /**
-     * Radius in kilometers
-     */
-    radius?: number;
 
   }): Observable<Array<Location>> {
 

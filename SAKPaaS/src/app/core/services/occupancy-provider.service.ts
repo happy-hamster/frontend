@@ -17,6 +17,6 @@ export class OccupancyProviderService {
   }
 
   public sendOccupancy(id: number, occupancy: number): Observable<Location> {
-    return this.occupancyApiService.locationsIdOccupancyPost({id, body: { occupancy }});
+    return this.occupancyApiService.locationsIdOccupancyPost({id, body: { occupancy, clientType: 'WEB_APP' }});
   }
 }

@@ -36,15 +36,6 @@ paths:
         explode: true
         schema:
           type: number
-      - name: radius
-        in: query
-        description: Radius in kilometers
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: number
-          default: 5
       responses:
         "200":
           description: Success
@@ -187,3 +178,8 @@ components:
           minimum: 0
           type: number
           example: 0.75
+        clientType:
+          type: string
+          enum:
+          - IOT
+          - WEB_APP
