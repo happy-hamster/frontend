@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LocationProviderService } from 'src/app/core/services/location-provider.service';
 import { Location } from 'src/app/generated/models';
 import { Observable, throwError } from 'rxjs';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, catchError } from 'rxjs/operators';
 import { FormControl, Validators } from '@angular/forms';
 import { OccupancyProviderService } from 'src/app/core/services/occupancy-provider.service';
@@ -58,7 +58,7 @@ export class OccupancyReportComponent implements OnInit {
     this.isLoadingService.add({ key: 'sendOccupancy' });
 
     this.selectedLocation$.pipe(
-      switchMap( location => {
+      switchMap(location => {
         return this.occupancyService.sendOccupancy(location.id, value);
       }),
       catchError(err => {
@@ -76,7 +76,7 @@ export class OccupancyReportComponent implements OnInit {
         message: 'Vielen Dank für dein Feedback!',
         type: SnackBarTypes.SUCCESS
       });
-      this.router.navigate(['home']);
+      this.router.navigate(['home'], { queryParams: { id: location.id } });
     });
 
   }
