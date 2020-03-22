@@ -6,7 +6,7 @@
            [matAutocomplete]="auto"
            [formControl]="searchControl">
     <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let location of filteredLocations$ | async" [value]="location.name" (click)="this.locationEmitted.emit(location);">
+      <mat-option *ngFor="let location of filteredLocations$ | async" [value]="location.name"  (click)="this.locationEmitted.emit(location);">
         <div class="option">
           <span>{{ location.name }}</span>
           <span>

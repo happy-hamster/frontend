@@ -1,3 +1,5 @@
 <router-outlet></router-outlet>
 <app-map (locationEmitted)="onLocationEmitted($event, true)" style="z-index: 1;"></app-map>
 <app-search-bar style="z-index: 2;" (locationEmitted)="onLocationEmitted($event, false)"></app-search-bar>
+
+<app-footer></app-footer>
