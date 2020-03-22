@@ -1,9 +1,10 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable, merge, of} from 'rxjs';
 import {Location} from '../../generated/models/location';
 import {LocationProviderService} from '../../core/services/location-provider.service';
 import {map, switchMap} from 'rxjs/operators';
+import {MatAutocompleteTrigger} from "@angular/material/autocomplete";
 
 @Component({
   selector: 'app-search-bar',
@@ -15,6 +16,7 @@ export class SearchBarComponent implements OnInit {
   filteredLocations$: Observable<Location[]>;
 
   @Output() locationEmitted = new EventEmitter<Location>();
+  @ViewChild(MatAutocompleteTrigger) autocomplete: MatAutocompleteTrigger;
 
   constructor(private locationsService: LocationProviderService) {}
 
@@ -38,5 +40,11 @@ export class SearchBarComponent implements OnInit {
         )
       )
     );
+  }
+
+  dismiss() {
+    this.searchControl.setValue(null);
+    this.autocomplete.closePanel();
+    (document.activeElement as HTMLElement).blur();
   }
 }

@@ -42,6 +42,7 @@ export class HomeComponent implements OnInit {
   openBottomSheet(): void {
     const bottomSheetRef = this._bottomSheet.open(LocationDetailsComponent, { data: this.selectedLocation$ });
     bottomSheetRef.afterDismissed().subscribe(() => {
+      this.searchComp.dismiss();
       this.mapComp.deselect();
     });
   }
