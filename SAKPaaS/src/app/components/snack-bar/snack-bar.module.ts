@@ -14,7 +14,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatSnackBarModule
   ],
   exports: [
-    SnackBarModule
+    SnackBarComponent
   ]
 })
 export class SnackBarModule { }
