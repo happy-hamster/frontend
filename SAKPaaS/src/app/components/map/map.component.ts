@@ -52,7 +52,15 @@ export class MapComponent implements OnInit {
 
     this.route.queryParams.subscribe((params) => {
       if (params.id) {
-        this.locationService.fetchLocationById(params.id).subscribe((location) => {
+        this.locationService.fetchLocationById(params.id).pipe(
+          catchError(err => {
+            this.snackBarService.sendNotification({
+              message: 'Leider konnten wir deinen gesuchten Laden nicht finden :(',
+              type: SnackBarTypes.ERROR
+            });
+            return throwError(err);
+          })
+        ).subscribe((location) => {
           this.zoomToNewLocation(location);
         });
       }
