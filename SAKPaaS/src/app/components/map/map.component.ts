@@ -17,6 +17,7 @@ import { Location } from 'src/app/generated/models';
 import { SelectEvent } from 'ol/interaction/Select';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { SnackBarTypes } from 'src/app/core/models/snack-bar.interface';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-map',
@@ -38,7 +39,8 @@ export class MapComponent implements OnInit {
   constructor(
     private gpsService: GpsService,
     private locationService: LocationProviderService,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private route: ActivatedRoute
   ) {
   }
 
@@ -47,6 +49,14 @@ export class MapComponent implements OnInit {
       features: []
     });
     this.isLoadingLocations = this.locationService.getLoadingLocationsState();
+
+    this.route.queryParams.subscribe((params) => {
+      if (params.id) {
+        this.locationService.fetchLocationById(params.id).subscribe((location) => {
+          this.zoomToNewLocation(location);
+        });
+      }
+    });
 
     this.customMap = new Map({
       target: 'map',
@@ -98,11 +108,11 @@ export class MapComponent implements OnInit {
         return throwError(err);
       })
     ).subscribe((next) => {
-        this.locationService.updateLoadingState(false);
-        console.log('Fetched new locations');
-        this.vectorSource.clear();
-        const markers = next.map((l) => new OLMapMarker(l));
-        this.vectorSource.addFeatures(markers);
+      this.locationService.updateLoadingState(false);
+      console.log('Fetched new locations');
+      this.vectorSource.clear();
+      const markers = next.map((l) => new OLMapMarker(l));
+      this.vectorSource.addFeatures(markers);
     });
 
     this.gpsService.getLocation().pipe(
