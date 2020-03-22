@@ -28,6 +28,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ImpressumComponent } from './components/impressum/impressum.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     HomeComponent,
     LocationDetailsComponent,
     OccupancyViewComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    ImpressumComponent
   ],
   imports: [
     MatIconModule,
