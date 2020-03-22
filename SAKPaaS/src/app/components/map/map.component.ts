@@ -16,6 +16,8 @@ import { map, catchError } from 'rxjs/operators';
 import { Location } from 'src/app/generated/models';
 import { SelectEvent } from 'ol/interaction/Select';
 import { IsLoadingService } from '@service-work/is-loading';
+import { SnackBarService } from 'src/app/core/services/snack-bar.service';
+import { SnackBarTypes } from 'src/app/core/models/snack-bar.interface';
 
 @Component({
   selector: 'app-map',
@@ -35,7 +37,8 @@ export class MapComponent implements OnInit {
   constructor(
     private gpsService: GpsService,
     private locationService: LocationProviderService,
-    private isLoadingService: IsLoadingService
+    private isLoadingService: IsLoadingService,
+    private snackBarService: SnackBarService
   ) {
   }
 
@@ -94,7 +97,10 @@ export class MapComponent implements OnInit {
     this.locationService.fetchLocations().pipe(
       catchError(err => {
         this.isLoadingService.remove({ key: 'locations' });
-        console.log('ERR!');
+        this.snackBarService.sendNotification({
+          message: 'Beim Aktualisieren der Karte ist ein Fehler aufgetreten. Sorry :(',
+          type: SnackBarTypes.ERROR
+        });
         return throwError(err);
       })
     ).subscribe((next) => {
@@ -105,7 +111,16 @@ export class MapComponent implements OnInit {
       this.vectorSource.addFeatures(markers);
     });
 
-    this.gpsService.getLocation().subscribe(gpsCoordinates => {
+    this.gpsService.getLocation().pipe(
+      catchError(err => {
+        this.isLoadingService.remove({ key: 'locations' });
+        this.snackBarService.sendNotification({
+          message: 'Beim Aktualisieren der Karte ist ein Fehler aufgetreten. Sorry :(',
+          type: SnackBarTypes.ERROR
+        });
+        return throwError(err);
+      })
+    ).subscribe(gpsCoordinates => {
       if (gpsCoordinates.fromDevice) {
         this.customMap.getView().setCenter(olProj.fromLonLat([gpsCoordinates.longitude, gpsCoordinates.latitude]));
         this.customMap.getView().setZoom(15);

@@ -6,8 +6,24 @@
 .loading-wrapper {
     position: fixed;
     background-color: white;
-    opacity: 0.8;
-    top: 3rem;
-    right: 2.5rem;
+    top: 25px;
+    right: 45px;
     z-index: 2;
+    border-radius: 10px;
+    padding: 0.3rem 1rem 0.3rem 1rem;
+    box-shadow: 0 5px 20px 0 rgba(11, 0, 51, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+@media (max-width: 750px) {
+    .loading-wrapper {
+        top: 115px;
+    }
+}
+
+.loading-wrapper span {
+    margin-top: 10px;
 }

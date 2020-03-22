@@ -4,9 +4,7 @@ import { Location } from 'src/app/generated/models';
 import { LocationsService } from 'src/app/generated/services';
 import { GpsService } from './gps.service';
 import { LocationsQuery } from '../models/locations-query.interface';
-import { HttpClient } from '@angular/common/http';
-import { GpsCoordinates } from 'src/app/core/models/gps-coordinates.interface';
-import { map, switchMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
