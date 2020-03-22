@@ -1,0 +1,32 @@
+.content {
+  background-color: white;
+  border-radius: 10px;
+  padding: 0.3rem 1rem 0.3rem 1rem;
+  margin: 0;
+  min-width: 150px;
+  max-width: 500px;
+  width: 80%;
+  position: fixed;
+  top: 3rem;
+  left: 2.5rem;
+  box-shadow: 0 5px 20px 0 rgba(11, 0, 51, 0.2);
+
+  mat-form-field {
+    width: 100%;
+  }
+  .option-img {
+    margin-right: 8px;
+  }
+}
+
+.option {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+::ng-deep app-occupancy-view {
+  display: inline-flex;
+}

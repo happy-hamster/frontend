@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '../../generated/models/location'
-import { Observable, of, Subject } from "rxjs";
+import { Observable, of } from "rxjs";
 import { MatBottomSheet } from "@angular/material/bottom-sheet";
 import { LocationDetailsComponent } from "../location-details/location-details.component";
 import { MapComponent } from '../map/map.component';
+import {SearchBarComponent} from "../search-bar/search-bar.component";
 
 @Component({
   selector: 'app-home',
@@ -14,6 +15,7 @@ export class HomeComponent implements OnInit {
   selectedLocation$: Observable<Location>;
 
   @ViewChild(MapComponent) mapComp: MapComponent;
+  @ViewChild(SearchBarComponent) searchComp: SearchBarComponent;
 
   constructor(private _bottomSheet: MatBottomSheet) {
   }
@@ -38,8 +40,9 @@ export class HomeComponent implements OnInit {
   }
 
   openBottomSheet(): void {
-    const bottomSheetRef = this._bottomSheet.open(LocationDetailsComponent, { data: this.selectedLocation$ })
+    const bottomSheetRef = this._bottomSheet.open(LocationDetailsComponent, { data: this.selectedLocation$ });
     bottomSheetRef.afterDismissed().subscribe(() => {
+      this.searchComp.dismiss();
       this.mapComp.deselect();
     });
   }

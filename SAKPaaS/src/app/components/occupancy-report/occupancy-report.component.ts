@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LocationProviderService } from 'src/app/core/services/location-provider.service';
 import { Location } from 'src/app/generated/models';
 import { Observable, throwError } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { switchMap, catchError } from 'rxjs/operators';
 import { FormControl, Validators } from '@angular/forms';
 import { OccupancyProviderService } from 'src/app/core/services/occupancy-provider.service';
@@ -24,7 +24,8 @@ export class OccupancyReportComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private locationService: LocationProviderService,
     private occupancyService: OccupancyProviderService,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -76,9 +77,9 @@ export class OccupancyReportComponent implements OnInit {
         message: 'Vielen Dank für dein Feedback!',
         type: SnackBarTypes.SUCCESS
       });
-      // TODO: navigate To home;
     });
 
+    this.router.navigate(['/'])
 
   }
 

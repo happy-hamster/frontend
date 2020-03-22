@@ -10,3 +10,7 @@
   color: white;
   text-align: center;
 }
+
+::ng-deep app-occupancy-view {
+  margin-bottom: 0.5rem;
+}

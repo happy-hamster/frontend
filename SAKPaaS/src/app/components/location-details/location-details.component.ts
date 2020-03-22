@@ -16,4 +16,7 @@ export class LocationDetailsComponent implements OnInit {
 
   ngOnInit(): void { }
 
+  dismiss(): void {
+    this.bottomSheetRef.dismiss();
+  }
 }
