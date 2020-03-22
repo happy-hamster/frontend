@@ -24,6 +24,8 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {ReactiveFormsModule, FormsModule} from "@angular/forms";
 import { SnackBarModule } from 'src/app/components/snack-bar/snack-bar.module';
 import { IsLoadingModule, IsLoadingPipeModule } from '@service-work/is-loading';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -56,6 +58,8 @@ import { IsLoadingModule, IsLoadingPipeModule } from '@service-work/is-loading';
     SnackBarModule,
     IsLoadingModule,
     IsLoadingPipeModule,
+    MatButtonModule,
+    MatProgressSpinnerModule
   ],
   providers: [
   ],
