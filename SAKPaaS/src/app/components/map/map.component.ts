@@ -60,7 +60,7 @@ export class MapComponent implements OnInit {
 
     const select = new Select({
       condition: click,
-      style: OLMapMarker.markerStyleSelected
+      style: null
     });
 
     this.customMap.addInteraction(select);
