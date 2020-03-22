@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 })
 export class LocationDetailsComponent implements OnInit {
   location$: Observable<Location>;
+  noAddressMessage = 'Keine Adresse vorhanden.';
   constructor(
     private bottomSheetRef: MatBottomSheetRef<LocationDetailsComponent>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: Observable<Location>,
@@ -49,5 +50,27 @@ export class LocationDetailsComponent implements OnInit {
       this.bottomSheetRef.dismiss();
       this.router.navigate(['reportOccupancy', location.id]);
     });
+  }
+
+  getAddressString(location: Location): string {
+    if (!location.street) {
+      return this.noAddressMessage;
+    }
+
+    var erg = location.street;
+
+    if (location.housenumber) {
+      erg = erg + " " + location.housenumber;
+    }
+    if (location.postcode || location.city) {
+      erg = erg + ", ";
+    }
+    if (location.postcode) {
+      erg = erg + location.postcode + " ";
+    }
+    if(location.city) {
+      erg = erg + location.city;
+    }
+    return erg;
   }
 }
