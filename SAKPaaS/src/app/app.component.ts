@@ -20,13 +20,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Quick fix http redirect
-    if (environment.production) {
-      if (location.protocol === 'http:') {
-        window.location.href = location.href.replace('http', 'https');
-      }
-    }
-
     this.locations$ = this.locationService.fetchLocations();
   }
 }
