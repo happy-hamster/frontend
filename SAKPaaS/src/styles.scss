@@ -40,14 +40,26 @@ div.ol-attribution a {
   color: var(--greenblue);
 }
 
+div.ol-rotate {
+  top: 225px;
+  left: 42px;
+  right: auto;
+  background-color: transparent;
+}
+
 @media (max-width: 600px) {
   div.ol-zoom {
       top: 100px;
       left: 15px;
   }
+
+  div.ol-rotate {
+    top: 170px;
+    left: 15px;
+  }
 }
 
-button.ol-zoom-in, button.ol-zoom-out {   
+button.ol-zoom-in, button.ol-zoom-out, button.ol-rotate-reset {   
   background-color: var(--greenblue);
   font-family: Roboto;
   font-size: 20px;
