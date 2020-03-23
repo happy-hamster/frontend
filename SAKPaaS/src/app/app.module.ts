@@ -31,6 +31,8 @@ import { MapComponent } from 'src/app/components/map/map.component';
 import { ImpressumComponent } from './components/impressum/impressum.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LogoComponent } from './components/logo/logo.component';
+import { RoadmapComponent } from './components/roadmap/roadmap.component';
+import { NgVerticalTimelineModule  } from 'ng-vertical-timeline';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { LogoComponent } from './components/logo/logo.component';
     MapComponent,
     ImpressumComponent,
     FooterComponent,
-    LogoComponent
+    LogoComponent,
+    RoadmapComponent
   ],
   imports: [
     MatIconModule,
@@ -69,6 +72,7 @@ import { LogoComponent } from './components/logo/logo.component';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     MatButtonModule,
     MatProgressSpinnerModule,
+    NgVerticalTimelineModule,
   ],
   providers: [
   ],

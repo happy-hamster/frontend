@@ -1,0 +1,15 @@
+.content {
+  padding: 2rem; }
+  .content h1 {
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    color: var(--greenblue);
+    font-size: xx-large; }
+  .content h2 {
+    text-align: center;
+    color: var(--greenblue); }
+  .content p {
+    margin-left: 1rem; }
+
+/*# sourceMappingURL=roadmap.component.css.map */

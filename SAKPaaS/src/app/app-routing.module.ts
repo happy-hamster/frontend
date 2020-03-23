@@ -3,12 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { OccupancyReportComponent } from 'src/app/components/occupancy-report/occupancy-report.component';
 import { ImpressumComponent } from './components/impressum/impressum.component';
+import { RoadmapComponent } from './components/roadmap/roadmap.component'
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'home', redirectTo: ''},
   {path: 'reportOccupancy/:id', component: OccupancyReportComponent},
   {path: 'impressum', component: ImpressumComponent},
+  {path: 'roadmap', component: RoadmapComponent},
   {path: '**', redirectTo: ''}
 ];
 
@@ -17,4 +19,5 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule {
+
 }
