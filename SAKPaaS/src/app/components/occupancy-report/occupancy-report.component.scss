@@ -11,6 +11,19 @@
   margin: auto;
 }
 
+.header {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.hiddenBackButton {
+  width: 40px;
+  height: 40px;
+}
+
+
 .title {
   font-family: Roboto;
   font-size: 25px;
@@ -28,7 +41,7 @@
 }
 
 .submit {
-  margin-top: auto;
+  margin-top: 1rem;
   background-color: var(--greenblue);
   width: 100%;
   font-family: Roboto;
@@ -82,11 +95,18 @@ mat-radio-group {
 
 .occupancy-description {
   font-family: Roboto;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.17px;
   color: #9da9a0;
+}
+
+.backLink {
+  margin-top: auto;
+  color:  #9da9a0;
+  text-decoration: none;
+  font-size: 14px;
 }

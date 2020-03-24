@@ -1,6 +1,12 @@
 <ng-container *ngIf="selectedLocation$ | async as location">
     <div class="container">
-        <h2 class="title">Wie voll ist <span class="title-accent">{{ location.name }}</span>?</h2>
+        <div class="header">
+            <button mat-icon-button color="primary" aria-label="back to home button" class="backButton" href="." [routerLink]="['/home']" [queryParams]="{ id: location.id }">
+                <mat-icon>arrow_back</mat-icon>
+              </button>
+            <h2 class="title">Wie voll ist <span class="title-accent">{{ location.name }}</span>?</h2>
+            <div class="hiddenBackButton"></div>
+        </div>
         <mat-radio-group [formControl]="occupancyInput">
             <div class="radio" (click)="setRadioButton('0.33')">
                 <mat-radio-button [value]="'0.33'"></mat-radio-button>
@@ -44,6 +50,7 @@
                 </div>
             </div>
         </mat-radio-group>
+        <a class="backLink" href="." [routerLink]="['/home']" [queryParams]="{ id: location.id }">Bist du doch nicht hier?</a>
         <button mat-raised-button class="submit" (click)="onSubmit()" swIsLoading="'sendOccupancy'">
             <span *ngIf="!('sendOccupancy' | swIsLoading | async)">Abschicken </span>
             <span *ngIf="'sendOccupancy' | swIsLoading | async">
