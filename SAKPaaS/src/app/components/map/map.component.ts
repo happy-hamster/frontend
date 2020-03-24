@@ -24,7 +24,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, OnDestroy {
 
   @Output() locationEmitted = new EventEmitter<Location>();
 
@@ -35,6 +35,8 @@ export class MapComponent implements OnInit {
   selectEvent: SelectEvent = null;
 
   isLoadingLocations: Observable<boolean>;
+
+  private subscriptions = new Subscription();
 
   constructor(
     private gpsService: GpsService,
@@ -52,17 +54,9 @@ export class MapComponent implements OnInit {
 
     this.route.queryParams.subscribe((params) => {
       if (params.id) {
-        this.locationService.fetchLocationById(params.id).pipe(
-          catchError(err => {
-            this.snackBarService.sendNotification({
-              message: 'Leider konnten wir deinen gesuchten Laden nicht finden :(',
-              type: SnackBarTypes.ERROR
-            });
-            return throwError(err);
-          })
-        ).subscribe((location) => {
-          this.zoomToNewLocation(location);
-        });
+        this.loadPositionFromLocation(params.id);
+      } else {
+        this.loadGpsPosition();
       }
     });
 
@@ -98,6 +92,7 @@ export class MapComponent implements OnInit {
     });
 
     this.customMap.addEventListener('moveend', () => {
+      console.log('eventlistener called')
       this.locationService.updateLoadingState(true);
       const center = this.customMap.getView().getCenter();
       const centerLonLat = olProj.toLonLat(center);
@@ -106,7 +101,7 @@ export class MapComponent implements OnInit {
       return true;
     });
 
-    this.locationService.fetchLocations().pipe(
+    this.subscriptions.add(this.locationService.fetchLocations().pipe(
       catchError(err => {
         this.locationService.updateLoadingState(false);
         this.snackBarService.sendNotification({
@@ -121,9 +116,41 @@ export class MapComponent implements OnInit {
       this.vectorSource.clear();
       const markers = next.map((l) => new OLMapMarker(l));
       this.vectorSource.addFeatures(markers);
-    });
+    }));
 
-    this.gpsService.getLocation().pipe(
+
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
+  }
+
+  deselect(): void {
+    this.selectEvent.target.getFeatures().clear();
+    this.selectEvent = null;
+  }
+
+  public zoomToNewLocation(location: Location): void {
+    this.customMap.getView().setCenter(olProj.fromLonLat([location.longitude, location.latitude]));
+    this.customMap.getView().setZoom(16);
+  }
+
+  private loadPositionFromLocation(id: number) {
+    this.subscriptions.add(this.locationService.fetchLocationById(id).pipe(
+      catchError(err => {
+        this.snackBarService.sendNotification({
+          message: 'Leider konnten wir deinen gesuchten Laden nicht finden :(',
+          type: SnackBarTypes.ERROR
+        });
+        return throwError(err);
+      })
+    ).subscribe((location) => {
+      this.zoomToNewLocation(location);
+    }));
+  }
+
+  private loadGpsPosition() {
+    this.subscriptions.add(this.gpsService.getLocation().pipe(
       catchError(err => {
         this.snackBarService.sendNotification({
           message: 'Beim Aktualisieren der Karte ist ein Fehler aufgetreten. Sorry :(',
@@ -136,17 +163,7 @@ export class MapComponent implements OnInit {
         this.customMap.getView().setCenter(olProj.fromLonLat([gpsCoordinates.longitude, gpsCoordinates.latitude]));
         this.customMap.getView().setZoom(15);
       }
-    });
-  }
-
-  deselect(): void {
-    this.selectEvent.target.getFeatures().clear();
-    this.selectEvent = null;
-  }
-
-  public zoomToNewLocation(location: Location): void {
-    this.customMap.getView().setCenter(olProj.fromLonLat([location.longitude, location.latitude]));
-    this.customMap.getView().setZoom(16);
+    }));
   }
 }
 
