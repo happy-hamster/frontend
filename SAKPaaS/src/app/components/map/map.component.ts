@@ -24,7 +24,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, OnDestroy {
 
   @Output() locationEmitted = new EventEmitter<Location>();
 
@@ -36,6 +36,8 @@ export class MapComponent implements OnInit {
 
   isLoadingLocations: Observable<boolean>;
 
+  private subscriptions = new Subscription();
+
   constructor(
     private gpsService: GpsService,
     private locationService: LocationProviderService,
@@ -45,25 +47,42 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.vectorSource = new VectorSource({
-      features: []
-    });
+
+    this.initOLMap();
+
     this.isLoadingLocations = this.locationService.getLoadingLocationsState();
 
     this.route.queryParams.subscribe((params) => {
       if (params.id) {
-        this.locationService.fetchLocationById(params.id).pipe(
-          catchError(err => {
-            this.snackBarService.sendNotification({
-              message: 'Leider konnten wir deinen gesuchten Laden nicht finden :(',
-              type: SnackBarTypes.ERROR
-            });
-            return throwError(err);
-          })
-        ).subscribe((location) => {
-          this.zoomToNewLocation(location);
-        });
+        this.loadPositionFromLocation(params.id);
+      } else {
+        this.loadGpsPosition();
       }
+    });
+
+    this.subscriptions.add(this.locationService.fetchLocations().pipe(
+      catchError(err => {
+        this.locationService.updateLoadingState(false);
+        this.snackBarService.sendNotification({
+          message: 'Beim Aktualisieren der Karte ist ein Fehler aufgetreten. Sorry :(',
+          type: SnackBarTypes.ERROR
+        });
+        return throwError(err);
+      })
+    ).subscribe((next) => {
+      this.locationService.updateLoadingState(false);
+      console.log('Fetched new locations');
+      this.vectorSource.clear();
+      const markers = next.map((l) => new OLMapMarker(l));
+      this.vectorSource.addFeatures(markers);
+    }));
+
+
+  }
+
+  private initOLMap() {
+    this.vectorSource = new VectorSource({
+      features: []
     });
 
     this.customMap = new Map({
@@ -77,11 +96,16 @@ export class MapComponent implements OnInit {
         })
       ],
       view: new View({
-        center: olProj.fromLonLat([10.018343, 51.133481]),
+        center: olProj.fromLonLat([this.gpsService.getCurrentLocation().longitude, this.gpsService.getCurrentLocation().latitude]),
         zoom: 6
       }),
     });
 
+    this.registerEventListeners();
+  }
+
+  private registerEventListeners() {
+    // this listener gets triggered when the user clicks on a marker
     const select = new Select({
       condition: click,
       style: null
@@ -97,6 +121,7 @@ export class MapComponent implements OnInit {
       this.selectEvent = e;
     });
 
+    // this listener is called after the user has zoomed/panned/rotated the map
     this.customMap.addEventListener('moveend', () => {
       this.locationService.updateLoadingState(true);
       const center = this.customMap.getView().getCenter();
@@ -105,25 +130,41 @@ export class MapComponent implements OnInit {
       console.log(centerLonLat);
       return true;
     });
+  }
 
-    this.locationService.fetchLocations().pipe(
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
+  }
+
+  deselect(): void {
+    this.selectEvent.target.getFeatures().clear();
+    this.selectEvent = null;
+  }
+
+  public zoomToNewLocation(location: Location): void {
+    this.customMap.getView().setCenter(olProj.fromLonLat([location.longitude, location.latitude]));
+    this.customMap.getView().setZoom(16);
+  }
+
+  private loadPositionFromLocation(id: number) {
+    this.subscriptions.add(this.locationService.fetchLocationById(id).pipe(
       catchError(err => {
-        this.locationService.updateLoadingState(false);
         this.snackBarService.sendNotification({
-          message: 'Beim Aktualisieren der Karte ist ein Fehler aufgetreten. Sorry :(',
+          message: 'Leider konnten wir deinen gesuchten Laden nicht finden :(',
           type: SnackBarTypes.ERROR
         });
         return throwError(err);
       })
-    ).subscribe((next) => {
-      this.locationService.updateLoadingState(false);
-      console.log('Fetched new locations');
-      this.vectorSource.clear();
-      const markers = next.map((l) => new OLMapMarker(l));
-      this.vectorSource.addFeatures(markers);
-    });
+    ).subscribe((location) => {
+      if (location.name) {
+        document.title = 'HappyHamster - ' + location.name;
+      }
+      this.zoomToNewLocation(location);
+    }));
+  }
 
-    this.gpsService.getLocation().pipe(
+  private loadGpsPosition() {
+    this.subscriptions.add(this.gpsService.getLocation().pipe(
       catchError(err => {
         this.snackBarService.sendNotification({
           message: 'Beim Aktualisieren der Karte ist ein Fehler aufgetreten. Sorry :(',
@@ -136,17 +177,7 @@ export class MapComponent implements OnInit {
         this.customMap.getView().setCenter(olProj.fromLonLat([gpsCoordinates.longitude, gpsCoordinates.latitude]));
         this.customMap.getView().setZoom(15);
       }
-    });
-  }
-
-  deselect(): void {
-    this.selectEvent.target.getFeatures().clear();
-    this.selectEvent = null;
-  }
-
-  public zoomToNewLocation(location: Location): void {
-    this.customMap.getView().setCenter(olProj.fromLonLat([location.longitude, location.latitude]));
-    this.customMap.getView().setZoom(16);
+    }));
   }
 }
 
