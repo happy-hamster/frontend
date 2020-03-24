@@ -77,7 +77,7 @@ export class MapComponent implements OnInit {
         })
       ],
       view: new View({
-        center: olProj.fromLonLat([10.018343, 51.133481]),
+        center: olProj.fromLonLat([this.gpsService.getCurrentLocation().longitude, this.gpsService.getCurrentLocation().latitude]),
         zoom: 6
       }),
     });
