@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>{{data.header}}</h1>
+<div mat-dialog-content>
+  <p>{{data.message}}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancelled()">{{data.cancelButtonText || 'Abbrechen'}}</button>
+  <button mat-button (click)="onOkay()" cdkFocusInitial>{{data.okButtonText || 'Okay'}}</button>
+</div>

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-occupancy-view',
@@ -22,8 +22,6 @@ export class OccupancyViewComponent implements OnInit {
     this.text = this.getText();
     this.iconPath = this.getIconPath();
     this.styleClass = this.getStyleClass();
-
-    console.log(this.text);
   }
 
   getIconPath(): string {
@@ -44,7 +42,7 @@ export class OccupancyViewComponent implements OnInit {
     return this.getStringForOcc(low, mid, high, noData);
   }
 
-  getStyleClass(): string{
+  getStyleClass(): string {
     const noData = 'noData';
     const low = 'low';
     const mid = 'mid';
@@ -54,15 +52,15 @@ export class OccupancyViewComponent implements OnInit {
   }
 
   getStringForOcc(low: string, mid: string, high: string, noData: string): string {
-    if(!this.occupancy || this.occupancy<0)
+    if (!this.occupancy || this.occupancy < 0)
       return noData;
-    if(this.occupancy < this.lowBorder)
+    if (this.occupancy < this.lowBorder)
       return low;
 
-    if(this.occupancy < this.midBorder)
+    if (this.occupancy < this.midBorder)
       return mid;
 
-    if(this.occupancy<=1)
+    if (this.occupancy <= 1)
       return high;
 
     return noData;

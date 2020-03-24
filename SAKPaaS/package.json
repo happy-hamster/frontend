@@ -28,6 +28,7 @@
     "@angular/service-worker": "~9.0.7",
     "@service-work/is-loading": "^3.0.3",
     "ng-openapi-gen": "^0.8.2",
+    "ngx-cookie-service": "^3.0.3",
     "ol": "^6.2.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
