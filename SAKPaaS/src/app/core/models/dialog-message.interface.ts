@@ -1,6 +1,6 @@
 export interface IDialogMessage {
   message: string;
-  header?: string;
+  title?: string;
   okButtonText?: string;
   cancelButtonText?: string;
 }

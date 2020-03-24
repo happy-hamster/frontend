@@ -99,7 +99,7 @@ export class GpsService {
     return new Promise((resolve, _) => {
       this.dialogService.showDialog(
         {
-          header: 'Standortzugriff',
+          title: 'Standortzugriff',
           message: 'HappyHamster funktioniert am besten, wenn du deinen GPS-Standort aktivierst.\
           Bitte genehmige den Zugriff auf deinen Standort',
           cancelButtonText: 'Nein, danke'
