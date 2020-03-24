@@ -64,7 +64,7 @@ export class MapComponent implements OnInit, OnDestroy {
       catchError(err => {
         this.locationService.updateLoadingState(false);
         this.snackBarService.sendNotification({
-          message: 'Beim Aktualisieren der Karte ist ein Fehler aufgetreten. Sorry :(',
+          message: 'Beim Aktualisieren der Karte ist ein Fehler aufgetreten. Bitte lade die Seite neu. Sorry :(',
           type: SnackBarTypes.ERROR
         });
         return throwError(err);
