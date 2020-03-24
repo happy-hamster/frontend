@@ -71,7 +71,6 @@ export class OccupancyReportComponent implements OnInit {
       })
     ).subscribe(location => {
       this.isLoadingService.remove({ key: 'sendOccupancy' });
-      console.log(location);
       this.snackBarService.sendNotification({
         message: 'Vielen Dank für dein Feedback!',
         type: SnackBarTypes.SUCCESS
