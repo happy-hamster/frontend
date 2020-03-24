@@ -72,7 +72,7 @@ export class GpsService {
             break;
           case positionError.TIMEOUT:
             this.snackBarService.sendNotification({
-              message: 'HappyHamster konnte deine GPS-Position leider nicht ermitteln. Versuche es erneut.',
+              message: 'Leider hat es zulange gedauert, deine GPS-Position zu ermitteln. Versuche es bitte erneut.',
               type: SnackBarTypes.ERROR
             });
             break;

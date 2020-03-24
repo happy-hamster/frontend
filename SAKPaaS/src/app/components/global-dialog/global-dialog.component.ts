@@ -9,16 +9,12 @@ import { IDialogMessage, DialogMessageReturnTypes } from 'src/app/core/models/di
   templateUrl: './global-dialog.component.html',
   styleUrls: ['./global-dialog.component.scss']
 })
-export class GlobalDialogComponent implements OnInit {
+export class GlobalDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<GlobalDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: IDialogMessage
   ) { }
-
-  ngOnInit(): void {
-
-  }
 
   onOkay(): void {
     this.dialogRef.close(DialogMessageReturnTypes.OKAY);
