@@ -85,9 +85,10 @@ export class GpsService {
         }
       });
     } else {
-      this.snackBarService.sendNotification(
-        { message: 'Wir konnten deine GPS-Koordinaten nicht abrufen, da dein Browser das nicht unterstützt :(', type: SnackBarTypes.ERROR }
-      );
+      this.snackBarService.sendNotification({
+        message: 'Wir konnten deine GPS-Koordinaten nicht abrufen, da dein Browser das nicht unterstützt :(',
+        type: SnackBarTypes.ERROR
+      });
       console.log('No support for geolocation');
       return undefined;
     }
