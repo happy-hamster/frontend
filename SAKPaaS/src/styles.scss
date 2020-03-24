@@ -59,15 +59,11 @@ div.ol-rotate {
   }
 }
 
-button.ol-zoom-in, button.ol-zoom-out, button.ol-rotate-reset {   
+button.ol-zoom-in, button.ol-zoom-out, button.ol-rotate-reset, button.ol-zoom-in:focus, button.ol-zoom-out:focus, button.ol-rotate-reset:focus {   
   background-color: var(--greenblue);
-  font-family: Roboto;
   font-size: 20px;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: 0.3px;
-  color: #ffffff;
-  border-radius: 16px;
+}
+
+button.ol-zoom-in:hover, button.ol-zoom-out:hover, button.ol-rotate-reset:hover {   
+  background-color: var(--greenish-grey );
 }
