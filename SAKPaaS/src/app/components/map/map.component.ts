@@ -157,7 +157,7 @@ export class MapComponent implements OnInit, OnDestroy {
       })
     ).subscribe((location) => {
       if (location.name) {
-        document.title += ' - ' + location.name;
+        document.title = 'HappyHamster - ' + location.name;
       }
       this.zoomToNewLocation(location);
     }));
