@@ -47,9 +47,9 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.vectorSource = new VectorSource({
-      features: []
-    });
+
+    this.initOLMap();
+
     this.isLoadingLocations = this.locationService.getLoadingLocationsState();
 
     this.route.queryParams.subscribe((params) => {
@@ -58,47 +58,6 @@ export class MapComponent implements OnInit, OnDestroy {
       } else {
         this.loadGpsPosition();
       }
-    });
-
-    this.customMap = new Map({
-      target: 'map',
-      layers: [
-        new TileLayer({
-          source: new OSM()
-        }),
-        new VectorLayer({
-          source: this.vectorSource
-        })
-      ],
-      view: new View({
-        center: olProj.fromLonLat([this.gpsService.getCurrentLocation().longitude, this.gpsService.getCurrentLocation().latitude]),
-        zoom: 6
-      }),
-    });
-
-    const select = new Select({
-      condition: click,
-      style: null
-    });
-
-    this.customMap.addInteraction(select);
-
-    select.on('select', (e) => {
-      const target = e.selected[0] as OLMapMarker;
-      if (!target) { return; }
-      this.locationEmitted.emit(target.location);
-      console.log(e.selected);
-      this.selectEvent = e;
-    });
-
-    this.customMap.addEventListener('moveend', () => {
-      console.log('eventlistener called')
-      this.locationService.updateLoadingState(true);
-      const center = this.customMap.getView().getCenter();
-      const centerLonLat = olProj.toLonLat(center);
-      this.gpsService.setLocation({ longitude: centerLonLat[0], latitude: centerLonLat[1] });
-      console.log(centerLonLat);
-      return true;
     });
 
     this.subscriptions.add(this.locationService.fetchLocations().pipe(
@@ -119,6 +78,58 @@ export class MapComponent implements OnInit, OnDestroy {
     }));
 
 
+  }
+
+  private initOLMap() {
+    this.vectorSource = new VectorSource({
+      features: []
+    });
+
+    this.customMap = new Map({
+      target: 'map',
+      layers: [
+        new TileLayer({
+          source: new OSM()
+        }),
+        new VectorLayer({
+          source: this.vectorSource
+        })
+      ],
+      view: new View({
+        center: olProj.fromLonLat([this.gpsService.getCurrentLocation().longitude, this.gpsService.getCurrentLocation().latitude]),
+        zoom: 6
+      }),
+    });
+
+    this.registerEventListeners();
+  }
+
+  private registerEventListeners() {
+    // this listener gets triggered when the user clicks on a marker
+    const select = new Select({
+      condition: click,
+      style: null
+    });
+
+    this.customMap.addInteraction(select);
+
+    select.on('select', (e) => {
+      const target = e.selected[0] as OLMapMarker;
+      if (!target) { return; }
+      this.locationEmitted.emit(target.location);
+      console.log(e.selected);
+      this.selectEvent = e;
+    });
+
+    // this listener is called after the user has zoomed/panned/rotated the map
+    this.customMap.addEventListener('moveend', () => {
+      this.locationService.updateLoadingState(true);
+      const center = this.customMap.getView().getCenter();
+      const centerLonLat = olProj.toLonLat(center);
+      this.gpsService.setLocation({ longitude: centerLonLat[0], latitude: centerLonLat[1] });
+      console.log(centerLonLat);
+      return true;
+    });
   }
 
   ngOnDestroy() {
@@ -145,6 +156,9 @@ export class MapComponent implements OnInit, OnDestroy {
         return throwError(err);
       })
     ).subscribe((location) => {
+      if (location.name) {
+        document.title += ' - ' + location.name;
+      }
       this.zoomToNewLocation(location);
     }));
   }
