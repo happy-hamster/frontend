@@ -35,6 +35,14 @@ export class SnackBarComponent implements OnInit {
 
     const config = this.getConfigForSnackBarType(nextNotification.type);
 
+    if (nextNotification.big) {
+      (config.panelClass as string[]).push('big');
+    }
+    if (nextNotification.hideCloseButton) {
+      (config.panelClass as string[]).push('close-button-hidden');
+    }
+
+
     if (nextNotification.closeObservable) {
       config.duration = null;
       nextNotification.closeObservable.subscribe(() => {
@@ -42,7 +50,7 @@ export class SnackBarComponent implements OnInit {
       });
     }
 
-    this.snackBarRef = this.snackBar.open(nextNotification.message, 'X', config);
+    this.snackBarRef = this.snackBar.open(nextNotification.message, nextNotification.hideCloseButton ? null : 'X', config);
     this.snackBarRef.afterDismissed().subscribe(_ => {
       this.snackBarRef = null;
       this.next();
@@ -64,7 +72,7 @@ export class SnackBarComponent implements OnInit {
       case SnackBarTypes.INFO:
         return {
           duration: 2000,
-          panelClass: ['info-snack-bar']
+          panelClass: ['info-snack-bar'],
         };
     }
   }

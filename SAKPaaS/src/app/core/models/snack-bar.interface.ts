@@ -10,4 +10,6 @@ export interface ISnackBar {
   message: string;
   type: SnackBarTypes;
   closeObservable?: Observable<null>;
+  big?: boolean;
+  hideCloseButton?: boolean;
 }

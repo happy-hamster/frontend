@@ -27,7 +27,7 @@ import { ActivatedRoute } from '@angular/router';
 export class MapComponent implements OnInit, OnDestroy {
 
   // minimum zoom level to load/display any locations
-  private static ZOOM_LIMIT = 10;
+  private static ZOOM_LIMIT = 12;
 
   @Output() locationEmitted = new EventEmitter<Location>();
 
@@ -104,7 +104,7 @@ export class MapComponent implements OnInit, OnDestroy {
       ],
       view: new View({
         center: olProj.fromLonLat([this.gpsService.getCurrentLocation().longitude, this.gpsService.getCurrentLocation().latitude]),
-        zoom: 6
+        zoom: this.zoomLevel.getValue()
       }),
     });
 
@@ -158,9 +158,11 @@ export class MapComponent implements OnInit, OnDestroy {
         closeSubject = new Subject<null>();
         this.vectorSource.clear();
         this.snackBarService.sendNotification({
-          message: 'Bitte zoomen Sie weiter rein',
+          message: 'Bitte zoome näher in die Karte.',
           type: SnackBarTypes.INFO,
-          closeObservable: closeSubject
+          closeObservable: closeSubject,
+          big: true,
+          hideCloseButton: true
         });
       }
     });
