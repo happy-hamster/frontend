@@ -162,8 +162,12 @@ export class MapComponent implements OnInit, OnDestroy {
 
     this.zoomLevel.subscribe((zoomLevel) => {
       if (zoomLevel > MapComponent.ZOOM_LIMIT) {
-        closeSubject?.next();
-        closeSubject = null;
+        if (closeSubject) {
+          // forcing a reload
+          this.gpsService.setLocation(this.gpsService.getCurrentLocation());
+          closeSubject.next();
+          closeSubject = null;
+        }
       } else if (closeSubject == null) {
         closeSubject = new Subject<null>();
         this.vectorSource.clear();

@@ -22,6 +22,12 @@ export class SnackBarComponent implements OnInit {
   ngOnInit(): void {
     this.snackBarService.getNotification().subscribe(notification => {
       this.notificationQueue.push(notification);
+      notification.closeObservable?.subscribe(() => {
+        // if the observable is triggered while the notification is
+        // still on the queue it should be removed from it
+        const index = this.notificationQueue.indexOf(notification);
+        this.notificationQueue.splice(index, 1);
+      });
       if (!this.snackBarRef) {
         this.next();
       }
