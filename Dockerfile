@@ -4,12 +4,11 @@ FROM node:12.7-alpine AS build
 # Set working directory
 WORKDIR /usr/src/app
 
-# Install needed node packages
-COPY /SAKPaaS/package.json ./
-RUN npm install
-
 # Copy source code
 COPY /SAKPaaS/. .
+
+# Install needed node packages
+RUN npm install
 # Compile source code
 RUN npm run build:prod
 

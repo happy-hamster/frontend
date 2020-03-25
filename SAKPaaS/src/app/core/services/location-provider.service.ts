@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { Observable, Subject, BehaviorSubject, throwError, of } from 'rxjs';
 import { Location } from 'src/app/generated/models';
 import { LocationsService } from 'src/app/generated/services';
 import { GpsService } from './gps.service';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, catchError, filter } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,23 +11,22 @@ import { switchMap } from 'rxjs/operators';
 export class LocationProviderService {
 
   private isLoadingLocations = new BehaviorSubject<boolean>(false);
+  private locations$ = new BehaviorSubject<Location[]>([]);
 
   constructor(
     private locationApiService: LocationsService,
     private gpsService: GpsService
   ) {
-
+    this.gpsService.getLocation().pipe(
+      filter(coords => !!coords),
+      switchMap(coords => {
+        return this.locationApiService.searchLocations(coords);
+      })
+    ).subscribe(this.locations$);
   }
 
   public fetchLocations(): Observable<Location[]> {
-    return this.gpsService.getLocation().pipe(
-      switchMap(gpsCoordinates => {
-        if (!gpsCoordinates) {
-          return undefined;
-        }
-        return this.locationApiService.searchLocations(gpsCoordinates);
-      })
-    );
+    return this.locations$;
   }
 
   public fetchLocationById(id: number) {
