@@ -15,6 +15,7 @@ import { LocationProviderService } from 'src/app/core/services/location-provider
 import { catchError, filter } from 'rxjs/operators';
 import { Location } from 'src/app/generated/models';
 import { SelectEvent } from 'ol/interaction/Select';
+import { getDistance as olGetDistance } from 'ol/sphere';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { SnackBarTypes } from 'src/app/core/models/snack-bar.interface';
 import { ActivatedRoute } from '@angular/router';
@@ -28,6 +29,9 @@ export class MapComponent implements OnInit, OnDestroy {
 
   // minimum zoom level to load/display any locations
   private static ZOOM_LIMIT = 12;
+
+  // minimum distance in meters to trigger a reload
+  private static MOVE_LIMIT = 1000;
 
   @Output() locationEmitted = new EventEmitter<Location>();
 
@@ -136,10 +140,16 @@ export class MapComponent implements OnInit, OnDestroy {
 
       if (zoomLevel < MapComponent.ZOOM_LIMIT) { return false; }
 
+      const oldCenter = this.gpsService.getCurrentLocation();
+      const viewCenter = view.getCenter();
+      const newCenter = olProj.toLonLat(viewCenter);
+
+      const distance = olGetDistance([oldCenter.longitude, oldCenter.latitude], newCenter);
+
+      if (distance < MapComponent.MOVE_LIMIT) { return false; }
+
       this.locationService.updateLoadingState(true);
-      const center = view.getCenter();
-      const centerLonLat = olProj.toLonLat(center);
-      this.gpsService.setLocation({ longitude: centerLonLat[0], latitude: centerLonLat[1] });
+      this.gpsService.setLocation({ longitude: newCenter[0], latitude: newCenter[1] });
 
       return false;
     });

@@ -45,7 +45,7 @@ export class GpsService {
   }
 
   public getCurrentLocation(): GpsCoordinates {
-    return this.coordinates.value;
+    return this.coordinates.getValue();
   }
 
   private updateRealGpsPostion() {
