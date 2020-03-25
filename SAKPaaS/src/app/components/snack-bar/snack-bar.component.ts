@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { SnackBarTypes } from 'src/app/core/models/snack-bar.interface';
+import { MatSnackBar, MatSnackBarConfig, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
+import { SnackBarTypes, ISnackBar } from 'src/app/core/models/snack-bar.interface';
 
 @Component({
   selector: 'app-snack-bar',
@@ -10,6 +10,10 @@ import { SnackBarTypes } from 'src/app/core/models/snack-bar.interface';
 })
 export class SnackBarComponent implements OnInit {
 
+  private snackBarRef: MatSnackBarRef<SimpleSnackBar>;
+
+  private notificationQueue: ISnackBar[] = [];
+
   constructor(
     private snackBarService: SnackBarService,
     private snackBar: MatSnackBar
@@ -17,30 +21,51 @@ export class SnackBarComponent implements OnInit {
 
   ngOnInit(): void {
     this.snackBarService.getNotification().subscribe(notification => {
-      const config = this.getConfigForSnackBarType(notification.type);
-
-      console.log(config);
-
-      this.snackBar.open(notification.message, 'X', config);
-      console.log(notification);
+      this.notificationQueue.push(notification);
+      if (!this.snackBarRef) {
+        this.next();
+      }
     });
 
   }
 
-  public getConfigForSnackBarType(type: SnackBarTypes): MatSnackBarConfig {
-    if (type === SnackBarTypes.ERROR) {
-      return {
-        duration: 4000,
-        panelClass: ['error-snack-bar']
-      };
+  private next() {
+    if (this.notificationQueue.length === 0) { return; }
+    const nextNotification = this.notificationQueue.shift();
+
+    const config = this.getConfigForSnackBarType(nextNotification.type);
+
+    if (nextNotification.closeObservable) {
+      config.duration = null;
+      nextNotification.closeObservable.subscribe(() => {
+        this.snackBarRef?.dismiss();
+      });
     }
-    if (type === SnackBarTypes.SUCCESS) {
-      return {
-        duration: 2000,
-        panelClass: ['success-snack-bar']
-      };
-    }
-    return null;
+
+    this.snackBarRef = this.snackBar.open(nextNotification.message, 'X', config);
+    this.snackBarRef.afterDismissed().subscribe(_ => {
+      this.snackBarRef = null;
+      this.next();
+    });
   }
 
+  public getConfigForSnackBarType(type: SnackBarTypes): MatSnackBarConfig {
+    switch (type) {
+      case SnackBarTypes.ERROR:
+        return {
+          duration: 4000,
+          panelClass: ['error-snack-bar']
+        };
+      case SnackBarTypes.SUCCESS:
+        return {
+          duration: 2000,
+          panelClass: ['success-snack-bar']
+        };
+      case SnackBarTypes.INFO:
+        return {
+          duration: 2000,
+          panelClass: ['info-snack-bar']
+        };
+    }
+  }
 }

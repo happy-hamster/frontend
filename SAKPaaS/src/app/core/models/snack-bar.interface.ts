@@ -1,9 +1,13 @@
+import { Observable } from 'rxjs';
+
 export enum SnackBarTypes {
-    ERROR,
-    SUCCESS
+  ERROR,
+  SUCCESS,
+  INFO
 }
 
 export interface ISnackBar {
-    message: string;
-    type: SnackBarTypes;
+  message: string;
+  type: SnackBarTypes;
+  closeObservable?: Observable<null>;
 }

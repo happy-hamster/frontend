@@ -9,10 +9,10 @@ import { GpsService } from 'src/app/core/services/gps.service';
 import { click } from 'ol/events/condition';
 import VectorSource from 'ol/source/Vector';
 import { OLMapMarker } from './ol-map-marker';
-import { Subject, Subscription, Observable, throwError } from 'rxjs';
+import { Subject, Subscription, Observable, throwError, BehaviorSubject } from 'rxjs';
 import VectorLayer from 'ol/layer/Vector';
 import { LocationProviderService } from 'src/app/core/services/location-provider.service';
-import { map, catchError } from 'rxjs/operators';
+import { catchError, filter } from 'rxjs/operators';
 import { Location } from 'src/app/generated/models';
 import { SelectEvent } from 'ol/interaction/Select';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
@@ -26,10 +26,14 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class MapComponent implements OnInit, OnDestroy {
 
+  // minimum zoom level to load/display any locations
+  private static ZOOM_LIMIT = 10;
+
   @Output() locationEmitted = new EventEmitter<Location>();
 
   customMap: Map;
   markers = new Subject<OLMapMarker[]>();
+  zoomLevel = new BehaviorSubject<number>(6);
 
   vectorSource: VectorSource;
   selectEvent: SelectEvent = null;
@@ -49,6 +53,7 @@ export class MapComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.initOLMap();
+    this.initZoomLevelAlert();
 
     this.isLoadingLocations = this.locationService.getLoadingLocationsState();
 
@@ -69,6 +74,8 @@ export class MapComponent implements OnInit, OnDestroy {
         });
         return throwError(err);
       })
+    ).pipe(
+      filter(_ => this.zoomLevel.getValue() > MapComponent.ZOOM_LIMIT)
     ).subscribe((next) => {
       this.locationService.updateLoadingState(false);
       console.log('Fetched new locations');
@@ -123,12 +130,39 @@ export class MapComponent implements OnInit, OnDestroy {
 
     // this listener is called after the user has zoomed/panned/rotated the map
     this.customMap.addEventListener('moveend', () => {
+      const view = this.customMap.getView();
+      const zoomLevel = view.getZoom();
+      this.zoomLevel.next(zoomLevel);
+
+      if (zoomLevel < MapComponent.ZOOM_LIMIT) { return false; }
+
       this.locationService.updateLoadingState(true);
-      const center = this.customMap.getView().getCenter();
+      const center = view.getCenter();
       const centerLonLat = olProj.toLonLat(center);
       this.gpsService.setLocation({ longitude: centerLonLat[0], latitude: centerLonLat[1] });
-      console.log(centerLonLat);
-      return true;
+
+      return false;
+    });
+  }
+
+  private initZoomLevelAlert() {
+    // null if there is no snack bar presented by this component
+    // otherwise contains a subject that is subscribed to by the snack bar and closes it when it emits
+    let closeSubject: Subject<null>;
+
+    this.zoomLevel.subscribe((zoomLevel) => {
+      if (zoomLevel > MapComponent.ZOOM_LIMIT) {
+        closeSubject?.next();
+        closeSubject = null;
+      } else if (closeSubject == null) {
+        closeSubject = new Subject<null>();
+        this.vectorSource.clear();
+        this.snackBarService.sendNotification({
+          message: 'Bitte zoomen Sie weiter rein',
+          type: SnackBarTypes.INFO,
+          closeObservable: closeSubject
+        });
+      }
     });
   }
 
