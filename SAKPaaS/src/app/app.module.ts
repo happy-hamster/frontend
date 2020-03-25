@@ -34,6 +34,7 @@ import { LogoComponent } from './components/logo/logo.component';
 import { GlobalDialogComponent } from './components/global-dialog/global-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
+import { LocateButtonComponent } from './components/locate-button/locate-button.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { CookieService } from 'ngx-cookie-service';
     ImpressumComponent,
     FooterComponent,
     LogoComponent,
-    GlobalDialogComponent
+    GlobalDialogComponent,
+    LocateButtonComponent
   ],
   imports: [
     MatIconModule,
