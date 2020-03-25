@@ -128,7 +128,6 @@ export class MapComponent implements OnInit, OnDestroy {
       const target = e.selected[0] as OLMapMarker;
       if (!target) { return; }
       this.locationEmitted.emit(target.location);
-      console.log(e.selected);
       this.selectEvent = e;
     });
 

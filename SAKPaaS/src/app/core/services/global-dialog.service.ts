@@ -22,7 +22,6 @@ export class GlobalDialogService {
       // width: '250px',
       data: notification
     });
-    console.log(dialogRef);
     return dialogRef.beforeClosed();
   }
 
