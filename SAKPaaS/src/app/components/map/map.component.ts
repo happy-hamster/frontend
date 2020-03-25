@@ -9,12 +9,13 @@ import { GpsService } from 'src/app/core/services/gps.service';
 import { click } from 'ol/events/condition';
 import VectorSource from 'ol/source/Vector';
 import { OLMapMarker } from './ol-map-marker';
-import { Subject, Subscription, Observable, throwError } from 'rxjs';
+import { Subject, Subscription, Observable, throwError, BehaviorSubject } from 'rxjs';
 import VectorLayer from 'ol/layer/Vector';
 import { LocationProviderService } from 'src/app/core/services/location-provider.service';
-import { map, catchError } from 'rxjs/operators';
+import { catchError, filter } from 'rxjs/operators';
 import { Location } from 'src/app/generated/models';
 import { SelectEvent } from 'ol/interaction/Select';
+import { getDistance as olGetDistance } from 'ol/sphere';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { SnackBarTypes } from 'src/app/core/models/snack-bar.interface';
 import { ActivatedRoute } from '@angular/router';
@@ -26,10 +27,17 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class MapComponent implements OnInit, OnDestroy {
 
+  // minimum zoom level to load/display any locations
+  private static ZOOM_LIMIT = 12;
+
+  // minimum distance in meters to trigger a reload
+  private static MOVE_LIMIT = 1000;
+
   @Output() locationEmitted = new EventEmitter<Location>();
 
   customMap: Map;
   markers = new Subject<OLMapMarker[]>();
+  zoomLevel = new BehaviorSubject<number>(6);
 
   vectorSource: VectorSource;
   selectEvent: SelectEvent = null;
@@ -49,6 +57,7 @@ export class MapComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.initOLMap();
+    this.initZoomLevelAlert();
 
     this.isLoadingLocations = this.locationService.getLoadingLocationsState();
 
@@ -69,6 +78,8 @@ export class MapComponent implements OnInit, OnDestroy {
         });
         return throwError(err);
       })
+    ).pipe(
+      filter(_ => this.zoomLevel.getValue() > MapComponent.ZOOM_LIMIT)
     ).subscribe((next) => {
       this.locationService.updateLoadingState(false);
       console.log('Fetched new locations');
@@ -97,7 +108,7 @@ export class MapComponent implements OnInit, OnDestroy {
       ],
       view: new View({
         center: olProj.fromLonLat([this.gpsService.getCurrentLocation().longitude, this.gpsService.getCurrentLocation().latitude]),
-        zoom: 6
+        zoom: this.zoomLevel.getValue()
       }),
     });
 
@@ -117,18 +128,56 @@ export class MapComponent implements OnInit, OnDestroy {
       const target = e.selected[0] as OLMapMarker;
       if (!target) { return; }
       this.locationEmitted.emit(target.location);
-      console.log(e.selected);
       this.selectEvent = e;
     });
 
     // this listener is called after the user has zoomed/panned/rotated the map
     this.customMap.addEventListener('moveend', () => {
+      const view = this.customMap.getView();
+      const zoomLevel = view.getZoom();
+      this.zoomLevel.next(zoomLevel);
+
+      if (zoomLevel < MapComponent.ZOOM_LIMIT) { return false; }
+
+      const oldCenter = this.gpsService.getCurrentLocation();
+      const viewCenter = view.getCenter();
+      const newCenter = olProj.toLonLat(viewCenter);
+
+      const distance = olGetDistance([oldCenter.longitude, oldCenter.latitude], newCenter);
+
+      if (distance < MapComponent.MOVE_LIMIT) { return false; }
+
       this.locationService.updateLoadingState(true);
-      const center = this.customMap.getView().getCenter();
-      const centerLonLat = olProj.toLonLat(center);
-      this.gpsService.setLocation({ longitude: centerLonLat[0], latitude: centerLonLat[1] });
-      console.log(centerLonLat);
-      return true;
+      this.gpsService.setLocation({ longitude: newCenter[0], latitude: newCenter[1] });
+
+      return false;
+    });
+  }
+
+  private initZoomLevelAlert() {
+    // null if there is no snack bar presented by this component
+    // otherwise contains a subject that is subscribed to by the snack bar and closes it when it emits
+    let closeSubject: Subject<null>;
+
+    this.zoomLevel.subscribe((zoomLevel) => {
+      if (zoomLevel > MapComponent.ZOOM_LIMIT) {
+        if (closeSubject) {
+          // forcing a reload
+          this.gpsService.setLocation(this.gpsService.getCurrentLocation());
+          closeSubject.next();
+          closeSubject = null;
+        }
+      } else if (closeSubject == null) {
+        closeSubject = new Subject<null>();
+        this.vectorSource.clear();
+        this.snackBarService.sendNotification({
+          message: 'Bitte zoome näher in die Karte.',
+          type: SnackBarTypes.INFO,
+          closeObservable: closeSubject,
+          big: true,
+          hideCloseButton: true
+        });
+      }
     });
   }
 

@@ -13,21 +13,38 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .success-snack-bar {
-  background-color:  var(--midnight-blue);
+  background-color:  var(--greenblue);
   color: #ffffff;
+  .mat-simple-snackbar-action {
+    color: white;
+  }
 }
 
-.success-snack-bar .mat-simple-snackbar-action {
-  color: var(--grapefruit);
+.info-snack-bar {
+  background-color:  var(--greenish-grey);
+  color: white;
+  .mat-simple-snackbar-action {
+    color: white;
+  }
 }
-  
+
 .error-snack-bar {
     background-color: var(--grapefruit);
     color: #ffffff;
+    .mat-simple-snackbar-action {
+      color: var(--midnight-blue);
+    }
 }
 
-.error-snack-bar .mat-simple-snackbar-action {
-  color: var(--midnight-blue);
+.mat-snack-bar-container {
+  &.close-button-hidden span {
+    width: 100%;
+    text-align: center;
+  }
+  &.big .mat-simple-snackbar {
+    font-size: 1.5rem;
+    line-height: 110%;
+  }
 }
 
 div.ol-zoom {
@@ -59,11 +76,11 @@ div.ol-rotate {
   }
 }
 
-button.ol-zoom-in, button.ol-zoom-out, button.ol-rotate-reset, button.ol-zoom-in:focus, button.ol-zoom-out:focus, button.ol-rotate-reset:focus {   
+button.ol-zoom-in, button.ol-zoom-out, button.ol-rotate-reset, button.ol-zoom-in:focus, button.ol-zoom-out:focus, button.ol-rotate-reset:focus {
   background-color: var(--greenblue);
   font-size: 20px;
 }
 
-button.ol-zoom-in:hover, button.ol-zoom-out:hover, button.ol-rotate-reset:hover {   
+button.ol-zoom-in:hover, button.ol-zoom-out:hover, button.ol-rotate-reset:hover {
   background-color: var(--greenish-grey );
 }

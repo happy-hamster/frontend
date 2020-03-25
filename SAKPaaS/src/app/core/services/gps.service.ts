@@ -45,7 +45,7 @@ export class GpsService {
   }
 
   public getCurrentLocation(): GpsCoordinates {
-    return this.coordinates.value;
+    return this.coordinates.getValue();
   }
 
   private updateRealGpsPostion() {
@@ -53,7 +53,6 @@ export class GpsService {
       navigator.geolocation.getCurrentPosition((position) => {
         const longitude = position.coords.longitude;
         const latitude = position.coords.latitude;
-        console.log(longitude + ' - ' + latitude);
         this.coordinates.next({ longitude, latitude, fromDevice: true });
       }, (positionError) => {
         switch (positionError.code) {
@@ -89,7 +88,7 @@ export class GpsService {
         message: 'Wir konnten deine GPS-Koordinaten nicht abrufen, da dein Browser das nicht unterstützt :(',
         type: SnackBarTypes.ERROR
       });
-      console.log('No support for geolocation');
+      console.warn('No support for geolocation');
       return undefined;
     }
   }
