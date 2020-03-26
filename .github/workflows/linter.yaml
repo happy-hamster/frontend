@@ -22,3 +22,4 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           pattern: '*.ts'
           config: 'SAKPaaS/tslint.json'
+          project: 'SAKPaaS/tsconfig.json'
