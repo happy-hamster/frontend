@@ -20,6 +20,5 @@ jobs:
         uses: mooyoul/tslint-actions@v1.1.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          pattern: '*.ts'
+          pattern: '**/*.ts'
           config: 'SAKPaaS/tslint.json'
-          project: 'SAKPaaS/tsconfig.json'
