@@ -33,23 +33,24 @@ export class LocationDetailsComponent {
   }
 
   getAddressString(location: Location): string {
-    if (!location.street) {
+    if (!location?.address?.street) {
       return this.noAddressMessage;
     }
 
-    let erg = location.street;
+    const address = location.address;
+    let erg = address.street;
 
-    if (location.housenumber) {
-      erg = erg + ' ' + location.housenumber;
+    if (address.housenumber) {
+      erg = erg + ' ' + address.housenumber;
     }
-    if (location.postcode || location.city) {
+    if (address.postcode || address.city) {
       erg = erg + ', ';
     }
-    if (location.postcode) {
-      erg = erg + location.postcode + ' ';
+    if (address.postcode) {
+      erg = erg + address.postcode + ' ';
     }
-    if (location.city) {
-      erg = erg + location.city;
+    if (address.city) {
+      erg = erg + address.city;
     }
     return erg;
   }

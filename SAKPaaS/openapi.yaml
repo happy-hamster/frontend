@@ -7,10 +7,10 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
 servers:
+- url: https://api.HappyHamster.org/v1
+  description: HappyHamster Production
 - url: https://virtserver.swaggerhub.com/SAKPaaS/SAKPaaS/1.0.0
-  description: SwaggerHub API Auto Mocking
-- url: https://api.happyhamster.org/v1
-  description: Production
+  description: Mock-Server Test
 paths:
   /locations:
     get:
@@ -20,22 +20,14 @@ paths:
         Searches for locations in the given range.
       operationId: searchLocations
       parameters:
-      - name: latitude
+      - name: Coordinates
         in: query
         description: Latitude
         required: true
         style: form
         explode: true
         schema:
-          type: number
-      - name: longitude
-        in: query
-        description: Longitude
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: number
+          $ref: '#/components/schemas/Coordinates'
       responses:
         "200":
           description: Success
@@ -60,8 +52,7 @@ paths:
         style: simple
         explode: false
         schema:
-          type: integer
-          format: int64
+          $ref: '#/components/schemas/LocationId'
       responses:
         "200":
           description: Success
@@ -85,14 +76,13 @@ paths:
         style: simple
         explode: false
         schema:
-          type: integer
-          format: int64
+          $ref: '#/components/schemas/LocationId'
       requestBody:
         description: The estimated occupancy by the buyer
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/body'
+              $ref: '#/components/schemas/OccupancyReport'
         required: true
       responses:
         "200":
@@ -103,65 +93,105 @@ paths:
                 $ref: '#/components/schemas/Location'
         "400":
           description: Malformed request
-  /locations/{id}/check-in:
-    post:
-      tags:
-      - Occupancy
-      description: |
-        Check in to the Supermarket.
-      parameters:
-      - name: id
-        in: path
-        description: id of the place
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: integer
-          format: int64
-      responses:
-        "204":
-          description: Success
-        "404":
-          description: Not found
 components:
   schemas:
     Location:
+      title: Location
       required:
+      - address
+      - coordinates
       - id
-      - latitude
-      - longitude
       - name
       - occupancy
       type: object
       properties:
         id:
-          type: integer
-          format: int64
-          example: 73621836
+          $ref: '#/components/schemas/LocationId'
         name:
           type: string
           example: LIDL Mannheim Marktplatz
+        details:
+          $ref: '#/components/schemas/LocationDetails'
+        coordinates:
+          $ref: '#/components/schemas/Coordinates'
+        occupancy:
+          $ref: '#/components/schemas/Occupancy'
+        address:
+          $ref: '#/components/schemas/Address'
+      description: A physical location which represents a supermarket or similar
+      nullable: false
+    LocationId:
+      title: Location ID
+      type: integer
+      description: Location unique identifier
+      format: int64
+      nullable: false
+      example: 73621836
+    LocationDetails:
+      title: Location details
+      type: object
+      properties:
+        type:
+          title: Type
+          type: string
+          description: Type of the shop
+          nullable: true
+          enum:
+          - supermarket
+          - chemist
+        brand:
+          title: Brand
+          type: string
+          description: Brand of the shop
+          nullable: true
+          example: LIDL
+        openingHours:
+          title: Opening hours
+          type: string
+          description: Opening hours of the shop
+          nullable: true
+          example: Mo-Fr 7-22 Uhr, Sa-So 9-12 Uhr
+      description: Locaiton details
+      nullable: false
+    Address:
+      title: Address
+      required:
+      - city
+      - country
+      - housenumber
+      - postcode
+      - street
+      type: object
+      properties:
         country:
           type: string
+          nullable: true
           example: DE
         city:
           type: string
+          nullable: true
           example: Mannheim
         postcode:
           type: string
+          nullable: true
           example: "68161"
         street:
           type: string
+          nullable: true
           example: Hauptstraße
         housenumber:
           type: string
+          nullable: true
           example: 1-5
-        occupancy:
-          title: Occupancy
-          maximum: 1
-          minimum: 0
-          type: number
+      description: Physical address
+      nullable: false
+    Coordinates:
+      title: Coordinates
+      required:
+      - latitude
+      - longitude
+      type: object
+      properties:
         latitude:
           title: Latitude
           type: number
@@ -170,16 +200,52 @@ components:
           title: Longitude
           type: number
           example: 8.3563969
-    body:
+      nullable: false
+    Occupancy:
+      title: Occupancy
+      required:
+      - count
+      - value
       type: object
       properties:
-        occupancy:
+        value:
+          title: Value
           maximum: 1
           minimum: 0
           type: number
+          description: Occupancy in percent.
+          nullable: true
+          example: 0.66
+        count:
+          title: Count
+          minimum: 0
+          type: integer
+          description: Number of datapoints used for the value calculation.
+          nullable: false
+          example: 2
+      nullable: false
+    OccupancyReport:
+      title: Occupancy Report
+      required:
+      - clientType
+      - occupancy
+      type: object
+      properties:
+        occupancy:
+          title: Occupancy
+          maximum: 1
+          minimum: 0
+          type: number
+          description: Occupancy
+          nullable: false
           example: 0.75
         clientType:
+          title: Client Type
           type: string
+          description: Type of the client which reported the occupancy
+          nullable: false
           enum:
           - IOT
           - WEB_APP
+      description: Occupancy report to send
+      nullable: false

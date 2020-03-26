@@ -26,11 +26,12 @@ export class OLMapMarker extends Feature {
   public location: Location;
 
   constructor(locationMarker: Location) {
+    const coords = locationMarker.coordinates;
     super({
-      geometry: new Point(olProj.fromLonLat([locationMarker.longitude, locationMarker.latitude])),
+      geometry: new Point(olProj.fromLonLat([coords.longitude, coords.latitude])),
     });
     this.location = locationMarker;
-    const occupancy = locationMarker.occupancy;
+    const occupancy = locationMarker.occupancy.value;
     if (occupancy == null || occupancy < 0) {
       this.setStyle(OLMapMarker.markerStyleUndefined);
     } else {

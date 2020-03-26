@@ -8,7 +8,9 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
+import { Coordinates } from '../models/coordinates';
 import { Location } from '../models/location';
+import { LocationId } from '../models/location-id';
 
 @Injectable({
   providedIn: 'root',
@@ -39,20 +41,14 @@ export class LocationsService extends BaseService {
     /**
      * Latitude
      */
-    latitude: number;
-
-    /**
-     * Longitude
-     */
-    longitude: number;
+    coordinates: Coordinates;
 
   }): Observable<StrictHttpResponse<Array<Location>>> {
 
     const rb = new RequestBuilder(this.rootUrl, LocationsService.SearchLocationsPath, 'get');
     if (params) {
 
-      rb.query('latitude', params.latitude);
-      rb.query('longitude', params.longitude);
+      rb.query('Coordinates', params.coordinates);
 
     }
     return this.http.request(rb.build({
@@ -79,12 +75,7 @@ export class LocationsService extends BaseService {
     /**
      * Latitude
      */
-    latitude: number;
-
-    /**
-     * Longitude
-     */
-    longitude: number;
+    coordinates: Coordinates;
 
   }): Observable<Array<Location>> {
 
@@ -111,7 +102,7 @@ export class LocationsService extends BaseService {
     /**
      * id
      */
-    id: number;
+    id: LocationId;
 
   }): Observable<StrictHttpResponse<Location>> {
 
@@ -145,7 +136,7 @@ export class LocationsService extends BaseService {
     /**
      * id
      */
-    id: number;
+    id: LocationId;
 
   }): Observable<Location> {
 

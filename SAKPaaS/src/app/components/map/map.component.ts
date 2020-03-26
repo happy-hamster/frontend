@@ -191,7 +191,7 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   public zoomToNewLocation(location: Location): void {
-    this.customMap.getView().setCenter(olProj.fromLonLat([location.longitude, location.latitude]));
+    this.customMap.getView().setCenter(olProj.fromLonLat([location.coordinates.longitude, location.coordinates.latitude]));
     this.customMap.getView().setZoom(16);
   }
 

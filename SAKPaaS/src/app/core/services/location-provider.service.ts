@@ -20,7 +20,7 @@ export class LocationProviderService {
     this.gpsService.getLocation().pipe(
       filter(coords => !!coords),
       switchMap(coords => {
-        return this.locationApiService.searchLocations(coords);
+        return this.locationApiService.searchLocations({ coordinates: coords });
       })
     ).subscribe(this.locations$);
   }
