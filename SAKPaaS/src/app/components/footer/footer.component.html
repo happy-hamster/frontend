@@ -11,6 +11,8 @@
     <a target="_blank" href="https://www.youtube.com/channel/UCEYDgvcxXbOLIrKXZcC4nCA">
         <img src="assets/icons/social-media/youtube.svg">
     </a>
+    <button mat-button (click)="toggleLanguage()">{{ selectedLanguage === 'de' ? 'EN' : 'DE'}}</button>
+    <span>{{ 'test' | translate }}</span>
     <div class="line-break"></div>
     <a href="https://welcome.happyhamster.org/">Über uns</a>
     <a href="/impressum">Impressum</a>

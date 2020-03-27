@@ -19,6 +19,7 @@ import { getDistance as olGetDistance } from 'ol/sphere';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { SnackBarTypes } from 'src/app/core/models/snack-bar.interface';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-map',
@@ -50,9 +51,14 @@ export class MapComponent implements OnInit, OnDestroy {
     private gpsService: GpsService,
     private locationService: LocationProviderService,
     private snackBarService: SnackBarService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private translate: TranslateService
   ) {
   }
+
+  useLanguage(language: string) {
+    this.translate.use(language);
+}
 
   ngOnInit(): void {
 
