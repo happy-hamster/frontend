@@ -13,12 +13,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: Prepare
-        run: cd SAKPaaS && npm ci
-
       - name: Lint
         uses: mooyoul/tslint-actions@v1.1.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          pattern: '**/*.ts'
+          pattern: 'SAKPaaS/src/**/*.ts'
           config: 'SAKPaaS/tslint.json'
