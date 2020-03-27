@@ -11,16 +11,13 @@ import { SearchBarComponent } from '../search-bar/search-bar.component';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   selectedLocation$: Observable<Location>;
 
   @ViewChild(MapComponent) mapComp: MapComponent;
   @ViewChild(SearchBarComponent) searchComp: SearchBarComponent;
 
   constructor(private _bottomSheet: MatBottomSheet) {
-  }
-
-  ngOnInit(): void {
   }
 
   onLocationEmitted(location: Location, fromMap: boolean) {

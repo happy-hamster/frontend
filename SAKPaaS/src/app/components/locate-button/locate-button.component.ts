@@ -6,14 +6,11 @@ import {GpsService} from "../../core/services/gps.service";
   templateUrl: './locate-button.component.html',
   styleUrls: ['./locate-button.component.scss']
 })
-export class LocateButtonComponent implements OnInit {
+export class LocateButtonComponent {
 
   constructor(private gpsService: GpsService) { }
 
-  ngOnInit(): void {
-  }
-
-   loadPosition(): void {
+  loadPosition(): void {
     this.gpsService.updateRealGpsPostion();
   }
 }
