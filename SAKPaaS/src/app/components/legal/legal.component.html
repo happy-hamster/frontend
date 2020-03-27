@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="button-row top-button">
+        <button mat-raised-button class="back" routerLink="home">
+          Zurück zu HappyHamster
+        </button>
+    </div>
+    <mat-tab-group mat-align-tabs="center"> 
+        <mat-tab label="Impressum">
+            <ng-template matTabContent>
+                <app-impressum></app-impressum>
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="Datenschutzerklärug">
+            <ng-template matTabContent>
+                <app-privacy-policy></app-privacy-policy>
+            </ng-template>
+        </mat-tab>
+    </mat-tab-group>
+
+    <div class="button-row">
+        <button mat-raised-button class="back" routerLink="home">
+          Zurück zu HappyHamster
+        </button>
+    </div>
+</div>
