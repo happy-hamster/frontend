@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
   @ViewChild(MapComponent) mapComp: MapComponent;
   @ViewChild(SearchBarComponent) searchComp: SearchBarComponent;
 
-  constructor(private _bottomSheet: MatBottomSheet) {
+  constructor(private bottomSheet: MatBottomSheet) {
   }
 
   ngOnInit(): void {
@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
   }
 
   openBottomSheet(fromMap: boolean): void {
-    const bottomSheetRef = this._bottomSheet.open(LocationDetailsComponent, { data: this.selectedLocation$, disableClose: true });
+    const bottomSheetRef = this.bottomSheet.open(LocationDetailsComponent, { data: this.selectedLocation$, disableClose: true });
     // Because of the maps weird interaction behaviours we need this workaround
     setTimeout(() => {
       bottomSheetRef.disableClose = false;
