@@ -53,7 +53,7 @@ import { CookieService } from 'ngx-cookie-service';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    ApiModule.forRoot({ rootUrl: 'https://virtserver.swaggerhub.com/SAKPaaS/SAKPaaS/1.0.0' }),
+    ApiModule.forRoot({ rootUrl: 'http://api.happyhamster.org/' }),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

@@ -25,13 +25,179 @@ class ParameterCodec implements HttpParameterCodec {
 const ParameterCodecInstance = new ParameterCodec();
 
 /**
+ * Defines the options for appending a parameter
+ */
+interface ParameterOptions {
+  style?: string;
+  explode?: boolean;
+}
+
+/**
+ * Base class for a parameter
+ */
+abstract class Parameter {
+  constructor(public name: string, public value: any, public options: ParameterOptions, defaultStyle: string, defaultExplode: boolean) {
+    this.options = options || {};
+    if (this.options.style === null || this.options.style === undefined) {
+      this.options.style = defaultStyle;
+    }
+    if (this.options.explode === null || this.options.explode === undefined) {
+      this.options.explode = defaultExplode;
+    }
+  }
+
+  serializeValue(value: any, separator = ','): string {
+    if (value instanceof Array) {
+      return value.join(separator);
+    } else if (typeof value === 'object') {
+      const array: string[] = [];
+      for (const key of Object.keys(value)) {
+        const propVal = value[key];
+        if (propVal !== null && propVal !== undefined) {
+          if (this.options.explode) {
+            array.push(`${key}=${propVal}`);
+          } else {
+            array.push(key);
+            array.push(propVal);
+          }
+        }
+      }
+      return array.join(separator);
+    } else if (value === null || value === undefined) {
+      return '';
+    } else {
+      return String(value);
+    }
+  }
+}
+
+/**
+ * A parameter in the operation path
+ */
+class PathParameter extends Parameter {
+  constructor(name: string, value: any, options: ParameterOptions) {
+    super(name, value, options, 'simple', false);
+  }
+
+  append(path: string): string {
+    let value = this.value;
+    if (value === null || value === undefined) {
+      value = '';
+    }
+    let prefix = this.options.style === 'label' ? '.' : '';
+    let separator = this.options.explode ? prefix === '' ? ',' : prefix : ',';
+    if (this.options.style === 'matrix') {
+      // The parameter name is just used as prefix, except in some cases...
+      prefix = `;${this.name}=`;
+      if (this.options.explode && typeof value === 'object') {
+        prefix = ';';
+        if (value instanceof Array) {
+          // For arrays we have to repeat the name for each element
+          value = value.map(v => `${this.name}=${this.serializeValue(v, ';')}`);
+          separator = ';';
+        } else {
+          // For objects we have to put each the key / value pairs
+          value = this.serializeValue(value, ';');
+        }
+      }
+    }
+    value = prefix + this.serializeValue(value, separator);
+    // Replace both the plain variable and the corresponding variant taking in the prefix and explode into account
+    path = path.replace(`{${this.name}}`, value);
+    path = path.replace(`{${prefix}${this.name}${this.options.explode ? '*' : ''}}`, value);
+    return path;
+  }
+}
+
+/**
+ * A parameter in the query
+ */
+class QueryParameter extends Parameter {
+  constructor(name: string, value: any, options: ParameterOptions) {
+    super(name, value, options, 'form', true);
+  }
+
+  append(params: HttpParams): HttpParams {
+    if (this.value instanceof Array) {
+      // Array serialization
+      if (this.options.explode) {
+        for (const v of this.value) {
+          params = params.append(this.name, this.serializeValue(v));
+        }
+      } else {
+        const separator = this.options.style === 'spaceDelimited'
+          ? ' ' : this.options.style === 'pipeDelimited'
+            ? '|' : ',';
+        return params.append(this.name, this.serializeValue(this.value, separator));
+      }
+    } else if (typeof this.value === 'object') {
+      // Object serialization
+      if (this.options.style === 'deepObject') {
+        // Append a parameter for each key, in the form `name[key]`
+        for (const key of Object.keys(this.value)) {
+          const propVal = this.value[key];
+          if (propVal !== null && propVal !== undefined) {
+            params = params.append(`${this.name}[${key}]`, this.serializeValue(propVal));
+          }
+        }
+      } else if (this.options.explode) {
+        // Append a parameter for each key without using the parameter name
+        for (const key of Object.keys(this.value)) {
+          const propVal = this.value[key];
+          if (propVal !== null && propVal !== undefined) {
+            params = params.append(key, this.serializeValue(propVal));
+          }
+        }
+      } else {
+        // Append a single parameter whose values are a comma-separated list of key,value,key,value...
+        const array = [];
+        for (const key of Object.keys(this.value)) {
+          const propVal = this.value[key];
+          if (propVal !== null && propVal !== undefined) {
+            array.push(key);
+            array.push(propVal);
+          }
+        }
+        params = params.append(this.name, this.serializeValue(array));
+      }
+    } else if (this.value !== null && this.value !== undefined) {
+      // Plain value
+      params = params.append(this.name, this.serializeValue(this.value));
+    }
+    return params;
+  }
+}
+
+/**
+ * A parameter in the HTTP request header
+ */
+class HeaderParameter extends Parameter {
+  constructor(name: string, value: any, options: ParameterOptions) {
+    super(name, value, options, 'simple', false);
+  }
+
+  append(headers: HttpHeaders): HttpHeaders {
+    if (this.value !== null && this.value !== undefined) {
+      if (this.value instanceof Array) {
+        for (const v of this.value) {
+          headers = headers.append(this.name, this.serializeValue(v));
+        }
+      } else {
+        headers = headers.append(this.name, this.serializeValue(this.value));
+      }
+    }
+    return headers;
+  }
+}
+
+/**
  * Helper to build http requests from parameters
  */
 export class RequestBuilder {
 
-  private _path = new Map<string, any>();
-  private _query = new Map<string, any>();
-  private _header = new Map<string, any>();
+  private _path = new Map<string, PathParameter>();
+  private _query = new Map<string, QueryParameter>();
+  private _header = new Map<string, HeaderParameter>();
   _bodyContent: any | null;
   _bodyContentType?: string;
 
@@ -44,28 +210,22 @@ export class RequestBuilder {
   /**
    * Sets a path parameter
    */
-  path(name: string, value: any): void {
-    if (value !== null && value !== undefined) {
-      this._path.set(name, value);
-    }
+  path(name: string, value: any, options?: ParameterOptions): void {
+    this._path.set(name, new PathParameter(name, value, options || {}));
   }
 
   /**
    * Sets a query parameter
    */
-  query(name: string, value: any): void {
-    if (value !== null && value !== undefined) {
-      this._query.set(name, value);
-    }
+  query(name: string, value: any, options?: ParameterOptions): void {
+    this._query.set(name, new QueryParameter(name, value, options || {}));
   }
 
   /**
    * Sets a header parameter
    */
-  header(name: string, value: any): void {
-    if (value !== null && value !== undefined) {
-      this._header.set(name, value);
-    }
+  header(name: string, value: any, options?: ParameterOptions): void {
+    this._header.set(name, new HeaderParameter(name, value, options || {}));
   }
 
   /**
@@ -137,7 +297,7 @@ export class RequestBuilder {
   /**
    * Builds the request with the current set parameters
    */
-  build<T=any>(options?: {
+  build<T = any>(options?: {
     /** Which content types to accept */
     accept?: string;
 
@@ -152,9 +312,8 @@ export class RequestBuilder {
 
     // Path parameters
     let path = this.operationPath;
-    for (const param of Array.from(this._path.keys())) {
-      const item = this._path.get(param);
-      path = path.replace(`{${param}}`, (item !== undefined && item !== null ? item : '').toString());
+    for (const pathParam of this._path.values()) {
+      path = pathParam.append(path);
     }
     const url = this.rootUrl + path;
 
@@ -162,15 +321,8 @@ export class RequestBuilder {
     let httpParams = new HttpParams({
       encoder: ParameterCodecInstance
     });
-    for (const param of Array.from(this._query.keys())) {
-      const value = this._query.get(param);
-      if (value instanceof Array) {
-        for (const item of value) {
-          httpParams = httpParams.append(param, (item !== undefined && item !== null ? item : '').toString());
-        }
-      } else {
-        httpParams = httpParams.set(param, (value !== undefined && value !== null ? value : '').toString());
-      }
+    for (const queryParam of this._query.values()) {
+      httpParams = queryParam.append(httpParams);
     }
 
     // Header parameters
@@ -178,15 +330,8 @@ export class RequestBuilder {
     if (options.accept) {
       httpHeaders = httpHeaders.append('Accept', options.accept);
     }
-    for (const param of Array.from(this._header.keys())) {
-      const value = this._header.get(param);
-      if (value instanceof Array) {
-        for (const item of value) {
-          httpHeaders = httpHeaders.append(param, (item !== undefined && item !== null ? item : '').toString());
-        }
-      } else {
-        httpHeaders = httpHeaders.set(param, (value !== undefined && value !== null ? value : '').toString());
-      }
+    for (const headerParam of this._header.values()) {
+      httpHeaders = headerParam.append(httpHeaders);
     }
 
     // Request content headers
