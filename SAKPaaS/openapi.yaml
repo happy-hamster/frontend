@@ -205,6 +205,7 @@ components:
       title: Occupancy
       required:
       - count
+      - lastReport
       - value
       type: object
       properties:
@@ -223,6 +224,13 @@ components:
           description: Number of datapoints used for the value calculation.
           nullable: false
           example: 2
+        latestReport:
+          title: Latest Report
+          type: string
+          description: Time of the latest report that was considered to calculate
+            occupancy
+          format: date-time
+          nullable: true
       nullable: false
     OccupancyReport:
       title: Occupancy Report
