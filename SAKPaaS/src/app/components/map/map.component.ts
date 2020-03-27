@@ -1,10 +1,10 @@
-import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter,  OnDestroy } from '@angular/core';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import { OSM } from 'ol/source';
 import * as olProj from 'ol/proj';
-import { defaults as defaultInteractions, Translate, Select } from 'ol/interaction';
+import { defaults as defaultInteractions, Select } from 'ol/interaction';
 import { GpsService } from 'src/app/core/services/gps.service';
 import { click } from 'ol/events/condition';
 import VectorSource from 'ol/source/Vector';
@@ -43,6 +43,8 @@ export class MapComponent implements OnInit, OnDestroy {
   selectEvent: SelectEvent = null;
 
   isLoadingLocations: Observable<boolean>;
+
+  closeSubject: Subject<null>;
 
   private subscriptions = new Subscription();
 
@@ -155,26 +157,24 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   private initZoomLevelAlert() {
-    // null if there is no snack bar presented by this component
-    // otherwise contains a subject that is subscribed to by the snack bar and closes it when it emits
-    let closeSubject: Subject<null>;
-
     this.zoomLevel.subscribe((zoomLevel) => {
       if (zoomLevel > MapComponent.ZOOM_LIMIT) {
-        if (closeSubject) {
+        if (this.closeSubject) {
           // forcing a reload
           this.gpsService.setLocation(this.gpsService.getCurrentLocation());
-          closeSubject.next();
-          closeSubject = null;
+          this.closeSubject.next();
+          this.closeSubject = null;
         }
-      } else if (closeSubject == null) {
-        closeSubject = new Subject<null>();
+      } else if (this.closeSubject == null) {
+        this.closeSubject = new Subject<null>();
+        // null if there is no snack bar presented by this component
+        // otherwise contains a subject that is subscribed to by the snack bar and closes it when it emits
         this.vectorSource.clear();
         this.snackBarService.sendNotification({
           message: 'Bitte zoome näher in die Karte.',
           type: SnackBarTypes.INFO,
-          closeObservable: closeSubject,
-          big: true,
+          closeObservable: this.closeSubject,
+          big: false,
           hideCloseButton: true
         });
       }
@@ -183,6 +183,7 @@ export class MapComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
+    this.closeSubject?.next();
   }
 
   deselect(): void {
