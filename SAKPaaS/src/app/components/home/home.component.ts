@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Location } from '../../generated/models/location';
 import { Observable, of } from 'rxjs';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
@@ -17,7 +17,7 @@ export class HomeComponent {
   @ViewChild(MapComponent) mapComp: MapComponent;
   @ViewChild(SearchBarComponent) searchComp: SearchBarComponent;
 
-  constructor(private _bottomSheet: MatBottomSheet) {
+  constructor(private bottomSheet: MatBottomSheet) {
   }
 
   onLocationEmitted(location: Location, fromMap: boolean) {
@@ -29,7 +29,7 @@ export class HomeComponent {
   }
 
   openBottomSheet(fromMap: boolean): void {
-    const bottomSheetRef = this._bottomSheet.open(LocationDetailsComponent, { data: this.selectedLocation$, disableClose: true });
+    const bottomSheetRef = this.bottomSheet.open(LocationDetailsComponent, { data: this.selectedLocation$, disableClose: true });
     // Because of the maps weird interaction behaviours we need this workaround
     setTimeout(() => {
       bottomSheetRef.disableClose = false;
