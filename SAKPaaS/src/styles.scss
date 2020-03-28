@@ -50,7 +50,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 div.ol-zoom {
   top: auto;
   left: auto;
-  bottom: 80px;
+  bottom: 40px;
   right: 30px;
   background-color: transparent;
 }
@@ -66,6 +66,7 @@ div.ol-rotate {
   bottom: 140px;
   background-color: transparent;
   color: white;
+  border-radius: 7px;
 }
 
 @media (max-width: 600px) {
@@ -74,13 +75,15 @@ div.ol-rotate {
   }
 
   div.ol-rotate {
-    bottom: 85px;
+    bottom: 40px;
+    right: 80px;
   }
 }
 
 button.ol-zoom-in, button.ol-zoom-out, button.ol-rotate-reset, button.ol-zoom-in:focus, button.ol-zoom-out:focus, button.ol-rotate-reset:focus {
   background-color: var(--greenblue);
   font-size: 20px;
+  border-radius: 7px !important;
 }
 
 button.ol-zoom-in:hover, button.ol-zoom-out:hover, button.ol-rotate-reset:hover {
