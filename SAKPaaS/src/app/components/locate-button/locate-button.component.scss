@@ -1,30 +1,16 @@
 button {
   position: fixed;
-  right: 58px;
-  top: 58px;
-  background-color: white;
+  right: 30px;
+  bottom: 40px;
   border: none;
   border-radius: 200px;
   width: 34px;
   height: 34px;
-  color: var(--greenblue);
+  background-color: var(--greenblue);
+  color: white;
   padding: 0;
   box-shadow: 0 5px 20px 0 rgba(11, 0, 51, 0.2);
   * {
     margin: 5px;
-  }
-}
-
-@media (max-width: 960px) {
-  button {
-    top: 130px;
-    right: 5%;
-  }
-}
-
-@media (max-width: 600px) {
-  button {
-    top: 105px;
-    right: 30px;
   }
 }
