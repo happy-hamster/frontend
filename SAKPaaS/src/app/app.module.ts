@@ -28,12 +28,12 @@ import { environment } from '../environments/environment';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MapComponent } from 'src/app/components/map/map.component';
-import { ImpressumComponent } from './components/impressum/impressum.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LogoComponent } from './components/logo/logo.component';
 import { GlobalDialogComponent } from './components/global-dialog/global-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
+import { LocateButtonComponent } from './components/locate-button/locate-button.component';
 
 @NgModule({
   declarations: [
@@ -43,10 +43,10 @@ import { CookieService } from 'ngx-cookie-service';
     OccupancyViewComponent,
     SearchBarComponent,
     MapComponent,
-    ImpressumComponent,
     FooterComponent,
     LogoComponent,
-    GlobalDialogComponent
+    GlobalDialogComponent,
+    LocateButtonComponent
   ],
   imports: [
     MatIconModule,

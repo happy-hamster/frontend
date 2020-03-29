@@ -48,7 +48,7 @@ export class GpsService {
     return this.coordinates.getValue();
   }
 
-  private updateRealGpsPostion() {
+  public updateRealGpsPostion() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         const longitude = position.coords.longitude;
