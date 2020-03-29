@@ -28,7 +28,7 @@ import { ActivatedRoute } from '@angular/router';
 export class MapComponent implements OnInit, OnDestroy {
 
   // minimum zoom level to load/display any locations
-  private static ZOOM_LIMIT = 12;
+  private static ZOOM_LIMIT = 11;
 
   // minimum distance in meters to trigger a reload
   private static MOVE_LIMIT = 1000;
