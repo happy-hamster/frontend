@@ -1,0 +1,28 @@
+button {
+  margin: 3px;
+  position: fixed;
+  width: 27.5px;
+  height: 27.5px;
+  right: 30px;
+  bottom: 105px;
+  border: none;
+  border-radius: 7px;
+  background-color: var(--greenblue);
+  color: white;
+  padding: 0;
+  box-shadow: 0 5px 20px 0 rgba(11, 0, 51, 0.2);
+  ::ng-deep * {
+    padding: 3.75px;
+    font-size: 20px;
+  }
+  :hover {
+    background-color: var(--greenish-grey);
+    border-radius: 7px;
+  }
+}
+
+@media (max-width: 600px) {
+  button {
+    bottom: 40px;
+  }
+}
