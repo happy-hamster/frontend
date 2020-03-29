@@ -25,13 +25,13 @@ export class GpsService {
       this.askForPermission().then((granted) => {
         if (granted) {
           this.cookieService.set(GpsService.PERMISSION_COOKIE_NAME, 'true', 5);
-          this.updateRealGpsPostion();
+          this.updateRealGpsPosition();
         } else {
           console.warn('Access to GPS position denied. What to do?');
         }
       });
     } else {
-      this.updateRealGpsPostion();
+      this.updateRealGpsPosition();
     }
   }
 
@@ -48,7 +48,7 @@ export class GpsService {
     return this.coordinates.getValue();
   }
 
-  public updateRealGpsPostion() {
+  public updateRealGpsPosition() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         const longitude = position.coords.longitude;
