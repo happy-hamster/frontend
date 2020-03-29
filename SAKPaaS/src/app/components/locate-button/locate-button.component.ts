@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {GpsService} from "../../core/services/gps.service";
+import {GpsService} from '../../core/services/gps.service';
 
 @Component({
   selector: 'app-locate-button',
