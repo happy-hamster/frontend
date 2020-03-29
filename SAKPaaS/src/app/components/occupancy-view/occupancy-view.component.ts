@@ -52,16 +52,20 @@ export class OccupancyViewComponent implements OnInit {
   }
 
   getStringForOcc(low: string, mid: string, high: string, noData: string): string {
-    if (!this.occupancy || this.occupancy < 0)
+    if (!this.occupancy || this.occupancy < 0) {
       return noData;
-    if (this.occupancy < this.lowBorder)
+    }
+    if (this.occupancy < this.lowBorder) {
       return low;
+    }
 
-    if (this.occupancy < this.midBorder)
+    if (this.occupancy < this.midBorder) {
       return mid;
+    }
 
-    if (this.occupancy <= 1)
+    if (this.occupancy <= 1) {
       return high;
+    }
 
     return noData;
   }
