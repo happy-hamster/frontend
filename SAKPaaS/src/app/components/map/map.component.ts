@@ -181,11 +181,6 @@ export class MapComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
-    this.subscriptions.unsubscribe();
-    this.closeSubject?.next();
-  }
-
   deselect(): void {
     this.selectEvent.target.getFeatures().clear();
     this.selectEvent = null;
@@ -200,7 +195,6 @@ export class MapComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.locationService.fetchLocationById(id).pipe(
         catchError(err => {
-          console.log(':((');
           this.snackBarService.sendNotification({
             message: 'Leider konnten wir deinen gesuchten Laden nicht finden :(',
             type: SnackBarTypes.ERROR
@@ -231,6 +225,11 @@ export class MapComponent implements OnInit, OnDestroy {
         this.customMap.getView().setZoom(15);
       }
     }));
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
+    this.closeSubject?.next();
   }
 }
 
