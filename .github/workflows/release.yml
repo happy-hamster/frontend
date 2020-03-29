@@ -21,23 +21,23 @@ jobs:
 
       - name: Build image
         if: success()
-        run: docker build -t sakpaas/frontend:release-${GITHUB_REF} .
+        run: docker build -t sakpaas/frontend:release-${GITHUB_REF##*/} .
 
       - name: Tag image
         if: success()
-        run: docker tag sakpaas/frontend:release-${GITHUB_REF} sakpaas/frontend:latest
+        run: docker tag sakpaas/frontend:release-${GITHUB_REF##*/} sakpaas/frontend:latest
 
       - name: Push <image>:release-<tag>
         if: success()
         uses: actions-hub/docker@master
         with:
-          args: push sakpaas/frontend:${GITHUB_REF}
+          args: push sakpaas/frontend:release-${GITHUB_REF##*/}
 
       - name: Push <image>:latest
         if: success()
         uses: actions-hub/docker@master
         with:
-          args: push sakpaas/frontend:release-${GITHUB_REF}
+          args: push sakpaas/frontend:latest
 
 
   deploy:
@@ -55,7 +55,7 @@ jobs:
         uses: stefanprodan/kube-tools@v1
         with:
           kustomize: 3.4.0
-          command: "cd frontend/production && kustomize edit set image sakpaas/frontend=sakpaas/frontend:release-${GITHUB_REF}"
+          command: "cd frontend/production && kustomize edit set image sakpaas/frontend=sakpaas/frontend:release-${GITHUB_REF##*/}"
 
       - name: Deploy
         uses: actions-hub/kubectl@master

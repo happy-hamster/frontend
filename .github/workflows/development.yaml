@@ -1,8 +1,9 @@
 name: Development
 
 on:
-  pull_request:
-    types: [closed]
+  push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -23,11 +24,21 @@ jobs:
         if: success()
         run: docker build -t sakpaas/frontend:dev-${GITHUB_SHA} .
 
+      - name: Tag image
+        if: success()
+        run: docker tag sakpaas/frontend:dev-${GITHUB_SHA} sakpaas/frontend:development
+
       - name: Push <image>:development
         if: success()
         uses: actions-hub/docker@master
         with:
           args: push sakpaas/frontend:dev-${GITHUB_SHA}
+
+      - name: Push <image>:development
+        if: success()
+        uses: actions-hub/docker@master
+        with:
+          args: push sakpaas/frontend:development
 
 
   deploy:
