@@ -11,6 +11,6 @@ export class LocateButtonComponent {
   constructor(private gpsService: GpsService) { }
 
   loadPosition(): void {
-    this.gpsService.updateRealGpsPostion();
+    this.gpsService.updateRealGpsPosition();
   }
 }

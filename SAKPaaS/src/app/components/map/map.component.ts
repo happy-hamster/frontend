@@ -28,7 +28,7 @@ import { ActivatedRoute } from '@angular/router';
 export class MapComponent implements OnInit, OnDestroy {
 
   // minimum zoom level to load/display any locations
-  private static ZOOM_LIMIT = 12;
+  private static ZOOM_LIMIT = 11;
 
   // minimum distance in meters to trigger a reload
   private static MOVE_LIMIT = 1000;
@@ -63,32 +63,32 @@ export class MapComponent implements OnInit, OnDestroy {
 
     this.isLoadingLocations = this.locationService.getLoadingLocationsState();
 
-    this.route.queryParams.subscribe((params) => {
-      if (params.id) {
-        this.loadPositionFromLocation(params.id);
-      } else {
-        this.loadGpsPosition();
-      }
-    });
+    this.loadGpsPosition();
 
-    this.subscriptions.add(this.locationService.fetchLocations().pipe(
-      catchError(err => {
+    if (this.route.snapshot.queryParamMap.get('id')) {
+      console.log('id: ' + this.route.snapshot.queryParamMap.get('id'));
+      this.loadPositionFromLocation(+this.route.snapshot.queryParamMap.get('id'));
+    }
+
+    this.subscriptions.add(
+      this.locationService.fetchLocations().pipe(
+        catchError(err => {
+          this.locationService.updateLoadingState(false);
+          this.snackBarService.sendNotification({
+            message: 'Beim Aktualisieren der Karte ist ein Fehler aufgetreten. Bitte lade die Seite neu. Sorry :(',
+            type: SnackBarTypes.ERROR
+          });
+          return throwError(err);
+        }),
+        filter(_ => this.zoomLevel.getValue() > MapComponent.ZOOM_LIMIT)
+      ).subscribe((next) => {
         this.locationService.updateLoadingState(false);
-        this.snackBarService.sendNotification({
-          message: 'Beim Aktualisieren der Karte ist ein Fehler aufgetreten. Bitte lade die Seite neu. Sorry :(',
-          type: SnackBarTypes.ERROR
-        });
-        return throwError(err);
+        console.log('Fetched new locations');
+        this.vectorSource.clear();
+        const markers = next.map((l) => new OLMapMarker(l));
+        this.vectorSource.addFeatures(markers);
       })
-    ).pipe(
-      filter(_ => this.zoomLevel.getValue() > MapComponent.ZOOM_LIMIT)
-    ).subscribe((next) => {
-      this.locationService.updateLoadingState(false);
-      console.log('Fetched new locations');
-      this.vectorSource.clear();
-      const markers = next.map((l) => new OLMapMarker(l));
-      this.vectorSource.addFeatures(markers);
-    }));
+    );
 
 
   }
@@ -181,11 +181,6 @@ export class MapComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
-    this.subscriptions.unsubscribe();
-    this.closeSubject?.next();
-  }
-
   deselect(): void {
     this.selectEvent.target.getFeatures().clear();
     this.selectEvent = null;
@@ -197,20 +192,22 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   private loadPositionFromLocation(id: number) {
-    this.subscriptions.add(this.locationService.fetchLocationById(id).pipe(
-      catchError(err => {
-        this.snackBarService.sendNotification({
-          message: 'Leider konnten wir deinen gesuchten Laden nicht finden :(',
-          type: SnackBarTypes.ERROR
-        });
-        return throwError(err);
+    this.subscriptions.add(
+      this.locationService.fetchLocationById(id).pipe(
+        catchError(err => {
+          this.snackBarService.sendNotification({
+            message: 'Leider konnten wir deinen gesuchten Laden nicht finden :(',
+            type: SnackBarTypes.ERROR
+          });
+          return throwError(err);
+        })
+      ).subscribe((location) => {
+        if (location.name) {
+          document.title = 'HappyHamster - ' + location.name;
+        }
+        this.zoomToNewLocation(location);
       })
-    ).subscribe((location) => {
-      if (location.name) {
-        document.title = 'HappyHamster - ' + location.name;
-      }
-      this.zoomToNewLocation(location);
-    }));
+    );
   }
 
   private loadGpsPosition() {
@@ -228,6 +225,11 @@ export class MapComponent implements OnInit, OnDestroy {
         this.customMap.getView().setZoom(15);
       }
     }));
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
+    this.closeSubject?.next();
   }
 }
 
