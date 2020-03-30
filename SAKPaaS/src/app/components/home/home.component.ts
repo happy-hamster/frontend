@@ -17,8 +17,7 @@ export class HomeComponent {
   @ViewChild(MapComponent) mapComp: MapComponent;
   @ViewChild(SearchBarComponent) searchComp: SearchBarComponent;
 
-  constructor(private bottomSheet: MatBottomSheet) {
-  }
+  constructor(private bottomSheet: MatBottomSheet) { }
 
   onLocationEmitted(location: Location, fromMap: boolean) {
     this.selectedLocation$ = of(location);

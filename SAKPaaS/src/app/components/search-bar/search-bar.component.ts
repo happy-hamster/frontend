@@ -4,7 +4,7 @@ import {Observable, merge, of} from 'rxjs';
 import {Location} from '../../generated/models/location';
 import {LocationProviderService} from '../../core/services/location-provider.service';
 import {map, switchMap} from 'rxjs/operators';
-import {MatAutocompleteTrigger} from "@angular/material/autocomplete";
+import {MatAutocompleteTrigger} from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-search-bar',
@@ -28,14 +28,14 @@ export class SearchBarComponent implements OnInit {
           this.searchControl.valueChanges.pipe(
             map(value => {
               if (!value) {
-                return locations
+                return locations;
               }
               value = value.toLowerCase();
               return locations.filter(location => {
                 if (!location.name) {
-                  return false
+                  return false;
                 } else {
-                  return location.name.toLowerCase().includes(value)
+                  return location.name.toLowerCase().includes(value);
                 }
               });
             })

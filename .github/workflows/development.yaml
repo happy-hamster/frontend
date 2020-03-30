@@ -1,0 +1,66 @@
+name: Development
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Build+Push image
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Login to registry
+        if: success()
+        uses: actions-hub/docker/login@master
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build image
+        if: success()
+        run: docker build -t sakpaas/frontend:dev-${GITHUB_SHA} .
+
+      - name: Tag image
+        if: success()
+        run: docker tag sakpaas/frontend:dev-${GITHUB_SHA} sakpaas/frontend:development
+
+      - name: Push <image>:development
+        if: success()
+        uses: actions-hub/docker@master
+        with:
+          args: push sakpaas/frontend:dev-${GITHUB_SHA}
+
+      - name: Push <image>:development
+        if: success()
+        uses: actions-hub/docker@master
+        with:
+          args: push sakpaas/frontend:development
+
+
+  deploy:
+    name: Deployment
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          repository: 'SAKPaaS/deployment'
+
+      - name: Kustomize
+        uses: stefanprodan/kube-tools@v1
+        with:
+          kustomize: 3.4.0
+          command: "cd frontend/development && kustomize edit set image sakpaas/frontend=sakpaas/frontend:dev-${GITHUB_SHA}"
+
+      - name: Deploy
+        uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+        with:
+          args: apply -k frontend/development

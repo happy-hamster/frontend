@@ -1,0 +1,16 @@
+<div class="content">
+  <h1>Cookies</h1>
+  <p>
+    Wir bei HappyHamster verwenden Cookies, um deine Benutzererfahrung zu verbessern.<br>
+    Wir speichern beispielsweise, ob du uns deinen Standortzugriff gewährt hast oder welche Spracheinstellung du favorisierst. <br>
+    Eventuell speichern auch Drittanbieter Cookies, auf die wir leider keinen Einfluss haben.app-impressum
+  </p>
+  <p *ngIf="areCookiesAllowed; else forbidden">
+    Du hast uns aktuell erlaubt, Cookies zu speichern. Falls du die Erlaubnis zurückziehen willst, klicke bitte <a [routerLink]="" (click)="forbidCookies()" >hier</a>.
+  </p>
+  <ng-template #forbidden>
+    <p>
+      Aktuell dürfen wir leider keine Cookies speichern. Falls du es uns doch erlauben möchtest, klicke bitte <a [routerLink]="" (click)="allowCookies()" >hier</a>.
+    </p>
+  </ng-template>
+</div>
