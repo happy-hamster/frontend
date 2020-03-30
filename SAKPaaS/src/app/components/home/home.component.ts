@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Location } from '../../generated/models/location';
 import { Observable, of } from 'rxjs';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
@@ -11,17 +11,13 @@ import { SearchBarComponent } from '../search-bar/search-bar.component';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   selectedLocation$: Observable<Location>;
 
   @ViewChild(MapComponent) mapComp: MapComponent;
   @ViewChild(SearchBarComponent) searchComp: SearchBarComponent;
 
-  constructor(private _bottomSheet: MatBottomSheet) {
-  }
-
-  ngOnInit(): void {
-  }
+  constructor(private bottomSheet: MatBottomSheet) { }
 
   onLocationEmitted(location: Location, fromMap: boolean) {
     this.selectedLocation$ = of(location);
@@ -32,7 +28,7 @@ export class HomeComponent implements OnInit {
   }
 
   openBottomSheet(fromMap: boolean): void {
-    const bottomSheetRef = this._bottomSheet.open(LocationDetailsComponent, { data: this.selectedLocation$, disableClose: true });
+    const bottomSheetRef = this.bottomSheet.open(LocationDetailsComponent, { data: this.selectedLocation$, disableClose: true });
     // Because of the maps weird interaction behaviours we need this workaround
     setTimeout(() => {
       bottomSheetRef.disableClose = false;
