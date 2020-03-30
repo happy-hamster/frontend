@@ -53,7 +53,7 @@ import { CookieService } from 'ngx-cookie-service';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    ApiModule.forRoot({ rootUrl: 'http://api.happyhamster.org/' }),
+    ApiModule.forRoot({ rootUrl: 'http://api.happyhamster.org/v2' }),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
