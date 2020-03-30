@@ -48,8 +48,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 div.ol-zoom {
-  top: 150px;
-  left: 42px; // 42 WUP WUP!
+  top: auto;
+  left: auto;
+  bottom: 40px;
+  right: 30px;
   background-color: transparent;
 }
 
@@ -58,29 +60,38 @@ div.ol-attribution a {
 }
 
 div.ol-rotate {
-  top: 225px;
-  left: 42px;
-  right: auto;
+  top: auto;
+  left: auto;
+  right: 30px;
+  bottom: 140px;
+  background-color: transparent;
+  color: white;
+  border-radius: 7px;
+}
+
+div.ol-control:hover {
   background-color: transparent;
 }
 
 @media (max-width: 600px) {
   div.ol-zoom {
-      top: 100px;
-      left: 15px;
+    display: none;
   }
 
   div.ol-rotate {
-    top: 170px;
-    left: 15px;
+    bottom: 40px;
+    right: 80px;
   }
 }
 
 button.ol-zoom-in, button.ol-zoom-out, button.ol-rotate-reset, button.ol-zoom-in:focus, button.ol-zoom-out:focus, button.ol-rotate-reset:focus {
   background-color: var(--greenblue);
   font-size: 20px;
+  border-radius: 7px !important;
+  box-shadow: 0 5px 20px 0 rgba(11, 0, 51, 0.2);
 }
 
 button.ol-zoom-in:hover, button.ol-zoom-out:hover, button.ol-rotate-reset:hover {
-  background-color: var(--greenish-grey );
+  background-color: var(--greenblue);
+  cursor: pointer;
 }

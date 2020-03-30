@@ -8,7 +8,8 @@ WORKDIR /usr/src/app
 COPY /SAKPaaS/. .
 
 # Install needed node packages
-RUN npm install
+# https://stackoverflow.com/a/59685701
+RUN npm ci
 # Compile source code
 RUN npm run build:prod
 

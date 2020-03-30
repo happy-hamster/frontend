@@ -1,10 +1,10 @@
-import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter,  OnDestroy } from '@angular/core';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import { OSM } from 'ol/source';
 import * as olProj from 'ol/proj';
-import { defaults as defaultInteractions, Translate, Select } from 'ol/interaction';
+import { defaults as defaultInteractions, Select } from 'ol/interaction';
 import { GpsService } from 'src/app/core/services/gps.service';
 import { click } from 'ol/events/condition';
 import VectorSource from 'ol/source/Vector';
@@ -28,7 +28,7 @@ import { ActivatedRoute } from '@angular/router';
 export class MapComponent implements OnInit, OnDestroy {
 
   // minimum zoom level to load/display any locations
-  private static ZOOM_LIMIT = 12;
+  private static ZOOM_LIMIT = 11;
 
   // minimum distance in meters to trigger a reload
   private static MOVE_LIMIT = 1000;
@@ -43,6 +43,8 @@ export class MapComponent implements OnInit, OnDestroy {
   selectEvent: SelectEvent = null;
 
   isLoadingLocations: Observable<boolean>;
+
+  closeSubject: Subject<null>;
 
   private subscriptions = new Subscription();
 
@@ -61,32 +63,32 @@ export class MapComponent implements OnInit, OnDestroy {
 
     this.isLoadingLocations = this.locationService.getLoadingLocationsState();
 
-    this.route.queryParams.subscribe((params) => {
-      if (params.id) {
-        this.loadPositionFromLocation(params.id);
-      } else {
-        this.loadGpsPosition();
-      }
-    });
+    this.loadGpsPosition();
 
-    this.subscriptions.add(this.locationService.fetchLocations().pipe(
-      catchError(err => {
+    if (this.route.snapshot.queryParamMap.get('id')) {
+      console.log('id: ' + this.route.snapshot.queryParamMap.get('id'));
+      this.loadPositionFromLocation(+this.route.snapshot.queryParamMap.get('id'));
+    }
+
+    this.subscriptions.add(
+      this.locationService.fetchLocations().pipe(
+        catchError(err => {
+          this.locationService.updateLoadingState(false);
+          this.snackBarService.sendNotification({
+            message: 'Beim Aktualisieren der Karte ist ein Fehler aufgetreten. Bitte lade die Seite neu. Sorry :(',
+            type: SnackBarTypes.ERROR
+          });
+          return throwError(err);
+        }),
+        filter(_ => this.zoomLevel.getValue() > MapComponent.ZOOM_LIMIT)
+      ).subscribe((next) => {
         this.locationService.updateLoadingState(false);
-        this.snackBarService.sendNotification({
-          message: 'Beim Aktualisieren der Karte ist ein Fehler aufgetreten. Bitte lade die Seite neu. Sorry :(',
-          type: SnackBarTypes.ERROR
-        });
-        return throwError(err);
+        console.log('Fetched new locations');
+        this.vectorSource.clear();
+        const markers = next.map((l) => new OLMapMarker(l));
+        this.vectorSource.addFeatures(markers);
       })
-    ).pipe(
-      filter(_ => this.zoomLevel.getValue() > MapComponent.ZOOM_LIMIT)
-    ).subscribe((next) => {
-      this.locationService.updateLoadingState(false);
-      console.log('Fetched new locations');
-      this.vectorSource.clear();
-      const markers = next.map((l) => new OLMapMarker(l));
-      this.vectorSource.addFeatures(markers);
-    }));
+    );
 
 
   }
@@ -155,34 +157,28 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   private initZoomLevelAlert() {
-    // null if there is no snack bar presented by this component
-    // otherwise contains a subject that is subscribed to by the snack bar and closes it when it emits
-    let closeSubject: Subject<null>;
-
     this.zoomLevel.subscribe((zoomLevel) => {
       if (zoomLevel > MapComponent.ZOOM_LIMIT) {
-        if (closeSubject) {
+        if (this.closeSubject) {
           // forcing a reload
           this.gpsService.setLocation(this.gpsService.getCurrentLocation());
-          closeSubject.next();
-          closeSubject = null;
+          this.closeSubject.next();
+          this.closeSubject = null;
         }
-      } else if (closeSubject == null) {
-        closeSubject = new Subject<null>();
+      } else if (this.closeSubject == null) {
+        this.closeSubject = new Subject<null>();
+        // null if there is no snack bar presented by this component
+        // otherwise contains a subject that is subscribed to by the snack bar and closes it when it emits
         this.vectorSource.clear();
         this.snackBarService.sendNotification({
           message: 'Bitte zoome näher in die Karte.',
           type: SnackBarTypes.INFO,
-          closeObservable: closeSubject,
-          big: true,
+          closeObservable: this.closeSubject,
+          big: false,
           hideCloseButton: true
         });
       }
     });
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.unsubscribe();
   }
 
   deselect(): void {
@@ -196,20 +192,22 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   private loadPositionFromLocation(id: number) {
-    this.subscriptions.add(this.locationService.fetchLocationById(id).pipe(
-      catchError(err => {
-        this.snackBarService.sendNotification({
-          message: 'Leider konnten wir deinen gesuchten Laden nicht finden :(',
-          type: SnackBarTypes.ERROR
-        });
-        return throwError(err);
+    this.subscriptions.add(
+      this.locationService.fetchLocationById(id).pipe(
+        catchError(err => {
+          this.snackBarService.sendNotification({
+            message: 'Leider konnten wir deinen gesuchten Laden nicht finden :(',
+            type: SnackBarTypes.ERROR
+          });
+          return throwError(err);
+        })
+      ).subscribe((location) => {
+        if (location.name) {
+          document.title = 'HappyHamster - ' + location.name;
+        }
+        this.zoomToNewLocation(location);
       })
-    ).subscribe((location) => {
-      if (location.name) {
-        document.title = 'HappyHamster - ' + location.name;
-      }
-      this.zoomToNewLocation(location);
-    }));
+    );
   }
 
   private loadGpsPosition() {
@@ -227,6 +225,11 @@ export class MapComponent implements OnInit, OnDestroy {
         this.customMap.getView().setZoom(15);
       }
     }));
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
+    this.closeSubject?.next();
   }
 }
 
