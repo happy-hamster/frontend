@@ -7,6 +7,7 @@ import { LegalRoutingModule } from 'src/app/components/legal/legal-routing.modul
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { CookieComponent } from './cookie/cookie.component';
 
 // lazy loaded
 
@@ -14,7 +15,8 @@ import { MatIconModule } from '@angular/material/icon';
   declarations: [
     LegalComponent,
     PrivacyPolicyComponent,
-    ImpressumComponent
+    ImpressumComponent,
+    CookieComponent
   ],
   imports: [
     CommonModule,
