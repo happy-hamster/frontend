@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Occupancy } from 'src/app/generated/models';
 
 @Component({
   selector: 'app-occupancy-view',
@@ -10,7 +11,7 @@ export class OccupancyViewComponent implements OnInit {
   lowBorder = 0.34;
   midBorder = 0.67;
 
-  @Input() occupancy: number;
+  @Input() occupancy: Occupancy;
 
   text: string;
   iconPath: string;
@@ -52,18 +53,18 @@ export class OccupancyViewComponent implements OnInit {
   }
 
   getStringForOcc(low: string, mid: string, high: string, noData: string): string {
-    if (!this.occupancy || this.occupancy < 0) {
+    if (!this.occupancy.value || this.occupancy.value < 0) {
       return noData;
     }
-    if (this.occupancy < this.lowBorder) {
+    if (this.occupancy.value < this.lowBorder) {
       return low;
     }
 
-    if (this.occupancy < this.midBorder) {
+    if (this.occupancy.value < this.midBorder) {
       return mid;
     }
 
-    if (this.occupancy <= 1) {
+    if (this.occupancy.value <= 1) {
       return high;
     }
 
