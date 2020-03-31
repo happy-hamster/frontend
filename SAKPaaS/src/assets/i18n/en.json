@@ -22,17 +22,17 @@
 	},
 	"occupancy": {
 		"high": {
-			"checkout-time": "Checkout in more than 15 minutes.",
+			"checkout-time": "Long checkout time",
 			"safety-distance": "Safety distance of 1.5m can't be guaranteed.",
 			"text": "Very busy"
 		},
 		"low": {
-			"checkout-time": "Checkout in less than 5 minutes",
+			"checkout-time": "Short checkout time",
 			"safety-distance": "Safety distance of 1.5m always guaranteed.",
 			"text": "Almost empty"
 		},
 		"medium": {
-			"checkout-time": "Checkout in 5 to 15 minutes",
+			"checkout-time": "Normal checkout time",
 			"safety-distance": "Safety distance of 1.5m mostly guaranteed.",
 			"text": "Moderately busy"
 		},
@@ -77,6 +77,5 @@
 			"invalid": "Please tell us your personal occupancy estimation :)",
 			"success": "Thank you for your feedback!"
 		}
-	},
-	"test": "english"
+	}
 }

@@ -22,17 +22,17 @@
 	},
 	"occupancy": {
 		"high": {
-			"checkout-time": "Wartezeit mehr als 15 Minuten",
+			"checkout-time": "Lange Wartezeiten",
 			"safety-distance": "Sicherheitsabstand von 1,5 Metern nicht garantiert",
 			"text": "Hohe Auslastung"
 		},
 		"low": {
-			"checkout-time": "Wartezeit an der Kasse weniger als 5 Minuten",
+			"checkout-time": "Geringe Wartezeiten",
 			"safety-distance": "Sicherheitsabstand von 1,5 Metern garantiert.",
 			"text": "Fast leer"
 		},
 		"medium": {
-			"checkout-time": "Wartezeit an der Kasse zwischen 5 bis 15 Minuten",
+			"checkout-time": "Normale Wartezeit",
 			"safety-distance": "Sicherheitsabstand von 1,5 Metern meistens garantiert.",
 			"text": "Normale Auslastung"
 		},
@@ -77,6 +77,5 @@
 			"invalid": "Bitte sage uns deine persönliche Einschätzung der Auslastung :)",
 			"success": "Vielen Dank für dein Feedback!"
 		}
-	},
-	"test": "deutsch"
+	}
 }
