@@ -1,14 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-occupancy-view',
   templateUrl: './occupancy-view.component.html',
   styleUrls: ['./occupancy-view.component.scss']
 })
-export class OccupancyViewComponent implements OnInit {
+export class OccupancyViewComponent implements OnInit, OnDestroy {
+
+  subscriptions = new Subscription();
 
   lowBorder = 0.34;
-  midBorder = 0.67;
+  mediumBorder = 0.67;
 
   @Input() occupancy: number;
 
@@ -16,7 +20,9 @@ export class OccupancyViewComponent implements OnInit {
   iconPath: string;
   styleClass: string;
 
-  constructor() { }
+  constructor(
+    private translate: TranslateService
+  ) { }
 
   ngOnInit(): void {
     this.text = this.getText();
@@ -27,31 +33,31 @@ export class OccupancyViewComponent implements OnInit {
   getIconPath(): string {
     const noData = 'assets/icons/icon-availability-no-data.svg';
     const low = 'assets/icons/icon-availability-low.svg';
-    const mid = 'assets/icons/icon-availability-moderate.svg';
+    const medium = 'assets/icons/icon-availability-moderate.svg';
     const high = 'assets/icons/icon-availability-full.svg';
 
-    return this.getStringForOcc(low, mid, high, noData);
+    return this.getStringForOcc(low, medium, high, noData);
   }
 
   getText(): string {
-    const noData = 'Unbekannte Auslastung';
-    const low = 'Geringe Auslastung';
-    const mid = 'Normale Auslastung';
-    const high = 'Hohe Auslastung!';
+    const noData: string = this.translate.instant('occupancy.no-data');
+    const low: string = this.translate.instant('occupancy.low.text');
+    const medium: string = this.translate.instant('occupancy.medium.text');
+    const high: string = this.translate.instant('occupancy.high.text');
 
-    return this.getStringForOcc(low, mid, high, noData);
+    return this.getStringForOcc(low, medium, high, noData);
   }
 
   getStyleClass(): string {
     const noData = 'noData';
     const low = 'low';
-    const mid = 'mid';
+    const medium = 'medium';
     const high = 'high';
 
-    return this.getStringForOcc(low, mid, high, noData);
+    return this.getStringForOcc(low, medium, high, noData);
   }
 
-  getStringForOcc(low: string, mid: string, high: string, noData: string): string {
+  getStringForOcc(low: string, medium: string, high: string, noData: string): string {
     if (!this.occupancy || this.occupancy < 0) {
       return noData;
     }
@@ -59,8 +65,8 @@ export class OccupancyViewComponent implements OnInit {
       return low;
     }
 
-    if (this.occupancy < this.midBorder) {
-      return mid;
+    if (this.occupancy < this.mediumBorder) {
+      return medium;
     }
 
     if (this.occupancy <= 1) {
@@ -68,5 +74,9 @@ export class OccupancyViewComponent implements OnInit {
     }
 
     return noData;
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 }

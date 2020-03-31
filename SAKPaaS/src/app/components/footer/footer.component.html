@@ -14,8 +14,7 @@
     <a [routerLink]="" (click)="toggleLanguage()">
       {{ selectedLanguage === 'de' ? 'EN' : 'DE'}}
     </a>
-    <span>{{ 'test' | translate }}</span>
     <div class="line-break"></div>
-    <a href="https://welcome.happyhamster.org/">Hilfe</a>
-    <a href="" routerLink="/legal">Rechtliches</a>
+    <a href="https://welcome.happyhamster.org/">{{ 'footer.help' | translate }}</a>
+    <a href="" routerLink="/legal">{{ 'footer.legal' | translate }}</a>
 </div>

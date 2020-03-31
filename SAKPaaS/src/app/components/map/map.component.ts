@@ -19,7 +19,6 @@ import { getDistance as olGetDistance } from 'ol/sphere';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { SnackBarTypes } from 'src/app/core/models/snack-bar.interface';
 import { ActivatedRoute } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-map',
@@ -54,13 +53,8 @@ export class MapComponent implements OnInit, OnDestroy {
     private locationService: LocationProviderService,
     private snackBarService: SnackBarService,
     private route: ActivatedRoute,
-    private translate: TranslateService
   ) {
   }
-
-  useLanguage(language: string) {
-    this.translate.use(language);
-}
 
   ngOnInit(): void {
 
@@ -81,7 +75,7 @@ export class MapComponent implements OnInit, OnDestroy {
         catchError(err => {
           this.locationService.updateLoadingState(false);
           this.snackBarService.sendNotification({
-            message: 'Beim Aktualisieren der Karte ist ein Fehler aufgetreten. Bitte lade die Seite neu. Sorry :(',
+            messageKey: 'snack-bar.map.error',
             type: SnackBarTypes.ERROR
           });
           return throwError(err);
@@ -177,7 +171,7 @@ export class MapComponent implements OnInit, OnDestroy {
         // otherwise contains a subject that is subscribed to by the snack bar and closes it when it emits
         this.vectorSource.clear();
         this.snackBarService.sendNotification({
-          message: 'Bitte zoome näher in die Karte.',
+          messageKey: 'snack-bar.map.zoom',
           type: SnackBarTypes.INFO,
           closeObservable: this.closeSubject,
           big: false,
@@ -202,7 +196,7 @@ export class MapComponent implements OnInit, OnDestroy {
       this.locationService.fetchLocationById(id).pipe(
         catchError(err => {
           this.snackBarService.sendNotification({
-            message: 'Leider konnten wir deinen gesuchten Laden nicht finden :(',
+            messageKey: 'snack-bar.map.not-found',
             type: SnackBarTypes.ERROR
           });
           return throwError(err);
@@ -220,7 +214,7 @@ export class MapComponent implements OnInit, OnDestroy {
     this.subscriptions.add(this.gpsService.getLocation().pipe(
       catchError(err => {
         this.snackBarService.sendNotification({
-          message: 'Beim Aktualisieren der Karte ist ein Fehler aufgetreten. Sorry :(',
+          messageKey: 'snack-bar.map.error',
           type: SnackBarTypes.ERROR
         });
         return throwError(err);

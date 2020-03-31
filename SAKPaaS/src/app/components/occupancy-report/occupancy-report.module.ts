@@ -8,6 +8,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { IsLoadingModule } from '@service-work/is-loading';
 import { MatIconModule } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatDividerModule,
     MatProgressSpinnerModule,
     IsLoadingModule,
-    MatIconModule
+    MatIconModule,
+    TranslateModule
   ],
   exports: [
     OccupancyReportComponent

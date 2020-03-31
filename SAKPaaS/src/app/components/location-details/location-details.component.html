@@ -1,12 +1,12 @@
 <mat-nav-list *ngIf="location$ | async as location">
   <p class="mat-title">{{ location.name }}</p>
-  <p class="mat-card-subtitle">{{ getAddressString(location) }}</p>
+  <p class="mat-card-subtitle">{{ getAddressString(location) || 'location-details.no-address' | translate }}</p>
   <app-occupancy-view occupancy="{{ location.occupancy }}"></app-occupancy-view>
   <mat-divider></mat-divider>
   <mat-grid-list cols="2" rowHeight="5rem">
     <mat-grid-tile colspan="2">
       <button mat-raised-button class="submit" (click)="checkIn(location)">
-        Ich bin hier!
+        {{ 'location-details.button' | translate }}
       </button>
     </mat-grid-tile>
   </mat-grid-list>

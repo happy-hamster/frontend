@@ -27,7 +27,7 @@ export class OccupancyReportComponent implements OnInit {
     private occupancyService: OccupancyProviderService,
     private snackBarService: SnackBarService,
     private router: Router,
-    private isLoadingService: IsLoadingService
+    private isLoadingService: IsLoadingService,
   ) { }
 
   ngOnInit(): void {
@@ -48,7 +48,7 @@ export class OccupancyReportComponent implements OnInit {
   public onSubmit() {
     if (this.occupancyInput.invalid) {
       this.snackBarService.sendNotification({
-        message: 'Bitte sage uns deine persönliche Einschätzung der Auslastung :)',
+        messageKey: 'snack-bar.occupancy-report.invalid',
         type: SnackBarTypes.ERROR
       });
       return undefined;
@@ -64,7 +64,7 @@ export class OccupancyReportComponent implements OnInit {
       catchError(err => {
         this.isLoadingService.remove({ key: 'sendOccupancy' });
         this.snackBarService.sendNotification({
-          message: 'Das hat leider nicht geklappt! Bitte versuche es erneut.',
+          messageKey: 'snack-bar.occupancy-report.failure',
           type: SnackBarTypes.ERROR
         });
         return throwError(err);
@@ -72,7 +72,7 @@ export class OccupancyReportComponent implements OnInit {
     ).subscribe(location => {
       this.isLoadingService.remove({ key: 'sendOccupancy' });
       this.snackBarService.sendNotification({
-        message: 'Vielen Dank für dein Feedback!',
+        messageKey: 'snack-bar.occupancy-report.success',
         type: SnackBarTypes.SUCCESS
       });
       this.router.navigate(['home'], { queryParams: { id: location.id } });

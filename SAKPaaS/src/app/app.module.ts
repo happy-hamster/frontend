@@ -81,7 +81,8 @@ import { LocateButtonComponent } from './components/locate-button/locate-button.
           provide: TranslateLoader,
           useFactory: HttpLoaderFactory,
           deps: [HttpClient]
-      }
+      },
+      defaultLanguage: 'de'
   })
   ],
   providers: [
