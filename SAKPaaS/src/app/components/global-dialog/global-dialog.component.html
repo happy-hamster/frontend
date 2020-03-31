@@ -1,8 +1,13 @@
-<h1 mat-dialog-title>{{data.title}}</h1>
+<h1 mat-dialog-title>{{ data.titleKey | translate }}</h1>
 <div mat-dialog-content>
-  <p style="white-space: pre-line">{{ data.message }}</p>
+  <p [innerHTML]="data.messageKey | translate"></p>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onCancelled()">{{data.cancelButtonText || 'Abbrechen'}}</button>
-  <button mat-button (click)="onOkay()" cdkFocusInitial>{{data.okButtonText || 'Okay'}}</button>
+  <button mat-button (click)="onCancelled()">{{data.cancelButtonTextKey ? (data.cancelButtonTextKey | translate) : ('others.cancel' | translate)}}</button>
+  <button 
+    mat-raised-button color="primary"
+    (click)="onOkay()"
+    cdkFocusInitial>
+      {{data.okButtonTextKey ? (data.okButtonTextKey | translate) : 'Okay'}}
+  </button>
 </div>
