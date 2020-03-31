@@ -20,15 +20,20 @@ export class AppComponent implements OnInit {
     private translate: TranslateService,
     private cookieService: CookieProviderService
   ) {
-    // this language will be used as a fallback when a translation isn't found in the current language
-    this.translate.setDefaultLang('de');
-
-    // the lang to use, if the lang isn't available, it will use the current loader to get them
+    console.log(this.translate.getBrowserLang());
 
     if (this.cookieService.isCookieAlreadySet('selected_language')) {
       this.translate.use(this.cookieService.getValue('selected_language'));
     } else {
-      this.translate.use('de');
+      if (this.translate.getBrowserLang()) {
+        if (this.translate.getBrowserLang() !== 'de') {
+          this.translate.use('en');
+        } else {
+          this.translate.use('de');
+        }
+      } else {
+        this.translate.use('de');
+      }
     }
   }
 
