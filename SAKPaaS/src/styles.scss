@@ -47,6 +47,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   }
 }
 
+div.ol-overlaycontainer-stopevent {
+  z-index: auto !important;
+}
+
 div.ol-zoom {
   top: auto;
   left: auto;
@@ -67,6 +71,7 @@ div.ol-rotate {
   background-color: transparent;
   color: white;
   border-radius: 7px;
+  z-index: 3;
 }
 
 div.ol-control:hover {
