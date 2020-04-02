@@ -6,10 +6,10 @@ import { ApiConfiguration } from 'src/app/generated/api-configuration';
 export function load(http: HttpClient, config: ApiConfiguration): (() => Promise<boolean>) {
   return (): Promise<boolean> => {
     return new Promise<boolean>((resolve: (a: boolean) => void): void => {
-       http.get('./config.json')
+       http.get('./config/config.json')
          .pipe(
            map((x: any) => {
-             config.rootUrl = x.api_rootUrl;
+             config.rootUrl = x.rootUrl + '/v1';
              resolve(true);
            }),
            catchError((x: { status: number }, caught: Observable<void>): ObservableInput<{}> => {
