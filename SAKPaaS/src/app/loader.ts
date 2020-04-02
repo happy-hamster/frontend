@@ -3,6 +3,16 @@ import { Observable, ObservableInput, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { ApiConfiguration } from 'src/app/generated/api-configuration';
 
+/**
+ * loads a config file with the api endpoint
+ *
+ * format:
+ * {
+ *    "rootUrl": "string"
+ * }
+ *
+ * When developing, the file does not exist. A default value is taken
+ */
 export function load(http: HttpClient, config: ApiConfiguration): (() => Promise<boolean>) {
   return (): Promise<boolean> => {
     return new Promise<boolean>((resolve: (a: boolean) => void): void => {
