@@ -41,9 +41,12 @@
                 <div class="radio-text">
                     <img src="assets/icons/icon-availability-full.svg">
                     <div class="occupancy-title">
-                      {{ 'occupancy.high.text' | translate }} <span class="warning-accent"> {{ 'others.warning' | translate }}</span>
+                      {{ 'occupancy.high.text' | translate }} <mat-icon color="accent" class="warning-icon">warning</mat-icon>
                     </div>
-                        Voll ausgelastet <mat-icon color="accent" class="warning-icon">warning</mat-icon>
+                    <div class="occupancy-description">
+                      {{ 'occupancy.high.checkout-time' | translate }} <br>
+                      {{ 'occupancy.high.safety-distance' | translate }}
+                    </div>
                 </div>
             </div>
         </mat-radio-group>
