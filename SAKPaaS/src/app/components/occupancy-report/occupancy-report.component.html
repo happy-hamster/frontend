@@ -4,7 +4,7 @@
             <button mat-icon-button color="primary" aria-label="back to home button" class="backButton" href="." [routerLink]="['/home']" [queryParams]="{ id: location.id }">
                 <mat-icon>arrow_back</mat-icon>
               </button>
-            <h2 class="title">Wie voll ist <span class="title-accent">{{ location.name }}</span>?</h2>
+            <h2 class="title">{{ 'occupancy-report.title' | translate }}<span class="title-accent">{{ location.name }}</span>?</h2>
             <div class="hiddenBackButton"></div>
         </div>
         <mat-radio-group [formControl]="occupancyInput">
@@ -13,11 +13,11 @@
                 <div class="radio-text">
                     <img src="assets/icons/icon-availability-low.svg">
                     <div class="occupancy-title">
-                        Fast leer
+                        {{ 'occupancy.low.text' | translate }}
                     </div>
                     <div class="occupancy-description">
-                        Geringe Wartezeiten<br>
-                        Sicherheitsabstand von 1,5 Metern garantiert
+                      {{ 'occupancy.low.checkout-time' | translate }} <br>
+                      {{ 'occupancy.low.safety-distance' | translate }}
                     </div>
                 </div>
             </div>
@@ -27,11 +27,11 @@
                 <div class="radio-text">
                     <img src="assets/icons/icon-availability-moderate.svg">
                     <div class="occupancy-title">
-                        Mittelmäßig ausgelastet
+                      {{ 'occupancy.medium.text' | translate }}
                     </div>
                     <div class="occupancy-description">
-                        Normale Wartezeiten<br>
-                        Sicherheitsabstand von 1,5 Metern meistens garantiert
+                      {{ 'occupancy.medium.checkout-time' | translate }} <br>
+                      {{ 'occupancy.medium.safety-distance' | translate }}
                     </div>
                 </div>
             </div>
@@ -41,20 +41,17 @@
                 <div class="radio-text">
                     <img src="assets/icons/icon-availability-full.svg">
                     <div class="occupancy-title">
+                      {{ 'occupancy.high.text' | translate }} <span class="warning-accent"> {{ 'others.warning' | translate }}</span>
+                    </div>
                         Voll ausgelastet <mat-icon color="accent" class="warning-icon">warning</mat-icon>
-                    </div>
-                    <div class="occupancy-description">
-                        Lange Wartezeiten<br>
-                        Sicherheitsabstand von 1,5 Metern nicht garantiert
-                    </div>
                 </div>
             </div>
         </mat-radio-group>
-        <a class="backLink" href="." [routerLink]="['/home']" [queryParams]="{ id: location.id }">Bist du doch nicht hier?</a>
+        <a class="backLink" href="." [routerLink]="['/home']" [queryParams]="{ id: location.id }">{{ 'others.not-here' | translate }}</a>
         <button mat-raised-button class="submit" (click)="onSubmit()" swIsLoading="'sendOccupancy'">
-            <span *ngIf="!('sendOccupancy' | swIsLoading | async)">Abschicken </span>
+            <span *ngIf="!('sendOccupancy' | swIsLoading | async)">{{ 'others.submit' | translate }}</span>
             <span *ngIf="'sendOccupancy' | swIsLoading | async">
-                Wird abgeschickt ...
+                {{ 'others.pending' | translate }}
                 <mat-icon style="margin-top: -7px; margin-left: 20px;">
                     <mat-spinner diameter="30"></mat-spinner>
                 </mat-icon>

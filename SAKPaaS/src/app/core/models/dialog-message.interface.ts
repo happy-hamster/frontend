@@ -1,8 +1,8 @@
 export interface IDialogMessage {
-  message: string;
-  title?: string;
-  okButtonText?: string;
-  cancelButtonText?: string;
+  messageKey: string;
+  titleKey?: string;
+  okButtonTextKey?: string;
+  cancelButtonTextKey?: string;
 }
 
 export enum DialogMessageReturnTypes {
