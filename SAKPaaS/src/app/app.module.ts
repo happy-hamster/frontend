@@ -34,7 +34,7 @@ import { GlobalDialogComponent } from './components/global-dialog/global-dialog.
 import { MatDialogModule } from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
 import { LocateButtonComponent } from './components/locate-button/locate-button.component';
-import { load } from 'src/app/loader';
+import { loadConfig } from 'src/app/config-loader';
 import { ApiConfiguration } from 'src/app/generated/api-configuration';
 
 @NgModule({
@@ -80,7 +80,7 @@ import { ApiConfiguration } from 'src/app/generated/api-configuration';
   providers: [
     {
       provide: APP_INITIALIZER,
-      useFactory: load,
+      useFactory: loadConfig,
       deps: [
         HttpClient,
         ApiConfiguration

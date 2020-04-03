@@ -13,7 +13,7 @@ import { ApiConfiguration } from 'src/app/generated/api-configuration';
  *
  * When developing, the file does not exist. A default value is taken
  */
-export function load(http: HttpClient, config: ApiConfiguration): (() => Promise<boolean>) {
+export function loadConfig(http: HttpClient, config: ApiConfiguration): (() => Promise<boolean>) {
   return (): Promise<boolean> => {
     return new Promise<boolean>((resolve: (a: boolean) => void): void => {
        http.get('./config/config.json')
@@ -23,11 +23,8 @@ export function load(http: HttpClient, config: ApiConfiguration): (() => Promise
              resolve(true);
            }),
            catchError((x: { status: number }, caught: Observable<void>): ObservableInput<{}> => {
-             if (x.status !== 404) {
-               resolve(false);
-             }
-             config.rootUrl = 'https://api.happyhamster.org/v1';
-             resolve(true);
+             // 404 local development, other errors are strange
+             resolve(x.status === 404);
              return of({});
            })
          ).subscribe();
