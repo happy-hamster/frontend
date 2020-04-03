@@ -59,12 +59,12 @@ export class SnackBarComponent implements OnInit {
       });
     }
 
-    this.translate.get(nextNotification.messageKey, nextNotification.valuesForMessage).pipe(first()).subscribe(message => {
-      this.snackBarRef = this.snackBar.open(message, nextNotification.hideCloseButton ? null : 'X', config);
-      this.snackBarRef.afterDismissed().subscribe(_ => {
-        this.snackBarRef = null;
-        this.next();
-      });
+    const message = this.translate.instant(nextNotification.messageKey, nextNotification.valuesForMessage);
+    this.snackBarRef = this.snackBar.open(message, nextNotification.hideCloseButton ? null : 'X', config);
+
+    this.snackBarRef.afterDismissed().subscribe(_ => {
+      this.snackBarRef = null;
+      this.next();
     });
   }
 
