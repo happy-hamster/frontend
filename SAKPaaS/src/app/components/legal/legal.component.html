@@ -1,21 +1,21 @@
 <div class="container">
   <div class="button-row top-button">
     <button mat-raised-button class="back" routerLink="home">
-      Zurück zu HappyHamster
+      {{ 'others.back-to-happy-hamster' | translate }}    
     </button>
   </div>
   <mat-tab-group mat-align-tabs="center">
-    <mat-tab label="Impressum">
+    <mat-tab label="{{ 'legal.impressum' | translate }}">
       <ng-template matTabContent>
         <app-impressum></app-impressum>
       </ng-template>
     </mat-tab>
-    <mat-tab label="Datenschutzerklärung">
+    <mat-tab label="{{ 'legal.privacy-policy' | translate }}">
       <ng-template matTabContent>
         <app-privacy-policy></app-privacy-policy>
       </ng-template>
     </mat-tab>
-    <mat-tab label="Cookies">
+    <mat-tab label="{{ 'legal.cookies' | translate }}">
       <ng-template matTabContent>
         <app-cookie></app-cookie>
       </ng-template>
@@ -24,7 +24,7 @@
 
   <div class="button-row">
     <button mat-raised-button class="back" routerLink="home">
-      Zurück zu HappyHamster
+      {{ 'others.back-to-happy-hamster' | translate }}    
     </button>
   </div>
 </div>

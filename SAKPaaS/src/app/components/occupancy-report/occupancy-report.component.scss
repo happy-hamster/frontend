@@ -11,6 +11,12 @@
   margin: auto;
 }
 
+@media (max-width: 600px) {
+  .container {
+      padding: 23px;
+  }
+}
+
 .header {
   display: flex;
   width: 100%;
@@ -67,7 +73,9 @@ mat-radio-group {
 
 .radio {
   width: 100%;
-  height: 131px;
+  min-height: 131px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -86,10 +94,15 @@ mat-radio-group {
   line-height: normal;
   letter-spacing: 0.3px;
   color: #172a3a;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
-.warning-accent {
-  margin-left: 15px;
+.warning-icon {
+  margin-left: 4px;
   color: var(--grapefruit);
 }
 

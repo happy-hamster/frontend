@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { LocationProviderService } from './core/services/location-provider.service';
 import { Observable } from 'rxjs';
 import { Location } from 'src/app/generated/models/location';
+import { TranslateService } from '@ngx-translate/core';
+import { CookieProviderService } from 'src/app/core/services/cookie-provider.service';
 
 @Component({
   selector: 'app-root',
@@ -14,8 +16,25 @@ export class AppComponent implements OnInit {
   locations$: Observable<Location[]>;
 
   constructor(
-    private locationService: LocationProviderService
+    private locationService: LocationProviderService,
+    private translate: TranslateService,
+    private cookieService: CookieProviderService
   ) {
+    console.log(this.translate.getBrowserLang());
+
+    if (this.cookieService.isCookieAlreadySet('selected_language')) {
+      this.translate.use(this.cookieService.getValue('selected_language'));
+    } else {
+      if (this.translate.getBrowserLang()) {
+        if (this.translate.getBrowserLang() !== 'de') {
+          this.translate.use('en');
+        } else {
+          this.translate.use('de');
+        }
+      } else {
+        this.translate.use('de');
+      }
+    }
   }
 
   ngOnInit() {
