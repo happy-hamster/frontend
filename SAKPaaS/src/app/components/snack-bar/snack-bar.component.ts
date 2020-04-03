@@ -51,20 +51,20 @@ export class SnackBarComponent implements OnInit {
       (config.panelClass as string[]).push('close-button-hidden');
     }
 
+    this.translate.get(nextNotification.messageKey, nextNotification.valuesForMessage).subscribe(message => {
+      this.snackBarRef = this.snackBar.open(message, nextNotification.hideCloseButton ? null : 'X', config);
 
-    if (nextNotification.closeObservable) {
-      config.duration = null;
-      nextNotification.closeObservable.subscribe(() => {
-        this.snackBarRef?.dismiss();
+      if (nextNotification.closeObservable) {
+        config.duration = null;
+        nextNotification.closeObservable.subscribe(() => {
+          this.snackBarRef?.dismiss();
+        });
+      }
+
+      this.snackBarRef.afterDismissed().subscribe(_ => {
+        this.snackBarRef = null;
+        this.next();
       });
-    }
-
-    const message = this.translate.instant(nextNotification.messageKey, nextNotification.valuesForMessage);
-    this.snackBarRef = this.snackBar.open(message, nextNotification.hideCloseButton ? null : 'X', config);
-
-    this.snackBarRef.afterDismissed().subscribe(_ => {
-      this.snackBarRef = null;
-      this.next();
     });
   }
 
