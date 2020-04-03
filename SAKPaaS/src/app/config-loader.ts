@@ -16,18 +16,18 @@ import { ApiConfiguration } from 'src/app/generated/api-configuration';
 export function loadConfig(http: HttpClient, config: ApiConfiguration): (() => Promise<boolean>) {
   return (): Promise<boolean> => {
     return new Promise<boolean>((resolve: (a: boolean) => void): void => {
-       http.get('./config/config.json')
-         .pipe(
-           map((x: any) => {
-             config.rootUrl = x.rootUrl + '/v1';
-             resolve(true);
-           }),
-           catchError((x: { status: number }, caught: Observable<void>): ObservableInput<{}> => {
-             // 404 local development, other errors are strange
-             resolve(x.status === 404);
-             return of({});
-           })
-         ).subscribe();
+      http.get('./config/config.json')
+        .pipe(
+          map((x: any) => {
+            config.rootUrl = x.rootUrl + '/v2';
+            resolve(true);
+          }),
+          catchError((x: { status: number }, caught: Observable<void>): ObservableInput<{}> => {
+            // 404 local development, other errors are strange
+            resolve(x.status === 404);
+            return of({});
+          })
+        ).subscribe();
     });
   };
 }
