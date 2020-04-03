@@ -22,17 +22,17 @@
 	},
 	"occupancy": {
 		"high": {
-			"checkout-time": "Long checkout time",
+			"checkout-time": "Long waiting time",
 			"safety-distance": "Safety distance of 1.5m can't be guaranteed.",
 			"text": "Very busy"
 		},
 		"low": {
-			"checkout-time": "Short checkout time",
+			"checkout-time": "Short waiting time",
 			"safety-distance": "Safety distance of 1.5m always guaranteed.",
 			"text": "Almost empty"
 		},
 		"medium": {
-			"checkout-time": "Normal checkout time",
+			"checkout-time": "Normal waiting time",
 			"safety-distance": "Safety distance of 1.5m mostly guaranteed.",
 			"text": "Moderately busy"
 		},
@@ -50,7 +50,7 @@
 		"warning": "Warning"
 	},
 	"search-bar": {
-		"placeholder": "Search for shop nearby"
+		"placeholder": "Search for shops nearby"
 	},
 	"snack-bar": {
 		"cookies": {
