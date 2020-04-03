@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 
 import { MatIconModule } from '@angular/material/icon';
 import { AppRoutingModule } from './app-routing.module';
@@ -36,6 +36,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { LocateButtonComponent } from './components/locate-button/locate-button.component';
+import { loadConfig } from 'src/app/config-loader';
+import { ApiConfiguration } from 'src/app/generated/api-configuration';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,7 @@ import { LocateButtonComponent } from './components/locate-button/locate-button.
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    ApiModule.forRoot({ rootUrl: 'http://api.happyhamster.org/v2' }),
+    ApiModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -78,14 +80,23 @@ import { LocateButtonComponent } from './components/locate-button/locate-button.
     MatProgressSpinnerModule,
     TranslateModule.forRoot({
       loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient]
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
       },
       defaultLanguage: 'de'
-  })
+    })
   ],
   providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: loadConfig,
+      deps: [
+        HttpClient,
+        ApiConfiguration
+      ],
+      multi: true
+    },
     CookieService
   ],
   bootstrap: [AppComponent]
