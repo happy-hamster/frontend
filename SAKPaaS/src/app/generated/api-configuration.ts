@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ApiConfiguration {
-  rootUrl: string = 'https://virtserver.swaggerhub.com/SAKPaaS/SAKPaaS/1.0.0';
+  rootUrl: string = 'https://api.happyhamster.org/v1';
 }
 
 /**
