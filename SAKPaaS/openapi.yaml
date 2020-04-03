@@ -7,8 +7,6 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
 servers:
-- url: https://virtserver.swaggerhub.com/SAKPaaS/SAKPaaS/1.0.0
-  description: SwaggerHub API Auto Mocking
 - url: https://api.happyhamster.org/v1
   description: Production
 paths:
