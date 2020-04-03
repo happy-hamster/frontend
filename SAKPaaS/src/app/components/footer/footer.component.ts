@@ -20,17 +20,14 @@ export class FooterComponent implements OnInit {
 
     this.selectedLanguage = this.translate.currentLang;
 
-    console.log(this.translate.currentLang);
-
     this.translate.onLangChange.subscribe((event: TranslationChangeEvent) => {
       this.selectedLanguage = event.lang;
       this.cookieService.setCookie('selected_language', event.lang);
-      console.log('selectedLanguage: ' + this.selectedLanguage);
     });
   }
 
   toggleLanguage() {
-    const newL = this.selectedLanguage ===   'en' ? 'de' : 'en';
+    const newL = this.selectedLanguage === 'en' ? 'de' : 'en';
     this.translate.use(newL);
   }
 

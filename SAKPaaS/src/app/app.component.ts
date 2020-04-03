@@ -22,7 +22,6 @@ export class AppComponent implements OnInit {
     private cookieService: CookieProviderService,
     private mixpanelService: MixpanelService
   ) {
-    console.log(this.translate.getBrowserLang());
     mixpanelService.track(MixpanelId.INIT);
 
     if (this.cookieService.isCookieAlreadySet('selected_language')) {
