@@ -28,7 +28,7 @@ export class CookieProviderService {
   }
 
   public setCookie(key: string, value: string): boolean {
-    if (!this.areCookiesAllowed) {
+    if (!this.areCookiesAllowed()) {
       return false;
     }
     this.cookieService.set(key, value, 365);

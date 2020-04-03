@@ -8,6 +8,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CookieComponent } from './cookie/cookie.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 // lazy loaded
 
@@ -23,7 +24,8 @@ import { CookieComponent } from './cookie/cookie.component';
     LegalRoutingModule,
     MatTabsModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    TranslateModule,
   ]
 })
 export class LegalModule { }

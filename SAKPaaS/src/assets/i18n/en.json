@@ -1,0 +1,81 @@
+{
+	"dialog": {
+		"permissions": {
+			"cancel-button": "No, thanks",
+			"message": "HappyHamster works best if you activate your GPS location and allow us to store cookies.<br>You can find more information about how we use cookies under 'Legal'.<br>Please also allow access to your location in your internet browser.",
+			"ok-button": "I agree",
+			"title": "Permissions"
+		}
+	},
+	"footer": {
+		"help": "Help",
+		"legal": "Legal"
+	},
+	"legal": {
+		"cookies": "Cookies (de only)",
+		"impressum": "Impressum (de only)",
+		"privacy-policy": "Privacy policy (de only)"
+	},
+	"location-details": {
+		"button": "I'm here!",
+		"no-address": "We couldn't find the address."
+	},
+	"occupancy": {
+		"high": {
+			"checkout-time": "Long waiting time",
+			"safety-distance": "Safety distance of 1.5m can't be guaranteed.",
+			"text": "Very busy"
+		},
+		"low": {
+			"checkout-time": "Short waiting time",
+			"safety-distance": "Safety distance of 1.5m always guaranteed.",
+			"text": "Almost empty"
+		},
+		"medium": {
+			"checkout-time": "Normal waiting time",
+			"safety-distance": "Safety distance of 1.5m mostly guaranteed.",
+			"text": "Moderately busy"
+		},
+		"no-data": "Unknown occupancy"
+	},
+	"occupancy-report": {
+		"title": "How full is "
+	},
+	"others": {
+		"back-to-happy-hamster": "Back to Happy Hamster",
+		"cancel": "Cancel",
+		"not-here": "Aren't you here?",
+		"pending": "Pending ...",
+		"submit": "Submit",
+		"warning": "Warning"
+	},
+	"search-bar": {
+		"placeholder": "Search for shops nearby"
+	},
+	"snack-bar": {
+		"cookies": {
+			"allowed": "Thank you for your consent! :)",
+			"forbidden": "from now on we no longer store cookies in your browser. You can change this setting at any time."
+		},
+		"gps": {
+			"default": "HappyHamster wasn't abled to locate you via GPS because of an unkown error.",
+			"not-supported": "HappyHamster wasn't abled to locate you via GPS because your browser doesn't support it :(",
+			"permission-denied": "Please allow HappyHamster to locate you. To do that, either reload the page or go to the browser settings.",
+			"position-unavailable": "HappyHamster wasn't abled to locate you via GPS.",
+			"timeout": "It took to long to locate you via GPS. Please try it again."
+		},
+		"location-details": {
+			"check-in": "You are now checked into {{name}}. Have fun!"
+		},
+		"map": {
+			"error": "An error occurred while updating the map. Sorry :(",
+			"not-found": "Unfortunately we couldn't  find the shop you were looking for :(",
+			"zoom": "Please zoom closer into the map."
+		},
+		"occupancy-report": {
+			"failure": "Sorry, that didn't work. Please try again!",
+			"invalid": "Please tell us your personal occupancy estimation :)",
+			"success": "Thank you for your feedback!"
+		}
+	}
+}

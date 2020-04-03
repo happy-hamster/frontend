@@ -18,14 +18,15 @@ export class LocationDetailsComponent {
     private bottomSheetRef: MatBottomSheetRef<LocationDetailsComponent>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: Observable<Location>,
     private snackBarService: SnackBarService,
-    private router: Router
+    private router: Router,
   ) {
     this.location$ = data;
   }
 
   checkIn(location: Location): void {
     this.snackBarService.sendNotification({
-      message: 'Du bist jetzt in ' + location.name + ' eingecheckt. Viel Spaß!',
+      messageKey: 'snack-bar.location-details.check-in',
+      valuesForMessage: { name: location.name },
       type: SnackBarTypes.SUCCESS
     });
     this.bottomSheetRef.dismiss();
@@ -34,7 +35,7 @@ export class LocationDetailsComponent {
 
   getAddressString(location: Location): string {
     if (!location?.address?.street) {
-      return this.noAddressMessage;
+      return null;
     }
 
     const address = location.address;

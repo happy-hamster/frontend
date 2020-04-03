@@ -14,7 +14,7 @@ export class CookieComponent implements OnInit {
 
   constructor(
     private cookieService: CookieProviderService,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
   ) { }
 
   ngOnInit(): void {
@@ -24,7 +24,7 @@ export class CookieComponent implements OnInit {
   forbidCookies() {
     this.areCookiesAllowed = this.cookieService.forbidCookies();
     this.snackBarService.sendNotification({
-      message: 'Wir speichern ab jetzt keine Cookies mehr in deinem Browser. Du kannst die Einstellung jederzeit wieder ändern',
+      messageKey: 'snack-bar.cookies.forbidden',
       type: SnackBarTypes.INFO
     });
   }
@@ -32,7 +32,7 @@ export class CookieComponent implements OnInit {
   allowCookies() {
     this.areCookiesAllowed = this.cookieService.allowCookies();
     this.snackBarService.sendNotification({
-      message: 'Danke für deine Einwilligung! :)',
+      messageKey: 'snack-bar.cookies.allowed',
       type: SnackBarTypes.INFO
     });
   }

@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
 import { LocationDetailsComponent } from './components/location-details/location-details.component';
 import { OccupancyReportModule } from 'src/app/components/occupancy-report/occupancy-report.module';
@@ -33,6 +33,8 @@ import { LogoComponent } from './components/logo/logo.component';
 import { GlobalDialogComponent } from './components/global-dialog/global-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { LocateButtonComponent } from './components/locate-button/locate-button.component';
 
 @NgModule({
@@ -74,6 +76,14 @@ import { LocateButtonComponent } from './components/locate-button/locate-button.
     MatButtonModule,
     MatDialogModule,
     MatProgressSpinnerModule,
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+      },
+      defaultLanguage: 'de'
+  })
   ],
   providers: [
     CookieService
@@ -81,3 +91,8 @@ import { LocateButtonComponent } from './components/locate-button/locate-button.
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+// required for AOT compilation
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

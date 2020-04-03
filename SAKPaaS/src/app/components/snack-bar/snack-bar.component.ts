@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { MatSnackBar, MatSnackBarConfig, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
 import { SnackBarTypes, ISnackBar } from 'src/app/core/models/snack-bar.interface';
+import { TranslateService } from '@ngx-translate/core';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-snack-bar',
@@ -16,7 +18,8 @@ export class SnackBarComponent implements OnInit {
 
   constructor(
     private snackBarService: SnackBarService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private translate: TranslateService
   ) { }
 
   ngOnInit(): void {
@@ -48,18 +51,20 @@ export class SnackBarComponent implements OnInit {
       (config.panelClass as string[]).push('close-button-hidden');
     }
 
+    this.translate.get(nextNotification.messageKey, nextNotification.valuesForMessage).subscribe(message => {
+      this.snackBarRef = this.snackBar.open(message, nextNotification.hideCloseButton ? null : 'X', config);
 
-    if (nextNotification.closeObservable) {
-      config.duration = null;
-      nextNotification.closeObservable.subscribe(() => {
-        this.snackBarRef?.dismiss();
+      if (nextNotification.closeObservable) {
+        config.duration = null;
+        nextNotification.closeObservable.subscribe(() => {
+          this.snackBarRef?.dismiss();
+        });
+      }
+
+      this.snackBarRef.afterDismissed().subscribe(_ => {
+        this.snackBarRef = null;
+        this.next();
       });
-    }
-
-    this.snackBarRef = this.snackBar.open(nextNotification.message, nextNotification.hideCloseButton ? null : 'X', config);
-    this.snackBarRef.afterDismissed().subscribe(_ => {
-      this.snackBarRef = null;
-      this.next();
     });
   }
 

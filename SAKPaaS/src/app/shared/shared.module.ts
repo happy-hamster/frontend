@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [],
@@ -11,7 +12,8 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    TranslateModule
   ],
   providers: [],
 })
