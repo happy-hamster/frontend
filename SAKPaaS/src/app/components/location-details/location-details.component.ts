@@ -16,7 +16,6 @@ export class LocationDetailsComponent {
   constructor(
     private bottomSheetRef: MatBottomSheetRef<LocationDetailsComponent>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: Observable<Location>,
-    private snackBarService: SnackBarService,
     private router: Router,
   ) {
     this.location$ = data;
