@@ -20,6 +20,10 @@
 		"button": "Ich bin hier!"
 	},
 	"occupancy": {
+    "count" : {
+      "one-rating": "Basierend auf einer Bewertung",
+      "multiple-ratings": "Basierend auf {{count}} Bewertungen"
+    },
 		"high": {
 			"checkout-time": "Lange Wartezeiten",
 			"safety-distance": "Sicherheitsabstand von 1,5 Metern nicht garantiert",
