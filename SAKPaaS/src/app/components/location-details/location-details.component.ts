@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 })
 export class LocationDetailsComponent {
   location$: Observable<Location>;
-  noAddressMessage = 'Wir konnten die Adresse leider nicht finden.';
   constructor(
     private bottomSheetRef: MatBottomSheetRef<LocationDetailsComponent>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: Observable<Location>,
