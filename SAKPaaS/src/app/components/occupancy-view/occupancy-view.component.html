@@ -1,4 +1,16 @@
 <div class="holder">
-  <img src="{{ iconPath }}" alt="Auslastung:"/>
-  <p class="{{ styleClass }}" >{{ text }}</p>
+  <img [src]="iconPath" alt="Auslastung:"/>
+  <p>
+    <span class="{{ styleClass }}">
+      {{ text }}
+    </span>
+    <span *ngIf="showOccupancyCount && occupancy.count" class="occupancy-count">
+      <span *ngIf="occupancy.count === 1">
+        {{ 'occupancy.count.one-rating' | translate }}
+      </span>
+      <span *ngIf="occupancy.count !== 1">
+        {{ 'occupancy.count.multiple-ratings' | translate:{ count: occupancy.count} }}
+      </span>
+    </span>
+  </p>
 </div>
