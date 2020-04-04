@@ -24,11 +24,6 @@ export class LocationDetailsComponent {
   }
 
   checkIn(location: Location): void {
-    this.snackBarService.sendNotification({
-      messageKey: 'snack-bar.location-details.check-in',
-      valuesForMessage: { name: location.name },
-      type: SnackBarTypes.SUCCESS
-    });
     this.bottomSheetRef.dismiss();
     this.router.navigate(['reportOccupancy', location.id]);
   }
