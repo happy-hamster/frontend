@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { Location } from '../../generated/models/location';
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { Observable } from 'rxjs';
-import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { Router } from '@angular/router';
 
 @Component({
