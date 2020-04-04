@@ -85,7 +85,7 @@ export class MapComponent implements OnInit, OnDestroy {
         this.locationService.updateLoadingState(false);
         console.log('Fetched new locations');
         this.vectorSource.clear();
-        const markers = next.map((l) => new OLMapMarker(l));
+        const markers = next.map((locations) => new OLMapMarker(locations));
         this.vectorSource.addFeatures(markers);
       })
     );
