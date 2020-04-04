@@ -64,9 +64,6 @@
 			"position-unavailable": "HappyHamster wasn't abled to locate you via GPS.",
 			"timeout": "It took to long to locate you via GPS. Please try it again."
 		},
-		"location-details": {
-			"check-in": "You are now checked into {{name}}. Have fun!"
-		},
 		"map": {
 			"error": "An error occurred while updating the map. Sorry :(",
 			"not-found": "Unfortunately we couldn't  find the shop you were looking for :(",
