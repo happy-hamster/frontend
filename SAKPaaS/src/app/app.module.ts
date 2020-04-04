@@ -38,6 +38,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { LocateButtonComponent } from './components/locate-button/locate-button.component';
 import { loadConfig } from 'src/app/config-loader';
 import { ApiConfiguration } from 'src/app/generated/api-configuration';
+import { AddressPipe } from 'src/app/core/pipes/address.pipe';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { ApiConfiguration } from 'src/app/generated/api-configuration';
     FooterComponent,
     LogoComponent,
     GlobalDialogComponent,
-    LocateButtonComponent
+    LocateButtonComponent,
+    AddressPipe
   ],
   imports: [
     MatIconModule,

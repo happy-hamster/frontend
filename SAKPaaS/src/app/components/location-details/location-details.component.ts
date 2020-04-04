@@ -3,7 +3,6 @@ import { Location } from '../../generated/models/location';
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { Observable } from 'rxjs';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
-import { SnackBarTypes } from 'src/app/core/models/snack-bar.interface';
 import { Router } from '@angular/router';
 
 @Component({
@@ -26,28 +25,5 @@ export class LocationDetailsComponent {
   checkIn(location: Location): void {
     this.bottomSheetRef.dismiss();
     this.router.navigate(['reportOccupancy', location.id]);
-  }
-
-  getAddressString(location: Location): string {
-    if (!location?.address?.street) {
-      return null;
-    }
-
-    const address = location.address;
-    let erg = address.street;
-
-    if (address.housenumber) {
-      erg = erg + ' ' + address.housenumber;
-    }
-    if (address.postcode || address.city) {
-      erg = erg + ', ';
-    }
-    if (address.postcode) {
-      erg = erg + address.postcode + ' ';
-    }
-    if (address.city) {
-      erg = erg + address.city;
-    }
-    return erg;
   }
 }

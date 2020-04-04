@@ -1,6 +1,6 @@
 <mat-nav-list *ngIf="location$ | async as location">
   <p class="mat-title">{{ location.name }}</p>
-  <p class="mat-card-subtitle">{{ getAddressString(location) || 'location-details.no-address' | translate }}</p>
+  <p class="mat-card-subtitle">{{ location.address | address }}</p>
   <app-occupancy-view [occupancy]="location.occupancy"></app-occupancy-view>
   <p>
     <span [ngPlural]="location.occupancy.count">
