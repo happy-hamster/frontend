@@ -17,8 +17,7 @@
 		"privacy-policy": "Datenschutzerklärung"
 	},
 	"location-details": {
-		"button": "Ich bin hier!",
-		"no-address": "Wir konnten die Adresse leider nicht finden."
+		"button": "Ich bin hier!"
 	},
 	"occupancy": {
 		"high": {

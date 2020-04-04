@@ -17,8 +17,7 @@
 		"privacy-policy": "Privacy policy (de only)"
 	},
 	"location-details": {
-		"button": "I'm here!",
-		"no-address": "We couldn't find the address."
+		"button": "I'm here!"
 	},
 	"occupancy": {
 		"high": {
