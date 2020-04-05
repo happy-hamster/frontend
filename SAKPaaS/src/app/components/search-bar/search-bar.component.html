@@ -1,16 +1,14 @@
 <form class="search-bar-form">
   <mat-form-field>
-    <input matInput
-           placeholder="{{ 'search-bar.placeholder' | translate }}"
-           aria-label="Supermarkt Suchen"
-           [matAutocomplete]="auto"
-           [formControl]="searchControl">
+    <input matInput placeholder="{{ 'search-bar.placeholder' | translate }}" aria-label="Supermarkt Suchen"
+      [matAutocomplete]="auto" [formControl]="searchControl">
     <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let location of filteredLocations$ | async" [value]="location.name"  (click)="this.locationEmitted.emit(location);">
+      <mat-option *ngFor="let location of filteredLocations$ | async" [value]="location.name"
+        (click)="this.locationEmitted.emit(location);">
         <div class="option">
           <span>{{ location.name }}</span>
           <span>
-            <app-occupancy-view occupancy="{{ location.occupancy }}"></app-occupancy-view>
+            <app-occupancy-view [occupancy]="location.occupancy"></app-occupancy-view>
           </span>
         </div>
       </mat-option>

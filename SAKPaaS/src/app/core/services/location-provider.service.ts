@@ -18,9 +18,9 @@ export class LocationProviderService {
     private gpsService: GpsService
   ) {
     this.gpsService.getLocation().pipe(
-      filter(coords => !!coords),
-      switchMap(coords => {
-        return this.locationApiService.searchLocations(coords);
+      filter(coordinates => !!coordinates),
+      switchMap(coordinates => {
+        return this.locationApiService.searchLocations({ coordinates });
       })
     ).subscribe(this.locations$);
   }

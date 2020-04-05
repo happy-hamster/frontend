@@ -80,12 +80,12 @@ import { ApiConfiguration } from 'src/app/generated/api-configuration';
     MatProgressSpinnerModule,
     TranslateModule.forRoot({
       loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient]
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
       },
       defaultLanguage: 'de'
-  })
+    })
   ],
   providers: [
     {

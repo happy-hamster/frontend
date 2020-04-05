@@ -1,13 +1,18 @@
 /* tslint:disable */
+import { Address } from './address';
+import { Coordinates } from './coordinates';
+import { LocationDetails } from './location-details';
+import { LocationId } from './location-id';
+import { Occupancy } from './occupancy';
+
+/**
+ * A physical location which represents a supermarket or similar
+ */
 export interface Location {
-  city?: string;
-  country?: string;
-  housenumber?: string;
-  id: number;
-  latitude: number;
-  longitude: number;
+  address: Address;
+  coordinates: Coordinates;
+  details?: LocationDetails;
+  id: LocationId;
   name: string;
-  occupancy: number;
-  postcode?: string;
-  street?: string;
+  occupancy: Occupancy;
 }

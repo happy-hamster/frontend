@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Occupancy } from 'src/app/generated/models';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
@@ -14,7 +15,7 @@ export class OccupancyViewComponent implements OnInit, OnDestroy {
   lowBorder = 0.34;
   mediumBorder = 0.67;
 
-  @Input() occupancy: number;
+  @Input() occupancy: Occupancy;
 
   text: string;
   iconPath: string;
@@ -58,18 +59,18 @@ export class OccupancyViewComponent implements OnInit, OnDestroy {
   }
 
   getStringForOcc(low: string, medium: string, high: string, noData: string): string {
-    if (!this.occupancy || this.occupancy < 0) {
+    if (!this.occupancy.value || this.occupancy.value < 0) {
       return noData;
     }
-    if (this.occupancy < this.lowBorder) {
+    if (this.occupancy.value < this.lowBorder) {
       return low;
     }
 
-    if (this.occupancy < this.mediumBorder) {
+    if (this.occupancy.value < this.mediumBorder) {
       return medium;
     }
 
-    if (this.occupancy <= 1) {
+    if (this.occupancy.value <= 1) {
       return high;
     }
 

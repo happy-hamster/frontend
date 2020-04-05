@@ -9,7 +9,8 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { Location } from '../models/location';
-import { Body } from '../models/body';
+import { LocationId } from '../models/location-id';
+import { OccupancyReport } from '../models/occupancy-report';
 
 @Injectable({
   providedIn: 'root',
@@ -40,12 +41,12 @@ export class OccupancyService extends BaseService {
     /**
      * id of the place
      */
-    id: number;
+    id: LocationId;
   
     /**
      * The estimated occupancy by the buyer
      */
-    body: Body
+    body: OccupancyReport
   }): Observable<StrictHttpResponse<Location>> {
 
     const rb = new RequestBuilder(this.rootUrl, OccupancyService.LocationsIdOccupancyPostPath, 'post');
@@ -79,77 +80,16 @@ export class OccupancyService extends BaseService {
     /**
      * id of the place
      */
-    id: number;
+    id: LocationId;
   
     /**
      * The estimated occupancy by the buyer
      */
-    body: Body
+    body: OccupancyReport
   }): Observable<Location> {
 
     return this.locationsIdOccupancyPost$Response(params).pipe(
       map((r: StrictHttpResponse<Location>) => r.body as Location)
-    );
-  }
-
-  /**
-   * Path part for operation locationsIdCheckInPost
-   */
-  static readonly LocationsIdCheckInPostPath = '/locations/{id}/check-in';
-
-  /**
-   * Check in to the Supermarket.
-   *
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `locationsIdCheckInPost()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  locationsIdCheckInPost$Response(params: {
-
-    /**
-     * id of the place
-     */
-    id: number;
-
-  }): Observable<StrictHttpResponse<void>> {
-
-    const rb = new RequestBuilder(this.rootUrl, OccupancyService.LocationsIdCheckInPostPath, 'post');
-    if (params) {
-
-      rb.path('id', params.id);
-
-    }
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-      })
-    );
-  }
-
-  /**
-   * Check in to the Supermarket.
-   *
-   * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `locationsIdCheckInPost$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  locationsIdCheckInPost(params: {
-
-    /**
-     * id of the place
-     */
-    id: number;
-
-  }): Observable<void> {
-
-    return this.locationsIdCheckInPost$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }
 
