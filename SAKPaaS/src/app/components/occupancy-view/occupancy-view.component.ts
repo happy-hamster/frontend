@@ -60,7 +60,7 @@ export class OccupancyViewComponent implements OnInit, OnDestroy {
   }
 
   getStringForOcc(low: string, medium: string, high: string, noData: string): string {
-    if (!this.occupancy.value || this.occupancy.value < 0) {
+    if (this.occupancy.value === null || this.occupancy.value === undefined || isNaN(this.occupancy.value) || this.occupancy.value < 0) {
       return noData;
     }
     if (this.occupancy.value < this.lowBorder) {
