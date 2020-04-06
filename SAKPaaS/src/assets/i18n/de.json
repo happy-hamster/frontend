@@ -17,10 +17,13 @@
 		"privacy-policy": "Datenschutzerklärung"
 	},
 	"location-details": {
-		"button": "Ich bin hier!",
-		"no-address": "Wir konnten die Adresse leider nicht finden."
+		"button": "Ich bin hier!"
 	},
 	"occupancy": {
+    "count" : {
+      "one-rating": "Basierend auf einer Bewertung",
+      "multiple-ratings": "Basierend auf {{count}} Bewertungen"
+    },
 		"high": {
 			"checkout-time": "Lange Wartezeiten",
 			"safety-distance": "Sicherheitsabstand von 1,5 Metern nicht garantiert",
@@ -63,9 +66,6 @@
 			"permission-denied": "Bitte erlaube HappyHamster, deine Position zu ermitteln. Lade dazu entweder die Seite neu oder gehe in die Browser-Einstellungen.",
 			"position-unavailable": "HappyHamster konnte deine GPS-Position nicht ermitteln.",
 			"timeout": "Leider hat es zulange gedauert, deine GPS-Position zu ermitteln. Versuche es bitte erneut."
-		},
-		"location-details": {
-			"check-in": "Du bist jetzt in {{name}} eingecheckt. Viel Spaß!"
 		},
 		"map": {
 			"error": "Beim Aktualisieren der Karte ist ein Fehler aufgetreten. Sorry :(",

@@ -8,8 +8,8 @@
             <div class="hiddenBackButton"></div>
         </div>
         <mat-radio-group [formControl]="occupancyInput">
-            <div class="radio" (click)="setRadioButton('0.33')">
-                <mat-radio-button [value]="'0.33'"></mat-radio-button>
+            <div class="radio" (click)="setRadioButton(lowValue)">
+                <mat-radio-button [value]="lowValue"></mat-radio-button>
                 <div class="radio-text">
                     <img src="assets/icons/icon-availability-low.svg">
                     <div class="occupancy-title">
@@ -22,8 +22,8 @@
                 </div>
             </div>
             <mat-divider></mat-divider>
-            <div class="radio" (click)="setRadioButton('0.66')">
-                <mat-radio-button [value]="'0.66'"></mat-radio-button>
+            <div class="radio" (click)="setRadioButton(mediumValue)">
+                <mat-radio-button [value]="mediumValue"></mat-radio-button>
                 <div class="radio-text">
                     <img src="assets/icons/icon-availability-moderate.svg">
                     <div class="occupancy-title">
@@ -36,8 +36,8 @@
                 </div>
             </div>
             <mat-divider></mat-divider>
-            <div class="radio" (click)="setRadioButton('0.99')">
-                <mat-radio-button [value]="'0.99'"></mat-radio-button>
+            <div class="radio" (click)="setRadioButton(highValue)">
+                <mat-radio-button [value]="highValue"></mat-radio-button>
                 <div class="radio-text">
                     <img src="assets/icons/icon-availability-full.svg">
                     <div class="occupancy-title">

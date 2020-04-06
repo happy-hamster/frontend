@@ -1,17 +1,7 @@
 <mat-nav-list *ngIf="location$ | async as location">
   <p class="mat-title">{{ location.name }}</p>
-  <p class="mat-card-subtitle">{{ getAddressString(location) || 'location-details.no-address' | translate }}</p>
-  <app-occupancy-view [occupancy]="location.occupancy"></app-occupancy-view>
-  <p>
-    <span [ngPlural]="location.occupancy.count">
-      <ng-template ngPluralCase="=0">Noch keine Auslastungsinformationen verfügbar.</ng-template>
-      <ng-template ngPluralCase="=1">Basierend auf einer Bewertung.</ng-template>
-      <ng-template ngPluralCase="other">Basierend auf {{location.occupancy.count}} Bewertungen.</ng-template>
-    </span>
-    <span *ngIf="location.occupancy.count > 0">
-      Das letzte Update ist von {{location.occupancy.latestReport | date:'HH:mm':'+2'}} Uhr.
-    </span>
-  </p>
+  <p class="mat-card-subtitle">{{ location.address | address }}</p>
+  <app-occupancy-view [occupancy]="location.occupancy" [showOccupancyCount]="true"></app-occupancy-view>
 
   <mat-divider></mat-divider>
   <mat-grid-list cols="2" rowHeight="5rem">

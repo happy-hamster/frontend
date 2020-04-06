@@ -21,6 +21,10 @@ export class OccupancyReportComponent implements OnInit {
 
   occupancyInput = new FormControl(null, Validators.required);
 
+  lowValue = 0;
+  mediumValue = 0.5;
+  highValue = 1;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private locationService: LocationProviderService,
@@ -41,7 +45,7 @@ export class OccupancyReportComponent implements OnInit {
     );
   }
 
-  public setRadioButton(value: string): void {
+  public setRadioButton(value: number): void {
     this.occupancyInput.setValue(value);
   }
 

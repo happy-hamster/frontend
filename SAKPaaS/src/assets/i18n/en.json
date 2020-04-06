@@ -17,10 +17,13 @@
 		"privacy-policy": "Privacy policy (de only)"
 	},
 	"location-details": {
-		"button": "I'm here!",
-		"no-address": "We couldn't find the address."
+		"button": "I'm here!"
 	},
 	"occupancy": {
+    "count" : {
+      "one-rating": "Based on one evaluation",
+      "multiple-ratings": "Based on {{count}} evaluations"
+    },
 		"high": {
 			"checkout-time": "Long waiting time",
 			"safety-distance": "Safety distance of 1.5m can't be guaranteed.",
@@ -63,9 +66,6 @@
 			"permission-denied": "Please allow HappyHamster to locate you. To do that, either reload the page or go to the browser settings.",
 			"position-unavailable": "HappyHamster wasn't abled to locate you via GPS.",
 			"timeout": "It took to long to locate you via GPS. Please try it again."
-		},
-		"location-details": {
-			"check-in": "You are now checked into {{name}}. Have fun!"
 		},
 		"map": {
 			"error": "An error occurred while updating the map. Sorry :(",

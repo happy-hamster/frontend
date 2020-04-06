@@ -32,7 +32,7 @@ export class OLMapMarker extends Feature {
     });
     this.location = locationMarker;
     const occupancy = locationMarker.occupancy.value;
-    if (occupancy == null || occupancy < 0) {
+    if (occupancy == null || occupancy === undefined || isNaN(occupancy) || occupancy < 0) {
       this.setStyle(OLMapMarker.markerStyleUndefined);
     } else {
       const oc3 = occupancy * 3;
