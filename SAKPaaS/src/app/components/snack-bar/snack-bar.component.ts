@@ -14,6 +14,8 @@ export class SnackBarComponent implements OnInit {
 
   private snackBarRef: MatSnackBarRef<SimpleSnackBar>;
 
+  private isSnackBarLoading = false;
+
   private notificationQueue: ISnackBar[] = [];
 
   constructor(
@@ -24,14 +26,16 @@ export class SnackBarComponent implements OnInit {
 
   ngOnInit(): void {
     this.snackBarService.getNotification().subscribe(notification => {
+      console.log(notification.messageKey);
       this.notificationQueue.push(notification);
       notification.closeObservable?.subscribe(() => {
         // If the observable is triggered while the notification is
         // still on the queue it should be removed from it
         const index = this.notificationQueue.indexOf(notification);
+        if (index === -1) { return; }
         this.notificationQueue.splice(index, 1);
       });
-      if (!this.snackBarRef) {
+      if (!this.snackBarRef && !this.isSnackBarLoading) {
         this.next();
       }
     });
@@ -51,8 +55,9 @@ export class SnackBarComponent implements OnInit {
       (config.panelClass as string[]).push('close-button-hidden');
     }
 
+    this.isSnackBarLoading = true;
     this.translate.get(nextNotification.messageKey, nextNotification.valuesForMessage).subscribe(message => {
-      this.snackBarRef = this.snackBar.open(message, nextNotification.hideCloseButton ? null : 'X', config);
+      this.isSnackBarLoading = false;
 
       if (nextNotification.closeObservable) {
         config.duration = null;
@@ -60,6 +65,8 @@ export class SnackBarComponent implements OnInit {
           this.snackBarRef?.dismiss();
         });
       }
+
+      this.snackBarRef = this.snackBar.open(message, nextNotification.hideCloseButton ? null : 'X', config);
 
       this.snackBarRef.afterDismissed().subscribe(_ => {
         this.snackBarRef = null;
