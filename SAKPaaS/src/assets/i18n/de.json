@@ -1,85 +1,82 @@
 {
-	"dialog": {
-		"permissions": {
-			"cancel-button": "Nein, danke",
-			"message": "HappyHamster funktioniert am besten, wenn du deinen GPS-Standort aktivierst und uns erlaubst, Cookies zu speichern.<br>Mehr Informationen, wie wir Cookies verwenden, findest du unter \"Rechtliches\".<br>Bitte genehmige zusätzlich den Zugriff auf deinen Standort in deinem Internet-Browser.",
-			"ok-button": "Einverstanden",
-			"title": "Berechtigungen"
-		}
-	},
-	"footer": {
-		"help": "Hilfe",
-		"legal": "Rechtliches"
-	},
-	"legal": {
-		"cookies": "Cookies",
-		"impressum": "Impressum",
-		"privacy-policy": "Datenschutzerklärung"
-	},
-	"location-details": {
-		"button": "Ich bin hier!"
-	},
-	"occupancy": {
-    "count-mobile" : {
-      "one-rating": "1 Bewertung",
-      "multiple-ratings": "{{count}} Bewertungen"
-    },
-    "count-desktop" : {
+  "dialog": {
+    "permissions": {
+      "cancel-button": "Nein, danke",
+      "message": "HappyHamster funktioniert am besten, wenn du deinen GPS-Standort aktivierst und uns erlaubst, Cookies zu speichern.<br>Mehr Informationen, wie wir Cookies verwenden, findest du unter \"Rechtliches\".<br>Bitte genehmige zusätzlich den Zugriff auf deinen Standort in deinem Internet-Browser.",
+      "ok-button": "Einverstanden",
+      "title": "Berechtigungen"
+    }
+  },
+  "footer": {
+    "help": "Hilfe",
+    "legal": "Rechtliches"
+  },
+  "legal": {
+    "cookies": "Cookies",
+    "impressum": "Impressum",
+    "privacy-policy": "Datenschutzerklärung"
+  },
+  "location-details": {
+    "button": "Ich bin hier!"
+  },
+  "occupancy": {
+    "count": {
+
       "one-rating": "Basierend auf einer Bewertung",
       "multiple-ratings": "Basierend auf {{count}} Bewertungen"
     },
-		"high": {
-			"checkout-time": "Lange Wartezeiten",
-			"safety-distance": "Sicherheitsabstand von 1,5 Metern nicht garantiert",
-			"text": "Hohe Auslastung"
-		},
-		"low": {
-			"checkout-time": "Geringe Wartezeiten",
-			"safety-distance": "Sicherheitsabstand von 1,5 Metern garantiert.",
-			"text": "Fast leer"
-		},
-		"medium": {
-			"checkout-time": "Normale Wartezeit",
-			"safety-distance": "Sicherheitsabstand von 1,5 Metern meistens garantiert.",
-			"text": "Normale Auslastung"
-		},
-		"no-data": "Unbekannte Auslastung"
-	},
-	"occupancy-report": {
-		"title": "Wie voll ist "
-	},
-	"others": {
-		"back-to-happy-hamster": "Zurück zu Happy Hamter",
-		"cancel": "Abbrechen",
-		"not-here": "Bist du doch nicht hier?",
-		"pending": "Wird abgeschickt ...",
-		"submit": "Abschicken",
-		"warning": "Warnung"
-	},
-	"search-bar": {
-		"placeholder": "Supermarkt in der Nähe suchen"
-	},
-	"snack-bar": {
-		"cookies": {
-			"allowed": "Danke für deine Einwilligung! :)",
-			"forbidden": "Wir speichern ab jetzt keine Cookies mehr in deinem Browser. Du kannst die Einstellung jederzeit wieder ändern."
-		},
-		"gps": {
-			"default": "HappyHamster konnte aus einem unbekannten Grund deine GPS-Position nicht ermitteln.",
-			"not-supported": "Wir konnten deine GPS-Koordinaten nicht abrufen, da dein Browser das nicht unterstützt :(",
-			"permission-denied": "Bitte erlaube HappyHamster, deine Position zu ermitteln. Lade dazu entweder die Seite neu oder gehe in die Browser-Einstellungen.",
-			"position-unavailable": "HappyHamster konnte deine GPS-Position nicht ermitteln.",
-			"timeout": "Leider hat es zulange gedauert, deine GPS-Position zu ermitteln. Versuche es bitte erneut."
-		},
-		"map": {
-			"error": "Beim Aktualisieren der Karte ist ein Fehler aufgetreten. Sorry :(",
-			"not-found": "Leider konnten wir deinen gesuchten Laden nicht finden :(",
-			"zoom": "Bitte zoome näher in die Karte."
-		},
-		"occupancy-report": {
-			"failure": "Das hat leider nicht geklappt! Bitte versuche es erneut.",
-			"invalid": "Bitte sage uns deine persönliche Einschätzung der Auslastung :)",
-			"success": "Vielen Dank für dein Feedback!"
-		}
-	}
+    "high": {
+      "checkout-time": "Lange Wartezeiten",
+      "safety-distance": "Sicherheitsabstand von 1,5 Metern nicht garantiert",
+      "text": "Hohe Auslastung"
+    },
+    "low": {
+      "checkout-time": "Geringe Wartezeiten",
+      "safety-distance": "Sicherheitsabstand von 1,5 Metern garantiert.",
+      "text": "Fast leer"
+    },
+    "medium": {
+      "checkout-time": "Normale Wartezeit",
+      "safety-distance": "Sicherheitsabstand von 1,5 Metern meistens garantiert.",
+      "text": "Normale Auslastung"
+    },
+    "no-data": "Unbekannte Auslastung"
+  },
+  "occupancy-report": {
+    "title": "Wie voll ist "
+  },
+  "others": {
+    "back-to-happy-hamster": "Zurück zu Happy Hamster",
+    "cancel": "Abbrechen",
+    "not-here": "Bist du doch nicht hier?",
+    "pending": "Wird abgeschickt ...",
+    "submit": "Abschicken",
+    "warning": "Warnung"
+  },
+  "search-bar": {
+    "placeholder": "Supermarkt in der Nähe suchen"
+  },
+  "snack-bar": {
+    "cookies": {
+      "allowed": "Danke für deine Einwilligung! :)",
+      "forbidden": "Wir speichern ab jetzt keine Cookies mehr in deinem Browser. Du kannst die Einstellung jederzeit wieder ändern."
+    },
+    "gps": {
+      "default": "HappyHamster konnte aus einem unbekannten Grund deine GPS-Position nicht ermitteln.",
+      "not-supported": "Wir konnten deine GPS-Koordinaten nicht abrufen, da dein Browser das nicht unterstützt :(",
+      "permission-denied": "Bitte erlaube HappyHamster, deine Position zu ermitteln. Lade dazu entweder die Seite neu oder gehe in die Browser-Einstellungen.",
+      "position-unavailable": "HappyHamster konnte deine GPS-Position nicht ermitteln.",
+      "timeout": "Leider hat es zulange gedauert, deine GPS-Position zu ermitteln. Versuche es bitte erneut."
+    },
+    "map": {
+      "error": "Beim Aktualisieren der Karte ist ein Fehler aufgetreten. Sorry :(",
+      "not-found": "Leider konnten wir deinen gesuchten Laden nicht finden :(",
+      "zoom": "Bitte zoome näher in die Karte."
+    },
+    "occupancy-report": {
+      "failure": "Das hat leider nicht geklappt! Bitte versuche es erneut.",
+      "invalid": "Bitte sage uns deine persönliche Einschätzung der Auslastung :)",
+      "success": "Vielen Dank für dein Feedback!"
+    }
+  }
 }
