@@ -1,11 +1,12 @@
-import { Injectable } from '@angular/core';
-import { GpsCoordinates } from '../models/gps-coordinates.interface';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { SnackBarService } from './snack-bar.service';
-import { SnackBarTypes } from '../models/snack-bar.interface';
-import { GlobalDialogService } from './global-dialog.service';
-import { DialogMessageReturnTypes } from '../models/dialog-message.interface';
-import { CookieProviderService } from 'src/app/core/services/cookie-provider.service';
+import {Injectable} from '@angular/core';
+import {GpsCoordinates} from '../models/gps-coordinates.interface';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {SnackBarService} from './snack-bar.service';
+import {SnackBarTypes} from '../models/snack-bar.interface';
+import {GlobalDialogService} from './global-dialog.service';
+import {DialogMessageReturnTypes} from '../models/dialog-message.interface';
+import {CookieProviderService} from 'src/app/core/services/cookie-provider.service';
+import {Location} from '../../generated/models/location';
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +48,27 @@ export class GpsService {
 
   public getCurrentLocation(): GpsCoordinates {
     return this.coordinates.getValue();
+  }
+
+  public getDistanceToLocation(location: Location) {
+    const lat1 = location.latitude;
+    const lon1 = location.longitude;
+    const lat2 = this.getCurrentLocation().latitude;
+    const lon2 = this.getCurrentLocation().longitude;
+    const R = 6371; // Radius of the earth in km
+    const dLat = this.deg2rad(lat2 - lat1);  // deg2rad below
+    const dLon = this.deg2rad(lon2 - lon1);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2)
+    ;
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c; // Distance in km
+  }
+
+  private deg2rad(deg) {
+    return deg * (Math.PI / 180);
   }
 
   public updateRealGpsPosition() {
