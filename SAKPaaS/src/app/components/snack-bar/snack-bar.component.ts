@@ -3,7 +3,6 @@ import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { MatSnackBar, MatSnackBarConfig, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
 import { SnackBarTypes, ISnackBar } from 'src/app/core/models/snack-bar.interface';
 import { TranslateService } from '@ngx-translate/core';
-import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-snack-bar',
