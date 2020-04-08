@@ -2,7 +2,7 @@
   "dialog": {
     "permissions": {
       "cancel-button": "Nein, danke",
-      "message": "HappyHamster funktioniert am besten, wenn du deinen GPS-Standort aktivierst und uns erlaubst, Cookies zu speichern.<br>Mehr Informationen, wie wir Cookies verwenden, findest du unter \"<a title='Rechtliches' href='\\legal'>Rechtliches</a>\".<br>Bitte genehmige zusätzlich den Zugriff auf deinen Standort in deinem Internet-Browser.",
+      "message": "HappyHamster funktioniert am besten, wenn du deinen <b>GPS-Standort</b> aktivierst und uns erlaubst, <b>Cookies</b> zu speichern.<br><small>Mehr Informationen, wie wir Cookies verwenden, findest du unter \"<a title='Rechtliches' href='\\legal'>Rechtliches</a>\".</small>",
       "ok-button": "Einverstanden",
       "title": "Berechtigungen"
     }
