@@ -26,9 +26,6 @@
 mat-form-field {
   width: 100%;
 }
-.option-img {
-  margin-right: 8px;
-}
 
 .option {
   display: flex;
@@ -36,6 +33,18 @@ mat-form-field {
   justify-content: space-between;
   width: 100%;
   align-items: center;
+
+  .text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-right: 10px;
+  }
+
+  .occupancy-image {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 
 ::ng-deep app-occupancy-view {

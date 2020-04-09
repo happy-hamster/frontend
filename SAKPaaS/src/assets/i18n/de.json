@@ -21,6 +21,7 @@
   },
   "occupancy": {
     "count": {
+
       "one-rating": "Basierend auf einer Bewertung",
       "multiple-ratings": "Basierend auf {{count}} Bewertungen"
     },
