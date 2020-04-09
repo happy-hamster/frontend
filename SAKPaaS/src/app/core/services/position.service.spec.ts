@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { PositionService } from './position.service';
 
-describe('GpsService', () => {
+describe('PositionService', () => {
   let service: PositionService;
 
   beforeEach(() => {

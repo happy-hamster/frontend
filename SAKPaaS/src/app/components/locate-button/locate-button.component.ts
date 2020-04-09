@@ -8,9 +8,9 @@ import { PositionService } from '../../core/services/position.service';
 })
 export class LocateButtonComponent {
 
-  constructor(private gpsService: PositionService) { }
+  constructor(private positionService: PositionService) { }
 
   loadPosition(): void {
-    this.gpsService.updateRealGpsPosition();
+    this.positionService.updateRealGpsPosition();
   }
 }

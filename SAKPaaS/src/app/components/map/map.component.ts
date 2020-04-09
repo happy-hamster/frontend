@@ -49,7 +49,7 @@ export class MapComponent implements OnInit, OnDestroy {
   private subscriptions = new Subscription();
 
   constructor(
-    private gpsService: PositionService,
+    private positionService: PositionService,
     private locationService: LocationProviderService,
     private snackBarService: SnackBarService,
     private route: ActivatedRoute,
@@ -109,7 +109,7 @@ export class MapComponent implements OnInit, OnDestroy {
         })
       ],
       view: new View({
-        center: olProj.fromLonLat([this.gpsService.getCurrentLocation().longitude, this.gpsService.getCurrentLocation().latitude]),
+        center: olProj.fromLonLat([this.positionService.getCurrentLocation().longitude, this.positionService.getCurrentLocation().latitude]),
         zoom: this.zoomLevel.getValue()
       }),
     });
@@ -141,7 +141,7 @@ export class MapComponent implements OnInit, OnDestroy {
 
       if (zoomLevel < MapComponent.ZOOM_LIMIT) { return false; }
 
-      const oldCenter = this.gpsService.getCurrentLocation();
+      const oldCenter = this.positionService.getCurrentLocation();
       const viewCenter = view.getCenter();
       const newCenter = olProj.toLonLat(viewCenter);
 
@@ -150,7 +150,7 @@ export class MapComponent implements OnInit, OnDestroy {
       if (distance < MapComponent.MOVE_LIMIT) { return false; }
 
       this.locationService.updateLoadingState(true);
-      this.gpsService.setLocation({ longitude: newCenter[0], latitude: newCenter[1] });
+      this.positionService.setLocation({ longitude: newCenter[0], latitude: newCenter[1] });
 
       return false;
     });
@@ -161,7 +161,7 @@ export class MapComponent implements OnInit, OnDestroy {
       if (zoomLevel > MapComponent.ZOOM_LIMIT) {
         if (this.closeSubject) {
           // forcing a reload
-          this.gpsService.setLocation(this.gpsService.getCurrentLocation());
+          this.positionService.setLocation(this.positionService.getCurrentLocation());
           this.closeSubject.next();
           this.closeSubject = null;
         }
@@ -211,7 +211,7 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   private loadGpsPosition() {
-    this.subscriptions.add(this.gpsService.getLocation().pipe(
+    this.subscriptions.add(this.positionService.getLocation().pipe(
       catchError(err => {
         this.snackBarService.sendNotification({
           messageKey: 'snack-bar.map.error',

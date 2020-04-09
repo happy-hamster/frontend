@@ -15,9 +15,9 @@ export class LocationProviderService {
 
   constructor(
     private locationApiService: LocationsService,
-    private gpsService: PositionService
+    private positionService: PositionService
   ) {
-    this.gpsService.getLocation().pipe(
+    this.positionService.getLocation().pipe(
       filter(coordinates => !!coordinates),
       switchMap(coordinates => {
         return this.locationApiService.searchLocations({ coordinates });
