@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { MatSnackBar, MatSnackBarConfig, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
-import { SnackBarTypes, ISnackBar } from 'src/app/core/models/snack-bar.interface';
+import { SnackBarTypes, ISnackBarInternal } from 'src/app/core/models/snack-bar.interface';
 import { TranslateService } from '@ngx-translate/core';
-import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-snack-bar',
@@ -16,7 +15,7 @@ export class SnackBarComponent implements OnInit {
 
   private isSnackBarLoading = false;
 
-  private notificationQueue: ISnackBar[] = [];
+  private notificationQueue: ISnackBarInternal[] = [];
 
   constructor(
     private snackBarService: SnackBarService,
@@ -25,9 +24,13 @@ export class SnackBarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.snackBarService.getNotification().subscribe(notification => {
+    this.snackBarService.getNotification().subscribe(extNotification => {
+      const notification = extNotification as ISnackBarInternal;
       this.notificationQueue.push(notification);
       notification.closeObservable?.subscribe(() => {
+        // marks the notification as closed
+        // this needs to be done because opening happens asynchronously
+        notification.closed = true;
         // If the observable is triggered while the notification is
         // still on the queue it should be removed from it
         const index = this.notificationQueue.indexOf(notification);
@@ -57,6 +60,9 @@ export class SnackBarComponent implements OnInit {
     this.isSnackBarLoading = true;
     this.translate.get(nextNotification.messageKey, nextNotification.valuesForMessage).subscribe(message => {
       this.isSnackBarLoading = false;
+
+      // if the notification has been dismissed during the translation fix it must not be displayed
+      if (nextNotification.closed) { this.next(); return; }
 
       if (nextNotification.closeObservable) {
         config.duration = null;
