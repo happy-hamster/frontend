@@ -36,7 +36,6 @@ export class MapComponent implements OnInit, OnDestroy {
 
   customMap: Map;
   markers = new Subject<OLMapMarker[]>();
-  zoomLevel = new BehaviorSubject<number>(6);
 
   vectorSource: VectorSource;
   selectEvent: SelectEvent = null;
@@ -62,7 +61,10 @@ export class MapComponent implements OnInit, OnDestroy {
 
     this.isLoadingLocations = this.locationService.getLoadingLocationsState();
 
-    this.loadGpsPosition();
+    if (this.positionService.isInitial) {
+      this.loadGpsPosition();
+      this.positionService.isInitial = false;
+    }
 
     if (this.route.snapshot.queryParamMap.get('id')) {
       console.log('id: ' + this.route.snapshot.queryParamMap.get('id'));
@@ -79,7 +81,7 @@ export class MapComponent implements OnInit, OnDestroy {
           });
           return throwError(err);
         }),
-        filter(_ => this.zoomLevel.getValue() > MapComponent.ZOOM_LIMIT)
+        filter(_ => this.positionService.getCurrentMapZoomLevel() > MapComponent.ZOOM_LIMIT)
       ).subscribe((next) => {
         this.locationService.updateLoadingState(false);
         console.log('Fetched new locations');
@@ -112,7 +114,7 @@ export class MapComponent implements OnInit, OnDestroy {
           this.positionService.getCurrentMapCenter().longitude,
           this.positionService.getCurrentMapCenter().latitude
         ]),
-        zoom: this.zoomLevel.getValue()
+        zoom: this.positionService.getCurrentMapZoomLevel()
       }),
     });
 
@@ -139,7 +141,7 @@ export class MapComponent implements OnInit, OnDestroy {
     this.customMap.addEventListener('moveend', () => {
       const view = this.customMap.getView();
       const zoomLevel = view.getZoom();
-      this.zoomLevel.next(zoomLevel);
+      this.positionService.setMapZoomLevel(zoomLevel);
 
       // if (zoomLevel < MapComponent.ZOOM_LIMIT) { return false; }
 
@@ -151,7 +153,7 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   private initZoomLevelAlert() {
-    this.zoomLevel.subscribe((zoomLevel) => {
+    this.positionService.getMapZoomLevel().subscribe((zoomLevel) => {
       if (zoomLevel > MapComponent.ZOOM_LIMIT) {
         if (this.closeSubject) {
           // forcing a reload

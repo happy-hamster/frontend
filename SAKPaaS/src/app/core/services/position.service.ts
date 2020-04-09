@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PositionCoordinates } from '../models/gps-coordinates.interface';
-import { Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
+import { Observable, BehaviorSubject, ReplaySubject, Subject } from 'rxjs';
 import { SnackBarService } from './snack-bar.service';
 import { SnackBarTypes } from '../models/snack-bar.interface';
 import { GlobalDialogService } from './global-dialog.service';
@@ -15,7 +15,12 @@ export class PositionService {
   private static HOME_LOCATION = new PositionCoordinates(10.018343, 51.133481);
 
   private mapCenter = new BehaviorSubject<PositionCoordinates>(PositionService.HOME_LOCATION);
-  private devicePosition = new ReplaySubject<PositionCoordinates>(1);
+  private mapZoomLevel = new BehaviorSubject<number>(6);
+  private devicePosition = new Subject<PositionCoordinates>();
+
+  // The map should only zoom to the users location on the first page load.
+  // After it did that, isInitial will be false.
+  public isInitial = true;
 
   constructor(
     private snackBarService: SnackBarService,
@@ -51,6 +56,18 @@ export class PositionService {
 
   public getDevicePosition(): Observable<PositionCoordinates> {
     return this.devicePosition;
+  }
+
+  public getMapZoomLevel(): Observable<number> {
+    return this.mapZoomLevel;
+  }
+
+  public getCurrentMapZoomLevel(): number {
+    return this.mapZoomLevel.getValue();
+  }
+
+  public setMapZoomLevel(level: number) {
+    this.mapZoomLevel.next(level);
   }
 
   private getGpsPosition(): Promise<PositionCoordinates> {
