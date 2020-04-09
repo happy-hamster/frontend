@@ -1,11 +1,11 @@
-import { Component, OnInit, Output, EventEmitter,  OnDestroy } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import { OSM } from 'ol/source';
 import * as olProj from 'ol/proj';
 import { defaults as defaultInteractions, Select } from 'ol/interaction';
-import { GpsService } from 'src/app/core/services/gps.service';
+import { PositionService } from 'src/app/core/services/position.service';
 import { click } from 'ol/events/condition';
 import VectorSource from 'ol/source/Vector';
 import { OLMapMarker } from './ol-map-marker';
@@ -49,7 +49,7 @@ export class MapComponent implements OnInit, OnDestroy {
   private subscriptions = new Subscription();
 
   constructor(
-    private gpsService: GpsService,
+    private gpsService: PositionService,
     private locationService: LocationProviderService,
     private snackBarService: SnackBarService,
     private route: ActivatedRoute,

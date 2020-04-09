@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject, BehaviorSubject, throwError, of } from 'rxjs';
 import { Location } from 'src/app/generated/models';
 import { LocationsService } from 'src/app/generated/services';
-import { GpsService } from './gps.service';
+import { PositionService } from './position.service';
 import { switchMap, catchError, filter } from 'rxjs/operators';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class LocationProviderService {
 
   constructor(
     private locationApiService: LocationsService,
-    private gpsService: GpsService
+    private gpsService: PositionService
   ) {
     this.gpsService.getLocation().pipe(
       filter(coordinates => !!coordinates),
