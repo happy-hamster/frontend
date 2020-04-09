@@ -17,19 +17,35 @@
 }
 
 .occupancy-count {
-  margin-left: 5px;
   color: var(--greenish-grey);
 }
 
 .holder {
   width: 100%;
-  padding: 0.5rem;
-  img {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  div {
+    padding: 0.5rem;
     display: inline-flex;
-  }
-  p {
-    display: inline-flex;
-    margin-left: 1rem;
     margin-bottom: 0;
+  }
+}
+
+.mobile {
+  display: inline-flex !important;
+}
+
+.desktop {
+  display: none !important;
+}
+
+@media (min-width: 601px) {
+  .mobile {
+    display: none !important;
+  }
+  
+  .desktop {
+    display: inline-flex !important;
   }
 }
