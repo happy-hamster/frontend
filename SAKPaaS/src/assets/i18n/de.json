@@ -20,8 +20,11 @@
     "button": "Ich bin hier!"
   },
   "occupancy": {
-    "count": {
-
+    "count-mobile" : {
+      "one-rating": "1 Bewertung",
+      "multiple-ratings": "{{count}} Bewertungen"
+    },
+    "count-desktop" : {
       "one-rating": "Basierend auf einer Bewertung",
       "multiple-ratings": "Basierend auf {{count}} Bewertungen"
     },
