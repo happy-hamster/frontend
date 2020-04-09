@@ -10,11 +10,11 @@ import { CookieProviderService } from 'src/app/core/services/cookie-provider.ser
 @Injectable({
   providedIn: 'root'
 })
-export class PositionService {
+export class MapService {
   private static PERMISSION_COOKIE_NAME = 'permission_gps_granted';
   private static HOME_LOCATION = new PositionCoordinates(10.018343, 51.133481);
 
-  private mapCenter = new BehaviorSubject<PositionCoordinates>(PositionService.HOME_LOCATION);
+  private mapCenter = new BehaviorSubject<PositionCoordinates>(MapService.HOME_LOCATION);
   private mapZoomLevel = new BehaviorSubject<number>(6);
   private devicePosition = new Subject<PositionCoordinates>();
 
@@ -27,11 +27,11 @@ export class PositionService {
     private cookieService: CookieProviderService,
     private dialogService: GlobalDialogService
   ) {
-    if (!this.cookieService.isCookieAlreadySet(PositionService.PERMISSION_COOKIE_NAME)) {
+    if (!this.cookieService.isCookieAlreadySet(MapService.PERMISSION_COOKIE_NAME)) {
       this.askForPermission().then((granted) => {
         if (granted) {
           this.cookieService.allowCookies();
-          this.cookieService.setCookie(PositionService.PERMISSION_COOKIE_NAME, 'true');
+          this.cookieService.setCookie(MapService.PERMISSION_COOKIE_NAME, 'true');
           this.updateRealGpsPosition();
         } else {
           console.warn('Access to GPS position denied. What to do?');

@@ -5,7 +5,7 @@ import TileLayer from 'ol/layer/Tile';
 import { OSM } from 'ol/source';
 import * as olProj from 'ol/proj';
 import { defaults as defaultInteractions, Select } from 'ol/interaction';
-import { PositionService } from 'src/app/core/services/position.service';
+import { MapService } from 'src/app/core/services/map.service';
 import { click } from 'ol/events/condition';
 import VectorSource from 'ol/source/Vector';
 import { OLMapMarker } from './ol-map-marker';
@@ -47,7 +47,7 @@ export class MapComponent implements OnInit, OnDestroy {
   private subscriptions = new Subscription();
 
   constructor(
-    private positionService: PositionService,
+    private mapService: MapService,
     private locationService: LocationProviderService,
     private snackBarService: SnackBarService,
     private route: ActivatedRoute,
@@ -61,9 +61,9 @@ export class MapComponent implements OnInit, OnDestroy {
 
     this.isLoadingLocations = this.locationService.getLoadingLocationsState();
 
-    if (this.positionService.isInitial) {
+    if (this.mapService.isInitial) {
       this.loadGpsPosition();
-      this.positionService.isInitial = false;
+      this.mapService.isInitial = false;
     }
 
     if (this.route.snapshot.queryParamMap.get('id')) {
@@ -81,7 +81,7 @@ export class MapComponent implements OnInit, OnDestroy {
           });
           return throwError(err);
         }),
-        filter(_ => this.positionService.getCurrentMapZoomLevel() > MapComponent.ZOOM_LIMIT)
+        filter(_ => this.mapService.getCurrentMapZoomLevel() > MapComponent.ZOOM_LIMIT)
       ).subscribe((next) => {
         this.locationService.updateLoadingState(false);
         console.log('Fetched new locations');
@@ -111,10 +111,10 @@ export class MapComponent implements OnInit, OnDestroy {
       ],
       view: new View({
         center: olProj.fromLonLat([
-          this.positionService.getCurrentMapCenter().longitude,
-          this.positionService.getCurrentMapCenter().latitude
+          this.mapService.getCurrentMapCenter().longitude,
+          this.mapService.getCurrentMapCenter().latitude
         ]),
-        zoom: this.positionService.getCurrentMapZoomLevel()
+        zoom: this.mapService.getCurrentMapZoomLevel()
       }),
     });
 
@@ -141,19 +141,19 @@ export class MapComponent implements OnInit, OnDestroy {
     this.customMap.addEventListener('moveend', () => {
       const view = this.customMap.getView();
       const zoomLevel = view.getZoom();
-      this.positionService.setMapZoomLevel(zoomLevel);
+      this.mapService.setMapZoomLevel(zoomLevel);
 
       // if (zoomLevel < MapComponent.ZOOM_LIMIT) { return false; }
 
       const viewCenterCoords = olProj.toLonLat(view.getCenter());
-      this.positionService.setMapCenter(PositionCoordinates.fromOLArray(viewCenterCoords));
+      this.mapService.setMapCenter(PositionCoordinates.fromOLArray(viewCenterCoords));
 
       return false;
     });
   }
 
   private initZoomLevelAlert() {
-    this.positionService.getMapZoomLevel().subscribe((zoomLevel) => {
+    this.mapService.getMapZoomLevel().subscribe((zoomLevel) => {
       if (zoomLevel > MapComponent.ZOOM_LIMIT) {
         if (this.closeSubject) {
           // forcing a reload
@@ -207,7 +207,7 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   private loadGpsPosition() {
-    this.subscriptions.add(this.positionService.getDevicePosition().pipe(
+    this.subscriptions.add(this.mapService.getDevicePosition().pipe(
       catchError(err => {
         this.snackBarService.sendNotification({
           messageKey: 'snack-bar.map.error',

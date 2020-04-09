@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject, BehaviorSubject, throwError, of } from 'rxjs';
 import { Location } from 'src/app/generated/models';
 import { LocationsService } from 'src/app/generated/services';
-import { PositionService } from './position.service';
+import { MapService } from './map.service';
 import { switchMap, catchError, filter, tap } from 'rxjs/operators';
 import { PositionCoordinates } from '../models/gps-coordinates.interface';
 import { getDistance as olGetDistance } from 'ol/sphere';
@@ -22,9 +22,9 @@ export class LocationProviderService {
 
   constructor(
     private locationApiService: LocationsService,
-    private positionService: PositionService
+    private mapService: MapService
   ) {
-    this.positionService.getMapCenter().pipe(
+    this.mapService.getMapCenter().pipe(
       filter(coordinates => !!coordinates),
       filter(newCoordinates => {
         if (this.lastUpdatedPosition === null) {
