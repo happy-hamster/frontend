@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { GpsCoordinates } from '../models/gps-coordinates.interface';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { PositionCoordinates } from '../models/gps-coordinates.interface';
+import { Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
 import { SnackBarService } from './snack-bar.service';
 import { SnackBarTypes } from '../models/snack-bar.interface';
 import { GlobalDialogService } from './global-dialog.service';
@@ -12,9 +12,10 @@ import { CookieProviderService } from 'src/app/core/services/cookie-provider.ser
 })
 export class PositionService {
   private static PERMISSION_COOKIE_NAME = 'permission_gps_granted';
-  private static HOME_LOCATION: GpsCoordinates = { longitude: 10.018343, latitude: 51.133481, fromDevice: false };
+  private static HOME_LOCATION = new PositionCoordinates(10.018343, 51.133481);
 
-  private coordinates = new BehaviorSubject<GpsCoordinates>(PositionService.HOME_LOCATION);
+  private mapCenter = new BehaviorSubject<PositionCoordinates>(PositionService.HOME_LOCATION);
+  private devicePosition = new ReplaySubject<PositionCoordinates>(1);
 
   constructor(
     private snackBarService: SnackBarService,
@@ -36,26 +37,29 @@ export class PositionService {
     }
   }
 
-  public setLocation(coordinates: GpsCoordinates) {
-    coordinates.fromDevice = false;
-    this.coordinates.next(coordinates);
+  public setMapCenter(coordinates: PositionCoordinates) {
+    this.mapCenter.next(coordinates);
   }
 
-  public getLocation(): Observable<GpsCoordinates> {
-    return this.coordinates;
+  public getMapCenter(): Observable<PositionCoordinates> {
+    return this.mapCenter;
   }
 
-  public getCurrentLocation(): GpsCoordinates {
-    return this.coordinates.getValue();
+  public getCurrentMapCenter(): PositionCoordinates {
+    return this.mapCenter.getValue();
   }
 
-  private getGpsPosition(): Promise<GpsCoordinates> {
+  public getDevicePosition(): Observable<PositionCoordinates> {
+    return this.devicePosition;
+  }
+
+  private getGpsPosition(): Promise<PositionCoordinates> {
     return new Promise((resolve, reject) => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
           const longitude = position.coords.longitude;
           const latitude = position.coords.latitude;
-          resolve({ longitude, latitude });
+          resolve(new PositionCoordinates(longitude, latitude));
         }, (positionError) => {
           switch (positionError.code) {
             case positionError.PERMISSION_DENIED:
@@ -80,7 +84,7 @@ export class PositionService {
 
   public updateRealGpsPosition() {
     this.getGpsPosition().then(position => {
-      this.coordinates.next(position);
+      this.devicePosition.next(position);
     }).catch(reason => {
       this.snackBarService.sendNotification({
         messageKey: 'snack-bar.gps.' + reason,

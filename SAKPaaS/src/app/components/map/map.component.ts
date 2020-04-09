@@ -15,10 +15,10 @@ import { LocationProviderService } from 'src/app/core/services/location-provider
 import { catchError, filter } from 'rxjs/operators';
 import { Location } from 'src/app/generated/models';
 import { SelectEvent } from 'ol/interaction/Select';
-import { getDistance as olGetDistance } from 'ol/sphere';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { SnackBarTypes } from 'src/app/core/models/snack-bar.interface';
 import { ActivatedRoute } from '@angular/router';
+import { PositionCoordinates } from 'src/app/core/models/gps-coordinates.interface';
 
 @Component({
   selector: 'app-map',
@@ -30,8 +30,7 @@ export class MapComponent implements OnInit, OnDestroy {
   // minimum zoom level to load/display any locations
   private static ZOOM_LIMIT = 11;
 
-  // minimum distance in meters to trigger a reload
-  private static MOVE_LIMIT = 1000;
+
 
   @Output() locationEmitted = new EventEmitter<Location>();
 
@@ -109,7 +108,10 @@ export class MapComponent implements OnInit, OnDestroy {
         })
       ],
       view: new View({
-        center: olProj.fromLonLat([this.positionService.getCurrentLocation().longitude, this.positionService.getCurrentLocation().latitude]),
+        center: olProj.fromLonLat([
+          this.positionService.getCurrentMapCenter().longitude,
+          this.positionService.getCurrentMapCenter().latitude
+        ]),
         zoom: this.zoomLevel.getValue()
       }),
     });
@@ -139,18 +141,10 @@ export class MapComponent implements OnInit, OnDestroy {
       const zoomLevel = view.getZoom();
       this.zoomLevel.next(zoomLevel);
 
-      if (zoomLevel < MapComponent.ZOOM_LIMIT) { return false; }
+      // if (zoomLevel < MapComponent.ZOOM_LIMIT) { return false; }
 
-      const oldCenter = this.positionService.getCurrentLocation();
-      const viewCenter = view.getCenter();
-      const newCenter = olProj.toLonLat(viewCenter);
-
-      const distance = olGetDistance([oldCenter.longitude, oldCenter.latitude], newCenter);
-
-      if (distance < MapComponent.MOVE_LIMIT) { return false; }
-
-      this.locationService.updateLoadingState(true);
-      this.positionService.setLocation({ longitude: newCenter[0], latitude: newCenter[1] });
+      const viewCenterCoords = olProj.toLonLat(view.getCenter());
+      this.positionService.setMapCenter(PositionCoordinates.fromOLArray(viewCenterCoords));
 
       return false;
     });
@@ -161,7 +155,7 @@ export class MapComponent implements OnInit, OnDestroy {
       if (zoomLevel > MapComponent.ZOOM_LIMIT) {
         if (this.closeSubject) {
           // forcing a reload
-          this.positionService.setLocation(this.positionService.getCurrentLocation());
+          // this.positionService.setMapCenter(this.positionService.getCurrentLocation());
           this.closeSubject.next();
           this.closeSubject = null;
         }
@@ -211,7 +205,7 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   private loadGpsPosition() {
-    this.subscriptions.add(this.positionService.getLocation().pipe(
+    this.subscriptions.add(this.positionService.getDevicePosition().pipe(
       catchError(err => {
         this.snackBarService.sendNotification({
           messageKey: 'snack-bar.map.error',
@@ -220,10 +214,8 @@ export class MapComponent implements OnInit, OnDestroy {
         return throwError(err);
       })
     ).subscribe(gpsCoordinates => {
-      if (gpsCoordinates.fromDevice) {
-        this.customMap.getView().setCenter(olProj.fromLonLat([gpsCoordinates.longitude, gpsCoordinates.latitude]));
-        this.customMap.getView().setZoom(15);
-      }
+      this.customMap.getView().setCenter(olProj.fromLonLat([gpsCoordinates.longitude, gpsCoordinates.latitude]));
+      this.customMap.getView().setZoom(15);
     }));
   }
 
