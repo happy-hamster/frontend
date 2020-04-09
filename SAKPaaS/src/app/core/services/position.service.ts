@@ -49,48 +49,44 @@ export class PositionService {
     return this.coordinates.getValue();
   }
 
+  private getGpsPosition(): Promise<GpsCoordinates> {
+    return new Promise((resolve, reject) => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          const longitude = position.coords.longitude;
+          const latitude = position.coords.latitude;
+          resolve({ longitude, latitude });
+        }, (positionError) => {
+          switch (positionError.code) {
+            case positionError.PERMISSION_DENIED:
+              reject('permission-denied');
+              break;
+            case positionError.POSITION_UNAVAILABLE:
+              reject('position-unavailable');
+              break;
+            case positionError.TIMEOUT:
+              reject('timeout');
+              break;
+            default:
+              reject('default');
+              break;
+          }
+        });
+      } else {
+        reject('not-supported');
+      }
+    });
+  }
+
   public updateRealGpsPosition() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const longitude = position.coords.longitude;
-        const latitude = position.coords.latitude;
-        this.coordinates.next({ longitude, latitude, fromDevice: true });
-      }, (positionError) => {
-        switch (positionError.code) {
-          case positionError.PERMISSION_DENIED:
-            this.snackBarService.sendNotification({
-              messageKey: 'snack-bar.gps.permission-denied',
-              type: SnackBarTypes.ERROR
-            });
-            break;
-          case positionError.POSITION_UNAVAILABLE:
-            this.snackBarService.sendNotification({
-              messageKey: 'snack-bar.gps.position-unavailable',
-              type: SnackBarTypes.ERROR
-            });
-            break;
-          case positionError.TIMEOUT:
-            this.snackBarService.sendNotification({
-              messageKey: 'snack-bar.gps.timeout',
-              type: SnackBarTypes.ERROR
-            });
-            break;
-          default:
-            this.snackBarService.sendNotification({
-              messageKey: 'snack-bar.gps.default',
-              type: SnackBarTypes.ERROR
-            });
-            break;
-        }
-      });
-    } else {
+    this.getGpsPosition().then(position => {
+      this.coordinates.next(position);
+    }).catch(reason => {
       this.snackBarService.sendNotification({
-        messageKey: 'snack-bar.gps.not-supported',
+        messageKey: 'snack-bar.gps.' + reason,
         type: SnackBarTypes.ERROR
       });
-      console.warn('No support for geolocation');
-      return undefined;
-    }
+    });
   }
 
   private askForPermission(): Promise<boolean> {
