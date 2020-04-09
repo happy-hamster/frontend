@@ -1,5 +1,5 @@
 <ng-container *ngIf="isSearchBar; else isNoSearchBar">
-  <div *ngIf="occupancy.value">
+  <div *ngIf="occupancy.value !== null">
     <img [src]="iconPath" alt="Auslastung" />
   </div>
 </ng-container>
