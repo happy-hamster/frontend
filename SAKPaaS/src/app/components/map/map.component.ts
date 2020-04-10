@@ -127,10 +127,8 @@ export class MapComponent implements OnInit, OnDestroy {
     // this listener is called after the user has zoomed/panned/rotated the map
     this.customMap.addEventListener('moveend', () => {
       const view = this.customMap.getView();
-      const zoomLevel = view.getZoom();
-      this.mapService.setMapZoomLevel(zoomLevel);
 
-      // if (zoomLevel < MapComponent.ZOOM_LIMIT) { return false; }
+      this.mapService.setMapZoomLevel(view.getZoom());
 
       const viewCenterCoords = olProj.toLonLat(view.getCenter());
       this.mapService.setMapCenter(PositionCoordinates.fromOLArray(viewCenterCoords));
@@ -143,8 +141,6 @@ export class MapComponent implements OnInit, OnDestroy {
     this.mapService.getMapZoomLevel().subscribe((zoomLevel) => {
       if (zoomLevel > MapService.ZOOM_LIMIT) {
         if (this.closeSubject) {
-          // forcing a reload
-          // this.positionService.setMapCenter(this.positionService.getCurrentLocation());
           this.closeSubject.next();
           this.closeSubject = null;
         }
