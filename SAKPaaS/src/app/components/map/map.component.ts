@@ -100,10 +100,7 @@ export class MapComponent implements OnInit, OnDestroy {
         })
       ],
       view: new View({
-        center: olProj.fromLonLat([
-          this.mapService.getCurrentMapCenter().longitude,
-          this.mapService.getCurrentMapCenter().latitude
-        ]),
+        center: this.mapService.getCurrentMapCenter().toOLProjectionArray(),
         zoom: this.mapService.getCurrentMapZoomLevel()
       }),
     });
@@ -173,7 +170,7 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   public zoomToNewLocation(location: Location): void {
-    this.customMap.getView().setCenter(olProj.fromLonLat([location.coordinates.longitude, location.coordinates.latitude]));
+    this.customMap.getView().setCenter(PositionCoordinates.fromLocation(location).toOLProjectionArray());
     this.customMap.getView().setZoom(16);
   }
 
@@ -206,7 +203,7 @@ export class MapComponent implements OnInit, OnDestroy {
         return throwError(err);
       })
     ).subscribe(gpsCoordinates => {
-      this.customMap.getView().setCenter(olProj.fromLonLat([gpsCoordinates.longitude, gpsCoordinates.latitude]));
+      this.customMap.getView().setCenter(gpsCoordinates.toOLProjectionArray());
       this.customMap.getView().setZoom(15);
     }));
   }
