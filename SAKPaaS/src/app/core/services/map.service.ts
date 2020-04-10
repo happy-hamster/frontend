@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PositionCoordinates } from '../models/gps-coordinates.interface';
+import { PositionCoordinates } from '../models/position-coordinates.model';
 import { Observable, BehaviorSubject, ReplaySubject, Subject } from 'rxjs';
 import { SnackBarService } from './snack-bar.service';
 import { SnackBarTypes } from '../models/snack-bar.interface';

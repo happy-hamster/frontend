@@ -4,7 +4,7 @@ import { Location } from 'src/app/generated/models';
 import { LocationsService } from 'src/app/generated/services';
 import { MapService } from './map.service';
 import { switchMap, catchError, filter, tap } from 'rxjs/operators';
-import { PositionCoordinates } from '../models/gps-coordinates.interface';
+import { PositionCoordinates } from '../models/position-coordinates.model';
 import { getDistance as olGetDistance } from 'ol/sphere';
 
 
@@ -44,7 +44,11 @@ export class LocationProviderService {
         this.updateLoadingState(true);
         return this.locationApiService.searchLocations({ coordinates });
       }),
-      tap(_ => this.updateLoadingState(false))
+      tap(_ => this.updateLoadingState(false)),
+      catchError((error) => {
+        this.updateLoadingState(false);
+        return throwError(error);
+      })
     ).subscribe(this.locations$);
   }
 
@@ -56,7 +60,7 @@ export class LocationProviderService {
     return this.locationApiService.locationsIdGet({ id });
   }
 
-  public updateLoadingState(value: boolean) {
+  private updateLoadingState(value: boolean) {
     this.isLoadingLocations.next(value);
   }
 

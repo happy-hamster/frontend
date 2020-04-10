@@ -18,7 +18,7 @@ import { SelectEvent } from 'ol/interaction/Select';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { SnackBarTypes } from 'src/app/core/models/snack-bar.interface';
 import { ActivatedRoute } from '@angular/router';
-import { PositionCoordinates } from 'src/app/core/models/gps-coordinates.interface';
+import { PositionCoordinates } from 'src/app/core/models/position-coordinates.model';
 
 @Component({
   selector: 'app-map',
@@ -74,7 +74,6 @@ export class MapComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.locationService.fetchLocations().pipe(
         catchError(err => {
-          this.locationService.updateLoadingState(false);
           this.snackBarService.sendNotification({
             messageKey: 'snack-bar.map.error',
             type: SnackBarTypes.ERROR
@@ -83,7 +82,6 @@ export class MapComponent implements OnInit, OnDestroy {
         }),
         filter(_ => this.mapService.getCurrentMapZoomLevel() > MapComponent.ZOOM_LIMIT)
       ).subscribe((next) => {
-        this.locationService.updateLoadingState(false);
         console.log('Fetched new locations');
         this.vectorSource.clear();
         const markers = next.map((locations) => new OLMapMarker(locations));
