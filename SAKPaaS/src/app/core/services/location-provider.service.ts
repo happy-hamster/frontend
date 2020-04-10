@@ -13,9 +13,6 @@ import { getDistance as olGetDistance } from 'ol/sphere';
 })
 export class LocationProviderService {
 
-  // minimum distance in meters to trigger a reload
-  private static MOVE_LIMIT = 1000;
-
   private isLoadingLocations = new BehaviorSubject<boolean>(false);
   private locations$ = new BehaviorSubject<Location[]>([]);
   private lastUpdatedPosition?: PositionCoordinates = null;
@@ -26,13 +23,14 @@ export class LocationProviderService {
   ) {
     this.mapService.getMapCenter().pipe(
       filter(coordinates => !!coordinates),
+      filter(_ => this.mapService.getCurrentMapZoomLevel() > MapService.ZOOM_LIMIT),
       filter(newCoordinates => {
         if (this.lastUpdatedPosition === null) {
           this.lastUpdatedPosition = newCoordinates;
           return true;
         } else {
           const distance = olGetDistance(this.lastUpdatedPosition.toArray(), newCoordinates.toArray());
-          if (distance < LocationProviderService.MOVE_LIMIT) {
+          if (distance < MapService.MOVE_LIMIT) {
             return false;
           } else {
             this.lastUpdatedPosition = newCoordinates;
@@ -42,6 +40,7 @@ export class LocationProviderService {
       }),
       switchMap(coordinates => {
         this.updateLoadingState(true);
+        console.log('Loading new locations...');
         return this.locationApiService.searchLocations({ coordinates });
       }),
       tap(_ => this.updateLoadingState(false)),

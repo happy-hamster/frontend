@@ -14,6 +14,12 @@ export class MapService {
   private static PERMISSION_COOKIE_NAME = 'permission_gps_granted';
   private static HOME_LOCATION = new PositionCoordinates(10.018343, 51.133481);
 
+  // minimum zoom level to load/display any locations
+  public static ZOOM_LIMIT = 11;
+
+  // minimum distance in meters to trigger a reload
+  public static MOVE_LIMIT = 1000;
+
   private mapCenter = new BehaviorSubject<PositionCoordinates>(MapService.HOME_LOCATION);
   private mapZoomLevel = new BehaviorSubject<number>(6);
   private devicePosition = new Subject<PositionCoordinates>();

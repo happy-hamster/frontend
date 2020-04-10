@@ -27,11 +27,6 @@ import { PositionCoordinates } from 'src/app/core/models/position-coordinates.mo
 })
 export class MapComponent implements OnInit, OnDestroy {
 
-  // minimum zoom level to load/display any locations
-  private static ZOOM_LIMIT = 11;
-
-
-
   @Output() locationEmitted = new EventEmitter<Location>();
 
   customMap: Map;
@@ -80,9 +75,8 @@ export class MapComponent implements OnInit, OnDestroy {
           });
           return throwError(err);
         }),
-        filter(_ => this.mapService.getCurrentMapZoomLevel() > MapComponent.ZOOM_LIMIT)
+        filter(_ => this.mapService.getCurrentMapZoomLevel() > MapService.ZOOM_LIMIT)
       ).subscribe((next) => {
-        console.log('Fetched new locations');
         this.vectorSource.clear();
         const markers = next.map((locations) => new OLMapMarker(locations));
         this.vectorSource.addFeatures(markers);
@@ -152,7 +146,7 @@ export class MapComponent implements OnInit, OnDestroy {
 
   private initZoomLevelAlert() {
     this.mapService.getMapZoomLevel().subscribe((zoomLevel) => {
-      if (zoomLevel > MapComponent.ZOOM_LIMIT) {
+      if (zoomLevel > MapService.ZOOM_LIMIT) {
         if (this.closeSubject) {
           // forcing a reload
           // this.positionService.setMapCenter(this.positionService.getCurrentLocation());
