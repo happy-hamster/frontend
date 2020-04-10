@@ -56,14 +56,12 @@ export class MapComponent implements OnInit, OnDestroy {
 
     this.isLoadingLocations = this.locationService.getLoadingLocationsState();
 
-    if (this.mapService.isInitial) {
-      this.loadGpsPosition();
-      this.mapService.isInitial = false;
-    }
-
     if (this.route.snapshot.queryParamMap.get('id')) {
       console.log('id: ' + this.route.snapshot.queryParamMap.get('id'));
       this.loadPositionFromLocation(+this.route.snapshot.queryParamMap.get('id'));
+    } else if (this.mapService.isInitial) {
+      this.loadGpsPosition();
+      this.mapService.isInitial = false;
     }
 
     this.subscriptions.add(

@@ -25,17 +25,12 @@ export class LocationProviderService {
       filter(coordinates => !!coordinates),
       filter(_ => this.mapService.getCurrentMapZoomLevel() > MapService.ZOOM_LIMIT),
       filter(newCoordinates => {
-        if (this.lastUpdatedPosition === null) {
+        if (this.lastUpdatedPosition !== null
+          && olGetDistance(this.lastUpdatedPosition.toArray(), newCoordinates.toArray()) < MapService.MOVE_LIMIT) {
+          return false;
+        } else {
           this.lastUpdatedPosition = newCoordinates;
           return true;
-        } else {
-          const distance = olGetDistance(this.lastUpdatedPosition.toArray(), newCoordinates.toArray());
-          if (distance < MapService.MOVE_LIMIT) {
-            return false;
-          } else {
-            this.lastUpdatedPosition = newCoordinates;
-            return true;
-          }
         }
       }),
       switchMap(coordinates => {
