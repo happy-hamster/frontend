@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { CookieProviderService } from 'src/app/core/services/cookie-provider.service';
 import { MixpanelService, MixpanelId } from './core/services/mixpanel.service';
 import { DOCUMENT } from '@angular/common';
+import { AuthKeycloakService } from './core/services/auth-keycloak.service';
 
 @Component({
   selector: 'app-root',
@@ -22,8 +23,9 @@ export class AppComponent implements OnInit {
     private translate: TranslateService,
     private cookieService: CookieProviderService,
     private mixpanelService: MixpanelService,
+    private authService: AuthKeycloakService,
     @Inject(DOCUMENT) private document: Document
-    ) {
+  ) {
     this.mixpanelService.track(MixpanelId.INIT);
     let lang = 'de';
 
