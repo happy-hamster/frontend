@@ -59,8 +59,9 @@ export class MapComponent implements OnInit, OnDestroy {
     if (this.route.snapshot.queryParamMap.get('id')) {
       console.log('id: ' + this.route.snapshot.queryParamMap.get('id'));
       this.loadPositionFromLocation(+this.route.snapshot.queryParamMap.get('id'));
+      this.mapService.isInitial = false;
     } else if (this.mapService.isInitial) {
-      this.loadGpsPosition();
+      this.mapService.updateRealGpsPosition();
       this.mapService.isInitial = false;
     }
 
@@ -98,11 +99,7 @@ export class MapComponent implements OnInit, OnDestroy {
         new VectorLayer({
           source: this.vectorSource
         })
-      ],
-      view: new View({
-        center: this.mapService.getCurrentMapCenter().toOLProjectionArray(),
-        zoom: this.mapService.getCurrentMapZoomLevel()
-      }),
+      ]
     });
 
     this.registerEventListeners();
@@ -128,13 +125,21 @@ export class MapComponent implements OnInit, OnDestroy {
     this.customMap.addEventListener('moveend', () => {
       const view = this.customMap.getView();
 
-      this.mapService.setMapZoomLevel(view.getZoom());
+      this.mapService.setMapZoomLevel(view.getZoom(), false);
 
       const viewCenterCoords = olProj.toLonLat(view.getCenter());
-      this.mapService.setMapCenter(PositionCoordinates.fromOLArray(viewCenterCoords));
+      this.mapService.setMapCenter(PositionCoordinates.fromOLArray(viewCenterCoords), false);
 
       return false;
     });
+
+    this.subscriptions.add(this.mapService.getMapCenterFiltered().subscribe(center => {
+      this.customMap.getView().setCenter(center.toOLProjectionArray());
+    }));
+
+    this.subscriptions.add(this.mapService.getMapZoomLevelFiltered().subscribe(zoom => {
+      this.customMap.getView().setZoom(zoom);
+    }));
   }
 
   private initZoomLevelAlert() {
@@ -166,8 +171,8 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   public zoomToNewLocation(location: Location): void {
-    this.customMap.getView().setCenter(PositionCoordinates.fromLocation(location).toOLProjectionArray());
-    this.customMap.getView().setZoom(16);
+    this.mapService.setMapCenter(PositionCoordinates.fromLocation(location));
+    this.mapService.setMapZoomLevel(16);
   }
 
   private loadPositionFromLocation(id: number) {
@@ -189,23 +194,9 @@ export class MapComponent implements OnInit, OnDestroy {
     );
   }
 
-  private loadGpsPosition() {
-    this.subscriptions.add(this.mapService.getDevicePosition().pipe(
-      catchError(err => {
-        this.snackBarService.sendNotification({
-          messageKey: 'snack-bar.map.error',
-          type: SnackBarTypes.ERROR
-        });
-        return throwError(err);
-      })
-    ).subscribe(gpsCoordinates => {
-      this.customMap.getView().setCenter(gpsCoordinates.toOLProjectionArray());
-      this.customMap.getView().setZoom(15);
-    }));
-  }
-
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
+    this.mapService.saveMapState();
     this.closeSubject?.next();
   }
 }
