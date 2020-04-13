@@ -14,7 +14,7 @@ export class GlobalDialogService {
   private dialog$ = new Subject<IDialogMessage>();
 
   constructor(
-    public dialogComp: MatDialog
+    private dialogComp: MatDialog
   ) { }
 
   public showDialog(notification: IDialogMessage): Observable<DialogMessageReturnTypes> {
