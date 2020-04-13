@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { OccupancyReportComponent } from './occupancy-report.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MatDialogTestingModule } from 'src/app/shared/mat-dialog-testing.module';
 
 describe('OccupancyReportComponent', () => {
   let component: OccupancyReportComponent;
@@ -8,7 +11,12 @@ describe('OccupancyReportComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OccupancyReportComponent ]
+      declarations: [ OccupancyReportComponent ],
+      imports: [
+        RouterTestingModule,
+        HttpClientTestingModule,
+        MatDialogTestingModule
+      ]
     })
     .compileComponents();
   }));
