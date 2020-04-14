@@ -4,7 +4,7 @@ name: Tests
 on: push
 
 jobs:
-  build:
+  tests:
 
     # Machine environment:
     # https://help.github.com/en/articles/software-in-virtual-environments-for-github-actions#ubuntu-1804-lts
