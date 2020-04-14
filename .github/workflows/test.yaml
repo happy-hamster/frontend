@@ -5,7 +5,7 @@ on: push
 
 jobs:
   tests:
-
+    name: Run Tests
     # Machine environment:
     # https://help.github.com/en/articles/software-in-virtual-environments-for-github-actions#ubuntu-1804-lts
     # We specify the Node.js version manually below, and use versioned Chrome from Puppeteer.
@@ -20,12 +20,6 @@ jobs:
     - name: Install dependencies
       working-directory: ./SAKPaaS
       run: npm install
-    - name: Lint
-      working-directory: ./SAKPaaS
-      run: npm run lint
-    - name: Build
-      working-directory: ./SAKPaaS
-      run: npm run build -- --prod
     - name: Test
       working-directory: ./SAKPaaS
       run: npm test -- --configuration=ci
