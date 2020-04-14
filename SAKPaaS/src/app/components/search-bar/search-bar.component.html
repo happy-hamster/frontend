@@ -6,7 +6,7 @@
       <mat-option *ngFor="let location of filteredLocations$ | async" [value]="location.name"
         (click)="this.locationEmitted.emit(location);">
         <div class="option">
-          <span class="text">{{ location.name }}</span>
+          <span class="text">{{ location.name }} ({{ getDistance(location) }})</span>
           <span class="occupancy-image">
             <app-occupancy-view [occupancy]="location.occupancy" [isSearchBar]="true"></app-occupancy-view>
           </span>

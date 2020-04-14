@@ -45,6 +45,17 @@ export class SearchBarComponent implements OnInit {
     );
   }
 
+  getDistance(location: Location): string {
+    let dist = '' + Math.round(this.locationsService.getDistanceToLocation(location));
+    if (dist.length > 3) {
+      dist = dist.slice(0, dist.length - 2);
+      dist = dist.slice(0, dist.length - 1) + '.' + dist.slice(dist.length - 1, dist.length) + ' km';
+    } else {
+      dist = dist + ' m';
+    }
+    return dist;
+  }
+
   dismiss() {
     this.searchControl.setValue(null);
     this.autocomplete.closePanel();
