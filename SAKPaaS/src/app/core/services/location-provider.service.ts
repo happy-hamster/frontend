@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject, BehaviorSubject, throwError, of } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Location } from 'src/app/generated/models';
 import { LocationsService } from 'src/app/generated/services';
 import { GpsService } from './gps.service';
-import { switchMap, catchError, filter } from 'rxjs/operators';
+import { switchMap, filter } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
