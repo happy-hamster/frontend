@@ -8,9 +8,13 @@ export enum SnackBarTypes {
 
 export interface ISnackBar {
   messageKey: string;
-  valuesForMessage?: {[key: string]: string};
+  valuesForMessage?: { [key: string]: string };
   type: SnackBarTypes;
   closeObservable?: Observable<null>;
   big?: boolean;
   hideCloseButton?: boolean;
+}
+
+export interface ISnackBarInternal extends ISnackBar {
+  closed?: boolean;
 }

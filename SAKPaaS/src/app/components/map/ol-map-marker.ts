@@ -1,9 +1,9 @@
 import { Feature } from 'ol';
 import Point from 'ol/geom/Point';
-import * as olProj from 'ol/proj';
 import { Style, Icon } from 'ol/style';
 import IconAnchorUnits from 'ol/style/IconAnchorUnits';
 import { Location } from 'src/app/generated/models';
+import { PositionCoordinates } from 'src/app/core/models/position-coordinates.model';
 
 export class OLMapMarker extends Feature {
 
@@ -26,9 +26,8 @@ export class OLMapMarker extends Feature {
   public location: Location;
 
   constructor(locationMarker: Location) {
-    const coords = locationMarker.coordinates;
     super({
-      geometry: new Point(olProj.fromLonLat([coords.longitude, coords.latitude])),
+      geometry: new Point(PositionCoordinates.fromLocation(locationMarker).toOLProjectionArray()),
     });
     this.location = locationMarker;
     const occupancy = locationMarker.occupancy.value;
