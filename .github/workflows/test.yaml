@@ -18,14 +18,14 @@ jobs:
       with:
         node-version: 12.8
     - name: Install dependencies
-      working-directory: /SAKPaaS
+      working-directory: ./SAKPaaS
       run: npm install
     - name: Lint
-      working-directory: /SAKPaaS
+      working-directory: ./SAKPaaS
       run: npm run lint
     - name: Build
-      working-directory: /SAKPaaS
+      working-directory: ./SAKPaaS
       run: npm run build -- --prod
     - name: Test
-      working-directory: /SAKPaaS
+      working-directory: ./SAKPaaS
       run: npm test -- --configuration=ci
