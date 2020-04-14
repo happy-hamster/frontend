@@ -11,13 +11,24 @@ import { IDialogMessage, DialogMessageReturnTypes } from 'src/app/core/models/di
 })
 export class GlobalDialogComponent {
 
+  CookieCheckbox = false;
+  GPSCheckbox = false;
+
   constructor(
     public dialogRef: MatDialogRef<GlobalDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: IDialogMessage
   ) { }
 
   onOkay(): void {
-    this.dialogRef.close(DialogMessageReturnTypes.OKAY);
+    if (this.CookieCheckbox && this.GPSCheckbox) {
+      this.dialogRef.close(DialogMessageReturnTypes.OKAY);
+    } else if (this.CookieCheckbox && !this.GPSCheckbox) {
+
+    } else if (!this.CookieCheckbox && this.GPSCheckbox) {
+
+    } else {
+      this.dialogRef.close(DialogMessageReturnTypes.CANCELLED);
+    }
   }
 
   onCancelled(): void {

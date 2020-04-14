@@ -1,6 +1,10 @@
 <h1 mat-dialog-title>{{ data.titleKey | translate }}</h1>
 <div mat-dialog-content>
   <p [innerHTML]="data.messageKey | translate"></p>
+  <mat-checkbox [(ngModel)]="CookieCheckbox" color = "primary">Cookies</mat-checkbox> 
+  {{CookieCheckbox}} <br>
+  <mat-checkbox [(ngModel)]="GPSCheckbox" color = "primary">GPS</mat-checkbox> 
+  {{GPSCheckbox}}
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onCancelled()">{{data.cancelButtonTextKey ? (data.cancelButtonTextKey | translate) : ('others.cancel' | translate)}}</button>

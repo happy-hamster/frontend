@@ -39,6 +39,7 @@ import { LocateButtonComponent } from './components/locate-button/locate-button.
 import { loadConfig } from 'src/app/config-loader';
 import { ApiConfiguration } from 'src/app/generated/api-configuration';
 import { AddressPipe } from 'src/app/core/pipes/address.pipe';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { AddressPipe } from 'src/app/core/pipes/address.pipe';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     MatButtonModule,
     MatDialogModule,
+    MatCheckboxModule,
     MatProgressSpinnerModule,
     TranslateModule.forRoot({
       loader: {
