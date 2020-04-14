@@ -14,11 +14,11 @@ export class PwaRequestCatcherService {
       e.preventDefault();
       // Stash the event so it can be triggered later.
       deferredPrompt = e;
-      this.pwaEvent = deferredPrompt
+      this.pwaEvent = deferredPrompt;
     });
   }
 
   public getPwaRequest() {
-    return this.pwaEvent
+    return this.pwaEvent;
   }
 }
