@@ -37,13 +37,13 @@ export class AppComponent implements OnInit {
 
     this.translate.use(lang);
     this.document.documentElement.lang = lang;
-
-    const setTimeoutAsync = (a, t) => new Promise(() => setTimeout(a, t));
-
-    setTimeoutAsync(() => this.pwaRequestPromptService.showPwaRequest(), 1000 * 30);
   }
 
   ngOnInit() {
     this.locations$ = this.locationService.fetchLocations();
+
+    const setTimeoutAsync = (a, t: number) => new Promise(() => setTimeout(a, t));
+
+    setTimeoutAsync(() => this.pwaRequestPromptService.showPwaRequest(), 1000 * 30);
   }
 }
