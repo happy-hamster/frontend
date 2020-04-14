@@ -9,6 +9,7 @@ import { OccupancyProviderService } from 'src/app/core/services/occupancy-provid
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { SnackBarTypes } from 'src/app/core/models/snack-bar.interface';
 import { IsLoadingService } from '@service-work/is-loading';
+import { PwaRequestCatcherService } from 'src/app/generated/services';
 
 @Component({
   selector: 'app-occupancy-report',
@@ -32,6 +33,7 @@ export class OccupancyReportComponent implements OnInit {
     private snackBarService: SnackBarService,
     private router: Router,
     private isLoadingService: IsLoadingService,
+    private pwaRequestCatcherService: PwaRequestCatcherService,
   ) { }
 
   ngOnInit(): void {
@@ -82,6 +84,9 @@ export class OccupancyReportComponent implements OnInit {
       this.router.navigate(['home'], { queryParams: { id: location.id } });
     });
 
+    // ! This feature is obsolete.
+    // Invokes the PWA-Install prompt
+    this.pwaRequestCatcherService.getPwaRequest().prompt();
   }
 
 }
