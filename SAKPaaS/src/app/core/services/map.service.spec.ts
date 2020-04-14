@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 
-import { GpsService } from './gps.service';
 import { MatDialogTestingModule } from 'src/app/shared/mat-dialog-testing.module';
+import { MapService } from './map.service';
 
-describe('GpsService', () => {
-  let service: GpsService;
+describe('MapService', () => {
+  let service: MapService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -12,7 +12,7 @@ describe('GpsService', () => {
         MatDialogTestingModule
       ]
     });
-    service = TestBed.inject(GpsService);
+    service = TestBed.inject(MapService);
   });
 
   it('should be created', () => {

@@ -16,7 +16,7 @@ export class OccupancyViewComponent implements OnInit, OnDestroy {
   mediumBorder = 0.67;
 
   @Input() occupancy: Occupancy;
-  @Input() showOccupancyCount: boolean;
+  @Input() isSearchBar: boolean;
 
   text: string;
   iconPath: string;
