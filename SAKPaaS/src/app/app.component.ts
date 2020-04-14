@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
 
     const setTimeoutAsync = (a, t) => new Promise(() => setTimeout(a, t));
 
-    setTimeoutAsync(() => this.pwaRequestPromptService.showPwaRequest(), 1000 * 5);
+    setTimeoutAsync(() => this.pwaRequestPromptService.showPwaRequest(), 1000 * 30);
   }
 
   ngOnInit() {
