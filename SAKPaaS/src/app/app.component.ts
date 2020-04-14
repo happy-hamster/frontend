@@ -7,6 +7,7 @@ import { CookieProviderService } from 'src/app/core/services/cookie-provider.ser
 import { MixpanelService, MixpanelId } from './core/services/mixpanel.service';
 import { DOCUMENT } from '@angular/common';
 import { PwaRequestCatcherService } from './generated/services/pwa-request-catcher.service';
+import { PwaRequestPromptService } from './pwa-request-prompt.service';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +23,7 @@ export class AppComponent implements OnInit {
     private locationService: LocationProviderService,
     private translate: TranslateService,
     private pwaRequestCatcherService: PwaRequestCatcherService,
+    private pwaRequestPromptService: PwaRequestPromptService,
     private cookieService: CookieProviderService,
     private mixpanelService: MixpanelService,
     @Inject(DOCUMENT) private document: Document
@@ -37,6 +39,10 @@ export class AppComponent implements OnInit {
 
     this.translate.use(lang);
     this.document.documentElement.lang = lang;
+
+    const setTimeoutAsync = (a, t) => new Promise(() => setTimeout(a, t));
+
+    setTimeoutAsync(() => this.pwaRequestPromptService.showPwaRequest(), 1000 * 5);
   }
 
   ngOnInit() {
