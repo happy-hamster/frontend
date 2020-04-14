@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject, BehaviorSubject, throwError, of } from 'rxjs';
+import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { Location } from 'src/app/generated/models';
 import { LocationsService } from 'src/app/generated/services';
 import { MapService } from './map.service';
 import { switchMap, catchError, filter, tap } from 'rxjs/operators';
 import { PositionCoordinates } from '../models/position-coordinates.model';
 import { getDistance as olGetDistance } from 'ol/sphere';
-
 
 @Injectable({
   providedIn: 'root'

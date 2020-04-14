@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { TranslateService, TranslationChangeEvent } from '@ngx-translate/core';
 import { CookieProviderService } from 'src/app/core/services/cookie-provider.service';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-footer',
@@ -13,7 +14,8 @@ export class FooterComponent implements OnInit {
 
   constructor(
     private translate: TranslateService,
-    private cookieService: CookieProviderService
+    private cookieService: CookieProviderService,
+    @Inject(DOCUMENT) private document: Document
   ) { }
 
   ngOnInit(): void {
@@ -22,6 +24,7 @@ export class FooterComponent implements OnInit {
 
     this.translate.onLangChange.subscribe((event: TranslationChangeEvent) => {
       this.selectedLanguage = event.lang;
+      this.document.documentElement.lang = event.lang;
       this.cookieService.setCookie('selected_language', event.lang);
     });
   }
