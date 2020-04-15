@@ -8,6 +8,7 @@ import { DialogMessageReturnTypes } from '../models/dialog-message.interface';
 import { CookieProviderService } from 'src/app/core/services/cookie-provider.service';
 import { map, filter } from 'rxjs/operators';
 import { PropagateGuard } from '../models/propagate-guard.interface';
+import { CheckboxesDialog } from '../models/checkboxes-dialog.model';
 
 @Injectable({
   providedIn: 'root'
@@ -41,11 +42,17 @@ export class MapService {
     private dialogService: GlobalDialogService
   ) {
     if (!this.cookieService.isCookieAlreadySet(MapService.PERMISSION_COOKIE_NAME)) {
-      this.askForPermission().then((granted) => {
-        if (granted) {
+      this.askForPermission().then((checkboxesDialog) => {
+        if (checkboxesDialog.cookiesAllowed) {
           this.cookieService.allowCookies();
+          console.log('Cookies allowed.');
+        } else {
+          console.warn('Cookies not allowed. What to do?');
+        }
+        if (checkboxesDialog.gpsAllowed) {
           this.cookieService.setCookie(MapService.PERMISSION_COOKIE_NAME, 'true');
           this.updateRealGpsPosition();
+          console.log('Access to GPS allowed.');
         } else {
           console.warn('Access to GPS position denied. What to do?');
         }
@@ -134,22 +141,30 @@ export class MapService {
     });
   }
 
-  private askForPermission(): Promise<boolean> {
+  private askForPermission(): Promise<CheckboxesDialog> {
     return new Promise((resolve, _) => {
       this.dialogService.showDialog(
         {
           titleKey: 'dialog.permissions.title',
           messageKey: 'dialog.permissions.message',
+          checkboxCookieTextKey: 'dialog.permissions.checkbox-cookie',
+          checkboxGpsTextKey: 'dialog.permissions.checkbox-gps',
           cancelButtonTextKey: 'dialog.permissions.cancel-button',
           okButtonTextKey: 'dialog.permissions.ok-button'
         }
       ).subscribe((result) => {
         switch (result) {
           case DialogMessageReturnTypes.OKAY:
-            resolve(true);
+            resolve(new CheckboxesDialog(true, true));
             break;
           case DialogMessageReturnTypes.CANCELLED:
-            resolve(false);
+            resolve(new CheckboxesDialog(false, false));
+            break;
+          case DialogMessageReturnTypes.ONLYCOOKIES:
+            resolve(new CheckboxesDialog(true, false));
+            break;
+          case DialogMessageReturnTypes.ONLYGPS:
+            resolve(new CheckboxesDialog(false, true));
             break;
         }
       });

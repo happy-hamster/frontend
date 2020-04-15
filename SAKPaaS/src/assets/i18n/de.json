@@ -3,7 +3,9 @@
     "permissions": {
       "cancel-button": "Nein, danke",
       "message": "HappyHamster funktioniert am besten, wenn du deinen GPS-Standort aktivierst und uns erlaubst, Cookies zu speichern.<br>Mehr Informationen, wie wir Cookies verwenden, findest du unter \"Rechtliches\".<br>Bitte genehmige zusätzlich den Zugriff auf deinen Standort in deinem Internet-Browser.",
-      "ok-button": "Einverstanden",
+      "checkbox-cookie": "Der Verwendung von Cookies zustimmen.",
+      "checkbox-gps": "Der Verwendung des Standortes zustimmen.",
+      "ok-button": "Zustimmen",
       "title": "Berechtigungen"
     }
   },

@@ -3,6 +3,8 @@
 		"permissions": {
 			"cancel-button": "No, thanks",
 			"message": "HappyHamster works best if you activate your GPS location and allow us to store cookies.<br>You can find more information about how we use cookies under 'Legal'.<br>Please also allow access to your location in your internet browser.",
+			"checkbox-cookies": "I agree to the use of cookies.",
+      		"checkbox-gps": "I agree to the use of my GPS location.",
 			"ok-button": "I agree",
 			"title": "Permissions"
 		}

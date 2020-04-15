@@ -23,9 +23,9 @@ export class GlobalDialogComponent {
     if (this.CookieCheckbox && this.GPSCheckbox) {
       this.dialogRef.close(DialogMessageReturnTypes.OKAY);
     } else if (this.CookieCheckbox && !this.GPSCheckbox) {
-
+      this.dialogRef.close(DialogMessageReturnTypes.ONLYCOOKIES);
     } else if (!this.CookieCheckbox && this.GPSCheckbox) {
-
+      this.dialogRef.close(DialogMessageReturnTypes.ONLYGPS);
     } else {
       this.dialogRef.close(DialogMessageReturnTypes.CANCELLED);
     }

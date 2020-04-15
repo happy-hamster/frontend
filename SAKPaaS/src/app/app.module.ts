@@ -11,10 +11,6 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { loadConfig } from 'src/app/config-loader';
 import { ApiConfiguration } from 'src/app/generated/api-configuration';
-<<<<<<< HEAD
-import { AddressPipe } from 'src/app/core/pipes/address.pipe';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-=======
 import { SharedModule } from 'src/app/shared/shared.module';
 import { HomeModule } from 'src/app/components/home/home.module';
 import { OccupancyViewModule } from 'src/app/components/occupancy-view/occupancy-view.module';
@@ -26,7 +22,8 @@ import { GlobalDialogModule } from 'src/app/components/global-dialog/global-dial
 import { LocateButtonModule } from 'src/app/components/locate-button/locate-button.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { LocationDetailsModule } from 'src/app/components/location-details/location-details.module';
->>>>>>> develop
+
+
 
 @NgModule({
   declarations: [
@@ -38,13 +35,6 @@ import { LocationDetailsModule } from 'src/app/components/location-details/locat
     BrowserModule,
     // third party modules
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-<<<<<<< HEAD
-    MatButtonModule,
-    MatDialogModule,
-    MatCheckboxModule,
-    MatProgressSpinnerModule,
-=======
->>>>>>> develop
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -65,7 +55,7 @@ import { LocationDetailsModule } from 'src/app/components/location-details/locat
     OccupancyViewModule,
     SearchBarModule,
     SharedModule,
-    SnackBarModule
+    SnackBarModule,
   ],
   providers: [
     {
