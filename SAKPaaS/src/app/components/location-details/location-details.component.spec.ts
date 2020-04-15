@@ -43,6 +43,6 @@ describe('LocationDetailsComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBe(false);
+    expect(component).toBeFalsy();
   });
 });
