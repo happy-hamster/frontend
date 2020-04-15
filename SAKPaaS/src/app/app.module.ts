@@ -39,6 +39,7 @@ import { LocateButtonComponent } from './components/locate-button/locate-button.
 import { loadConfig } from 'src/app/config-loader';
 import { ApiConfiguration } from 'src/app/generated/api-configuration';
 import { AddressPipe } from 'src/app/core/pipes/address.pipe';
+import { PwaRequestCatcherService } from "./core/services/pwa-request-catcher.service";
 
 @NgModule({
   declarations: [
@@ -99,7 +100,8 @@ import { AddressPipe } from 'src/app/core/pipes/address.pipe';
       ],
       multi: true
     },
-    CookieService
+    CookieService,
+    PwaRequestCatcherService
   ],
   bootstrap: [AppComponent]
 })

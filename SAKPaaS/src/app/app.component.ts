@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { CookieProviderService } from 'src/app/core/services/cookie-provider.service';
 import { MixpanelService, MixpanelId } from './core/services/mixpanel.service';
 import { DOCUMENT } from '@angular/common';
-import { PwaRequestCatcherService } from "./generated/services/pwa-request-catcher.service";
+import { PwaRequestCatcherService } from "./core/services/pwa-request-catcher.service";
 
 @Component({
   selector: 'app-root',
