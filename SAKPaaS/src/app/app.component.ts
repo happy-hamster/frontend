@@ -7,7 +7,7 @@ import { CookieProviderService } from 'src/app/core/services/cookie-provider.ser
 import { MixpanelService, MixpanelId } from './core/services/mixpanel.service';
 import { DOCUMENT } from '@angular/common';
 import { PwaRequestCatcherService } from './generated/services/pwa-request-catcher.service';
-import { PwaRequestPromptService } from './pwa-request-prompt.service';
+import { PwaRequestPromptService } from './generated/services/pwa-request-prompt.service';
 
 @Component({
   selector: 'app-root',
