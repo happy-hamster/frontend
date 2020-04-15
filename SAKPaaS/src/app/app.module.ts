@@ -11,7 +11,6 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { loadConfig } from 'src/app/config-loader';
 import { ApiConfiguration } from 'src/app/generated/api-configuration';
-import { AddressPipe } from 'src/app/core/pipes/address.pipe';
 import { PwaRequestCatcherService } from "./core/services/pwa-request-catcher.service";
 import { SharedModule } from 'src/app/shared/shared.module';
 import { HomeModule } from 'src/app/components/home/home.module';
