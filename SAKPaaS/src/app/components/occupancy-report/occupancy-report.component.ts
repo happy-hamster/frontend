@@ -9,7 +9,7 @@ import { OccupancyProviderService } from 'src/app/core/services/occupancy-provid
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { SnackBarTypes } from 'src/app/core/models/snack-bar.interface';
 import { IsLoadingService } from '@service-work/is-loading';
-import { PwaRequestPromptService } from 'src/app/pwa-request-prompt.service';
+import { PwaRequestPromptService } from 'src/app/generated/services/pwa-request-prompt.service';
 
 @Component({
   selector: 'app-occupancy-report',

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PwaRequestCatcherService } from './generated/services';
+import { PwaRequestCatcherService } from '../services';
 
 @Injectable({
   providedIn: 'root'
