@@ -4,7 +4,7 @@ import { SearchBarComponent } from './search-bar.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatDialogTestingModule } from 'src/app/shared/mat-dialog-testing.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { SearchBarModule } from 'src/app/components/search-bar/search-bar.module';
 
 describe('SearchBarComponent', () => {
   let component: SearchBarComponent;
@@ -12,12 +12,11 @@ describe('SearchBarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SearchBarComponent ],
       imports: [
         HttpClientTestingModule,
         MatDialogTestingModule,
-        TranslateModule.forRoot({}),
-        MatAutocompleteModule
+        SearchBarModule,
+        TranslateModule.forRoot({})
       ]
     })
     .compileComponents();

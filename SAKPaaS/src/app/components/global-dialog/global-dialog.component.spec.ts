@@ -1,8 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GlobalDialogComponent } from './global-dialog.component';
-import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
+import { GlobalDialogModule } from 'src/app/components/global-dialog/global-dialog.module';
+import { MatDialogTestingModule } from 'src/app/shared/mat-dialog-testing.module';
 
 describe('GlobalDialogComponent', () => {
   let component: GlobalDialogComponent;
@@ -10,15 +11,10 @@ describe('GlobalDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GlobalDialogComponent ],
       imports: [
-        MatDialogModule,
-        TranslateModule.forRoot()
-      ],
-      providers: [
-        { provide: MatDialogRef, useValue: {} },
-        { provide: MatDialog, useValue: {} },
-        { provide: MAT_DIALOG_DATA, useValue: {} },
+        GlobalDialogModule,
+        TranslateModule.forRoot(),
+        MatDialogTestingModule
       ]
     })
     .compileComponents();

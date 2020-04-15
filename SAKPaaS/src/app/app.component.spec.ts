@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatDialogTestingModule } from 'src/app/shared/mat-dialog-testing.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { AppModule } from 'src/app/app.module';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -12,11 +13,12 @@ describe('AppComponent', () => {
         RouterTestingModule,
         HttpClientTestingModule,
         MatDialogTestingModule,
+        AppModule,
         TranslateModule.forRoot({})
       ],
       declarations: [
         AppComponent
-      ],
+      ]
     }).compileComponents();
   }));
 

@@ -2,6 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LocateButtonComponent } from './locate-button.component';
 import { MatDialogTestingModule } from 'src/app/shared/mat-dialog-testing.module';
+import { LocateButtonModule } from 'src/app/components/locate-button/locate-button.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('LocateButtonComponent', () => {
   let component: LocateButtonComponent;
@@ -9,9 +11,10 @@ describe('LocateButtonComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LocateButtonComponent ],
       imports: [
-        MatDialogTestingModule
+        MatDialogTestingModule,
+        LocateButtonModule,
+        TranslateModule.forRoot({})
       ]
     })
     .compileComponents();

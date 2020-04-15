@@ -4,6 +4,7 @@ import { OccupancyViewComponent } from './occupancy-view.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { Component } from '@angular/core';
 import { Occupancy } from 'src/app/generated/models';
+import { OccupancyViewModule } from 'src/app/components/occupancy-view/occupancy-view.module';
 
 describe('OccupancyViewComponent', () => {
   let component: OccupancyViewComponent;
@@ -12,11 +13,11 @@ describe('OccupancyViewComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        OccupancyViewComponent,
         TestWrapperComponent
       ],
       imports: [
-        TranslateModule.forRoot({})
+        TranslateModule.forRoot({}),
+        OccupancyViewModule
       ]
     })
     .compileComponents();
@@ -35,7 +36,7 @@ describe('OccupancyViewComponent', () => {
 
 @Component({
   selector: 'app-test-wrapper-component',
-  template: '<app-occupancy-view [occupancy]="occupancy" [showOccupancyCount]="true"></app-occupancy-view>'
+  template: '<app-occupancy-view [occupancy]="occupancy" [isSearchBar]="true"></app-occupancy-view>'
 })
 class TestWrapperComponent {
   occupancy: Occupancy = {
