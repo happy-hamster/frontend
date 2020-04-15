@@ -60,4 +60,10 @@ export class LocationProviderService {
   public getLoadingLocationsState(): Observable<boolean> {
     return this.isLoadingLocations;
   }
+
+  public getDistanceToLocation(location: Location): number {
+    if (this.lastUpdatedPosition !== null) {
+      return olGetDistance(this.lastUpdatedPosition.toArray(), [location.coordinates.longitude, location.coordinates.latitude]);
+    }
+  }
 }
