@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, AfterContentInit } from '@angular/core';
 import { LocationProviderService } from './core/services/location-provider.service';
 import { Observable } from 'rxjs';
 import { Location } from 'src/app/generated/models/location';
@@ -13,7 +13,7 @@ import { PwaRequestPromptService } from './generated/services/pwa-request-prompt
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterContentInit {
   title = 'SAKPaaS';
 
   locations$: Observable<Location[]>;
@@ -41,7 +41,9 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.locations$ = this.locationService.fetchLocations();
+  }
 
+  ngAfterContentInit() {
     const setTimeoutAsync = (a, t: number) => new Promise(() => setTimeout(a, t));
 
     setTimeoutAsync(() => this.pwaRequestPromptService.showPwaRequest(), 1000 * 30);
