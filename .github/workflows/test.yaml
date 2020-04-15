@@ -20,9 +20,9 @@ jobs:
     - name: Install dependencies
       working-directory: ./SAKPaaS
       run: npm install
-    - name: Install puppeteer --save-dev
+    - name: Install Puppeteer
       working-directory: ./SAKPaaS
-      run: npm test
+      run: npm install puppeteer --save-dev
     - name: Test
       working-directory: ./SAKPaaS
       run: npm test
