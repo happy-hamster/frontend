@@ -21,7 +21,6 @@ export class AppComponent implements OnInit {
   constructor(
     private locationService: LocationProviderService,
     private translate: TranslateService,
-    private pwaRequestCatcherService: PwaRequestCatcherService,
     private cookieService: CookieProviderService,
     private mixpanelService: MixpanelService,
     @Inject(DOCUMENT) private document: Document
