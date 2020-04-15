@@ -33,7 +33,7 @@ module.exports = function (config) {
       ChromeHeadlessCustom: {
         base: 'ChromeHeadless',
         flags: ['--no-sandbox', '--disable-gpu']
-  }
+  },
 },
   });
 };
