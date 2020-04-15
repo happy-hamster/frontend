@@ -19,7 +19,7 @@ jobs:
         node-version: 12.8
     - name: Install dependencies
       working-directory: ./SAKPaaS
-      run: npm install
+      run: npm ci
     - name: Install Puppeteer
       working-directory: ./SAKPaaS
       run: npm install puppeteer --save-dev
