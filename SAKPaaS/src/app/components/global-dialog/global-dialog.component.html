@@ -1,5 +1,5 @@
 <h1 mat-dialog-title>{{ data.titleKey | translate }}</h1>
-<div mat-dialog-content>
+<div mat-dialog-content style="overflow:hidden;">
   <p [innerHTML]="data.messageKey | translate"></p>
   <mat-checkbox [(ngModel)]="CookieCheckbox" color = "primary">{{data.checkboxCookieTextKey ? (data.checkboxCookieTextKey | translate) : 'Cookies'}}</mat-checkbox> <br>
   <mat-checkbox [(ngModel)]="GPSCheckbox" color = "primary">{{data.checkboxGpsTextKey ? (data.checkboxGpsTextKey | translate) : 'GPS'}}</mat-checkbox>
