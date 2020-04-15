@@ -1,5 +1,5 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {GpsService} from '../../core/services/gps.service';
+import { Component } from '@angular/core';
+import { MapService } from '../../core/services/map.service';
 
 @Component({
   selector: 'app-locate-button',
@@ -8,9 +8,9 @@ import {GpsService} from '../../core/services/gps.service';
 })
 export class LocateButtonComponent {
 
-  constructor(private gpsService: GpsService) { }
+  constructor(private mapService: MapService) { }
 
   loadPosition(): void {
-    this.gpsService.updateRealGpsPosition();
+    this.mapService.updateRealGpsPosition();
   }
 }
