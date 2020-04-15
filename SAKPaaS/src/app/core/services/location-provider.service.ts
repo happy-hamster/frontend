@@ -65,5 +65,6 @@ export class LocationProviderService {
     if (this.lastUpdatedPosition !== null) {
       return olGetDistance(this.lastUpdatedPosition.toArray(), [location.coordinates.longitude, location.coordinates.latitude]);
     }
+    return null;
   }
 }
