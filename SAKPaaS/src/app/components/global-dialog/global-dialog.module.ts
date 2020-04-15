@@ -12,6 +12,9 @@ import { MatDialogModule } from '@angular/material/dialog';
   imports: [
     SharedModule,
     MatDialogModule
+  ],
+  exports: [
+    GlobalDialogComponent
   ]
 })
 export class GlobalDialogModule { }
