@@ -11,7 +11,7 @@ export class AuthKeycloakService {
   constructor() {
     this.kcInstance = Keycloak('/assets/keycloak.json');
     this.kcInstance.init({}).then(authenticated => {
-      if (!authenticated) {
+      if (!authenticated || true) {
         this.kcInstance.login().then(_ => this.loggedIn());
       } else {
         this.loggedIn();

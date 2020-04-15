@@ -1,6 +1,6 @@
 {
-  "realm": "happyhamster",
-  "auth-server-url": "https://auth.happyhamster.org/auth/",
+  "realm": "HappyHamster",
+  "auth-server-url": "http://localhost:8080/auth/",
   "ssl-required": "external",
   "resource": "frontend",
   "public-client": true,
