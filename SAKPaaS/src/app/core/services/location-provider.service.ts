@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, throwError } from 'rxjs';
+import { Observable, BehaviorSubject, throwError, Subject } from 'rxjs';
 import { Location } from 'src/app/generated/models';
 import { LocationsService } from 'src/app/generated/services';
 import { MapService } from './map.service';
-import { switchMap, catchError, filter, tap } from 'rxjs/operators';
+import { switchMap, catchError, filter, tap, startWith } from 'rxjs/operators';
 import { PositionCoordinates } from '../models/position-coordinates.model';
 import { getDistance as olGetDistance } from 'ol/sphere';
 
@@ -15,38 +15,48 @@ export class LocationProviderService {
   private isLoadingLocations = new BehaviorSubject<boolean>(false);
   private locations$ = new BehaviorSubject<Location[]>([]);
   private lastUpdatedPosition?: PositionCoordinates = null;
+  private reload$ = new Subject<string>();
 
   constructor(
     private locationApiService: LocationsService,
     private mapService: MapService
   ) {
-    this.mapService.getMapCenter().pipe(
-      filter(coordinates => !!coordinates),
-      filter(_ => this.mapService.getCurrentMapZoomLevel() > MapService.ZOOM_LIMIT),
-      filter(newCoordinates => {
-        if (this.lastUpdatedPosition !== null
-          && olGetDistance(this.lastUpdatedPosition.toArray(), newCoordinates.toArray()) < MapService.MOVE_LIMIT) {
-          return false;
-        } else {
-          this.lastUpdatedPosition = newCoordinates;
-          return true;
-        }
-      }),
-      switchMap(coordinates => {
-        this.updateLoadingState(true);
-        console.log('Loading new locations...');
-        return this.locationApiService.searchLocations({ coordinates });
-      }),
-      tap(_ => this.updateLoadingState(false)),
-      catchError((error) => {
-        this.updateLoadingState(false);
-        return throwError(error);
-      })
+    this.reload$.pipe(
+      startWith('init'),
+      switchMap(_ =>
+        this.mapService.getMapCenter().pipe(
+          filter(coordinates => !!coordinates),
+          filter(_ => this.mapService.getCurrentMapZoomLevel() > MapService.ZOOM_LIMIT),
+          filter(newCoordinates => {
+            if (this.lastUpdatedPosition !== null
+              && olGetDistance(this.lastUpdatedPosition.toArray(), newCoordinates.toArray()) < MapService.MOVE_LIMIT) {
+              return false;
+            } else {
+              this.lastUpdatedPosition = newCoordinates;
+              return true;
+            }
+          }),
+          switchMap(coordinates => {
+            this.updateLoadingState(true);
+            console.log('Loading new locations...');
+            return this.locationApiService.searchLocations({ coordinates });
+          }),
+          tap(_ => this.updateLoadingState(false)),
+          catchError((error) => {
+            this.updateLoadingState(false);
+            return throwError(error);
+          })
+        )
+      )
     ).subscribe(this.locations$);
   }
 
   public fetchLocations(): Observable<Location[]> {
     return this.locations$;
+  }
+
+  public reloadLocations(): void {
+    this.reload$.next('reload');
   }
 
   public fetchLocationById(id: number) {
