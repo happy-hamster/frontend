@@ -56,6 +56,10 @@ export class MapComponent implements OnInit, OnDestroy {
 
     this.isLoadingLocations = this.locationService.getLoadingLocationsState();
 
+    if (!this.mapService.isInitial) {
+      this.locationService.reloadLocations();
+    }
+
     if (this.route.snapshot.queryParamMap.get('id')) {
       console.log('id: ' + this.route.snapshot.queryParamMap.get('id'));
       this.loadPositionFromLocation(+this.route.snapshot.queryParamMap.get('id'));
