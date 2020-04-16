@@ -31,7 +31,7 @@
     "@ngx-translate/http-loader": "^4.0.0",
     "@service-work/is-loading": "^3.0.3",
     "mixpanel-browser": "^2.35.0",
-    "ng-openapi-gen": "^0.8.2",
+    "ng-openapi-gen": "^0.10.0",
     "ngx-cookie-service": "^3.0.3",
     "ol": "^6.2.1",
     "rxjs": "^6.5.4",
