@@ -41,7 +41,6 @@ export class SnackBarComponent implements OnInit {
         this.next();
       }
     });
-
   }
 
   private next() {
