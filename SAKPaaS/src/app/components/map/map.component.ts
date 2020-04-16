@@ -65,6 +65,10 @@ export class MapComponent implements OnInit, OnDestroy {
       this.mapService.isInitial = false;
     }
 
+    if (!this.mapService.isInitial) {
+      this.locationService.reloadLocations();
+    }
+
     this.subscriptions.add(
       this.locationService.fetchLocations().pipe(
         catchError(err => {
