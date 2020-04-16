@@ -5,27 +5,33 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.0
+  version: "2.0"
 servers:
-  - url: https://api.happyhamster.org/v2
-    description: Production
+- url: https://api.HappyHamster.org/v2
+  description: HappyHamster Production
+- url: https://api.int.HappyHamster.org/v2
+  description: HappyHamster Integration
+- url: https://api.dev.HappyHamster.org/v2
+  description: HappyHamster Development
+- url: https://virtserver.swaggerhub.com/SAKPaaS/SAKPaaS/2.0
+  description: Mock-Server Test
 paths:
   /locations:
     get:
       tags:
-        - Locations
+      - Locations
       description: |
         Searches for locations in the given range.
       operationId: searchLocations
       parameters:
-        - name: Coordinates
-          in: query
-          description: Latitude
-          required: true
-          style: form
-          explode: true
-          schema:
-            $ref: "#/components/schemas/Coordinates"
+      - name: Coordinates
+        in: query
+        description: Latitude
+        required: true
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/Coordinates'
       responses:
         "200":
           description: Success
@@ -35,52 +41,79 @@ paths:
                 maxItems: 100
                 type: array
                 items:
-                  $ref: "#/components/schemas/Location"
+                  $ref: '#/components/schemas/Location'
   /locations/{id}:
     get:
       tags:
-        - Locations
+      - Locations
       description: |
         Get details for a specific location.
       parameters:
-        - name: id
-          in: path
-          description: id
-          required: true
-          style: simple
-          explode: false
-          schema:
-            $ref: "#/components/schemas/LocationId"
+      - name: id
+        in: path
+        description: id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/LocationId'
       responses:
         "200":
           description: Success
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Location"
+                $ref: '#/components/schemas/Location'
+        "404":
+          description: Not found
+  /locations/search/{key}:
+    get:
+      tags:
+      - Locations
+      description: |
+        Get details for a specific location.
+      parameters:
+      - name: key
+        in: path
+        description: key
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                maxItems: 100
+                type: array
+                items:
+                  $ref: '#/components/schemas/Location'
         "404":
           description: Not found
   /locations/{id}/occupancy:
     post:
       tags:
-        - Occupancy
+      - Occupancy
       description: |
         Add or remove current capacity.
       parameters:
-        - name: id
-          in: path
-          description: id of the place
-          required: true
-          style: simple
-          explode: false
-          schema:
-            $ref: "#/components/schemas/LocationId"
+      - name: id
+        in: path
+        description: id of the place
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/LocationId'
       requestBody:
         description: The estimated occupancy by the buyer
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/OccupancyReport"
+              $ref: '#/components/schemas/OccupancyReport'
         required: true
       responses:
         "200":
@@ -88,7 +121,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Location"
+                $ref: '#/components/schemas/Location'
         "400":
           description: Malformed request
 components:
@@ -96,26 +129,26 @@ components:
     Location:
       title: Location
       required:
-        - address
-        - coordinates
-        - id
-        - name
-        - occupancy
+      - address
+      - coordinates
+      - id
+      - name
+      - occupancy
       type: object
       properties:
         id:
-          $ref: "#/components/schemas/LocationId"
+          $ref: '#/components/schemas/LocationId'
         name:
           type: string
           example: LIDL Mannheim Marktplatz
         details:
-          $ref: "#/components/schemas/LocationDetails"
+          $ref: '#/components/schemas/LocationDetails'
         coordinates:
-          $ref: "#/components/schemas/Coordinates"
+          $ref: '#/components/schemas/Coordinates'
         occupancy:
-          $ref: "#/components/schemas/Occupancy"
+          $ref: '#/components/schemas/Occupancy'
         address:
-          $ref: "#/components/schemas/Address"
+          $ref: '#/components/schemas/Address'
       description: A physical location which represents a supermarket or similar
       nullable: false
     LocationId:
@@ -135,8 +168,8 @@ components:
           description: Type of the shop
           nullable: true
           enum:
-            - supermarket
-            - chemist
+          - supermarket
+          - chemist
         brand:
           title: Brand
           type: string
@@ -154,11 +187,11 @@ components:
     Address:
       title: Address
       required:
-        - city
-        - country
-        - housenumber
-        - postcode
-        - street
+      - city
+      - country
+      - housenumber
+      - postcode
+      - street
       type: object
       properties:
         country:
@@ -186,8 +219,8 @@ components:
     Coordinates:
       title: Coordinates
       required:
-        - latitude
-        - longitude
+      - latitude
+      - longitude
       type: object
       properties:
         latitude:
@@ -202,9 +235,9 @@ components:
     Occupancy:
       title: Occupancy
       required:
-        - count
-        - lastReport
-        - value
+      - count
+      - lastReport
+      - value
       type: object
       properties:
         value:
@@ -225,8 +258,7 @@ components:
         latestReport:
           title: Latest Report
           type: string
-          description:
-            Time of the latest report that was considered to calculate
+          description: Time of the latest report that was considered to calculate
             occupancy
           format: date-time
           nullable: true
@@ -234,8 +266,8 @@ components:
     OccupancyReport:
       title: Occupancy Report
       required:
-        - clientType
-        - occupancy
+      - clientType
+      - occupancy
       type: object
       properties:
         occupancy:
@@ -252,7 +284,7 @@ components:
           description: Type of the client which reported the occupancy
           nullable: false
           enum:
-            - IOT
-            - WEB_APP
+          - IOT
+          - WEB_APP
       description: Occupancy report to send
       nullable: false
