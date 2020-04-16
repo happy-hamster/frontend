@@ -5,7 +5,6 @@ import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { LocationsService } from './services/locations.service';
 import { OccupancyService } from './services/occupancy.service';
-import { PwaRequestCatcherService } from "./services/pwa-request-catcher.service";
 
 /**
  * Module that provides all services and configuration.
@@ -18,7 +17,6 @@ import { PwaRequestCatcherService } from "./services/pwa-request-catcher.service
     LocationsService,
     OccupancyService,
     ApiConfiguration,
-    PwaRequestCatcherService
   ],
 })
 export class ApiModule {
