@@ -145,4 +145,65 @@ export class LocationsService extends BaseService {
     );
   }
 
+  /**
+   * Path part for operation locationsSearchKeyGet
+   */
+  static readonly LocationsSearchKeyGetPath = '/locations/search/{key}';
+
+  /**
+   * Get details for a specific location.
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `locationsSearchKeyGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  locationsSearchKeyGet$Response(params: {
+
+    /**
+     * key
+     */
+    key: string;
+
+  }): Observable<StrictHttpResponse<Array<Location>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LocationsService.LocationsSearchKeyGetPath, 'get');
+    if (params) {
+
+      rb.path('key', params.key);
+
+    }
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<Location>>;
+      })
+    );
+  }
+
+  /**
+   * Get details for a specific location.
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `locationsSearchKeyGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  locationsSearchKeyGet(params: {
+
+    /**
+     * key
+     */
+    key: string;
+
+  }): Observable<Array<Location>> {
+
+    return this.locationsSearchKeyGet$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<Location>>) => r.body as Array<Location>)
+    );
+  }
+
 }
