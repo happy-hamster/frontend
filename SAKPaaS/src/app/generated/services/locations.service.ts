@@ -11,6 +11,7 @@ import { map, filter } from 'rxjs/operators';
 import { Coordinates } from '../models/coordinates';
 import { Location } from '../models/location';
 import { LocationId } from '../models/location-id';
+import { LocationSearchResult } from '../models/location-search-result';
 
 @Injectable({
   providedIn: 'root',
@@ -146,31 +147,31 @@ export class LocationsService extends BaseService {
   }
 
   /**
-   * Path part for operation locationsSearchKeyGet
+   * Path part for operation locationsSearchQueryGet
    */
-  static readonly LocationsSearchKeyGetPath = '/locations/search/{key}';
+  static readonly LocationsSearchQueryGetPath = '/locations/search/{query}';
 
   /**
-   * Get details for a specific location.
+   * Returns the Coordinate and Locations around the 'Search Query'.
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `locationsSearchKeyGet()` instead.
+   * To access only the response body, use `locationsSearchQueryGet()` instead.
    *
    * This method doesn't expect any request body.
    */
-  locationsSearchKeyGet$Response(params: {
+  locationsSearchQueryGet$Response(params: {
 
     /**
-     * key
+     * Search query
      */
-    key: string;
+    query: string;
 
-  }): Observable<StrictHttpResponse<Array<Location>>> {
+  }): Observable<StrictHttpResponse<LocationSearchResult>> {
 
-    const rb = new RequestBuilder(this.rootUrl, LocationsService.LocationsSearchKeyGetPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, LocationsService.LocationsSearchQueryGetPath, 'get');
     if (params) {
 
-      rb.path('key', params.key);
+      rb.path('query', params.query);
 
     }
     return this.http.request(rb.build({
@@ -179,30 +180,30 @@ export class LocationsService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<Location>>;
+        return r as StrictHttpResponse<LocationSearchResult>;
       })
     );
   }
 
   /**
-   * Get details for a specific location.
+   * Returns the Coordinate and Locations around the 'Search Query'.
    *
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `locationsSearchKeyGet$Response()` instead.
+   * To access the full response (for headers, for example), `locationsSearchQueryGet$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  locationsSearchKeyGet(params: {
+  locationsSearchQueryGet(params: {
 
     /**
-     * key
+     * Search query
      */
-    key: string;
+    query: string;
 
-  }): Observable<Array<Location>> {
+  }): Observable<LocationSearchResult> {
 
-    return this.locationsSearchKeyGet$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<Location>>) => r.body as Array<Location>)
+    return this.locationsSearchQueryGet$Response(params).pipe(
+      map((r: StrictHttpResponse<LocationSearchResult>) => r.body as LocationSearchResult)
     );
   }
 
