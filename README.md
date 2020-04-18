@@ -27,17 +27,17 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
 ## Start Angular with PWA in Production Environment
-`# ng serve --prod` is not working because the ServiceWorker for the PWA ist not working without a web server. Try `npm run start:prod`.
+`# ng serve --prod` is not working because the ServiceWorker for the PWA is not working without a web server. Try `npm run start:prod`.
 
 # Start developing
-This is a Tutorial how to start developing the HappyHamster Frontend.
+This is a tutorial on how to start developing the HappyHamster frontend.
 
 ## Requirements
 - [Angular CLI](https://github.com/angular/angular-cli)
-- npm Tools (part of [Node](https://www.npmjs.com/get-npm))
+- npm tools (part of [Node](https://www.npmjs.com/get-npm))
 
 ## Step for Step
 1. Clone the HappyHamster project.
-2. Open command line and navigate to the repository root and then to the SAKPaaS folder.
+2. Open a command line and navigate to the repository root and then to the SAKPaaS folder.
 3. Run `npm install`
 4. Run `ng serve` and your local HappyHamster should open up at `localhost:4200`!
