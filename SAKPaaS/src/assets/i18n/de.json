@@ -9,7 +9,8 @@
   },
   "footer": {
     "help": "Hilfe",
-    "legal": "Rechtliches"
+    "legal": "Rechtliches",
+    "title.feedback": "Feedback"
   },
   "legal": {
     "cookies": "Cookies",
@@ -20,11 +21,11 @@
     "button": "Ich bin hier!"
   },
   "occupancy": {
-    "count-mobile" : {
+    "count-mobile": {
       "one-rating": "1 Bewertung",
       "multiple-ratings": "{{count}} Bewertungen"
     },
-    "count-desktop" : {
+    "count-desktop": {
       "one-rating": "Basierend auf einer Bewertung",
       "multiple-ratings": "Basierend auf {{count}} Bewertungen"
     },
