@@ -81,5 +81,11 @@
       "invalid": "Bitte sage uns deine persönliche Einschätzung der Auslastung :)",
       "success": "Vielen Dank für dein Feedback!"
     }
+  },
+  "image-alt": {
+    "occupancy": "Auslastung",
+    "occupancy-low": "Niedrige Auslastung",
+    "occupancy-medium": "Mittlere Auslastung",
+    "occupancy-high": "Hohe Auslastung"
   }
 }
