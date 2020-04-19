@@ -11,7 +11,7 @@
             <div class="radio" (click)="setRadioButton(lowValue)">
                 <mat-radio-button [value]="lowValue"></mat-radio-button>
                 <div class="radio-text">
-                    <img src="assets/icons/icon-availability-low.svg" alt="niedrige Auslastung">
+                    <img src="assets/icons/icon-availability-low.svg" alt="{{ 'image-alt.occupancy-low' | translate }}">
                     <div class="occupancy-title">
                         {{ 'occupancy.low.text' | translate }}
                     </div>
@@ -25,7 +25,7 @@
             <div class="radio" (click)="setRadioButton(mediumValue)">
                 <mat-radio-button [value]="mediumValue"></mat-radio-button>
                 <div class="radio-text">
-                    <img src="assets/icons/icon-availability-moderate.svg" alt="normale Auslastung">
+                    <img src="assets/icons/icon-availability-moderate.svg" alt="{{ 'image-alt.occupancy-medium' | translate }}">
                     <div class="occupancy-title">
                       {{ 'occupancy.medium.text' | translate }}
                     </div>
@@ -39,7 +39,7 @@
             <div class="radio" (click)="setRadioButton(highValue)">
                 <mat-radio-button [value]="highValue"></mat-radio-button>
                 <div class="radio-text">
-                    <img src="assets/icons/icon-availability-full.svg"  alt="hohe Auslastung">
+                    <img src="assets/icons/icon-availability-full.svg"  alt="{{ 'image-alt.occupancy-high' | translate }}">
                     <div class="occupancy-title">
                       {{ 'occupancy.high.text' | translate }} <mat-icon color="accent" class="warning-icon">warning</mat-icon>
                     </div>

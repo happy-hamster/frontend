@@ -1,13 +1,13 @@
 <ng-container *ngIf="isSearchBar; else isNoSearchBar">
   <div *ngIf="occupancy.value !== null">
-    <img [src]="iconPath" alt="{{ getText() }}" />
+    <img [src]="iconPath" [attr.alt]="getText()" />
   </div>
 </ng-container>
 
 <ng-template #isNoSearchBar>
   <div class="holder">
     <div>
-      <img [src]="iconPath" alt="Auslastung:"/>
+      <img [src]="iconPath" alt="{{ 'image-alt.occupancy' | translate }}"/>
     </div>
     <div >
       <span class="{{ styleClass }}">
