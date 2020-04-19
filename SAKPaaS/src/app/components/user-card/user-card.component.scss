@@ -1,0 +1,22 @@
+#user-card {
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
+  position: absolute;
+  top: 45px;
+  right: 30px;
+  // border-radius: 16px;
+  a {
+    color: var(--greenblue);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  mat-icon {
+    float: right;
+  }
+}
+
+.mat-card-title {
+  font-size: 18px;
+  font-weight: 400;
+}

@@ -1,0 +1,16 @@
+<mat-card *ngIf="authService.getUser() | async as user; else login" id="user-card">
+  <mat-card-title>{{user.username}}</mat-card-title>
+</mat-card>
+<ng-template #login>
+  <mat-card id="user-card">
+    <mat-card-title>
+      Gast
+      <mat-icon aria-hidden="false" aria-label="Example home icon" fontSet="material-icons-outlined">
+        settings
+      </mat-icon>
+    </mat-card-title>
+
+    <a class="mat-primary" (click)="authService.login()">Anmelden</a><br>
+    <a class="mat-primary" (click)="authService.register()">Account erstellen</a>
+  </mat-card>
+</ng-template>

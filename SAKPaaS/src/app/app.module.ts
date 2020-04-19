@@ -39,6 +39,7 @@ import { LocateButtonComponent } from './components/locate-button/locate-button.
 import { loadConfig } from 'src/app/config-loader';
 import { ApiConfiguration } from 'src/app/generated/api-configuration';
 import { AddressPipe } from 'src/app/core/pipes/address.pipe';
+import { UserCardComponent } from './components/user-card/user-card.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { AddressPipe } from 'src/app/core/pipes/address.pipe';
     LogoComponent,
     GlobalDialogComponent,
     LocateButtonComponent,
-    AddressPipe
+    AddressPipe,
+    UserCardComponent
   ],
   imports: [
     MatIconModule,
