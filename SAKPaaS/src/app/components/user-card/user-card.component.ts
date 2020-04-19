@@ -6,13 +6,10 @@ import { AuthKeycloakService } from 'src/app/core/services/auth-keycloak.service
   templateUrl: './user-card.component.html',
   styleUrls: ['./user-card.component.scss']
 })
-export class UserCardComponent implements OnInit {
+export class UserCardComponent {
 
   constructor(
     public authService: AuthKeycloakService
   ) { }
-
-  ngOnInit(): void {
-  }
 
 }
