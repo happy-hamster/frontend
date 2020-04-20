@@ -13,7 +13,7 @@ import {MatAutocompleteTrigger} from '@angular/material/autocomplete';
 })
 export class SearchBarComponent implements OnInit {
   searchControl = new FormControl();
-  filteredLocations$: Observable<Location[]>;
+  locations$: Observable<Location[]>;
 
   @Output() locationEmitted = new EventEmitter<Location>();
   @ViewChild(MatAutocompleteTrigger) autocomplete: MatAutocompleteTrigger;
@@ -21,28 +21,14 @@ export class SearchBarComponent implements OnInit {
   constructor(private locationsService: LocationProviderService) {}
 
   ngOnInit(): void {
-    this.filteredLocations$ = this.locationsService.fetchLocations()
-      .pipe(
-        switchMap(locations => merge(
-          of(locations),
-          this.searchControl.valueChanges.pipe(
-            map(value => {
-              if (!value) {
-                return locations;
-              }
-              value = value.toLowerCase();
-              return locations.filter(location => {
-                if (!location.name) {
-                  return false;
-                } else {
-                  return location.name.toLowerCase().includes(value);
-                }
-              });
-            })
-          )
-        )
-      )
-    );
+    this.locations$ = this.locationsService.fetchLocations();
+  }
+
+  triggerSearch(): void {
+    console.log('Search was triggered');
+    if (this.searchControl.value) {
+      this.locationsService.querySearch(this.searchControl.value);
+    }
   }
 
   getDistance(location: Location): string {
