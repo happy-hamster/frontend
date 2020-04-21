@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserCardComponent } from './user-card.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('UserCardComponent', () => {
   let component: UserCardComponent;
@@ -8,9 +9,12 @@ describe('UserCardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserCardComponent ]
+      declarations: [UserCardComponent],
+      imports: [
+        TranslateModule.forRoot({}),
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
