@@ -30,6 +30,7 @@
     "@ngx-translate/core": "^12.1.2",
     "@ngx-translate/http-loader": "^4.0.0",
     "@service-work/is-loading": "^3.0.3",
+    "keycloak-js": "^9.0.2",
     "mixpanel-browser": "^2.35.0",
     "ng-openapi-gen": "^0.10.0",
     "ngx-cookie-service": "^3.0.3",
