@@ -62,28 +62,29 @@ export class OccupancyReportComponent implements OnInit, OnDestroy {
 
     this.isLoadingService.add({ key: 'sendOccupancy' });
 
-    this.selectedLocation$.pipe(
-      switchMap(location => {
-        return this.occupancyService.sendOccupancy(location.id, value);
-      }),
-      catchError(err => {
+    this.subscriptions.add(
+      this.selectedLocation$.pipe(
+        switchMap(location => {
+          return this.occupancyService.sendOccupancy(location.id, value);
+        }),
+        catchError(err => {
+          this.isLoadingService.remove({ key: 'sendOccupancy' });
+          this.snackBarService.sendNotification({
+            messageKey: 'snack-bar.occupancy-report.failure',
+            type: SnackBarTypes.ERROR
+          });
+          return throwError(err);
+        })
+      ).subscribe(location => {
         this.isLoadingService.remove({ key: 'sendOccupancy' });
         this.snackBarService.sendNotification({
-          messageKey: 'snack-bar.occupancy-report.failure',
-          type: SnackBarTypes.ERROR
+          messageKey: 'snack-bar.occupancy-report.success',
+          type: SnackBarTypes.SUCCESS
         });
-        return throwError(err);
+        this.router.navigate(['home'], { queryParams: { id: location.id } });
+        this.pwaRequestPromptService.showPwaRequest();
       })
-    ).subscribe(location => {
-      this.isLoadingService.remove({ key: 'sendOccupancy' });
-      this.snackBarService.sendNotification({
-        messageKey: 'snack-bar.occupancy-report.success',
-        type: SnackBarTypes.SUCCESS
-      });
-      this.router.navigate(['home'], { queryParams: { id: location.id } });
-
-      this.pwaRequestPromptService.showPwaRequest();
-    });
+    );
   }
 
   ngOnDestroy() {
