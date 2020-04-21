@@ -17,7 +17,7 @@ export class PwaRequestPromptService {
    * Please note that the current implementation might be obsolete.
    */
   public showPwaRequest(): void {
-    this.pwaRequestCatcherService.getPwaRequest().prompt(); // ! This feature could be obsolete.
+    this.pwaRequestCatcherService.getPwaRequest()?.prompt(); // ! This feature could be obsolete.
   }
 
   /**
