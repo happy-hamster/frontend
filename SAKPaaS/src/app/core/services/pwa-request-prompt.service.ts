@@ -17,8 +17,7 @@ export class PwaRequestPromptService {
    * Please note that the current implementation might be obsolete.
    */
   public showPwaRequest(): void {
-    this.pwaRequestCatcherService.getPwaRequest().prompt(); // ! This feature could be obsolete.
-    console.log('Showed PWA installation prompt manually'); // HAS TO BE REMOVED FOR PRODUCTION
+    this.pwaRequestCatcherService.getPwaRequest()?.prompt(); // ! This feature could be obsolete.
   }
 
   /**
@@ -27,11 +26,9 @@ export class PwaRequestPromptService {
    * @param time: amount of time the prompt will be delayed after the event is triggered (in milliseconds
    */
   public showPwaRequestScheduled(time: number): void {
-    console.log('Start PWA installation prompt schedule');
     const pwaTimer = timer(time);
     pwaTimer.subscribe(() => {
       this.showPwaRequest();
-      console.log('PWA installation prompt sent scheduled'); // HAS TO BE REMOVED FOR PRODUCTION
     });
   }
 }
