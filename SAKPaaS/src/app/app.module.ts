@@ -56,7 +56,7 @@ import { LocationDetailsModule } from 'src/app/components/location-details/locat
     OccupancyViewModule,
     SearchBarModule,
     SharedModule,
-    SnackBarModule,
+    SnackBarModule
   ],
   providers: [
     {
