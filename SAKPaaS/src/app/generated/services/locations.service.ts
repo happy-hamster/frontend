@@ -11,6 +11,7 @@ import { map, filter } from 'rxjs/operators';
 import { Coordinates } from '../models/coordinates';
 import { Location } from '../models/location';
 import { LocationId } from '../models/location-id';
+import { LocationSearchResult } from '../models/location-search-result';
 
 @Injectable({
   providedIn: 'root',
@@ -142,6 +143,67 @@ export class LocationsService extends BaseService {
 
     return this.locationsIdGet$Response(params).pipe(
       map((r: StrictHttpResponse<Location>) => r.body as Location)
+    );
+  }
+
+  /**
+   * Path part for operation locationsSearchQueryGet
+   */
+  static readonly LocationsSearchQueryGetPath = '/locations/search/{query}';
+
+  /**
+   * Returns the Coordinate and Locations around the 'Search Query'.
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `locationsSearchQueryGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  locationsSearchQueryGet$Response(params: {
+
+    /**
+     * Search query
+     */
+    query: string;
+
+  }): Observable<StrictHttpResponse<LocationSearchResult>> {
+
+    const rb = new RequestBuilder(this.rootUrl, LocationsService.LocationsSearchQueryGetPath, 'get');
+    if (params) {
+
+      rb.path('query', params.query);
+
+    }
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<LocationSearchResult>;
+      })
+    );
+  }
+
+  /**
+   * Returns the Coordinate and Locations around the 'Search Query'.
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `locationsSearchQueryGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  locationsSearchQueryGet(params: {
+
+    /**
+     * Search query
+     */
+    query: string;
+
+  }): Observable<LocationSearchResult> {
+
+    return this.locationsSearchQueryGet$Response(params).pipe(
+      map((r: StrictHttpResponse<LocationSearchResult>) => r.body as LocationSearchResult)
     );
   }
 
