@@ -7,6 +7,7 @@ import { MapModule } from 'src/app/components/map/map.module';
 import { SearchBarModule } from 'src/app/components/search-bar/search-bar.module';
 import { LocateButtonModule } from 'src/app/components/locate-button/locate-button.module';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { UserCardModule } from '../user-card/user-card.module';
 
 
 
@@ -21,7 +22,8 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
     MapModule,
     SearchBarModule,
     LocateButtonModule,
-    MatBottomSheetModule
+    MatBottomSheetModule,
+    UserCardModule
   ],
   exports: [
     HomeComponent

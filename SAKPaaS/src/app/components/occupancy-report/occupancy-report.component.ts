@@ -82,9 +82,7 @@ export class OccupancyReportComponent implements OnInit, OnDestroy {
           type: SnackBarTypes.SUCCESS
         });
         this.router.navigate(['home'], { queryParams: { id: location.id } });
-
-        // Invokes the PWA-Install prompt
-        this.pwaRequestCatcherService.getPwaRequest().prompt(); // ! This feature is obsolete.
+        this.pwaRequestPromptService.showPwaRequest();
       })
     );
   }
