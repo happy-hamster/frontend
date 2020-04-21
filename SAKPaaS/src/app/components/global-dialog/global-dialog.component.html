@@ -1,14 +1,14 @@
 <h1 mat-dialog-title>{{ data.titleKey | translate }}</h1>
 <div mat-dialog-content>
   <p [innerHTML]="data.messageKey | translate"></p>
-  <p>
+  <p *ngIf="data.askForPermission">
     <mat-checkbox [formControl]="cookieCheckbox" color="primary">{{
       data.checkboxCookieTextKey
         ? (data.checkboxCookieTextKey | translate)
         : "Cookies"
     }}</mat-checkbox>
   </p>
-  <p>
+  <p *ngIf="data.askForPermission">
     <mat-checkbox [formControl]="gpsCheckbox" color="primary">{{
       data.checkboxGpsTextKey ? (data.checkboxGpsTextKey | translate) : "GPS"
     }}</mat-checkbox>

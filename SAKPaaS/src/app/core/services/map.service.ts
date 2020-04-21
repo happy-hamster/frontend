@@ -8,7 +8,7 @@ import { DialogMessageReturnTypes } from '../models/dialog-message.interface';
 import { CookieProviderService } from 'src/app/core/services/cookie-provider.service';
 import { map, filter } from 'rxjs/operators';
 import { PropagateGuard } from '../models/propagate-guard.interface';
-import { CheckboxesDialog } from '../models/checkboxes-dialog.model';
+import { CheckboxesDialog } from '../models/checkboxes-dialog.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -147,6 +147,7 @@ export class MapService {
         {
           titleKey: 'dialog.permissions.title',
           messageKey: 'dialog.permissions.message',
+          askForPermission: true,
           checkboxCookieTextKey: 'dialog.permissions.checkbox-cookie',
           checkboxGpsTextKey: 'dialog.permissions.checkbox-gps',
           cancelButtonTextKey: 'dialog.permissions.cancel-button',
@@ -155,16 +156,16 @@ export class MapService {
       ).subscribe((result) => {
         switch (result) {
           case DialogMessageReturnTypes.OKAY:
-            resolve(new CheckboxesDialog(true, true));
+            resolve({cookiesAllowed: true, gpsAllowed: true});
             break;
           case DialogMessageReturnTypes.CANCELLED:
-            resolve(new CheckboxesDialog(false, false));
+            resolve({cookiesAllowed: false, gpsAllowed: false});
             break;
-          case DialogMessageReturnTypes.ONLYCOOKIES:
-            resolve(new CheckboxesDialog(true, false));
+          case DialogMessageReturnTypes.ONLY_COOKIES:
+            resolve({cookiesAllowed: true, gpsAllowed: false});
             break;
-          case DialogMessageReturnTypes.ONLYGPS:
-            resolve(new CheckboxesDialog(false, true));
+          case DialogMessageReturnTypes.ONLY_GPS:
+            resolve({cookiesAllowed: false, gpsAllowed: true});
             break;
         }
       });

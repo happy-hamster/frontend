@@ -11,8 +11,8 @@ import { FormControl } from '@angular/forms';
 })
 export class GlobalDialogComponent {
 
-  cookieCheckbox = new FormControl(false);
-  gpsCheckbox = new FormControl(false);
+  cookieCheckbox = new FormControl(true);
+  gpsCheckbox = new FormControl(true);
 
 
   constructor(
@@ -21,14 +21,18 @@ export class GlobalDialogComponent {
   ) { }
 
   onOkay(): void {
-    if (this.cookieCheckbox && this.gpsCheckbox) {
-      this.dialogRef.close(DialogMessageReturnTypes.OKAY);
-    } else if (this.cookieCheckbox && !this.gpsCheckbox) {
-      this.dialogRef.close(DialogMessageReturnTypes.ONLYCOOKIES);
-    } else if (!this.cookieCheckbox && this.gpsCheckbox) {
-      this.dialogRef.close(DialogMessageReturnTypes.ONLYGPS);
+    if (this.data.askForPermission) {
+      if (this.cookieCheckbox.value && this.gpsCheckbox.value) {
+        this.dialogRef.close(DialogMessageReturnTypes.OKAY);
+      } else if (this.cookieCheckbox.value && !this.gpsCheckbox.value) {
+        this.dialogRef.close(DialogMessageReturnTypes.ONLY_COOKIES);
+      } else if (!this.cookieCheckbox.value && this.gpsCheckbox.value) {
+        this.dialogRef.close(DialogMessageReturnTypes.ONLY_GPS);
+      } else {
+        this.dialogRef.close(DialogMessageReturnTypes.CANCELLED);
+      }
     } else {
-      this.dialogRef.close(DialogMessageReturnTypes.CANCELLED);
+      this.dialogRef.close(DialogMessageReturnTypes.OKAY);
     }
   }
 
