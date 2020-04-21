@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ApiModule } from 'src/app/generated/api.module';
 import { AddressPipe } from 'src/app/core/pipes/address.pipe';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,7 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     HttpClientModule,
     RouterModule,
-    FormsModule,
+    ReactiveFormsModule,
     // angular material modules
     MatButtonModule,
     MatCheckboxModule,

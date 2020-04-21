@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IDialogMessage, DialogMessageReturnTypes } from 'src/app/core/models/dialog-message.interface';
+import { FormControl } from '@angular/forms';
 
 
 @Component({
@@ -10,8 +11,9 @@ import { IDialogMessage, DialogMessageReturnTypes } from 'src/app/core/models/di
 })
 export class GlobalDialogComponent {
 
-  CookieCheckbox = false;
-  GPSCheckbox = false;
+  cookieCheckbox = new FormControl(false);
+  gpsCheckbox = new FormControl(false);
+
 
   constructor(
     private dialogRef: MatDialogRef<GlobalDialogComponent>,
@@ -19,11 +21,11 @@ export class GlobalDialogComponent {
   ) { }
 
   onOkay(): void {
-    if (this.CookieCheckbox && this.GPSCheckbox) {
+    if (this.cookieCheckbox && this.gpsCheckbox) {
       this.dialogRef.close(DialogMessageReturnTypes.OKAY);
-    } else if (this.CookieCheckbox && !this.GPSCheckbox) {
+    } else if (this.cookieCheckbox && !this.gpsCheckbox) {
       this.dialogRef.close(DialogMessageReturnTypes.ONLYCOOKIES);
-    } else if (!this.CookieCheckbox && this.GPSCheckbox) {
+    } else if (!this.cookieCheckbox && this.gpsCheckbox) {
       this.dialogRef.close(DialogMessageReturnTypes.ONLYGPS);
     } else {
       this.dialogRef.close(DialogMessageReturnTypes.CANCELLED);
