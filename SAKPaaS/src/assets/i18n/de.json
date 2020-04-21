@@ -83,6 +83,12 @@
       "success": "Vielen Dank für dein Feedback!"
     }
   },
+  "user-card": {
+    "login": "Anmelden",
+    "logout": "Abmelden",
+    "register": "Account erstellen",
+    "guest": "Gast"
+  },
   "image-alt": {
     "occupancy": "Auslastung",
     "occupancy-low": "Niedrige Auslastung",

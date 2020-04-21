@@ -83,6 +83,12 @@
       "success": "Thank you for your feedback!"
     }
   },
+  "user-card": {
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Create account",
+    "guest": "Guest"
+  },
   "image-alt": {
     "occupancy": "Occupancy",
     "occupancy-low": "Low occupancy",
