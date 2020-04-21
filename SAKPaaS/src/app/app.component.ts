@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, AfterContentInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { LocationProviderService } from './core/services/location-provider.service';
 import { Observable } from 'rxjs';
 import { Location } from 'src/app/generated/models/location';
@@ -7,13 +7,14 @@ import { CookieProviderService } from 'src/app/core/services/cookie-provider.ser
 import { MixpanelService, MixpanelId } from './core/services/mixpanel.service';
 import { DOCUMENT } from '@angular/common';
 import { PwaRequestPromptService } from './core/services/pwa-request-prompt.service';
+import { PwaRequestCatcherService } from './core/services/pwa-request-catcher.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, AfterContentInit {
+export class AppComponent implements OnInit {
   title = 'SAKPaaS';
 
   locations$: Observable<Location[]>;
@@ -21,6 +22,7 @@ export class AppComponent implements OnInit, AfterContentInit {
   constructor(
     private locationService: LocationProviderService,
     private translate: TranslateService,
+    private pwaRequestCatcherService: PwaRequestCatcherService,
     private pwaRequestPromptService: PwaRequestPromptService,
     private cookieService: CookieProviderService,
     private mixpanelService: MixpanelService,
@@ -41,9 +43,5 @@ export class AppComponent implements OnInit, AfterContentInit {
 
   ngOnInit() {
     this.locations$ = this.locationService.fetchLocations();
-  }
-
-  ngAfterContentInit() {
-    this.pwaRequestPromptService.showPwaRequestScheduled(1000 * 30);
   }
 }
