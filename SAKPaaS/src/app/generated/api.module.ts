@@ -16,7 +16,7 @@ import { OccupancyService } from './services/occupancy.service';
   providers: [
     LocationsService,
     OccupancyService,
-    ApiConfiguration,
+    ApiConfiguration
   ],
 })
 export class ApiModule {

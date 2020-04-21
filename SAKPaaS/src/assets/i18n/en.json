@@ -81,5 +81,11 @@
 			"invalid": "Please tell us your personal occupancy estimation :)",
 			"success": "Thank you for your feedback!"
 		}
-	}
+	},
+  "image-alt": {
+    "occupancy": "Occupancy",
+    "occupancy-low": "Low occupancy",
+    "occupancy-medium": "Medium occupancy",
+    "occupancy-high": "High occupancy"
+  }
 }
