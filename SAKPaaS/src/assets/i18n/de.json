@@ -20,11 +20,11 @@
     "button": "Ich bin hier!"
   },
   "occupancy": {
-    "count-mobile" : {
+    "count-mobile": {
       "one-rating": "1 Bewertung",
       "multiple-ratings": "{{count}} Bewertungen"
     },
-    "count-desktop" : {
+    "count-desktop": {
       "one-rating": "Basierend auf einer Bewertung",
       "multiple-ratings": "Basierend auf {{count}} Bewertungen"
     },
@@ -81,6 +81,12 @@
       "invalid": "Bitte sage uns deine persönliche Einschätzung der Auslastung :)",
       "success": "Vielen Dank für dein Feedback!"
     }
+  },
+  "user-card": {
+    "login": "Anmelden",
+    "logout": "Abmelden",
+    "register": "Account erstellen",
+    "guest": "Gast"
   },
   "image-alt": {
     "occupancy": "Auslastung",
