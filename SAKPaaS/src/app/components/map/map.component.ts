@@ -45,7 +45,7 @@ export class MapComponent implements OnInit, OnDestroy {
     private mapService: MapService,
     private locationService: LocationProviderService,
     private snackBarService: SnackBarService,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) {
   }
 
@@ -56,6 +56,10 @@ export class MapComponent implements OnInit, OnDestroy {
 
     this.isLoadingLocations = this.locationService.getLoadingLocationsState();
 
+    if (!this.mapService.isInitial) {
+      this.locationService.reloadLocations();
+    }
+
     if (this.route.snapshot.queryParamMap.get('id')) {
       console.log('id: ' + this.route.snapshot.queryParamMap.get('id'));
       this.loadPositionFromLocation(+this.route.snapshot.queryParamMap.get('id'));
@@ -63,6 +67,10 @@ export class MapComponent implements OnInit, OnDestroy {
     } else if (this.mapService.isInitial) {
       this.mapService.updateRealGpsPosition();
       this.mapService.isInitial = false;
+    }
+
+    if (!this.mapService.isInitial) {
+      this.locationService.reloadLocations();
     }
 
     this.subscriptions.add(
@@ -82,7 +90,7 @@ export class MapComponent implements OnInit, OnDestroy {
       })
     );
 
-
+    this.addRelAttributeToContributionAnchor();
   }
 
   private initOLMap() {
@@ -192,6 +200,32 @@ export class MapComponent implements OnInit, OnDestroy {
         this.zoomToNewLocation(location);
       })
     );
+  }
+
+  /**
+   * function to add a rel attribute to the openlayers contribution anchor to prevent security vulnerabilities,
+   * further informations: https://web.dev/external-anchors-use-rel-noopener/
+   *
+   * The contribution anchor is initialized asynchrous. So we add an observer to the div.ol-attribution
+   *  if the div changes, we try to select the anchor and add the rel attribute. Afterwards we disconnect from the observer.
+   */
+  private addRelAttributeToContributionAnchor() {
+
+    const div = document.querySelector('div.ol-attribution');
+
+    const observer = new MutationObserver(_ => {
+      const a = document.querySelector('div.ol-attribution a[target=_blank]');
+      if (a) {
+        a.setAttribute('rel', 'noreferrer');
+        observer.disconnect();
+      }
+    });
+
+    observer.observe(div, {
+      attributes: true,
+      childList: true,
+      subtree: true
+    });
   }
 
   ngOnDestroy() {
