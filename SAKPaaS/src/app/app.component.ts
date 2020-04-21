@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, AfterContentInit } from '@angular/core';
 import { LocationProviderService } from './core/services/location-provider.service';
 import { Observable } from 'rxjs';
 import { Location } from 'src/app/generated/models/location';
@@ -6,13 +6,14 @@ import { TranslateService } from '@ngx-translate/core';
 import { CookieProviderService } from 'src/app/core/services/cookie-provider.service';
 import { MixpanelService, MixpanelId } from './core/services/mixpanel.service';
 import { DOCUMENT } from '@angular/common';
+import { PwaRequestPromptService } from './core/services/pwa-request-prompt.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterContentInit {
   title = 'SAKPaaS';
 
   locations$: Observable<Location[]>;
@@ -20,6 +21,7 @@ export class AppComponent implements OnInit {
   constructor(
     private locationService: LocationProviderService,
     private translate: TranslateService,
+    private pwaRequestPromptService: PwaRequestPromptService,
     private cookieService: CookieProviderService,
     private mixpanelService: MixpanelService,
     @Inject(DOCUMENT) private document: Document
@@ -39,5 +41,9 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.locations$ = this.locationService.fetchLocations();
+  }
+
+  ngAfterContentInit() {
+    this.pwaRequestPromptService.showPwaRequestScheduled(1000 * 30);
   }
 }
