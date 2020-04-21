@@ -25,7 +25,7 @@ export class AppComponent implements OnInit, AfterContentInit {
     private cookieService: CookieProviderService,
     private mixpanelService: MixpanelService,
     @Inject(DOCUMENT) private document: Document
-    ) {
+  ) {
     this.mixpanelService.track(MixpanelId.INIT);
     let lang = 'de';
 
