@@ -9,6 +9,7 @@ import { OccupancyProviderService } from 'src/app/core/services/occupancy-provid
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { SnackBarTypes } from 'src/app/core/models/snack-bar.interface';
 import { IsLoadingService } from '@service-work/is-loading';
+import { PwaRequestPromptService } from 'src/app/core/services/pwa-request-prompt.service';
 
 @Component({
   selector: 'app-occupancy-report',
@@ -31,6 +32,7 @@ export class OccupancyReportComponent implements OnInit, OnDestroy {
     private snackBarService: SnackBarService,
     private router: Router,
     private isLoadingService: IsLoadingService,
+    private pwaRequestPromptService: PwaRequestPromptService,
   ) { }
 
   ngOnInit(): void {
@@ -54,7 +56,7 @@ export class OccupancyReportComponent implements OnInit, OnDestroy {
         messageKey: 'snack-bar.occupancy-report.invalid',
         type: SnackBarTypes.ERROR
       });
-      return;
+      return undefined;
     }
     const value = +this.occupancyInput.value;
 
@@ -80,6 +82,7 @@ export class OccupancyReportComponent implements OnInit, OnDestroy {
           type: SnackBarTypes.SUCCESS
         });
         this.router.navigate(['home'], { queryParams: { id: location.id } });
+        this.pwaRequestPromptService.showPwaRequest();
       })
     );
   }

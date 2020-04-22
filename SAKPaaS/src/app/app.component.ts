@@ -6,6 +6,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { CookieProviderService } from 'src/app/core/services/cookie-provider.service';
 import { MixpanelService, MixpanelId } from './core/services/mixpanel.service';
 import { DOCUMENT } from '@angular/common';
+import { PwaRequestPromptService } from './core/services/pwa-request-prompt.service';
+import { PwaRequestCatcherService } from './core/services/pwa-request-catcher.service';
 
 @Component({
   selector: 'app-root',
@@ -20,10 +22,12 @@ export class AppComponent implements OnInit {
   constructor(
     private locationService: LocationProviderService,
     private translate: TranslateService,
+    private pwaRequestCatcherService: PwaRequestCatcherService,
+    private pwaRequestPromptService: PwaRequestPromptService,
     private cookieService: CookieProviderService,
     private mixpanelService: MixpanelService,
     @Inject(DOCUMENT) private document: Document
-    ) {
+  ) {
     this.mixpanelService.track(MixpanelId.INIT);
     let lang = 'de';
 

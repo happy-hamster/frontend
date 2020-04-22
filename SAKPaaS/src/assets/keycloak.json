@@ -1,0 +1,8 @@
+{
+  "realm": "happyhamster",
+  "auth-server-url": "https://auth.happyhamster.org/auth/",
+  "ssl-required": "external",
+  "resource": "frontend",
+  "public-client": true,
+  "confidential-port": 0
+}

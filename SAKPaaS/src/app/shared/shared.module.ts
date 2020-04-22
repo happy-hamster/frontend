@@ -8,6 +8,8 @@ import { IsLoadingModule, IsLoadingPipeModule } from '@service-work/is-loading';
 import { MatButtonModule } from '@angular/material/button';
 import { ApiModule } from 'src/app/generated/api.module';
 import { AddressPipe } from 'src/app/core/pipes/address.pipe';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,8 +21,10 @@ import { AddressPipe } from 'src/app/core/pipes/address.pipe';
     CommonModule,
     HttpClientModule,
     RouterModule,
+    ReactiveFormsModule,
     // angular material modules
     MatButtonModule,
+    MatCheckboxModule,
     // third party modules
     ApiModule,
     IsLoadingModule,

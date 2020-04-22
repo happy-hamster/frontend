@@ -3,7 +3,9 @@
     "permissions": {
       "cancel-button": "Nein, danke",
       "message": "HappyHamster funktioniert am besten, wenn du deinen GPS-Standort aktivierst und uns erlaubst, Cookies zu speichern.<br>Mehr Informationen, wie wir Cookies verwenden, findest du unter \"Rechtliches\".<br>Bitte genehmige zusätzlich den Zugriff auf deinen Standort in deinem Internet-Browser.",
-      "ok-button": "Einverstanden",
+      "checkbox-cookie": "Verwendung von Cookies",
+      "checkbox-gps": "Standort verwenden",
+      "ok-button": "Zustimmen",
       "title": "Berechtigungen"
     }
   },
@@ -20,11 +22,11 @@
     "button": "Ich bin hier!"
   },
   "occupancy": {
-    "count-mobile" : {
+    "count-mobile": {
       "one-rating": "1 Bewertung",
       "multiple-ratings": "{{count}} Bewertungen"
     },
-    "count-desktop" : {
+    "count-desktop": {
       "one-rating": "Basierend auf einer Bewertung",
       "multiple-ratings": "Basierend auf {{count}} Bewertungen"
     },
@@ -85,6 +87,12 @@
       "error": "Bei der Suche ist ein Fehler aufgetreten.",
       "not-found": "Leider konnten wie keine Suchergebnisse finden. Bitte versuche einen anderen Suchbegriff."
     }
+  },
+  "user-card": {
+    "login": "Anmelden",
+    "logout": "Abmelden",
+    "register": "Account erstellen",
+    "guest": "Gast"
   },
   "image-alt": {
     "occupancy": "Auslastung",
