@@ -57,7 +57,7 @@ export class LocationProviderService {
     ).subscribe(this.locations$);
 
     this.searchService.getSearchResult().subscribe(locationSearchResult => {
-      if (locationSearchResult.locations.length) {
+      if (locationSearchResult.locations && locationSearchResult.locations.length) {
         this.locations$.next(locationSearchResult.locations);
         const coords = new PositionCoordinates(locationSearchResult.coordinates.longitude, locationSearchResult.coordinates.latitude);
         this.searchService.setIsInSearch(true);
