@@ -19,7 +19,7 @@ export class MixpanelService {
    */
   track(id: MixpanelId, action: any = {}): void {
     if (!this.didInit) {
-      mixpanel.init('a603c032ca10b66c68e18c9aa1789c3a');
+      mixpanel.init('d6a452714c50262abfd097a0a91a83a8');
       this.didInit = true;
     }
     mixpanel.track(id, action);
