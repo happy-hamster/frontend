@@ -3,6 +3,7 @@ import { GlobalDialogService } from './global-dialog.service';
 import { DialogMessageReturnTypes } from '../models/dialog-message.interface';
 import { CheckboxesDialog } from '../models/checkboxes-dialog.interface';
 import { CookieProviderService } from './cookie-provider.service';
+import { MixpanelService, MixpanelId } from './mixpanel.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,8 @@ export class PermissionsService {
 
   constructor(
     private dialogService: GlobalDialogService,
-    private cookieService: CookieProviderService
+    private cookieService: CookieProviderService,
+    private mixpanelService: MixpanelService
   ) {
     this.currentPermissionsState = {
       cookiesAllowed: this.cookieService.areCookiesAllowed(),
@@ -31,6 +33,7 @@ export class PermissionsService {
     this.currentPermissionsState = dialogResult;
     if (dialogResult.cookiesAllowed) {
       this.cookieService.allowCookies();
+      this.mixpanelService.track(MixpanelId.INIT);
     } else {
       this.cookieService.forbidCookies();
     }

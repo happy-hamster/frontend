@@ -6,8 +6,9 @@ import * as mixpanel from 'mixpanel-browser';
 })
 export class MixpanelService {
 
+  private didInit = false;
+
   constructor() {
-    mixpanel.init('a603c032ca10b66c68e18c9aa1789c3a');
   }
 
   /**
@@ -17,6 +18,10 @@ export class MixpanelService {
    * @param [action={}] Actions object with custom properties.
    */
   track(id: MixpanelId, action: any = {}): void {
+    if (!this.didInit) {
+      mixpanel.init('a603c032ca10b66c68e18c9aa1789c3a');
+      this.didInit = true;
+    }
     mixpanel.track(id, action);
   }
 }
