@@ -24,6 +24,8 @@ import { LocateButtonModule } from 'src/app/components/locate-button/locate-butt
 import { BrowserModule } from '@angular/platform-browser';
 import { LocationDetailsModule } from 'src/app/components/location-details/location-details.module';
 
+
+
 @NgModule({
   declarations: [
     AppComponent
