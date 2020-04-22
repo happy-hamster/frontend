@@ -5,6 +5,7 @@ import {Location} from '../../generated/models/location';
 import {LocationProviderService} from '../../core/services/location-provider.service';
 import {map, switchMap} from 'rxjs/operators';
 import {MatAutocompleteTrigger} from '@angular/material/autocomplete';
+import { SearchService } from 'src/app/core/services/search.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -18,17 +19,28 @@ export class SearchBarComponent implements OnInit {
   @Output() locationEmitted = new EventEmitter<Location>();
   @ViewChild(MatAutocompleteTrigger) autocomplete: MatAutocompleteTrigger;
 
-  constructor(private locationsService: LocationProviderService) {}
+  constructor(
+    private locationsService: LocationProviderService,
+    private searchService: SearchService
+    ) {}
 
   ngOnInit(): void {
     this.locations$ = this.locationsService.fetchLocations();
+    this.searchControl.valueChanges.subscribe(value => {
+      if (!value) {
+        this.searchService.setIsInSearch(false);
+      }
+    });
   }
 
   triggerSearch(): void {
     console.log('Search was triggered');
     if (this.searchControl.value) {
-      this.locationsService.querySearch(this.searchControl.value);
+      this.searchService.querySearch(this.searchControl.value);
     }
+  }
+  resetSearch(): void {
+    this.searchService.setIsInSearch(false);
   }
 
   getDistance(location: Location): string {
