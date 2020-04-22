@@ -9,7 +9,8 @@ import { CookieComponent } from 'src/app/components/legal/cookie/cookie.componen
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'impressum'
+    redirectTo: 'impressum',
+    pathMatch: 'full'
   },
   {
     path: '',
