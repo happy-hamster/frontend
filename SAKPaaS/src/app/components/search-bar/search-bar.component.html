@@ -1,9 +1,9 @@
 <form class="search-bar-form">
   <mat-form-field>
-    <input matInput placeholder="{{ 'search-bar.placeholder' | translate }}" aria-label="Supermarkt Suchen"
-      [matAutocomplete]="auto" [formControl]="searchControl">
+    <input matInput placeholder="{{ 'search-bar.placeholder' | translate }}"
+      [matAutocomplete]="auto" [formControl]="searchControl" (keyup.enter)="triggerSearch()" (focusout)="triggerSearchIfChanges()">
     <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let location of filteredLocations$ | async" [value]="location.name"
+      <mat-option *ngFor="let location of locations$ | async" [value]="location.name"
         (click)="this.locationEmitted.emit(location);">
         <div class="option">
           <span class="text">{{ location.name }} {{ getDistance(location) }}</span>
@@ -13,6 +13,6 @@
         </div>
       </mat-option>
     </mat-autocomplete>
-    <mat-icon matSuffix>search</mat-icon>
+    <mat-icon matSuffix (click)="triggerSearch()">search</mat-icon>
   </mat-form-field>
 </form>
