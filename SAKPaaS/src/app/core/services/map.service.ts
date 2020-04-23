@@ -1,20 +1,16 @@
 import { Injectable } from '@angular/core';
 import { PositionCoordinates } from '../models/position-coordinates.model';
-import { Observable, BehaviorSubject, ReplaySubject, Subject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { SnackBarService } from './snack-bar.service';
 import { SnackBarTypes } from '../models/snack-bar.interface';
-import { GlobalDialogService } from './global-dialog.service';
-import { DialogMessageReturnTypes } from '../models/dialog-message.interface';
-import { CookieProviderService } from 'src/app/core/services/cookie-provider.service';
 import { map, filter } from 'rxjs/operators';
 import { PropagateGuard } from '../models/propagate-guard.interface';
-import { CheckboxesDialog } from '../models/checkboxes-dialog.interface';
+import { PermissionsService } from './permissions.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MapService {
-  private static PERMISSION_COOKIE_NAME = 'permission_gps_granted';
   private static HOME_LOCATION = new PositionCoordinates(10.018343, 51.133481);
 
 
@@ -38,27 +34,8 @@ export class MapService {
 
   constructor(
     private snackBarService: SnackBarService,
-    private cookieService: CookieProviderService,
-    private dialogService: GlobalDialogService
-  ) {
-    if (!this.cookieService.isCookieAlreadySet(MapService.PERMISSION_COOKIE_NAME)) {
-      this.askForPermission().then((checkboxesDialog) => {
-        if (checkboxesDialog.cookiesAllowed) {
-          this.cookieService.allowCookies();
-          console.log('Cookies allowed.');
-        } else {
-          console.warn('Cookies not allowed. What to do?');
-        }
-        if (checkboxesDialog.gpsAllowed) {
-          this.cookieService.setCookie(MapService.PERMISSION_COOKIE_NAME, 'true');
-          this.updateRealGpsPosition();
-          console.log('Access to GPS allowed.');
-        } else {
-          console.warn('Access to GPS position denied. What to do?');
-        }
-      });
-    }
-  }
+    private permissionsService: PermissionsService
+  ) { }
 
   public getMapCenter(): Observable<PositionCoordinates> {
     return this.mapCenter.pipe(map(x => x.val));
@@ -130,45 +107,18 @@ export class MapService {
   }
 
   public updateRealGpsPosition() {
-    this.getGpsPosition().then(position => {
-      this.setMapCenter(position);
-      this.setMapZoomLevel(15);
-    }).catch(reason => {
-      this.snackBarService.sendNotification({
-        messageKey: 'snack-bar.gps.' + reason,
-        type: SnackBarTypes.ERROR
-      });
-    });
-  }
-
-  private askForPermission(): Promise<CheckboxesDialog> {
-    return new Promise((resolve, _) => {
-      this.dialogService.showDialog(
-        {
-          titleKey: 'dialog.permissions.title',
-          messageKey: 'dialog.permissions.message',
-          askForPermission: true,
-          checkboxCookieTextKey: 'dialog.permissions.checkbox-cookie',
-          checkboxGpsTextKey: 'dialog.permissions.checkbox-gps',
-          cancelButtonTextKey: 'dialog.permissions.cancel-button',
-          okButtonTextKey: 'dialog.permissions.ok-button'
-        }
-      ).subscribe((result) => {
-        switch (result) {
-          case DialogMessageReturnTypes.OKAY:
-            resolve({cookiesAllowed: true, gpsAllowed: true});
-            break;
-          case DialogMessageReturnTypes.CANCELLED:
-            resolve({cookiesAllowed: false, gpsAllowed: false});
-            break;
-          case DialogMessageReturnTypes.ONLY_COOKIES:
-            resolve({cookiesAllowed: true, gpsAllowed: false});
-            break;
-          case DialogMessageReturnTypes.ONLY_GPS:
-            resolve({cookiesAllowed: false, gpsAllowed: true});
-            break;
-        }
-      });
+    this.permissionsService.getPermissions().then(result => {
+      if (result.gpsAllowed) {
+        this.getGpsPosition().then(position => {
+          this.setMapCenter(position);
+          this.setMapZoomLevel(15);
+        }).catch(reason => {
+          this.snackBarService.sendNotification({
+            messageKey: 'snack-bar.gps.' + reason,
+            type: SnackBarTypes.ERROR
+          });
+        });
+      }
     });
   }
 
