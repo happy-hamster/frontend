@@ -25,10 +25,8 @@ export class AppComponent implements OnInit {
     private pwaRequestCatcherService: PwaRequestCatcherService,
     private pwaRequestPromptService: PwaRequestPromptService,
     private cookieService: CookieProviderService,
-    private mixpanelService: MixpanelService,
     @Inject(DOCUMENT) private document: Document
   ) {
-    this.mixpanelService.track(MixpanelId.INIT);
     let lang = 'de';
 
     if (this.cookieService.isCookieAlreadySet('selected_language')) {

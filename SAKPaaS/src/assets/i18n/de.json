@@ -11,7 +11,10 @@
   },
   "footer": {
     "help": "Hilfe",
-    "legal": "Rechtliches"
+    "legal": "Rechtliches",
+    "feedback": {
+      "title": "Feedback"
+    }
   },
   "legal": {
     "cookies": "Cookies",
