@@ -3,6 +3,7 @@ import { MatCardModule } from '@angular/material/card';
 import { UserCardComponent } from 'src/app/components/user-card/user-card.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatIconModule } from '@angular/material/icon';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 
 
@@ -13,7 +14,8 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [
     SharedModule,
     MatCardModule,
-    MatIconModule
+    MatIconModule,
+    MatExpansionModule
   ],
   exports: [
     UserCardComponent

@@ -9,6 +9,14 @@
     {{user.username}}<br>
     <a class="mat-primary" (click)="authService.logout()">{{ 'user-card.logout' | translate }}</a><br>
   </mat-card-content>
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        Lorem Ipsum
+      </mat-expansion-panel-header>
+      Dolor sit amet
+    </mat-expansion-panel>
+  </mat-accordion>
 </mat-card>
 <ng-template #login>
   <mat-card id="user-card">
