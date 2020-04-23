@@ -11,7 +11,10 @@
   },
   "footer": {
     "help": "Hilfe",
-    "legal": "Rechtliches"
+    "legal": "Rechtliches",
+    "feedback": {
+      "title": "Feedback"
+    }
   },
   "legal": {
     "cookies": "Cookies",
@@ -59,7 +62,7 @@
     "warning": "Warnung"
   },
   "search-bar": {
-    "placeholder": "Supermarkt in der Nähe suchen"
+    "placeholder": "Suchen ..."
   },
   "snack-bar": {
     "cookies": {
@@ -82,6 +85,10 @@
       "failure": "Das hat leider nicht geklappt! Bitte versuche es erneut.",
       "invalid": "Bitte sage uns deine persönliche Einschätzung der Auslastung :)",
       "success": "Vielen Dank für dein Feedback!"
+    },
+    "search": {
+      "error": "Bei der Suche ist ein Fehler aufgetreten.",
+      "not-found": "Leider konnten wie keine Suchergebnisse finden. Bitte versuche einen anderen Suchbegriff."
     }
   },
   "user-card": {

@@ -11,7 +11,10 @@
   },
   "footer": {
     "help": "Help",
-    "legal": "Legal"
+    "legal": "Legal",
+    "feedback": {
+      "title": "Feedback"
+    }
   },
   "legal": {
     "cookies": "Cookies (de only)",
@@ -59,7 +62,7 @@
     "warning": "Warning"
   },
   "search-bar": {
-    "placeholder": "Search for shops nearby"
+    "placeholder": "Search ..."
   },
   "snack-bar": {
     "cookies": {
@@ -82,7 +85,11 @@
       "failure": "Sorry, that didn't work. Please try again!",
       "invalid": "Please tell us your personal occupancy estimation :)",
       "success": "Thank you for your feedback!"
-    }
+    },
+		"search": {
+			"error": "An error occurred while searching.",
+			"not-found": "Sorry, we could not find any results for your search-term. Please try something different."
+		}
   },
   "user-card": {
     "login": "Login",

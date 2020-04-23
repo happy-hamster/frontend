@@ -6,6 +6,9 @@ import { MapService } from './map.service';
 import { switchMap, catchError, filter, tap, startWith } from 'rxjs/operators';
 import { PositionCoordinates } from '../models/position-coordinates.model';
 import { getDistance as olGetDistance } from 'ol/sphere';
+import { SearchService } from './search.service';
+import { SnackBarService } from './snack-bar.service';
+import { SnackBarTypes } from '../models/snack-bar.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -19,12 +22,15 @@ export class LocationProviderService {
 
   constructor(
     private locationApiService: LocationsService,
-    private mapService: MapService
+    private mapService: MapService,
+    private searchService: SearchService,
+    private snackBarService: SnackBarService
   ) {
     this.reload$.pipe(
       startWith('init'),
       switchMap(_ =>
         this.mapService.getMapCenter().pipe(
+          filter(_ => !this.searchService.getIsInSearch()),
           filter(coordinates => !!coordinates),
           filter(_ => this.mapService.getCurrentMapZoomLevel() > MapService.ZOOM_LIMIT),
           filter(newCoordinates => {
@@ -49,6 +55,15 @@ export class LocationProviderService {
         )
       )
     ).subscribe(this.locations$);
+
+    this.searchService.getSearchResult().subscribe(locationSearchResult => {
+      if (locationSearchResult.locations && locationSearchResult.locations.length) {
+        this.locations$.next(locationSearchResult.locations);
+        const coords = new PositionCoordinates(locationSearchResult.coordinates.longitude, locationSearchResult.coordinates.latitude);
+        this.searchService.setIsInSearch(true);
+        this.mapService.setMapCenter(coords);
+      }
+    });
   }
 
   public fetchLocations(): Observable<Location[]> {

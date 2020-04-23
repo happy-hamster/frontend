@@ -1,3 +1,4 @@
 export interface PropagateGuard<T> {
-  propagate: boolean; val: T;
+  propagate: boolean;
+  val: T;
 }

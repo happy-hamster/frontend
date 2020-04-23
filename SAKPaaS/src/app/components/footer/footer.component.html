@@ -1,20 +1,42 @@
 <div class="footer">
-    <a target="_blank" rel="noreferrer" href="https://www.instagram.com/happyhamsterorg/">
-        <img src="assets/icons/social-media/instagram.svg" alt="Instagram">
-    </a>
-    <a target="_blank" rel="noreferrer" href="https://twitter.com/happyhamsterorg">
-        <img src="assets/icons/social-media/twitter.svg" alt="Twitter">
-    </a>
-    <a target="_blank" rel="noreferrer" href="https://github.com/SAKPaaS">
-        <img src="assets/icons/social-media/github.svg" alt="GitHub">
-    </a>
-    <a target="_blank" rel="noreferrer" href="https://www.youtube.com/channel/UCEYDgvcxXbOLIrKXZcC4nCA">
-        <img src="assets/icons/social-media/youtube.svg" alt="Youtube">
-    </a>
-    <a [routerLink]="" (click)="toggleLanguage()">
-        {{ selectedLanguage === 'de' ? 'EN' : 'DE'}}
-    </a>
-    <div class="line-break"></div>
-    <a href="https://welcome.happyhamster.org/">{{ 'footer.help' | translate }}</a>
-    <a href="" routerLink="/legal">{{ 'footer.legal' | translate }}</a>
+  <a
+    target="_blank"
+    rel="noreferrer"
+    href="https://www.instagram.com/happyhamsterorg/"
+  >
+    <img src="assets/icons/social-media/instagram.svg" alt="Instagram" />
+  </a>
+  <a
+    target="_blank"
+    rel="noreferrer"
+    href="https://twitter.com/happyhamsterorg"
+  >
+    <img src="assets/icons/social-media/twitter.svg" alt="Twitter" />
+  </a>
+  <a target="_blank" rel="noreferrer" href="https://github.com/SAKPaaS">
+    <img src="assets/icons/social-media/github.svg" alt="GitHub" />
+  </a>
+  <a
+    target="_blank"
+    rel="noreferrer"
+    href="https://www.youtube.com/channel/UCEYDgvcxXbOLIrKXZcC4nCA"
+  >
+    <img src="assets/icons/social-media/youtube.svg" alt="Youtube" />
+  </a>
+  <a
+    title="{{ 'footer.feedback.title' | translate }}"
+    target="_blank"
+    rel="noreferrer"
+    href="https://docs.google.com/forms/d/e/1FAIpQLSekXXSN--ehheZoMnMj9oE3tzCdS0C8oQ0lg8Lpl8RxNRIPEA/viewform"
+  >
+    <mat-icon class="material-icons-outlined"> feedback</mat-icon>
+  </a>
+  <a [routerLink]="" (click)="toggleLanguage()">
+    {{ selectedLanguage === "de" ? "EN" : "DE" }}
+  </a>
+  <div class="line-break"></div>
+  <a href="https://welcome.happyhamster.org/">{{
+    "footer.help" | translate
+  }}</a>
+  <a href="" routerLink="/legal">{{ "footer.legal" | translate }}</a>
 </div>
