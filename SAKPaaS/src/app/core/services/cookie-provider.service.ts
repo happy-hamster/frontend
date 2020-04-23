@@ -6,6 +6,8 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class CookieProviderService {
 
+  private static COOKIE_PERMISSION_COOKIE = 'p_cookie_granted';
+
   constructor(
     private cookieService: CookieService
   ) { }
@@ -19,11 +21,11 @@ export class CookieProviderService {
   }
 
   public areCookiesAllowed(): boolean {
-    return this.isCookieAlreadySet('allow_cookies');
+    return this.isCookieAlreadySet(CookieProviderService.COOKIE_PERMISSION_COOKIE);
   }
 
   public allowCookies(): boolean {
-    this.cookieService.set('allow_cookies', 'true', 365);
+    this.cookieService.set(CookieProviderService.COOKIE_PERMISSION_COOKIE, 'true', 365);
     return this.areCookiesAllowed();
   }
 
@@ -32,6 +34,18 @@ export class CookieProviderService {
       return false;
     }
     this.cookieService.set(key, value, 365);
+    return true;
+  }
+
+  public updateCookieIfAllowed(key: string, state: boolean): boolean {
+    if (!this.areCookiesAllowed()) {
+      return false;
+    }
+    if (state) {
+      this.cookieService.set(key, '+', 365);
+    } else {
+      this.cookieService.delete(key);
+    }
     return true;
   }
 
