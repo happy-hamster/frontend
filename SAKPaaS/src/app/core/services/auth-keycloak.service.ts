@@ -28,6 +28,9 @@ export class AuthKeycloakService {
   }
 
   public login() {
+    // because the KeyCloak JS adapter uses window.location.replace internally,
+    // we need to save the current URL so backwards navigation will be possible
+    history.pushState(null, null, window.location.href);
     this.kcInstance.login().then(_ => this.loggedIn());
   }
 
