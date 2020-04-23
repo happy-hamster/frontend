@@ -34,11 +34,20 @@ export class SearchBarComponent implements OnInit {
   }
 
   triggerSearch(): void {
-    console.log('Search was triggered');
     if (this.searchControl.value) {
-      this.searchService.querySearch(this.searchControl.value);
+      this.searchService.triggerSearch(this.searchControl.value);
     }
   }
+
+  triggerSearchIfChanges(): void {
+    if (this.searchControl.value) {
+      // timeout to prevent `triggerSearchifChanges()` from being called before `triggerSearch()`
+      setTimeout(_ => {
+        this.searchService.triggerSearchIfChanges(this.searchControl.value);
+      }, 100);
+    }
+  }
+
   resetSearch(): void {
     this.searchService.setIsInSearch(false);
   }

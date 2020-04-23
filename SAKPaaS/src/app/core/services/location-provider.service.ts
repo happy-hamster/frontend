@@ -62,11 +62,6 @@ export class LocationProviderService {
         const coords = new PositionCoordinates(locationSearchResult.coordinates.longitude, locationSearchResult.coordinates.latitude);
         this.searchService.setIsInSearch(true);
         this.mapService.setMapCenter(coords);
-      } else {
-        this.snackBarService.sendNotification({
-          messageKey: 'snack-bar.search.not-found',
-          type: SnackBarTypes.INFO
-        });
       }
     });
   }
