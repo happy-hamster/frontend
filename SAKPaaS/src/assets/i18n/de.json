@@ -10,7 +10,9 @@
   "footer": {
     "help": "Hilfe",
     "legal": "Rechtliches",
-    "title.feedback": "Feedback"
+    "feedback": {
+      "title": "Feedback"
+    }
   },
   "legal": {
     "cookies": "Cookies",
