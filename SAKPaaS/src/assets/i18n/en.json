@@ -35,23 +35,23 @@
     },
     "high": {
       "checkout-time": "Long waiting time",
-      "safety-distance": "Safe proximity of 1.5m can't be guaranteed.",
+      "safety-distance": "Safe distance of 1.5m can't be guaranteed.",
       "text": "Very busy"
     },
     "low": {
       "checkout-time": "Short waiting time",
-      "safety-distance": "Safe proximity of 1.5m always guaranteed.",
+      "safety-distance": "Safe distance of 1.5m always guaranteed.",
       "text": "Almost empty"
     },
     "medium": {
       "checkout-time": "Normal waiting time",
-      "safety-distance": "Safe proximity of 1.5m mostly guaranteed.",
+      "safety-distance": "Safe distance of 1.5m mostly guaranteed.",
       "text": "Moderately busy"
     },
     "no-data": "Unknown occupancy"
   },
   "occupancy-report": {
-    "title": "How packed is "
+    "title": "How crowded is "
   },
   "others": {
     "back-to-happy-hamster": "Back to Happy Hamster",
@@ -88,7 +88,7 @@
     },
     "search": {
       "error": "An error occurred while searching.",
-      "not-found": "Sorry, we couldn't find any results for your search term. Please alter your query."
+      "not-found": "Sorry, we couldn't find any results for your search term. Please alter your search."
     }
   },
   "user-card": {
