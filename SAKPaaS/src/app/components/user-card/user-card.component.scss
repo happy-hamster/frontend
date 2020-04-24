@@ -11,12 +11,46 @@
     text-decoration: underline;
     cursor: pointer;
   }
-  mat-icon {
+  .settings-icon {
     display: none;
     float: right;
     padding-left: 10px;
     width: 34px;
   }
+
+  .expand-icon {
+    margin-top: 100%;
+    margin-bottom: 0;
+  }
+
+  .expand-icon:hover {
+    cursor: pointer;
+  }
+}
+
+.expand {
+  float: left;
+}
+
+.content {
+  float: right;
+}
+
+.expandedContent {
+  width: 90%;
+  text-align: center;
+}
+
+.expanded {
+  width: 25%;
+}
+
+.turned {
+  transform: rotate(180deg);
+  -webkit-transform:rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
 }
 
 .mat-card-title {

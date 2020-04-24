@@ -95,7 +95,8 @@
     "login": "Login",
     "logout": "Logout",
     "register": "Create account",
-    "guest": "Guest"
+    "guest": "Guest",
+    "greeting": "Hello"
   },
   "image-alt": {
     "occupancy": "Occupancy",
