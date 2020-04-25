@@ -1,17 +1,12 @@
 .logo-container {
-    position: fixed;
-    z-index: 2;
-    background-color: grey;
-    border-radius: 50px;
-    margin: 0;
-    top: 15px;
-    left: 15px;
-    width: 90px;
-    height: 120px;
-    padding: 5px;
-    right: auto;
-    box-shadow: 0 5px 20px 0 rgba(11, 0, 51, 0.2);
+    z-index: 3;
+    position: absolute;
+    width: 129px;
+    height: 107px;
+    top: 14px;
+    left: -20px;
 }
+
 
 @media (max-width: 600px) {
     .logo-container {
@@ -20,6 +15,39 @@
 }
 
 .logo-container img {
-    height: 100%;
-    width: 100%
+    position: absolute;
+    width: 57px;
+    height: 80px;
+    left: 46px;
+    top: 7px;    
+    
+}
+.background-rec{
+    z-index: -1;
+    position: fixed;
+    width: 117px;
+    height: 95px;
+    left: -20px;
+    top: 14px;
+    background: #FFFFFF;
+    border-radius: 0px 0px 12px 5px;
+}
+
+.corner-upper-right{
+    left: 117px;
+    position: absolute;
+    z-index: 3;
+    width: 12px;
+    height: 12px;
+    background-image: radial-gradient(circle at 100% 100%, transparent 0, transparent 12px, white 12px);
+}
+
+.corner-bottom-left{
+    left:20px;
+    top:95px;
+    position: absolute;
+    z-index: 3;
+    width: 12px;
+    height: 12px;
+    background-image: radial-gradient(circle at 100% 100%, transparent 0, transparent 12px, white 12px);
 }
