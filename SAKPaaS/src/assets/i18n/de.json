@@ -95,7 +95,9 @@
     "login": "Anmelden",
     "logout": "Abmelden",
     "register": "Account erstellen",
-    "guest": "Gast"
+    "guest": "Gast",
+    "level": "Stufe:",
+    "next-level": "Erfahrung bis zum nächsten Level"
   },
   "image-alt": {
     "occupancy": "Auslastung",

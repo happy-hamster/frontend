@@ -95,7 +95,9 @@
     "login": "Login",
     "logout": "Logout",
     "register": "Create account",
-    "guest": "Guest"
+    "guest": "Guest",
+    "level": "Level:",
+    "next-level": "experience until next level"
   },
   "image-alt": {
     "occupancy": "Occupancy",
