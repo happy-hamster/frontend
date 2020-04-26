@@ -36,7 +36,7 @@ import { ApiModule } from './generated/api.module';
     AppRoutingModule,
     BrowserModule,
     // third party modules
-    ApiModule.forRoot({rootUrl: environment.apiTarget }),
+    ApiModule.forRoot({ rootUrl: environment.apiTarget }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     TranslateModule.forRoot({
       loader: {
