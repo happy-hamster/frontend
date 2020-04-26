@@ -1,5 +1,6 @@
 /* tslint:disable */
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 /**
  * Global configuration
@@ -8,7 +9,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ApiConfiguration {
-  rootUrl: string = 'https://api.HappyHamster.org/v2';
+  rootUrl: string = environment.apiTarget;
 }
 
 /**
