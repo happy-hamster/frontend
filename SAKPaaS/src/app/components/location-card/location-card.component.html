@@ -1,0 +1,17 @@
+<div class="card">
+  <mat-expansion-panel>
+
+    <mat-expansion-panel-header>
+      <app-occupancy-view [isSearchBar]="false" [occupancy]="location.occupancy"></app-occupancy-view>
+      <p class="mat-title">{{ location.name }}</p>
+      <p class="mat-card-subtitle">{{ location.address | address }}</p>
+      <div class="distance"></div>
+      <button class="favorite"></button>
+    </mat-expansion-panel-header>
+
+    <button mat-raised-button class="submit" (click)="checkIn(location)">
+      {{ 'location-details.button' | translate }}
+    </button>
+
+  </mat-expansion-panel>
+</div>
