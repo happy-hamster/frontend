@@ -7,9 +7,9 @@
   </mat-card-title>
   <mat-card-content>
     <div class="progress-bar-container">
-      <div class="level-name">{{ 'user-card.level' | translate }} Novice</div>
-      <mat-progress-bar mode="determinate" value=50></mat-progress-bar>
-      <div class="next-level">12 {{ 'user-card.next-level' | translate }}</div>
+      <div class="level-name">{{ 'user-card.level' | translate }} {{ currentLevel }}</div>
+      <mat-progress-bar mode="determinate" value="{{ currentProgress }}"></mat-progress-bar>
+      <div class="next-level">{{ xpRemaining }} {{ 'user-card.next-level' | translate }}</div>
     </div>
     {{user.username}}<br>
     <a class="mat-primary" (click)="authService.logout()">{{ 'user-card.logout' | translate }}</a><br>
