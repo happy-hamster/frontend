@@ -6,6 +6,28 @@
     </mat-icon>
   </mat-card-title>
   <mat-card-content>
+    <div class="badge-container">
+      <div class="badge">
+        <img src="assets/badges/new_report.png" alt="NewReport">
+        <br>
+      New Report
+    </div>
+      <div class="badge">
+        <img src="assets/badges/next_level.png" alt="NextLevel">
+        <br>
+      Next Level
+    </div>
+      <div class="badge">
+        <img src="assets/badges/trusted_shop.png" alt="TrustedShop">
+        <br>
+      Trusted Shop
+    </div>
+      <div class="badge">
+        <img src="assets/badges/week_1.png" alt="Week1">
+        <br>
+      Week 1
+    </div>
+    </div>
     {{user.username}}<br>
     <a class="mat-primary" (click)="authService.logout()">{{ 'user-card.logout' | translate }}</a><br>
   </mat-card-content>

@@ -19,7 +19,32 @@
   }
 }
 
+.badge-container{
+  .badge{
+      img{
+        width: 55px;
+        height: 55px;
+        margin-bottom: 3px;
+      }
+      word-wrap: break-word;
+      float: left;
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 10px;
+      line-height: 12px;
+      text-align: center;
+      letter-spacing: 0.2px;
+      
+      margin-right: 25px;
+
+      color: #26C485;
+  }
+}
+
 .mat-card-title {
   font-size: 18px;
   font-weight: 400;
 }
+
+
