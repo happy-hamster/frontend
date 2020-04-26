@@ -1,0 +1,12 @@
+
+<div *ngFor="let location of locations" class="location-card">
+  <!--  placeholder
+        will be replaced with `<app-location-card [location]="location"></app-location-card>`
+        (Pads Task)
+  -->
+  <div>{{ location.name }}</div>
+</div>
+
+<div class="locations-card" *ngIf="!locations.length">
+  <div>Keine Locations gefunden!</div>
+</div>
