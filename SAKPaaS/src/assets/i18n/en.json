@@ -35,17 +35,17 @@
     },
     "high": {
       "checkout-time": "Long waiting time",
-      "safety-distance": "Safe distance of 1.5m can't be guaranteed.",
+      "safety-distance": "Safety distance of 1.5m can't be guaranteed.",
       "text": "Very busy"
     },
     "low": {
       "checkout-time": "Short waiting time",
-      "safety-distance": "Safe distance of 1.5m always guaranteed.",
+      "safety-distance": "Safety distance of 1.5m always guaranteed.",
       "text": "Almost empty"
     },
     "medium": {
       "checkout-time": "Normal waiting time",
-      "safety-distance": "Safe distance of 1.5m mostly guaranteed.",
+      "safety-distance": "Safety distance of 1.5m mostly guaranteed.",
       "text": "Moderately busy"
     },
     "no-data": "Unknown occupancy"
