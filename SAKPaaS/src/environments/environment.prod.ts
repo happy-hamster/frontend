@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  name: 'production',
+  apiTarget: 'https://api.HappyHamster.org/v2'
 };
