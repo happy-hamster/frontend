@@ -76,17 +76,12 @@ export class LocationPanelComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParamMap.subscribe(queryParams => {
-      console.log(queryParams);
+      console.log('queryParams updated', queryParams);
       this.hideSearchResults = !queryParams.has('searchTerm');
     });
 
-    this.locationService.fetchLocations().subscribe(x => { console.log('locationPanelComp uffm service'); console.log(x); });
-
     this.locations$ = this.locationService.fetchLocations();
 
-    this.locations$.subscribe(x => { console.log('locationPanelComp locations$'); console.log(x); });
-
-    this.locationService.reloadLocations();
   }
 
 }

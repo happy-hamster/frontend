@@ -3,7 +3,7 @@ import { Observable, BehaviorSubject, throwError, Subject, combineLatest } from 
 import { Location } from 'src/app/generated/models';
 import { LocationsService } from 'src/app/generated/services';
 import { MapService } from './map.service';
-import { switchMap, catchError, filter, tap, startWith, map } from 'rxjs/operators';
+import { switchMap, catchError, filter, tap, startWith, map, share } from 'rxjs/operators';
 import { PositionCoordinates } from '../models/position-coordinates.model';
 import { getDistance as olGetDistance } from 'ol/sphere';
 import { SearchService } from './search.service';
@@ -46,11 +46,11 @@ export class LocationProviderService {
         return this.locationApiService.searchLocations({ coordinates });
       }),
       tap(_ => this.updateLoadingState(false)),
-      tap(console.log),
       catchError((error) => {
         this.updateLoadingState(false);
         return throwError(error);
-      })
+      }),
+      share()
     );
 
     this.searchLocations$ = this.searchService.getLocations();
@@ -70,14 +70,12 @@ export class LocationProviderService {
       switchMap(result => {
         const query: ParamMap = result;
         if (query.has('searchTerm')) {
-          console.log('return this.searchLocations$');
           return this.searchLocations$;
         } else {
-          console.log('return this.mapLocations$');
-          return this.mapLocations$.pipe(tap(x => {console.log('fetchLocation innen'); console.log(x); }));
+          return this.mapLocations$;
         }
       }),
-      tap(x => { console.log('fetchLocation außen'); console.log(x); })
+      tap(x => { console.log('fetchLocation außen'); }),
     );
   }
 
