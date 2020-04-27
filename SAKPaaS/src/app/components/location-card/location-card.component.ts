@@ -11,9 +11,19 @@ export class LocationCardComponent implements OnInit {
 
   @Input() location: Location;
 
+  hide = true;
+  favorite = false;
+
   constructor(private router: Router) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  toggle() {
+    this.hide = !this.hide;
+  }
+
+  toggleFavorite() {
+    this.favorite = !this.favorite;
   }
 
   checkIn(location: Location): void {
