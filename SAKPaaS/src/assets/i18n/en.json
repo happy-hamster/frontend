@@ -48,7 +48,7 @@
       "safety-distance": "Safety distance of 1.5m mostly guaranteed.",
       "text": "Moderately busy"
     },
-    "no-data": "Unknown occupancy"
+    "no-data": "No reports"
   },
   "occupancy-report": {
     "title": "How full is "
