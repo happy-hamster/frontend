@@ -14,7 +14,14 @@
     </div>
     <p class="mat-card-subtitle">{{ location.address | address }}</p>
     <div [ngClass]="{'hide': hide}">
-      <p class="mat-card-subtitle">{{ getOccupancyString() | translate }}</p>
+      <div *ngIf="location.occupancy.count" class="occupancy-count">
+        <p *ngIf="location.occupancy.count === 1" class="mat-card-subtitle">
+          {{ 'occupancy.count-desktop.one-rating' | translate }}
+        </p>
+          <p *ngIf="location.occupancy.count !== 1" class="mat-card-subtitle">
+          {{ 'occupancy.count-desktop.multiple-ratings' | translate:{ count: location.occupancy.count} }}
+        </p>
+      </div>
       <button mat-raised-button class="submit" (click)="checkIn(location)">
         {{ 'location-details.button' | translate }}
       </button>
