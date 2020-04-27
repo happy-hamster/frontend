@@ -42,6 +42,10 @@ export class LocationCardComponent implements OnInit {
     return dist;
   }
 
+  getOccupancyString(): string {
+    return '';
+  }
+
   checkIn(location: Location): void {
     this.router.navigate(['reportOccupancy', location.id]);
   }
