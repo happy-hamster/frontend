@@ -4,55 +4,75 @@
   flex-direction: column;
   background-color: var(--secondary-grey-blue);
   cursor: pointer;
+
+  app-occupancy-view {
+    margin-top: -20px;
+    margin-left: 25px;
+  }
+
+  .mat-title {
+    margin-left: 25px;
+    margin-bottom: 0;
+  }
+
+  .row {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+
+    span {
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
+      margin-right: 10px;
+
+      .distance {
+        padding: 10px;
+        text-align: center;
+        background-color: white;
+        border-radius: 10px;
+        margin-right: 20px;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 14px;
+        color: black;
+        letter-spacing: 0.2px;
+      }
+
+      .favorite-button {
+        height: 24px;
+        width: 24px;
+        background-color: transparent;
+        border: none;
+      }
+    }
+  }
+
+  .mat-card-subtitle {
+    margin-top: 0;
+    margin-left: 25px;
+  }
+
+  .hide {
+    display: none;
+  }
+
+  .submit {
+    margin-left: 25px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    height: 40px;
+    color: white;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    background-color: var(--greenblue);
+    text-align: center;
+    letter-spacing: 0.6px;
+    box-shadow: 0 5px 20px rgba(38, 196, 133, 0.4);
+    border-radius: 20px;
+  }
 }
 
-app-occupancy-view {
-  margin-top: -20px;
-  margin-left: 25px;
-}
 
-.mat-title {
-  margin-left: 25px;
-  margin-bottom: 0;
-}
-
-.row {
-  margin-top: 10px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.favorite-button {
-  background-color: transparent;
-  border: none;
-  width: fit-content;
-  height: fit-content;
-  margin-right: 10px;
-}
-
-.mat-card-subtitle {
-  margin-top: 0;
-  margin-left: 25px;
-}
-
-.hide {
-  display: none;
-}
-
-.submit {
-  margin-left: 25px;
-  margin-bottom: 20px;
-  margin-top: 10px;
-  height: 40px;
-  color: white;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 14px;
-  /* identical to box height */
-  background-color: var(--greenblue);
-  text-align: center;
-  letter-spacing: 0.6px;
-  box-shadow: 0 5px 20px rgba(38, 196, 133, 0.4);
-  border-radius: 20px;
-}

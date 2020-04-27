@@ -3,12 +3,16 @@
     <app-occupancy-view [isSearchBar]="false" [occupancy]="location.occupancy"></app-occupancy-view>
     <div class="row">
       <p class="mat-title">{{ location.name }}</p>
-      <span (click)="toggleFavorite()" class="material-icons">
-        {{ favorite ? 'star' : 'star_border' }}
+      <span>
+        <div class="distance">
+          {{ getDistanceString() }}
+        </div>
+        <span (click)="toggleFavorite()" class="material-icons">
+          {{ favorite ? 'star' : 'star_border' }}
+        </span>
       </span>
     </div>
     <p class="mat-card-subtitle">{{ location.address | address }}</p>
-    <div class="distance"></div>
     <div [ngClass]="{'hide': hide}">
       <button mat-raised-button class="submit" (click)="checkIn(location)">
         {{ 'location-details.button' | translate }}
