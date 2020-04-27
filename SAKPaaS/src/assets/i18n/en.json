@@ -11,8 +11,8 @@
   },
   "footer": {
     "help": "Help",
-    "imprint": "Imprint",
-    "privacy": "Privacy",
+    "legal": "Legal",
+    "privacy-policy": "Privacy Policy",
     "feedback": {
       "title": "Feedback"
     }
