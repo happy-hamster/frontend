@@ -13,7 +13,6 @@ export class LocationListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.locations);
   }
 
 }
