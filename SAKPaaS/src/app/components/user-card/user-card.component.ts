@@ -13,6 +13,9 @@ export class UserCardComponent {
     public authService: AuthKeycloakService
   ) { }
 
+  currentLevel = 'Novize';
+  remainingReports = 1;
+  currentProgress = 73;
   async change() {
     const element = document.getElementById('user-card');
     if (this.expanded) {
