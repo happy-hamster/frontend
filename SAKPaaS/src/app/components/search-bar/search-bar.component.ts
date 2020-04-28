@@ -29,7 +29,19 @@ export class SearchBarComponent implements OnInit {
 
     if (this.activatedRoute.snapshot.queryParamMap.has('searchTerm')) {
       this.searchControl.setValue(this.activatedRoute.snapshot.queryParamMap.get('searchTerm'));
+      this.triggerSearch();
     }
+
+    this.searchService.getResetSearch().subscribe(shouldReset => {
+      if (shouldReset) {
+        this.searchControl.setValue(null);
+        this.router.navigate([], {
+          queryParams: {
+            searchTerm: null
+          }
+        });
+      }
+    });
   }
 
   triggerSearch(): void {
