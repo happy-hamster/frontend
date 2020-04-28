@@ -1,9 +1,15 @@
 <ng-container>
-  <div class="card" (click)="toggle()">
+  <div class="card" [ngClass]="{'blur': blur}" (click)="toggle()">
     <app-occupancy-view [isSearchBar]="false" [occupancy]="location.occupancy"></app-occupancy-view>
+    <span class="material-icons close-button">
+      close
+    </span>
     <div class="row">
-      <p class="mat-title">{{ location.name }}</p>
-      <div>
+      <div class="left">
+        <p class="mat-title">{{ location.name }}</p>
+        <p class="mat-card-subtitle">{{ location.address | address }}</p>
+      </div>
+      <div class="right">
         <div class="distance">
           {{ getDistanceString() }}
         </div>
@@ -12,7 +18,6 @@
         </span>
       </div>
     </div>
-    <p class="mat-card-subtitle">{{ location.address | address }}</p>
     <div [ngClass]="{'hide': hide}">
       <div *ngIf="location.occupancy.count" class="occupancy-count">
         <p *ngIf="location.occupancy.count === 1" class="mat-card-subtitle">
