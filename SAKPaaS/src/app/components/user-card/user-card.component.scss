@@ -26,6 +26,7 @@
         height: 55px;
         margin-bottom: 3px;
       }
+      width: 55px;
       color: #26C485;
       float: left;
       clear: right;
@@ -36,6 +37,7 @@
       line-height: 12px;
       text-align: center;
       letter-spacing: 0.2px;
+      word-break: break-word;
       margin-right: 25px;
       margin-top: 12px;
       margin-bottom: 25px;
@@ -43,7 +45,9 @@
   overflow: auto;
 }
 
+
 .mat-badge-content {
+  background-color: #0B0033;
   color: white;
 }
 

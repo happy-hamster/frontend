@@ -7,12 +7,16 @@
   </mat-card-title>
   <mat-card-content>
     <div class="badge-container">
+      <mat-icon fontSet="material-icons-outlined" style="display:initial; float: left">
+        keyboard_arrow_left
+      </mat-icon>
+      
       <div class="badge">
         <img src="assets/badges/new_report.png" alt="NewReport">
         <br>
         New Report
       </div>
-      <div class="badge"  matBadge="5" matBadgeColor="primary">
+      <div class="badge" matBadge="5">
           <img src="assets/badges/next_level.png" alt="NextLevel">
         <br>
         Next Level
@@ -27,7 +31,7 @@
         <br>
         Week 1
       </div>
-      <div class="badge">
+      <div class="badge" style="margin-right: 0px">
         <img src="assets/badges/trusted_user.png" alt="TrustedUser">
         <br>
         Trusted User
@@ -51,10 +55,14 @@
         <img src="assets/badges/locked.png" alt="Locked">
         <br>
       </div>
-      <div class="badge">
+      <div class="badge" style="margin-right: 0px">
         <img src="assets/badges/locked.png" alt="Locked">
         <br>
       </div>
+      
+      <mat-icon fontSet="material-icons-outlined" style="display:initial">
+        keyboard_arrow_right
+      </mat-icon>
     </div>
     <br>
     {{user.username}}<br>
