@@ -46,22 +46,17 @@
 }
 
 #wrapper {
-  border: 1px solid black;
   overflow: hidden;
+  display:flex;
+  align-items:center;
 }
 #first {
   float: left;
-  margin-top: auto;
-  margin-bottom: auto;
-  border: 1px solid red;
 }
 #second {
-  border: 1px solid green;
   float: left;
 }
 #third {
-  border: 1px solid blue;
-  vertical-align: middle;
   float: left;
 }
 
