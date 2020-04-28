@@ -31,7 +31,27 @@ export class UserCardComponent {
     ]);
   }
 
+  numberBadges = 12;
+  page = 1;
+  itemsPerPage = 5;
+  totalPages = Math.ceil(this.numberBadges / this.itemsPerPage);
+  lockedBadges = this.itemsPerPage * this.totalPages - this.numberBadges;
   currentLevel = 'Novize';
   remainingReports = 1;
   currentProgress = 73;
+
+  array(n: number): any[] {
+    return Array(n);
+  }
+
+  backPage() {
+    if (this.page > 1) {
+      this.page--;
+    }
+  }
+  nextPage() {
+    if (this.page < this.totalPages) {
+      this.page++;
+    }
+  }
 }

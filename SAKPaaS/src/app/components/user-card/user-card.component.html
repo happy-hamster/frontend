@@ -20,24 +20,42 @@
       </div>
     </div>
     <div id="wrapper">
-      <div id="first">
-        <mat-icon fontSet="material-icons-outlined" style="display:initial; color: #9DA9A0; padding-left: 0px;">
+      <div id="first" *ngIf="totalPages>1 && page!=1 else notVisible">
+        <mat-icon fontSet="material-icons-outlined" style="display:initial; color: #9DA9A0; padding-left: 0px;" (click)="backPage()">
           keyboard_arrow_left
         </mat-icon>
       </div>
+      <ng-template #notVisible>
+        <mat-icon fontSet="material-icons-outlined" style="display:initial; color: white; padding-left: 0px;" (click)="nextPage()">
+          keyboard_arrow_left
+        </mat-icon>
+      </ng-template>
       <div class="badge-container" id="second">
-        <div class="badge" *ngFor="let badge of badges$ | async">
-          <img src="assets/badges/{{badge}}.png" [alt]="'badges.' + badge | translate">
-          <br>
-          {{'badges.' + badge | translate}}
+        <div class="badge" *ngFor="let badge of badges$ | async | slice: ((page-1) * itemsPerPage) : (page * itemsPerPage); let ind = index;">
+            <img src="assets/badges/{{badge}}.png" [alt]="'badges.' + badge | translate">
+            <br>
+            {{'badges.' + badge | translate}}
         </div>
+        <ng-container *ngIf="page == totalPages" >
+          <div class="badge" *ngFor="let i of array(lockedBadges)">
+              <img src="assets/badges/locked.png" [alt]="'badges.locked'| translate">
+              <br>
+              {{'badges.locked'| translate}}
+          </div>
+        </ng-container>
       </div>
-      <div id="third">
-        <mat-icon fontSet="material-icons-outlined" style="display:initial; color: #9DA9A0; padding-left: 0px;">
+      <div id="third" *ngIf="totalPages>1 && page!=totalPages else notVisible">
+        <mat-icon fontSet="material-icons-outlined" style="display:initial; color: #9DA9A0; padding-left: 0px;" (click)="nextPage()">
           keyboard_arrow_right
         </mat-icon>
       </div>
+      <ng-template #notVisible>
+        <mat-icon fontSet="material-icons-outlined" style="display:initial; color: white; padding-left: 0px;" (click)="nextPage()">
+          keyboard_arrow_right
+        </mat-icon>
+      </ng-template>
     </div>
+    <div *ngIf="totalPages>1" style="float:right; color: #9DA9A0;">Seite {{page}} von {{totalPages}}</div>
     <br>
     {{user.username}}<br>
 
