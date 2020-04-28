@@ -6,6 +6,8 @@
   top: 45px;
   right: 30px;
   border-radius: 10px;
+  width: 12%;
+  transition: all .5s linear;
   a {
     color: var(--greenblue);
     text-decoration: underline;
@@ -34,15 +36,12 @@
 
 .content {
   float: right;
+  width: 80%;
 }
 
 .expandedContent {
   width: 90%;
   text-align: center;
-}
-
-.expanded {
-  width: 25%;
 }
 
 .turned {
