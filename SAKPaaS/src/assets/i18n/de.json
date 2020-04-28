@@ -57,12 +57,12 @@
     "back-to-happy-hamster": "Zurück zu Happy Hamster",
     "cancel": "Abbrechen",
     "not-here": "Bist du doch nicht hier?",
-    "pending": "Wird abgeschickt ...",
+    "pending": "Wird abgeschickt…",
     "submit": "Abschicken",
     "warning": "Warnung"
   },
   "search-bar": {
-    "placeholder": "Suchen ..."
+    "placeholder": "Suchen…" 
   },
   "snack-bar": {
     "cookies": {
