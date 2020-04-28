@@ -1,0 +1,26 @@
+button.ol-zoom-in,
+button.ol-zoom-out,
+button.ol-rotate-reset,
+button.ol-zoom-in:focus,
+button.ol-zoom-out:focus,
+button.ol-rotate-reset:focus {
+  background-color: white;
+  color: black;
+  font-size: 20px;
+  box-shadow: 0 5px 20px 0 rgba(11, 0, 51, 0.2);
+}
+
+$button-roundness: 20px;
+.ol-zoom button.ol-zoom-in {
+  border-radius: $button-roundness $button-roundness 0 0;
+}
+.ol-zoom button.ol-zoom-out {
+  border-radius: 0 0 $button-roundness $button-roundness;
+}
+
+button.ol-zoom-in:hover,
+button.ol-zoom-out:hover,
+button.ol-rotate-reset:hover {
+  background-color: var(--silver);
+  cursor: pointer;
+}

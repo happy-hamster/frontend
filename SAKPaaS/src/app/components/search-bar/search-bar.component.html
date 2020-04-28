@@ -12,9 +12,9 @@
         expand_more
       </span>
     </div>
-    <mat-form-field class="search-form-field" appearance="none">
+    <mat-form-field>
       <input matInput placeholder="{{ 'search-bar.placeholder' | translate }}"
-         [formControl]="searchControl" (keyup.enter)="triggerSearch()" (focusout)="triggerSearchIfChanges()">
+        [formControl]="searchControl" (keyup.enter)="triggerSearch()">
       <mat-icon matSuffix (click)="triggerSearch()">search</mat-icon>
     </mat-form-field>
   </form>

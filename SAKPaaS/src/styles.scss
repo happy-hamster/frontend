@@ -1,7 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@import "./app/components/map/buttons.scss";
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 :root {
   --greenblue: #26c485;
@@ -10,10 +18,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   --turquoise: #00b9ae;
   --grapefruit: #fe5f55;
   --midnight-blue: #0b0033;
+  --grey-blue: #96b7d4;
+  --secondary-grey-blue: rgba(150, 183, 212, 0.2);
+
+  --outer-border-radius: 14px;
 }
 
 .success-snack-bar {
-  background-color:  var(--greenblue);
+  background-color: var(--greenblue);
   color: #ffffff;
   .mat-simple-snackbar-action {
     color: white;
@@ -21,7 +33,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .info-snack-bar {
-  background-color:  var(--greenish-grey);
+  background-color: var(--greenish-grey);
   color: white;
   .mat-simple-snackbar-action {
     color: white;
@@ -29,11 +41,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .error-snack-bar {
-    background-color: var(--grapefruit);
-    color: #ffffff;
-    .mat-simple-snackbar-action {
-      color: var(--midnight-blue);
-    }
+  background-color: var(--grapefruit);
+  color: #ffffff;
+  .mat-simple-snackbar-action {
+    color: var(--midnight-blue);
+  }
 }
 
 .mat-snack-bar-container {
@@ -87,16 +99,4 @@ div.ol-control:hover {
     bottom: 40px;
     right: 80px;
   }
-}
-
-button.ol-zoom-in, button.ol-zoom-out, button.ol-rotate-reset, button.ol-zoom-in:focus, button.ol-zoom-out:focus, button.ol-rotate-reset:focus {
-  background-color: var(--greenblue);
-  font-size: 20px;
-  border-radius: 7px !important;
-  box-shadow: 0 5px 20px 0 rgba(11, 0, 51, 0.2);
-}
-
-button.ol-zoom-in:hover, button.ol-zoom-out:hover, button.ol-rotate-reset:hover {
-  background-color: var(--greenblue);
-  cursor: pointer;
 }
