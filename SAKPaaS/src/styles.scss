@@ -1,7 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@import "./app/components/map/buttons.scss";
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 :root {
   --greenblue: #26c485;
@@ -10,12 +18,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   --turquoise: #00b9ae;
   --grapefruit: #fe5f55;
   --midnight-blue: #0b0033;
-  --grey-blue: #96B7D4;
   --secondary-grey-blue: rgb(234, 241, 246);
+  --grey-blue: #96b7d4;
+
+  --outer-border-radius: 14px;
 }
 
 .success-snack-bar {
-  background-color:  var(--greenblue);
+  background-color: var(--greenblue);
   color: #ffffff;
   .mat-simple-snackbar-action {
     color: white;
@@ -23,7 +33,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .info-snack-bar {
-  background-color:  var(--greenish-grey);
+  background-color: var(--greenish-grey);
   color: white;
   .mat-simple-snackbar-action {
     color: white;
@@ -31,11 +41,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .error-snack-bar {
-    background-color: var(--grapefruit);
-    color: #ffffff;
-    .mat-simple-snackbar-action {
-      color: var(--midnight-blue);
-    }
+  background-color: var(--grapefruit);
+  color: #ffffff;
+  .mat-simple-snackbar-action {
+    color: var(--midnight-blue);
+  }
 }
 
 .mat-snack-bar-container {
