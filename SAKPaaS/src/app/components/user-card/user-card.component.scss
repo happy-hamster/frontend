@@ -29,59 +29,65 @@
     .next-level{
       font-size: 9px;
     }
+    margin-bottom: 29px;
   }
-}
 
-.badge-container{
-  .badge{
-      img{
+
+  .badge-container{
+    .badge{
+        img{
+          width: 55px;
+          height: 55px;
+          margin-bottom: 3px;
+        }
         width: 55px;
-        height: 55px;
-        margin-bottom: 3px;
-      }
-      width: 55px;
-      color: #26C485;
-      float: left;
-      clear: right;
-      font-family: Roboto;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 10px;
-      line-height: 12px;
-      text-align: center;
-      letter-spacing: 0.2px;
-      word-break: break-word;
-      margin-right: 25px;
-      margin-top: 12px;
-      margin-bottom: 25px;
+        color: #26C485;
+        float: left;
+        clear: right;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 10px;
+        line-height: 12px;
+        text-align: center;
+        letter-spacing: 0.2px;
+        word-break: break-word;
+        margin-right: 25px;
+        margin-top: 12px;
+        margin-bottom: 25px;
+    }
+    overflow: auto;
   }
-  overflow: auto;
-}
 
-#wrapper {
-  overflow: hidden;
-  display:flex;
-  align-items:center;
-}
-#first {
-  float: left;
-}
-#second {
-  float: left;
-}
-#third {
-  float: left;
-}
+  #wrapper {
+    overflow: hidden;
+    display:flex;
+    align-items:center;
+  }
+  #first {
+    float: left;
+  }
+  #second {
+    float: left;
+  }
+  #third {
+    float: left;
+  }
 
 
-.mat-badge-content {
-  background-color: #0B0033;
-  color: white;
-}
+  .mat-badge-content {
+    background-color: #0B0033;
+    color: white;
+  }
 
-.mat-card-title {
-  font-size: 18px;
-  font-weight: 400;
+  .mat-card-title {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 26px;
+    text-align: center;
+    color: #BAD1CD;
+  }
 }
-
 

@@ -13,16 +13,16 @@ export class UserCardComponent {
   ) { }
 
   badges: Array<{image: string, label: string}> = [
-    {image: 'new_report.png', label: 'New Report'},
-    {image: 'next_level.png', label: 'Next Level'},
-    {image: 'trusted_shop.png', label: 'Trusted Shop'},
-    {image: 'week_1.png', label: 'Week 1'},
-    {image: 'trusted_user.png', label: 'Trusted User'},
-    {image: 'two_shops.png', label: 'Two Shops'},
-    {image: 'week_3.png', label: 'Week 3'},
-    {image: 'locked.png', label: 'Locked'},
-    {image: 'locked.png', label: 'Locked'},
-    {image: 'locked.png', label: 'Locked'}
+    {image: 'assets/badges/new_report.png', label: 'New Report'},
+    {image: 'assets/badges/next_level.png', label: 'Next Level'},
+    {image: 'assets/badges/trusted_shop.png', label: 'Trusted Shop'},
+    {image: 'assets/badges/week_1.png', label: 'Week 1'},
+    {image: 'assets/badges/trusted_user.png', label: 'Trusted User'},
+    {image: 'assets/badges/two_shops.png', label: 'Two Shops'},
+    {image: 'assets/badges/week_3.png', label: 'Week 3'},
+    {image: 'assets/badges/locked.png', label: 'Locked'},
+    {image: 'assets/badges/locked.png', label: 'Locked'},
+    {image: 'assets/badges/locked.png', label: 'Locked'}
     ,
   ];
 

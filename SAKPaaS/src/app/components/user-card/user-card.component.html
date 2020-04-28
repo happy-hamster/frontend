@@ -21,69 +21,73 @@
     </div>
     <div id="wrapper">
       <div id="first">
-        <mat-icon fontSet="material-icons-outlined" style="display:initial; color: #9DA9A0;">
+        <mat-icon fontSet="material-icons-outlined" style="display:initial; color: #9DA9A0; padding-left: 0px;">
           keyboard_arrow_left
         </mat-icon>
       </div>
       <div class="badge-container" id="second">
         
         <div class="badge">
-          <img src="assets/badges/new_report.png" alt="NewReport">
+          <img src={{badges[0].image}} alt={{badges[0].label}}>
           <br>
-          New Report
+          {{badges[0].label}}
         </div>
         <div class="badge" matBadge="5">
-            <img src="assets/badges/next_level.png" alt="NextLevel">
+            <img src={{badges[1].image}} alt={{badges[1].label}}>
           <br>
-          Next Level
+          {{badges[1].label}}
         </div>
         <div class="badge">
-          <img src="assets/badges/trusted_shop.png" alt="TrustedShop">
+          <img src={{badges[2].image}} alt={{badges[2].label}}>
           <br>
-          Trusted Shop
+          {{badges[2].label}}
         </div>
         <div class="badge">
-          <img src="assets/badges/week_1.png" alt="Week1">
+          <img src={{badges[3].image}} alt={{badges[3].label}}>
           <br>
-          Week 1
+          {{badges[3].label}}
         </div>
         <div class="badge" style="margin-right: 0px">
-          <img src="assets/badges/trusted_user.png" alt="TrustedUser">
+          <img src={{badges[4].image}} alt={{badges[1].label}}>
           <br>
-          Trusted User
+          {{badges[4].label}}
         </div>
         <br>
         <div class="badge">
-          <img src="assets/badges/two_shops.png" alt="TwoShops">
+          <img src={{badges[5].image}} alt={{badges[5].label}}>
           <br>
-          Two Shops
+          {{badges[5].label}}
         </div>
         <div class="badge">
-          <img src="assets/badges/week_3.png" alt="Week3">
+          <img src={{badges[6].image}} alt={{badges[6].label}}>
           <br>
-          Week 3
+          {{badges[6].label}}
         </div>
         <div class="badge">
-          <img src="assets/badges/locked.png" alt="Locked">
+          <img src={{badges[7].image}} alt={{badges[7].label}}>
+          {{badges[7].label}}
           <br>
         </div>
         <div class="badge">
-          <img src="assets/badges/locked.png" alt="Locked">
+          <img src={{badges[8].image}} alt={{badges[8].label}}>
+          {{badges[8].label}}
           <br>
         </div>
         <div class="badge" style="margin-right: 0px">
-          <img src="assets/badges/locked.png" alt="Locked">
+          <img src={{badges[9].image}} alt={{badges[9].label}}>
+          {{badges[9].label}}
           <br>
         </div>
       </div>
       <div id="third">
-        <mat-icon fontSet="material-icons-outlined" style="display:initial; color: #9DA9A0;">
+        <mat-icon fontSet="material-icons-outlined" style="display:initial; color: #9DA9A0; padding-left: 0px;">
           keyboard_arrow_right
         </mat-icon>
       </div>
     </div>
     <br>
     {{user.username}}<br>
+    
     <a class="mat-primary" (click)="authService.logout()">{{ 'user-card.logout' | translate }}</a><br>
   </mat-card-content>
 </mat-card>
