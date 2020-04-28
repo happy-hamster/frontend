@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LocationPanelComponent } from './location-panel.component';
+import { LocationPanelModule } from 'src/app/components/location-panel/location-panel.module';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MatDialogTestingModule } from 'src/app/shared/mat-dialog-testing.module';
 
 describe('LocationPanelComponent', () => {
   let component: LocationPanelComponent;
@@ -8,7 +12,13 @@ describe('LocationPanelComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LocationPanelComponent ]
+      declarations: [],
+      imports: [
+        LocationPanelModule,
+        RouterTestingModule,
+        HttpClientTestingModule,
+        MatDialogTestingModule
+      ]
     })
     .compileComponents();
   }));
