@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from 'src/app/generated/models';
 import {Observable, Subscription} from 'rxjs';
@@ -12,7 +12,7 @@ import {LocationCardService} from '../../core/services/location-card.service';
   templateUrl: './location-panel.component.html',
   styleUrls: ['./location-panel.component.scss']
 })
-export class LocationPanelComponent implements OnInit {
+export class LocationPanelComponent implements OnInit, OnDestroy {
 
   hideSearchResults = true;
   locations$: Observable<Location[]>;
@@ -97,6 +97,10 @@ export class LocationPanelComponent implements OnInit {
         }
       )
     );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
 }
