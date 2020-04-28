@@ -12,7 +12,7 @@ export class UserCardComponent {
     public authService: AuthKeycloakService
   ) { }
 
-  badges = [
+  badges: Array<{image: string, label: string}> = [
     {image: 'new_report.png', label: 'New Report'},
     {image: 'next_level.png', label: 'Next Level'},
     {image: 'trusted_shop.png', label: 'Trusted Shop'},
@@ -26,4 +26,7 @@ export class UserCardComponent {
     ,
   ];
 
+  currentLevel = 'Novize';
+  remainingReports = 1;
+  currentProgress = 73;
 }

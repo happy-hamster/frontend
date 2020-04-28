@@ -7,6 +7,18 @@
     </mat-icon>
   </mat-card-title>
   <mat-card-content>
+    <div class="progress-bar-container">
+      <div class="level-name">{{ 'user-card.level' | translate }} {{ currentLevel }}</div>
+      <mat-progress-bar mode="determinate" value="{{ currentProgress }}"></mat-progress-bar>
+      <div class="next-level">
+        <span *ngIf="remainingReports === 1">
+          {{ remainingReports }} {{ 'user-card.one-report-remaining' | translate }}
+        </span>
+        <span *ngIf="remainingReports !== 1">
+          {{ remainingReports }} {{ 'user-card.multiple-reports-remaining' | translate}}
+        </span>
+      </div>
+    </div>
     <div id="wrapper">
       <div id="first">
         <mat-icon fontSet="material-icons-outlined" style="display:initial; color: #9DA9A0;">

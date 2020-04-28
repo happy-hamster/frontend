@@ -17,6 +17,19 @@
     padding-left: 10px;
     width: 34px;
   }
+  .progress-bar-container{
+    text-align: center;
+    color: var(--greenblue);
+    mat-progress-bar{
+      border-radius: 3px;
+    }
+    .level-name{
+      font-size: 12px;
+    }
+    .next-level{
+      font-size: 9px;
+    }
+  }
 }
 
 .badge-container{
