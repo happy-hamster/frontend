@@ -45,6 +45,26 @@
   overflow: auto;
 }
 
+#wrapper {
+  border: 1px solid black;
+  overflow: hidden;
+}
+#first {
+  float: left;
+  margin-top: auto;
+  margin-bottom: auto;
+  border: 1px solid red;
+}
+#second {
+  border: 1px solid green;
+  float: left;
+}
+#third {
+  border: 1px solid blue;
+  vertical-align: middle;
+  float: left;
+}
+
 
 .mat-badge-content {
   background-color: #0B0033;

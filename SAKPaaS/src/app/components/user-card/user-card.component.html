@@ -1,4 +1,5 @@
 <mat-card *ngIf="authService.getUser() | async as user; else login" id="user-card">
+
   <mat-card-title>
     {{user.firstName}}
     <mat-icon fontSet="material-icons-outlined">
@@ -6,63 +7,68 @@
     </mat-icon>
   </mat-card-title>
   <mat-card-content>
-    <div class="badge-container">
-      <mat-icon fontSet="material-icons-outlined" style="display:initial; float: left">
-        keyboard_arrow_left
-      </mat-icon>
-      
-      <div class="badge">
-        <img src="assets/badges/new_report.png" alt="NewReport">
-        <br>
-        New Report
+    <div id="wrapper">
+      <div id="first">
+        <mat-icon fontSet="material-icons-outlined" style="display:initial; float: left; color: #9DA9A0;">
+          keyboard_arrow_left
+        </mat-icon>
       </div>
-      <div class="badge" matBadge="5">
-          <img src="assets/badges/next_level.png" alt="NextLevel">
+      <div class="badge-container" id="second">
+        
+        <div class="badge">
+          <img src="assets/badges/new_report.png" alt="NewReport">
+          <br>
+          New Report
+        </div>
+        <div class="badge" matBadge="5">
+            <img src="assets/badges/next_level.png" alt="NextLevel">
+          <br>
+          Next Level
+        </div>
+        <div class="badge">
+          <img src="assets/badges/trusted_shop.png" alt="TrustedShop">
+          <br>
+          Trusted Shop
+        </div>
+        <div class="badge">
+          <img src="assets/badges/week_1.png" alt="Week1">
+          <br>
+          Week 1
+        </div>
+        <div class="badge" style="margin-right: 0px">
+          <img src="assets/badges/trusted_user.png" alt="TrustedUser">
+          <br>
+          Trusted User
+        </div>
         <br>
-        Next Level
+        <div class="badge">
+          <img src="assets/badges/two_shops.png" alt="TwoShops">
+          <br>
+          Two Shops
+        </div>
+        <div class="badge">
+          <img src="assets/badges/week_3.png" alt="Week3">
+          <br>
+          Week 3
+        </div>
+        <div class="badge">
+          <img src="assets/badges/locked.png" alt="Locked">
+          <br>
+        </div>
+        <div class="badge">
+          <img src="assets/badges/locked.png" alt="Locked">
+          <br>
+        </div>
+        <div class="badge" style="margin-right: 0px">
+          <img src="assets/badges/locked.png" alt="Locked">
+          <br>
+        </div>
       </div>
-      <div class="badge">
-        <img src="assets/badges/trusted_shop.png" alt="TrustedShop">
-        <br>
-        Trusted Shop
+      <div id="third">
+        <mat-icon fontSet="material-icons-outlined" style="display:initial; float: left; color: #9DA9A0;">
+          keyboard_arrow_right
+        </mat-icon>
       </div>
-      <div class="badge">
-        <img src="assets/badges/week_1.png" alt="Week1">
-        <br>
-        Week 1
-      </div>
-      <div class="badge" style="margin-right: 0px">
-        <img src="assets/badges/trusted_user.png" alt="TrustedUser">
-        <br>
-        Trusted User
-      </div>
-      <br>
-      <div class="badge">
-        <img src="assets/badges/two_shops.png" alt="TwoShops">
-        <br>
-        Two Shops
-      </div>
-      <div class="badge">
-        <img src="assets/badges/week_3.png" alt="Week3">
-        <br>
-        Week 3
-      </div>
-      <div class="badge">
-        <img src="assets/badges/locked.png" alt="Locked">
-        <br>
-      </div>
-      <div class="badge">
-        <img src="assets/badges/locked.png" alt="Locked">
-        <br>
-      </div>
-      <div class="badge" style="margin-right: 0px">
-        <img src="assets/badges/locked.png" alt="Locked">
-        <br>
-      </div>
-      
-      <mat-icon fontSet="material-icons-outlined" style="display:initial">
-        keyboard_arrow_right
-      </mat-icon>
     </div>
     <br>
     {{user.username}}<br>
