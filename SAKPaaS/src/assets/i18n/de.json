@@ -62,7 +62,7 @@
     "warning": "Warnung"
   },
   "search-bar": {
-    "placeholder": "Suchen…" 
+    "placeholder": "Suchen…"
   },
   "snack-bar": {
     "cookies": {
@@ -105,5 +105,19 @@
     "occupancy-low": "Niedrige Auslastung",
     "occupancy-medium": "Mittlere Auslastung",
     "occupancy-high": "Hohe Auslastung"
+  },
+  "badges": {
+    "next_level": "Neues Level",
+    "next_level_class": "Neue Stufe",
+    "report": "Reporter",
+    "new_report": "Erkunder",
+    "two_shops": "Doppelt hält besser",
+    "shop_first_report": "Verbreiter",
+    "week_1": "week1",
+    "week_3": "week3",
+    "week_full": "weekfull",
+    "week_special": "weekspecial",
+    "trusted_shop": "trustedshop",
+    "trusted_user": "trusteduser"
   }
 }

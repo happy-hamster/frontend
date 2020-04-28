@@ -26,57 +26,10 @@
         </mat-icon>
       </div>
       <div class="badge-container" id="second">
-        
-        <div class="badge">
-          <img src={{badges[0].image}} alt={{badges[0].label}}>
+        <div class="badge" *ngFor="let badge of badges$ | async">
+          <img src="assets/badges/{{badge}}.png" [alt]="'badges.' + badge | translate">
           <br>
-          {{badges[0].label}}
-        </div>
-        <div class="badge" matBadge="5">
-            <img src={{badges[1].image}} alt={{badges[1].label}}>
-          <br>
-          {{badges[1].label}}
-        </div>
-        <div class="badge">
-          <img src={{badges[2].image}} alt={{badges[2].label}}>
-          <br>
-          {{badges[2].label}}
-        </div>
-        <div class="badge">
-          <img src={{badges[3].image}} alt={{badges[3].label}}>
-          <br>
-          {{badges[3].label}}
-        </div>
-        <div class="badge" style="margin-right: 0px">
-          <img src={{badges[4].image}} alt={{badges[1].label}}>
-          <br>
-          {{badges[4].label}}
-        </div>
-        <br>
-        <div class="badge">
-          <img src={{badges[5].image}} alt={{badges[5].label}}>
-          <br>
-          {{badges[5].label}}
-        </div>
-        <div class="badge">
-          <img src={{badges[6].image}} alt={{badges[6].label}}>
-          <br>
-          {{badges[6].label}}
-        </div>
-        <div class="badge">
-          <img src={{badges[7].image}} alt={{badges[7].label}}>
-          {{badges[7].label}}
-          <br>
-        </div>
-        <div class="badge">
-          <img src={{badges[8].image}} alt={{badges[8].label}}>
-          {{badges[8].label}}
-          <br>
-        </div>
-        <div class="badge" style="margin-right: 0px">
-          <img src={{badges[9].image}} alt={{badges[9].label}}>
-          {{badges[9].label}}
-          <br>
+          {{'badges.' + badge | translate}}
         </div>
       </div>
       <div id="third">
@@ -87,7 +40,7 @@
     </div>
     <br>
     {{user.username}}<br>
-    
+
     <a class="mat-primary" (click)="authService.logout()">{{ 'user-card.logout' | translate }}</a><br>
   </mat-card-content>
 </mat-card>
