@@ -1,9 +1,11 @@
 <ng-container>
   <div class="card" [ngClass]="{'blur': blur}" (click)="toggle()">
-    <app-occupancy-view [isSearchBar]="false" [occupancy]="location.occupancy"></app-occupancy-view>
-    <span class="material-icons close-button">
-      close
-    </span>
+    <div class="head-row">
+      <app-occupancy-view [isSearchBar]="false" [occupancy]="location.occupancy"></app-occupancy-view>
+      <span class="material-icons close-button" [ngClass]="{'hide': hide}">
+        close
+      </span>
+    </div>
     <div class="row">
       <div class="left">
         <p class="mat-title">{{ location.name }}</p>
