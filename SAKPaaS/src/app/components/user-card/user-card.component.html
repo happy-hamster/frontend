@@ -9,13 +9,14 @@
     </mat-card-title>
     <mat-card-content>
       <div *ngIf="!expanded" style="width: 100%;">
-        {{user.username}}<br>
+        {{user.username.length > 16 ? user.username.substring(0, 15) + '…' : user.username }}<br>
         <a class="mat-primary" (click)="authService.logout()">{{ 'user-card.logout' | translate }}</a><br>
       </div>
     </mat-card-content>
   </div>
 </mat-card>
 <ng-template #login>
+
   <div class="content">
     <mat-card-title>
       <span *ngIf="expanded">{{ 'user-card.greeting' | translate }}</span> {{ 'user-card.guest' | translate }}
