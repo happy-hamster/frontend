@@ -4,6 +4,7 @@ import { UserCardComponent } from 'src/app/components/user-card/user-card.compon
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 
@@ -15,7 +16,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     SharedModule,
     MatCardModule,
     MatIconModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatProgressBarModule
   ],
   exports: [
     UserCardComponent

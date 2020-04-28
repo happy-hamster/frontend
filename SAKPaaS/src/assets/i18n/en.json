@@ -96,7 +96,10 @@
     "logout": "Logout",
     "register": "Create account",
     "guest": "Guest",
-    "greeting": "Hello"
+    "greeting": "Hello",
+    "level": "Level:",
+    "one-report-remaining": "report until next level",
+    "multiple-reports-remaining": "reports until next level"
   },
   "image-alt": {
     "occupancy": "Occupancy",
