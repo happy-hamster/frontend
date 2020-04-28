@@ -16,16 +16,22 @@ export class UserCardComponent {
   async change() {
     const element = document.getElementById('user-card');
     if (this.expanded) {
+      this.expanded = !this.expanded;
       element.setAttribute('style', 'width: 12%;');
       document.getElementsByClassName('expand-icon')[0].classList.remove('turned');
-      document.getElementsByClassName('content')[0].classList.remove('expandedContent');
+      document.getElementsByClassName('content')[0].setAttribute('style', 'text-align: center;');
+      await this.delay(200);
+      document.getElementsByClassName('content')[0].removeAttribute('style');
+
+
     } else {
+      this.expanded = !this.expanded;
       element.setAttribute('style', 'width: 25%;');
       document.getElementsByClassName('expand-icon')[0].classList.add('turned');
-      await this.delay(500);
-      document.getElementsByClassName('content')[0].classList.add('expandedContent');
+      document.getElementsByClassName('content')[0].setAttribute('style', 'text-align: center;');
+      await this.delay(200);
+      document.getElementsByClassName('content')[0].setAttribute('style', 'width: 90%; text-align: center;');
     }
-    this.expanded = !this.expanded;
   }
 
   delay(ms: number) {
