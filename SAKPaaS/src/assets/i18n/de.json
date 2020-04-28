@@ -11,7 +11,8 @@
   },
   "footer": {
     "help": "Hilfe",
-    "legal": "Rechtliches",
+    "impressum": "Impressum",
+    "privacy-policy": "Datenschutz",
     "feedback": {
       "title": "Feedback"
     }

@@ -3,22 +3,37 @@
     flex-direction: row;;
     padding: 10px;
     position: absolute;
-    bottom: 5px;
-    left: 5px;
+    bottom: 3px;
+    left: 14px;
     flex-wrap: wrap;
     z-index: 2;
 }
 
 .footer * {
-    text-decoration: none;
-    margin-right: 15px;
-    color: #505050;
+    margin-right: 4px;
 }
 
 .footer img {
-    height: 20px;
+    height: 25px;
 }
 
+.ml{
+    margin: 0 0 0 7px;
+}
+.rightalign-footer{
+    padding: 10px;
+    position: absolute;
+    bottom: 3px;
+    right: 14px;
+    flex-wrap: wrap;
+    z-index: 2;
+
+}
+.rightalign-footer * {
+    text-decoration: none;
+    margin-right: 4px;
+    color: #9DA9A0;
+}
 .line-break {
     width: 100%;
     display: none;
