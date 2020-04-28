@@ -37,9 +37,14 @@
       text-align: center;
       letter-spacing: 0.2px;
       margin-right: 25px;
-      margin-bottom: 37px;
-
+      margin-top: 12px;
+      margin-bottom: 25px;
   }
+  overflow: auto;
+}
+
+.mat-badge-content {
+  color: white;
 }
 
 .mat-card-title {
