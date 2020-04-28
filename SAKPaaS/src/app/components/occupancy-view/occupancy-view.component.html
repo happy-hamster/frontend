@@ -5,30 +5,14 @@
 </ng-container>
 
 <ng-template #isNoSearchBar>
-  <div class="holder">
-    <div>
+  <div class="holder {{ styleClass }}">
+    <div *ngIf="getStyleClass() !== 'noData'">
       <img [src]="iconPath" alt="{{ 'image-alt.occupancy' | translate }}"/>
     </div>
     <div >
-      <span class="{{ styleClass }}">
-        {{ text }}
-      </span>
-    </div>
-    <div *ngIf="occupancy.count" class="occupancy-count mobile">
-      <span *ngIf="occupancy.count === 1">
-        {{ 'occupancy.count-mobile.one-rating' | translate }}
-      </span>
-      <span *ngIf="occupancy.count !== 1">
-        {{ 'occupancy.count-mobile.multiple-ratings' | translate:{ count: occupancy.count} }}
-      </span>
-    </div>
-    <div *ngIf="!isSearchBar && occupancy.count" class="occupancy-count desktop">
-      <span *ngIf="occupancy.count === 1">
-        {{ 'occupancy.count-desktop.one-rating' | translate }}
-      </span>
-      <span *ngIf="occupancy.count !== 1">
-        {{ 'occupancy.count-desktop.multiple-ratings' | translate:{ count: occupancy.count} }}
-      </span>
+    <span>
+      {{ text }}
+    </span>
     </div>
   </div>
 </ng-template>

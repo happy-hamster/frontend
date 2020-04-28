@@ -5,6 +5,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatDialogTestingModule } from 'src/app/shared/mat-dialog-testing.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { SearchBarModule } from 'src/app/components/search-bar/search-bar.module';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('SearchBarComponent', () => {
   let component: SearchBarComponent;
@@ -15,6 +16,7 @@ describe('SearchBarComponent', () => {
       imports: [
         HttpClientTestingModule,
         MatDialogTestingModule,
+        RouterTestingModule,
         SearchBarModule,
         TranslateModule.forRoot({})
       ]
