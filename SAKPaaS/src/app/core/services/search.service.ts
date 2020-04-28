@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, EMPTY } from 'rxjs';
+import { BehaviorSubject, Observable, EMPTY, Subject } from 'rxjs';
 import { LocationsService } from 'src/app/generated/services';
 import { SnackBarService } from './snack-bar.service';
 import { SnackBarTypes } from '../models/snack-bar.interface';
-import { catchError, switchMap, filter, tap, map } from 'rxjs/operators';
+import { catchError, switchMap, filter, tap, map, share } from 'rxjs/operators';
 import { Location } from 'src/app/generated/models';
 import { IsLoadingService } from '@service-work/is-loading';
 import { PositionCoordinates } from 'src/app/core/models/position-coordinates.model';
@@ -17,6 +17,7 @@ export class SearchService {
   private isInSearch$ = new BehaviorSubject<boolean>(false);
   private searchResult$: Observable<Location[]>;
   private searchTerm$ = new BehaviorSubject<string>(null);
+  private resetSearch = new Subject<boolean>();
 
   constructor(
     private locationApiService: LocationsService,
@@ -57,7 +58,8 @@ export class SearchService {
           this.mapService.setMapCenter(coords);
         }
       }),
-      map(locationSearchResult => locationSearchResult.locations)
+      map(locationSearchResult => locationSearchResult.locations),
+      share()
     );
   }
 
@@ -74,6 +76,14 @@ export class SearchService {
 
   public triggerSearch(query: string): void {
     this.searchTerm$.next(query);
+  }
+
+  public getResetSearch(): Observable<boolean> {
+    return this.resetSearch;
+  }
+
+  public reset(shouldReset: boolean): void {
+    this.resetSearch.next(shouldReset);
   }
 
 }

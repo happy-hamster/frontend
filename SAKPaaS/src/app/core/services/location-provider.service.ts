@@ -54,15 +54,6 @@ export class LocationProviderService {
     );
 
     this.searchLocations$ = this.searchService.getLocations();
-
-    // this.searchService.getSearchResult().subscribe(locationSearchResult => {
-    //   if (locationSearchResult.locations && locationSearchResult.locations.length) {
-    //     this.locations$.next(locationSearchResult.locations);
-    //     const coords = new PositionCoordinates(locationSearchResult.coordinates.longitude, locationSearchResult.coordinates.latitude);
-    //     this.searchService.setIsInSearch(true);
-    //     this.mapService.setMapCenter(coords);
-    //   }
-    // });
   }
 
   public fetchLocations(): Observable<Location[]> {
