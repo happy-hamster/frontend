@@ -110,14 +110,14 @@
     "next_level": "Neues Level",
     "next_level_class": "Neue Stufe",
     "report": "Reporter",
-    "new_report": "Erkunder",
+    "new_report": "Entdecker",
     "two_shops": "Doppelt hält besser",
     "shop_first_report": "Verbreiter",
-    "week_1": "week1",
-    "week_3": "week3",
-    "week_full": "weekfull",
-    "week_special": "weekspecial",
-    "trusted_shop": "trustedshop",
-    "trusted_user": "trusteduser"
+    "week_1": "1x pro Woche",
+    "week_3": "3x pro Woche",
+    "week_full": "24/7 aktiv",
+    "week_special": "Jeden Tag etwas Neues",
+    "trusted_shop": "Lieblings-Laden",
+    "trusted_user": "Wir vertrauen Dir!"
   }
 }

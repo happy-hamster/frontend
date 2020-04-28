@@ -15,7 +15,20 @@ export class UserCardComponent {
   constructor(
     public authService: AuthKeycloakService
   ) {
-    this.badges$ = of([BadgeType.NEXT_LEVEL, BadgeType.WEEK_SPECIAL, BadgeType.TRUSTED_USER]);
+    this.badges$ = of([
+      BadgeType.NEXT_LEVEL,
+      BadgeType.NEXT_LEVEL_CLASS,
+      BadgeType.REPORT,
+      BadgeType.NEW_REPORT,
+      BadgeType.TWO_SHOPS,
+      BadgeType.SHOP_FIRST_REPORT,
+      BadgeType.WEEK_1,
+      BadgeType.WEEK_3,
+      BadgeType.WEEK_FULL,
+      BadgeType.WEEK_SPECIAL,
+      BadgeType.TRUSTED_SHOP,
+      BadgeType.TRUSTED_USER
+    ]);
   }
 
   currentLevel = 'Novize';
