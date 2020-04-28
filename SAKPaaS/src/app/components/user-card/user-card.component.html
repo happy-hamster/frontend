@@ -20,7 +20,7 @@
         </span>
         </div>
       </div>
-      <div *ngIf="!expanded" style="width: 100%;">
+      <div *ngIf="!expanded" style="overflow-wrap: normal">
         {{user.username}}<br>
         <a class="mat-primary" (click)="authService.logout()">{{ 'user-card.logout' | translate }}</a><br>
       </div>
