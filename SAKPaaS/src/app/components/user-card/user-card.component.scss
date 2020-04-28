@@ -17,6 +17,10 @@
     padding-left: 10px;
     width: 34px;
   }
+
+  mat-icon:hover{
+    cursor: pointer;
+  }
   .progress-bar-container{
     text-align: center;
     color: var(--greenblue);
