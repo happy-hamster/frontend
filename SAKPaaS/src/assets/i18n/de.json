@@ -97,7 +97,8 @@
     "register": "Account erstellen",
     "guest": "Gast",
     "level": "Rang:",
-    "next-level": "Meldung(en) bis zum nächsten Level"
+    "one-report-remaining": "Meldung bis zum nächsten Rang",
+    "multiple-reports-remaining": "Meldungen bis zum nächsten Rang"
   },
   "image-alt": {
     "occupancy": "Auslastung",

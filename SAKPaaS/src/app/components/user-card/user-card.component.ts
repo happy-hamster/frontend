@@ -13,6 +13,6 @@ export class UserCardComponent {
   ) { }
 
   currentLevel = 'Novize';
-  xpRemaining = 12;
+  remainingReports = 1;
   currentProgress = 73;
 }
