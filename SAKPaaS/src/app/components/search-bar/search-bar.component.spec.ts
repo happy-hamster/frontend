@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SearchBarComponent } from './search-bar.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MatDialogTestingModule } from 'src/app/shared/mat-dialog-testing.module';
+import { TranslateModule } from '@ngx-translate/core';
+import { SearchBarModule } from 'src/app/components/search-bar/search-bar.module';
 
 describe('SearchBarComponent', () => {
   let component: SearchBarComponent;
@@ -8,7 +12,12 @@ describe('SearchBarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SearchBarComponent ]
+      imports: [
+        HttpClientTestingModule,
+        MatDialogTestingModule,
+        SearchBarModule,
+        TranslateModule.forRoot({})
+      ]
     })
     .compileComponents();
   }));

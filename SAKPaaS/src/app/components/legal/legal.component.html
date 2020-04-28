@@ -1,29 +1,23 @@
 <div class="container">
   <div class="button-row top-button">
-    <button mat-raised-button class="back" routerLink="home">
+    <button mat-raised-button class="back" routerLink="/home">
       {{ 'others.back-to-happy-hamster' | translate }}    
     </button>
   </div>
-  <mat-tab-group mat-align-tabs="center">
-    <mat-tab label="{{ 'legal.impressum' | translate }}">
-      <ng-template matTabContent>
-        <app-impressum></app-impressum>
-      </ng-template>
-    </mat-tab>
-    <mat-tab label="{{ 'legal.privacy-policy' | translate }}">
-      <ng-template matTabContent>
-        <app-privacy-policy></app-privacy-policy>
-      </ng-template>
-    </mat-tab>
-    <mat-tab label="{{ 'legal.cookies' | translate }}">
-      <ng-template matTabContent>
-        <app-cookie></app-cookie>
-      </ng-template>
-    </mat-tab>
-  </mat-tab-group>
+
+  <nav mat-tab-nav-bar mat-align-tabs="center">
+    <a mat-tab-link
+      *ngFor="let link of navLinks"
+      [routerLink]="link.link"
+      routerLinkActive #rla="routerLinkActive"
+      [active]="rla.isActive">
+        {{ link.labelKey | translate }}
+    </a>
+  </nav>
+  <router-outlet></router-outlet>
 
   <div class="button-row">
-    <button mat-raised-button class="back" routerLink="home">
+    <button mat-raised-button class="back" routerLink="/home">
       {{ 'others.back-to-happy-hamster' | translate }}    
     </button>
   </div>

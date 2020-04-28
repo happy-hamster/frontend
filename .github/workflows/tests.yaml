@@ -1,0 +1,25 @@
+name: Tests
+
+# Trigger on push
+on: push
+
+jobs:
+  tests:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js 12.8
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.8
+    - name: Install dependencies
+      working-directory: ./SAKPaaS
+      run: npm ci
+    - name: Install Puppeteer
+      working-directory: ./SAKPaaS
+      run: npm install puppeteer --save-dev
+    - name: Test
+      working-directory: ./SAKPaaS
+      run: npm test

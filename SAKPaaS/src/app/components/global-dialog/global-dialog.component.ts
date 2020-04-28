@@ -1,7 +1,7 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { GlobalDialogService } from 'src/app/core/services/global-dialog.service';
+import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IDialogMessage, DialogMessageReturnTypes } from 'src/app/core/models/dialog-message.interface';
+import { FormControl } from '@angular/forms';
 
 
 @Component({
@@ -11,13 +11,29 @@ import { IDialogMessage, DialogMessageReturnTypes } from 'src/app/core/models/di
 })
 export class GlobalDialogComponent {
 
+  cookieCheckbox = new FormControl(true);
+  gpsCheckbox = new FormControl(true);
+
+
   constructor(
-    public dialogRef: MatDialogRef<GlobalDialogComponent>,
+    private dialogRef: MatDialogRef<GlobalDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: IDialogMessage
   ) { }
 
   onOkay(): void {
-    this.dialogRef.close(DialogMessageReturnTypes.OKAY);
+    if (this.data.askForPermission) {
+      if (this.cookieCheckbox.value && this.gpsCheckbox.value) {
+        this.dialogRef.close(DialogMessageReturnTypes.OKAY);
+      } else if (this.cookieCheckbox.value && !this.gpsCheckbox.value) {
+        this.dialogRef.close(DialogMessageReturnTypes.ONLY_COOKIES);
+      } else if (!this.cookieCheckbox.value && this.gpsCheckbox.value) {
+        this.dialogRef.close(DialogMessageReturnTypes.ONLY_GPS);
+      } else {
+        this.dialogRef.close(DialogMessageReturnTypes.CANCELLED);
+      }
+    } else {
+      this.dialogRef.close(DialogMessageReturnTypes.OKAY);
+    }
   }
 
   onCancelled(): void {

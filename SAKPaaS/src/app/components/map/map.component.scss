@@ -6,23 +6,7 @@
 .loading-wrapper {
   position: fixed;
   background-color: transparent;
-  top: 52px;
-  right: 30px;
+  top: 0;
+  width: 100%;
   z-index: 2;
-}
-
-@media (max-width: 910px) {
-  .loading-wrapper {
-    top: 130px;
-  }
-}
-@media (max-width: 600px) {
-  .loading-wrapper {
-    top: 93px;
-    right: 15px;
-  }
-}
-
-.loading-wrapper span {
-  margin-top: 10px;
 }

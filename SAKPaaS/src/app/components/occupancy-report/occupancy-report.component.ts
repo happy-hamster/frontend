@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LocationProviderService } from 'src/app/core/services/location-provider.service';
 import { Location } from 'src/app/generated/models';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, Subscription, of } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, catchError } from 'rxjs/operators';
 import { FormControl, Validators } from '@angular/forms';
@@ -9,18 +9,18 @@ import { OccupancyProviderService } from 'src/app/core/services/occupancy-provid
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { SnackBarTypes } from 'src/app/core/models/snack-bar.interface';
 import { IsLoadingService } from '@service-work/is-loading';
+import { PwaRequestPromptService } from 'src/app/core/services/pwa-request-prompt.service';
 
 @Component({
   selector: 'app-occupancy-report',
   templateUrl: './occupancy-report.component.html',
   styleUrls: ['./occupancy-report.component.scss']
 })
-export class OccupancyReportComponent implements OnInit {
+export class OccupancyReportComponent implements OnInit, OnDestroy {
 
   selectedLocation$: Observable<Location>;
-
   occupancyInput = new FormControl(null, Validators.required);
-
+  subscriptions = new Subscription();
   lowValue = 0;
   mediumValue = 0.5;
   highValue = 1;
@@ -32,13 +32,14 @@ export class OccupancyReportComponent implements OnInit {
     private snackBarService: SnackBarService,
     private router: Router,
     private isLoadingService: IsLoadingService,
+    private pwaRequestPromptService: PwaRequestPromptService,
   ) { }
 
   ngOnInit(): void {
     this.selectedLocation$ = this.activatedRoute.params.pipe(
       switchMap(params => {
         if (!params.id) {
-          return undefined;
+          return of(undefined);
         }
         return this.locationService.fetchLocationById(+params.id);
       })
@@ -61,27 +62,33 @@ export class OccupancyReportComponent implements OnInit {
 
     this.isLoadingService.add({ key: 'sendOccupancy' });
 
-    this.selectedLocation$.pipe(
-      switchMap(location => {
-        return this.occupancyService.sendOccupancy(location.id, value);
-      }),
-      catchError(err => {
+    this.subscriptions.add(
+      this.selectedLocation$.pipe(
+        switchMap(location => {
+          return this.occupancyService.sendOccupancy(location.id, value);
+        }),
+        catchError(err => {
+          this.isLoadingService.remove({ key: 'sendOccupancy' });
+          this.snackBarService.sendNotification({
+            messageKey: 'snack-bar.occupancy-report.failure',
+            type: SnackBarTypes.ERROR
+          });
+          return throwError(err);
+        })
+      ).subscribe(location => {
         this.isLoadingService.remove({ key: 'sendOccupancy' });
         this.snackBarService.sendNotification({
-          messageKey: 'snack-bar.occupancy-report.failure',
-          type: SnackBarTypes.ERROR
+          messageKey: 'snack-bar.occupancy-report.success',
+          type: SnackBarTypes.SUCCESS
         });
-        return throwError(err);
+        this.router.navigate(['home'], { queryParams: { id: location.id } });
+        this.pwaRequestPromptService.showPwaRequest();
       })
-    ).subscribe(location => {
-      this.isLoadingService.remove({ key: 'sendOccupancy' });
-      this.snackBarService.sendNotification({
-        messageKey: 'snack-bar.occupancy-report.success',
-        type: SnackBarTypes.SUCCESS
-      });
-      this.router.navigate(['home'], { queryParams: { id: location.id } });
-    });
+    );
+  }
 
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 
 }

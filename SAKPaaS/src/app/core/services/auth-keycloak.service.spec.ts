@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { GpsService } from './gps.service';
+import { AuthKeycloakService } from './auth-keycloak.service';
 
-describe('GpsService', () => {
-  let service: GpsService;
+describe('AuthKeycloakService', () => {
+  let service: AuthKeycloakService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(GpsService);
+    service = TestBed.inject(AuthKeycloakService);
   });
 
   it('should be created', () => {

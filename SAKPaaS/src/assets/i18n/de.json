@@ -3,13 +3,18 @@
     "permissions": {
       "cancel-button": "Nein, danke",
       "message": "HappyHamster funktioniert am besten, wenn du deinen GPS-Standort aktivierst und uns erlaubst, Cookies zu speichern.<br>Mehr Informationen, wie wir Cookies verwenden, findest du unter \"Rechtliches\".<br>Bitte genehmige zusätzlich den Zugriff auf deinen Standort in deinem Internet-Browser.",
-      "ok-button": "Einverstanden",
+      "checkbox-cookie": "Verwendung von Cookies",
+      "checkbox-gps": "Standort verwenden",
+      "ok-button": "Zustimmen",
       "title": "Berechtigungen"
     }
   },
   "footer": {
     "help": "Hilfe",
-    "legal": "Rechtliches"
+    "legal": "Rechtliches",
+    "feedback": {
+      "title": "Feedback"
+    }
   },
   "legal": {
     "cookies": "Cookies",
@@ -20,11 +25,11 @@
     "button": "Ich bin hier!"
   },
   "occupancy": {
-    "count-mobile" : {
+    "count-mobile": {
       "one-rating": "1 Bewertung",
       "multiple-ratings": "{{count}} Bewertungen"
     },
-    "count-desktop" : {
+    "count-desktop": {
       "one-rating": "Basierend auf einer Bewertung",
       "multiple-ratings": "Basierend auf {{count}} Bewertungen"
     },
@@ -52,12 +57,12 @@
     "back-to-happy-hamster": "Zurück zu Happy Hamster",
     "cancel": "Abbrechen",
     "not-here": "Bist du doch nicht hier?",
-    "pending": "Wird abgeschickt ...",
+    "pending": "Wird abgeschickt…",
     "submit": "Abschicken",
     "warning": "Warnung"
   },
   "search-bar": {
-    "placeholder": "Supermarkt in der Nähe suchen"
+    "placeholder": "Suchen…" 
   },
   "snack-bar": {
     "cookies": {
@@ -80,6 +85,22 @@
       "failure": "Das hat leider nicht geklappt! Bitte versuche es erneut.",
       "invalid": "Bitte sage uns deine persönliche Einschätzung der Auslastung :)",
       "success": "Vielen Dank für dein Feedback!"
+    },
+    "search": {
+      "error": "Bei der Suche ist ein Fehler aufgetreten.",
+      "not-found": "Leider konnten wie keine Suchergebnisse finden. Bitte versuche einen anderen Suchbegriff."
     }
+  },
+  "user-card": {
+    "login": "Anmelden",
+    "logout": "Abmelden",
+    "register": "Account erstellen",
+    "guest": "Gast"
+  },
+  "image-alt": {
+    "occupancy": "Auslastung",
+    "occupancy-low": "Niedrige Auslastung",
+    "occupancy-medium": "Mittlere Auslastung",
+    "occupancy-high": "Hohe Auslastung"
   }
 }

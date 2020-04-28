@@ -1,11 +1,11 @@
-import { Component, OnInit, Output, EventEmitter,  OnDestroy } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import { OSM } from 'ol/source';
 import * as olProj from 'ol/proj';
 import { defaults as defaultInteractions, Select } from 'ol/interaction';
-import { GpsService } from 'src/app/core/services/gps.service';
+import { MapService } from 'src/app/core/services/map.service';
 import { click } from 'ol/events/condition';
 import VectorSource from 'ol/source/Vector';
 import { OLMapMarker } from './ol-map-marker';
@@ -15,10 +15,10 @@ import { LocationProviderService } from 'src/app/core/services/location-provider
 import { catchError, filter } from 'rxjs/operators';
 import { Location } from 'src/app/generated/models';
 import { SelectEvent } from 'ol/interaction/Select';
-import { getDistance as olGetDistance } from 'ol/sphere';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { SnackBarTypes } from 'src/app/core/models/snack-bar.interface';
 import { ActivatedRoute } from '@angular/router';
+import { PositionCoordinates } from 'src/app/core/models/position-coordinates.model';
 
 @Component({
   selector: 'app-map',
@@ -27,17 +27,10 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class MapComponent implements OnInit, OnDestroy {
 
-  // minimum zoom level to load/display any locations
-  private static ZOOM_LIMIT = 11;
-
-  // minimum distance in meters to trigger a reload
-  private static MOVE_LIMIT = 1000;
-
   @Output() locationEmitted = new EventEmitter<Location>();
 
   customMap: Map;
   markers = new Subject<OLMapMarker[]>();
-  zoomLevel = new BehaviorSubject<number>(6);
 
   vectorSource: VectorSource;
   selectEvent: SelectEvent = null;
@@ -49,10 +42,10 @@ export class MapComponent implements OnInit, OnDestroy {
   private subscriptions = new Subscription();
 
   constructor(
-    private gpsService: GpsService,
+    private mapService: MapService,
     private locationService: LocationProviderService,
     private snackBarService: SnackBarService,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) {
   }
 
@@ -63,34 +56,41 @@ export class MapComponent implements OnInit, OnDestroy {
 
     this.isLoadingLocations = this.locationService.getLoadingLocationsState();
 
-    this.loadGpsPosition();
+    if (!this.mapService.isInitial) {
+      this.locationService.reloadLocations();
+    }
 
     if (this.route.snapshot.queryParamMap.get('id')) {
       console.log('id: ' + this.route.snapshot.queryParamMap.get('id'));
       this.loadPositionFromLocation(+this.route.snapshot.queryParamMap.get('id'));
+      this.mapService.isInitial = false;
+    } else if (this.mapService.isInitial) {
+      this.mapService.updateRealGpsPosition();
+      this.mapService.isInitial = false;
+    }
+
+    if (!this.mapService.isInitial) {
+      this.locationService.reloadLocations();
     }
 
     this.subscriptions.add(
       this.locationService.fetchLocations().pipe(
         catchError(err => {
-          this.locationService.updateLoadingState(false);
           this.snackBarService.sendNotification({
             messageKey: 'snack-bar.map.error',
             type: SnackBarTypes.ERROR
           });
           return throwError(err);
         }),
-        filter(_ => this.zoomLevel.getValue() > MapComponent.ZOOM_LIMIT)
+        filter(_ => this.mapService.getCurrentMapZoomLevel() > MapService.ZOOM_LIMIT)
       ).subscribe((next) => {
-        this.locationService.updateLoadingState(false);
-        console.log('Fetched new locations');
         this.vectorSource.clear();
         const markers = next.map((locations) => new OLMapMarker(locations));
         this.vectorSource.addFeatures(markers);
       })
     );
 
-
+    this.addRelAttributeToContributionAnchor();
   }
 
   private initOLMap() {
@@ -107,11 +107,7 @@ export class MapComponent implements OnInit, OnDestroy {
         new VectorLayer({
           source: this.vectorSource
         })
-      ],
-      view: new View({
-        center: olProj.fromLonLat([this.gpsService.getCurrentLocation().longitude, this.gpsService.getCurrentLocation().latitude]),
-        zoom: this.zoomLevel.getValue()
-      }),
+      ]
     });
 
     this.registerEventListeners();
@@ -136,32 +132,28 @@ export class MapComponent implements OnInit, OnDestroy {
     // this listener is called after the user has zoomed/panned/rotated the map
     this.customMap.addEventListener('moveend', () => {
       const view = this.customMap.getView();
-      const zoomLevel = view.getZoom();
-      this.zoomLevel.next(zoomLevel);
 
-      if (zoomLevel < MapComponent.ZOOM_LIMIT) { return false; }
+      this.mapService.setMapZoomLevel(view.getZoom(), false);
 
-      const oldCenter = this.gpsService.getCurrentLocation();
-      const viewCenter = view.getCenter();
-      const newCenter = olProj.toLonLat(viewCenter);
-
-      const distance = olGetDistance([oldCenter.longitude, oldCenter.latitude], newCenter);
-
-      if (distance < MapComponent.MOVE_LIMIT) { return false; }
-
-      this.locationService.updateLoadingState(true);
-      this.gpsService.setLocation({ longitude: newCenter[0], latitude: newCenter[1] });
+      const viewCenterCoords = olProj.toLonLat(view.getCenter());
+      this.mapService.setMapCenter(PositionCoordinates.fromOLArray(viewCenterCoords), false);
 
       return false;
     });
+
+    this.subscriptions.add(this.mapService.getMapCenterFiltered().subscribe(center => {
+      this.customMap.getView().setCenter(center.toOLProjectionArray());
+    }));
+
+    this.subscriptions.add(this.mapService.getMapZoomLevelFiltered().subscribe(zoom => {
+      this.customMap.getView().setZoom(zoom);
+    }));
   }
 
   private initZoomLevelAlert() {
-    this.zoomLevel.subscribe((zoomLevel) => {
-      if (zoomLevel > MapComponent.ZOOM_LIMIT) {
+    this.mapService.getMapZoomLevel().subscribe((zoomLevel) => {
+      if (zoomLevel > MapService.ZOOM_LIMIT) {
         if (this.closeSubject) {
-          // forcing a reload
-          this.gpsService.setLocation(this.gpsService.getCurrentLocation());
           this.closeSubject.next();
           this.closeSubject = null;
         }
@@ -187,8 +179,8 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   public zoomToNewLocation(location: Location): void {
-    this.customMap.getView().setCenter(olProj.fromLonLat([location.coordinates.longitude, location.coordinates.latitude]));
-    this.customMap.getView().setZoom(16);
+    this.mapService.setMapCenter(PositionCoordinates.fromLocation(location));
+    this.mapService.setMapZoomLevel(16);
   }
 
   private loadPositionFromLocation(id: number) {
@@ -210,25 +202,35 @@ export class MapComponent implements OnInit, OnDestroy {
     );
   }
 
-  private loadGpsPosition() {
-    this.subscriptions.add(this.gpsService.getLocation().pipe(
-      catchError(err => {
-        this.snackBarService.sendNotification({
-          messageKey: 'snack-bar.map.error',
-          type: SnackBarTypes.ERROR
-        });
-        return throwError(err);
-      })
-    ).subscribe(gpsCoordinates => {
-      if (gpsCoordinates.fromDevice) {
-        this.customMap.getView().setCenter(olProj.fromLonLat([gpsCoordinates.longitude, gpsCoordinates.latitude]));
-        this.customMap.getView().setZoom(15);
+  /**
+   * function to add a rel attribute to the openlayers contribution anchor to prevent security vulnerabilities,
+   * further informations: https://web.dev/external-anchors-use-rel-noopener/
+   *
+   * The contribution anchor is initialized asynchrous. So we add an observer to the div.ol-attribution
+   *  if the div changes, we try to select the anchor and add the rel attribute. Afterwards we disconnect from the observer.
+   */
+  private addRelAttributeToContributionAnchor() {
+
+    const div = document.querySelector('div.ol-attribution');
+
+    const observer = new MutationObserver(_ => {
+      const a = document.querySelector('div.ol-attribution a[target=_blank]');
+      if (a) {
+        a.setAttribute('rel', 'noreferrer');
+        observer.disconnect();
       }
-    }));
+    });
+
+    observer.observe(div, {
+      attributes: true,
+      childList: true,
+      subtree: true
+    });
   }
 
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
+    this.mapService.saveMapState();
     this.closeSubject?.next();
   }
 }

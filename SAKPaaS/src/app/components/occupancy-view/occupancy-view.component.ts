@@ -1,16 +1,13 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Occupancy } from 'src/app/generated/models';
 import { TranslateService } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-occupancy-view',
   templateUrl: './occupancy-view.component.html',
   styleUrls: ['./occupancy-view.component.scss']
 })
-export class OccupancyViewComponent implements OnInit, OnDestroy {
-
-  subscriptions = new Subscription();
+export class OccupancyViewComponent implements OnInit {
 
   lowBorder = 0.34;
   mediumBorder = 0.67;
@@ -76,9 +73,5 @@ export class OccupancyViewComponent implements OnInit, OnDestroy {
     }
 
     return noData;
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.unsubscribe();
   }
 }

@@ -21,6 +21,12 @@
     border-radius: 16px;
   }
 
+.button-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 .top-button {
     margin-bottom: 2rem;
 }
