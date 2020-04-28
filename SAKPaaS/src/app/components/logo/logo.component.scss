@@ -1,53 +1,49 @@
+$container-height: 100px;
+$container-width: $container-height * 0.8;
+
 .logo-container {
-    z-index: 3;
-    position: absolute;
-    width: 129px;
-    height: 107px;
-    top: 14px;
-    left: -20px;
+  z-index: 3;
+  position: absolute;
 }
 
-
 @media (max-width: 600px) {
-    .logo-container {
-        display: none;
-    }
+  .logo-container {
+    display: none;
+  }
 }
 
 .logo-container img {
-    position: absolute;
-    width: 57px;
-    height: 80px;
-    left: 46px;
-    top: 7px;    
-    
-}
-.background-rect{
-    z-index: -1;
-    position: fixed;
-    width: 117px;
-    height: 95px;
-    left: -20px;
-    top: 14px;
-    background: #FFFFFF;
-    border-radius: 0px 0px 12px 5px;
+  align-self: center;
+  justify-self: center;
+  width: 80%;
+  margin: 0 auto;
+  height: auto;
 }
 
-.corner-upper-right{
-    left: 117px;
-    position: absolute;
-    z-index: 3;
-    width: 12px;
-    height: 12px;
-    background-image: radial-gradient(circle at 100% 100%, transparent 0, transparent 12px, white 12px);
+.background-rect {
+  display: flex;
+  width: $container-width;
+  height: $container-height;
+  background: #ffffff;
+  border-radius: 0 0 var(--outer-border-radius) 0;
 }
 
-.corner-bottom-left{
-    left:30px;
-    top:95px;
-    position: absolute;
-    z-index: 3;
-    width: 12px;
-    height: 12px;
-    background-image: radial-gradient(circle at 100% 100%, transparent 0, transparent 12px, white 12px);
+.corner {
+  position: absolute;
+  z-index: 3;
+  width: var(--outer-border-radius);
+  height: var(--outer-border-radius);
+  background-image: radial-gradient(
+    circle at 100% 100%,
+    transparent 0,
+    transparent var(--outer-border-radius),
+    white var(--outer-border-radius)
+  );
+  &.upper-right {
+    left: $container-width;
+    top: 0;
+  }
+  &.bottom-left {
+    top: $container-height;
+  }
 }
