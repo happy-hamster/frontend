@@ -12,4 +12,7 @@ export class UserCardComponent {
     public authService: AuthKeycloakService
   ) { }
 
+  currentLevel = 'Novize';
+  remainingReports = 1;
+  currentProgress = 73;
 }
