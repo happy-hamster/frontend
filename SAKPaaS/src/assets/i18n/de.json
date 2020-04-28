@@ -95,7 +95,10 @@
     "login": "Anmelden",
     "logout": "Abmelden",
     "register": "Account erstellen",
-    "guest": "Gast"
+    "guest": "Gast",
+    "level": "Rang:",
+    "one-report-remaining": "Meldung bis zum nächsten Rang",
+    "multiple-reports-remaining": "Meldungen bis zum nächsten Rang"
   },
   "image-alt": {
     "occupancy": "Auslastung",
