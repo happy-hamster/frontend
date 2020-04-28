@@ -62,7 +62,10 @@
     "warning": "Warning"
   },
   "search-bar": {
-    "placeholder": "Search ..."
+    "placeholder": "Search ...",
+    "type-selector": {
+      "default": "All"
+    }
   },
   "snack-bar": {
     "cookies": {

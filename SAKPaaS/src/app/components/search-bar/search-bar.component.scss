@@ -1,15 +1,8 @@
 .search-bar-form {
-  background-color: white;
-  border-radius: 10px;
-  padding: 0.35rem 1rem 0rem 1rem;
+  background-color: rgba(186, 209, 205, 0.3);
+  border-radius: 40px;
+  padding: 0.35rem 1rem 0.35rem 1rem;
   margin: 0;
-  min-width: 150px;
-  max-width: 500px;
-  width: 50%;
-  position: fixed;
-  top: 45px;
-  left: 120px;
-  right: auto;
   box-shadow: 0 5px 20px 0 rgba(11, 0, 51, 0.2);
 }
 
@@ -49,4 +42,57 @@ mat-form-field {
 
 ::ng-deep app-occupancy-view {
   display: inline-flex;
+}
+
+.search-bar-wrapper {
+  background: white;
+  padding: 10px;
+  border-radius: 60px;
+  margin: 0;
+  min-width: 150px;
+  max-width: 500px;
+  width: 50%;
+  position: fixed;
+  top: 45px;
+  left: 120px;
+  right: auto;
+}
+
+.category-selector-wrapper {
+  position: absolute;
+  width: 150px;
+  height: 36px;
+  background: white;
+  border-radius: 20px;
+  padding: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.search-form-field {
+  padding-left: 160px;
+  height: 36px;
+}
+
+.mat-form-field-wrapper {
+  padding-bottom: 0;
+}
+.custom-select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.custom-select::-ms-expand {
+  display: none;
+}
+.custom-select:focus::-ms-value {
+  background-color: transparent;
+}
+.custom-select-icon {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translate(0%, -50%);
 }

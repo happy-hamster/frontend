@@ -1,18 +1,21 @@
-<form class="search-bar-form">
-  <mat-form-field>
-    <input matInput placeholder="{{ 'search-bar.placeholder' | translate }}"
-      [matAutocomplete]="auto" [formControl]="searchControl" (keyup.enter)="triggerSearch()" (focusout)="triggerSearchIfChanges()">
-    <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let location of locations$ | async" [value]="location.name"
-        (click)="this.locationEmitted.emit(location);">
-        <div class="option">
-          <span class="text">{{ location.name }} {{ getDistance(location) }}</span>
-          <span class="occupancy-image">
-            <app-occupancy-view [occupancy]="location.occupancy" [isSearchBar]="true"></app-occupancy-view>
-          </span>
-        </div>
-      </mat-option>
-    </mat-autocomplete>
-    <mat-icon matSuffix (click)="triggerSearch()">search</mat-icon>
-  </mat-form-field>
-</form>
+<div class="search-bar-wrapper">
+  <form class="search-bar-form">
+    <div class="category-selector-wrapper">
+      <select class="custom-select">
+        <option>{{'search-bar.type-selector.default' | translate}}</option>
+        <option *ngFor="let type of []" [value]="type.value">
+          {{'search-bar.type-selector.${type.value}' | translate}}
+        </option>
+        <option>TEST</option>
+      </select>
+      <span class="material-icons custom-select-icon">
+        expand_more
+      </span>
+    </div>
+    <mat-form-field class="search-form-field" appearance="none">
+      <input matInput placeholder="{{ 'search-bar.placeholder' | translate }}"
+         [formControl]="searchControl" (keyup.enter)="triggerSearch()" (focusout)="triggerSearchIfChanges()">
+      <mat-icon matSuffix (click)="triggerSearch()">search</mat-icon>
+    </mat-form-field>
+  </form>
+</div>
