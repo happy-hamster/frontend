@@ -27,9 +27,10 @@
       </div>
       <div class="badge-container" id="second">
         <div class="badge" *ngFor="let badge of badges$ | async | slice: ((page-1) * itemsPerPage) : (page * itemsPerPage); let ind = index;">
-            <img src="assets/badges/{{badge}}.png" [alt]="'badges.' + badge | translate">
-            <br>
-            {{'badges.' + badge | translate}}
+          <img src="assets/badges/{{badge.image}}.png" [alt]="'badges.' + badge.image | translate">
+          <span class="number" *ngIf="badge.count > 1">{{badge.count}}</span>
+          <br>
+          {{'badges.' + badge.image | translate}}
         </div>
         <ng-container *ngIf="page == totalPages" >
           <div class="badge" *ngFor="let i of array(lockedBadges)">

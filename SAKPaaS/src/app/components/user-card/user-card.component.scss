@@ -44,6 +44,7 @@
           height: 55px;
           margin-bottom: 3px;
         }
+        position: relative;
         width: 55px;
         color: #26C485;
         float: left;
@@ -61,6 +62,19 @@
         margin-bottom: 25px;
     }
     overflow: auto;
+  }
+  
+  .badge .number{
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    padding: 2.5px 5px;
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 2px;
+    border-color:white;
+    background: var(--midnight-blue);
+    color: white;
   }
 
   #wrapper {

@@ -10,28 +10,28 @@ import { Observable, of } from 'rxjs';
 })
 export class UserCardComponent {
 
-  badges$: Observable<BadgeType[]>;
+  badges$: Observable<{image: BadgeType, count: number}[]>;
 
   constructor(
     public authService: AuthKeycloakService
   ) {
     this.badges$ = of([
-      BadgeType.NEXT_LEVEL,
-      BadgeType.NEXT_LEVEL_CLASS,
-      BadgeType.REPORT,
-      BadgeType.NEW_REPORT,
-      BadgeType.TWO_SHOPS,
-      BadgeType.SHOP_FIRST_REPORT,
-      BadgeType.WEEK_1,
-      BadgeType.WEEK_3,
-      BadgeType.WEEK_FULL,
-      BadgeType.WEEK_SPECIAL,
-      BadgeType.TRUSTED_SHOP,
-      BadgeType.TRUSTED_USER
+      {image: BadgeType.NEXT_LEVEL, count: 1},
+      {image: BadgeType.NEXT_LEVEL_CLASS, count: 2},
+      {image: BadgeType.REPORT, count: 1},
+      {image: BadgeType.NEW_REPORT, count: 4},
+      {image: BadgeType.TWO_SHOPS, count: 5},
+      {image: BadgeType.SHOP_FIRST_REPORT, count: 1},
+      {image: BadgeType.WEEK_1, count: 7},
+      {image: BadgeType.WEEK_3, count: 1},
+      {image: BadgeType.WEEK_FULL, count: 3},
+      {image: BadgeType.WEEK_SPECIAL, count: 1},
+      {image: BadgeType.TRUSTED_SHOP, count: 1},
+      {image: BadgeType.TRUSTED_USER, count: 1}
     ]);
   }
 
-  numberBadges = 12;
+  numberBadges = 12; // Dies muss noch berechnet werden
   page = 1;
   itemsPerPage = 5;
   totalPages = Math.ceil(this.numberBadges / this.itemsPerPage);
