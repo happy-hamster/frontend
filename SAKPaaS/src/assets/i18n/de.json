@@ -70,7 +70,7 @@
       "types": {
         "chemist": "Apotheke",
         "kiosk": "Kiosk",
-        "newsagent": "Zeitungladen",
+        "newsagent": "Zeitungsladen",
         "convenience": "Supermarkt",
         "beverages": "Getränkeladen"
       }
