@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthKeycloakService } from 'src/app/core/services/auth-keycloak.service';
 import { BadgeType } from 'src/app/core/services/badge.service';
+import { Badge } from 'src/app/core/models/badge.interface';
 import { Observable, of } from 'rxjs';
 
 @Component({
@@ -10,7 +11,7 @@ import { Observable, of } from 'rxjs';
 })
 export class UserCardComponent {
 
-  badges$: Observable<{image: BadgeType, count: number}[]>;
+  badges$: Observable<Badge[]>;
 
   constructor(
     public authService: AuthKeycloakService
