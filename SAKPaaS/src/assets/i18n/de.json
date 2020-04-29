@@ -11,7 +11,8 @@
   },
   "footer": {
     "help": "Hilfe",
-    "legal": "Rechtliches",
+    "impressum": "Impressum",
+    "privacy-policy": "Datenschutz",
     "feedback": {
       "title": "Feedback"
     }
@@ -48,7 +49,7 @@
       "safety-distance": "Sicherheitsabstand von 1,5 Metern meistens garantiert.",
       "text": "Normale Auslastung"
     },
-    "no-data": "Unbekannte Auslastung"
+    "no-data": "Keine Bewertungen"
   },
   "occupancy-report": {
     "title": "Wie voll ist "
@@ -62,7 +63,18 @@
     "warning": "Warnung"
   },
   "search-bar": {
-    "placeholder": "Suchen…"
+    "placeholder": "Suchen ...",
+    "type-selector": {
+      "label": "Läden",
+      "default": "Alle",
+      "types": {
+        "chemist": "Apotheke",
+        "kiosk": "Kiosk",
+        "newsagent": "Zeitungsladen",
+        "convenience": "Supermarkt",
+        "beverages": "Getränkeladen"
+      }
+    }
   },
   "snack-bar": {
     "cookies": {
@@ -96,6 +108,7 @@
     "logout": "Abmelden",
     "register": "Account erstellen",
     "guest": "Gast",
+    "greeting": "Hallo",
     "level": "Rang:",
     "one-report-remaining": "Meldung bis zum nächsten Rang",
     "multiple-reports-remaining": "Meldungen bis zum nächsten Rang"

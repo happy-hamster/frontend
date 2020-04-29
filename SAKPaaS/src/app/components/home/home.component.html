@@ -1,6 +1,11 @@
-<app-logo></app-logo>
-<app-map (locationEmitted)="onLocationEmitted($event, true)" style="z-index: 1;"></app-map>
-<app-user-card></app-user-card>
-<app-search-bar style="z-index: 2;" (locationEmitted)="onLocationEmitted($event, false)"></app-search-bar>
-<app-locate-button></app-locate-button>
+<div id="home-wrapper">
+  <app-logo></app-logo>
+  <div id="home-wrapper-inner">
+    <app-map (locationEmitted)="onLocationEmitted($event, true)" style="z-index: 1;"></app-map>
+    <app-user-card></app-user-card>
+    <app-location-panel></app-location-panel>
+  </div>
+</div>
+
+<!-- <app-locate-button></app-locate-button> -->
 <app-footer></app-footer>

@@ -1,0 +1,18 @@
+<div class="location-panel">
+  <app-search-bar></app-search-bar>
+  <ng-container *ngIf="hideSearchResults; else showSearchResults">
+    <h1 [ngClass]="{'blur': blur}">Favoriten</h1>
+    <app-location-list [locations]="mockLocationsForFavorites" [listType]="favoriteType"></app-location-list>
+    <h1 [ngClass]="{'blur': blur}">In der Nähe</h1>
+    <ng-container *ngIf="locations$ | async as locations">
+      <app-location-list [locations]="locations" [listType]="nearByType"></app-location-list>
+    </ng-container>
+  </ng-container>
+
+  <ng-template #showSearchResults>
+    <h1 [ngClass]="{'blur': blur}">Suchergebnisse</h1>
+    <ng-container *ngIf="locations$ | async as locations">
+      <app-location-list [locations]="locations" [listType]="searchType"></app-location-list>
+    </ng-container>
+  </ng-template>
+</div>

@@ -3,15 +3,19 @@
     display: none;
   }
   position: absolute;
-  top: 45px;
-  right: 30px;
-  border-radius: 10px;
+  top: 0;
+  right: 0;
+  min-width: 200px;
+  width: 11%;
+  border-radius: 0 0 0 10px;
+  box-shadow: none;
+  transition: all 0.3s;
   a {
     color: var(--greenblue);
     text-decoration: underline;
     cursor: pointer;
   }
-  mat-icon {
+  .settings-icon {
     display: none;
     float: right;
     padding-left: 10px;
@@ -24,17 +28,48 @@
   .progress-bar-container{
     text-align: center;
     color: var(--greenblue);
-    mat-progress-bar{
+    mat-progress-bar {
       border-radius: 3px;
     }
-    .level-name{
+    .level-name {
       font-size: 12px;
     }
-    .next-level{
+    .next-level {
       font-size: 9px;
     }
     margin-bottom: 29px;
   }
+
+  .expand-icon:hover {
+    cursor: pointer;
+  }
+
+  &.expanded {
+    width: 400px;
+  }
+}
+
+.expand {
+  float: left;
+}
+
+.content {
+  transition: text-indent 0.3s;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.turned {
+  transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+}
 
 
   .badge-container{
@@ -109,5 +144,30 @@
     text-align: center;
     color: #BAD1CD;
   }
-}
 
+.corner {
+  position: absolute;
+  z-index: 3;
+  width: var(--outer-border-radius);
+  height: var(--outer-border-radius);
+  background-image: radial-gradient(
+    circle at 100% 100%,
+    transparent 0,
+    transparent var(--outer-border-radius),
+    white var(--outer-border-radius)
+  );
+  transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  &.upper-left {
+    top: 0;
+    left: -14px;
+    transition: right 0.3s;
+  }
+  &.bottom-right {
+    right: 0;
+    bottom: -14px;
+  }
+}

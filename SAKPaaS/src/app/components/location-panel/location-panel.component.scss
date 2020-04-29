@@ -1,0 +1,28 @@
+.location-panel {
+  max-width: 500px;
+  width: 100%;
+  background-color: white;
+  height: auto;
+  position: fixed;
+  top: 40%;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+
+  overflow-y: auto;
+}
+
+h1 {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 26px;
+  line-height: 30px;
+  letter-spacing: 0.166667px;
+
+color: #96B7D4;
+}
+
+.blur {
+  opacity: 0.2;
+}

@@ -1,68 +1,98 @@
-<mat-card *ngIf="authService.getUser() | async as user; else login" id="user-card">
-
-  <mat-card-title>
-    {{user.firstName}}
-    <mat-icon fontSet="material-icons-outlined">
-      settings
-    </mat-icon>
-  </mat-card-title>
-  <mat-card-content>
-    <div class="progress-bar-container">
-      <div class="level-name">{{ 'user-card.level' | translate }} {{ currentLevel }}</div>
-      <mat-progress-bar mode="determinate" value="{{ currentProgress }}"></mat-progress-bar>
-      <div class="next-level">
-        <span *ngIf="remainingReports === 1">
-          {{ remainingReports }} {{ 'user-card.one-report-remaining' | translate }}
-        </span>
-        <span *ngIf="remainingReports !== 1">
-          {{ remainingReports }} {{ 'user-card.multiple-reports-remaining' | translate}}
-        </span>
-      </div>
-    </div>
-    <div id="wrapper">
-      <div id="first">
-        <mat-icon *ngIf="totalPages>1 && page!=1" fontSet="material-icons-outlined" style="display:initial; color: #9DA9A0; padding-left: 0px;" (click)="backPage()">
-          keyboard_arrow_left
-        </mat-icon>
-      </div>
-      <div class="badge-container" id="second">
-        <div class="badge" *ngFor="let badge of badges$ | async | slice: ((page-1) * itemsPerPage) : (page * itemsPerPage); let ind = index;">
-          <img src="assets/badges/{{badge.image}}.png" [alt]="'badges.' + badge.image | translate">
-          <span class="number" *ngIf="badge.count > 1">{{badge.count}}</span>
-          <br>
-          {{'badges.' + badge.image | translate}}
+<mat-card id="user-card">
+  <div class="corner upper-left" id="upperLeftCorner"></div>
+  <div class="expand">
+    <mat-icon (click)="change()" class="expand-icon"
+      >keyboard_arrow_left</mat-icon
+    >
+  </div>
+  <div
+    *ngIf="authService.getUser() | async as user; else login"
+    class="content"
+  >
+    <mat-card-title>
+      <span *ngIf="expanded">{{ "user-card.greeting" | translate }}</span>
+      {{ user.firstName }}
+      <mat-icon fontSet="material-icons-outlined" class="settings-icon"
+        >settings</mat-icon
+      >
+    </mat-card-title>
+    <mat-card-content>
+      <div class="progress-bar-container" *ngIf="expanded">
+        <div class="level-name">
+          {{ "user-card.level" | translate }} {{ currentLevel }}
         </div>
-        <ng-container *ngIf="page == totalPages" >
-          <div class="badge" *ngFor="let i of array(lockedBadges)">
-              <img src="assets/badges/locked.png" [alt]="'badges.locked'| translate">
-              <br>
-              {{'badges.locked'| translate}}
-          </div>
-        </ng-container>
+        <mat-progress-bar
+          mode="determinate"
+          value="{{ currentProgress }}"
+        ></mat-progress-bar>
+        <div class="next-level">
+          <span *ngIf="remainingReports === 1">
+            {{ remainingReports }}
+            {{ "user-card.one-report-remaining" | translate }}
+          </span>
+          <span *ngIf="remainingReports !== 1">
+            {{ remainingReports }}
+            {{ "user-card.multiple-reports-remaining" | translate }}
+          </span>
+        </div>
       </div>
-      <div id="third">
-        <mat-icon *ngIf="totalPages>1 && page!=totalPages" fontSet="material-icons-outlined" style="display:initial; color: #9DA9A0; padding-left: 0px;" (click)="nextPage()">
-          keyboard_arrow_right
-        </mat-icon>
-      </div>
-    </div>
-    <div *ngIf="totalPages>1" style="float:right; color: #9DA9A0;">Seite {{page}} von {{totalPages}}</div>
-    <br>
-    {{user.username}}<br>
 
-    <a class="mat-primary" (click)="authService.logout()">{{ 'user-card.logout' | translate }}</a><br>
-  </mat-card-content>
+      <div id="wrapper" *ngIf="expanded">
+        <div id="first">
+          <mat-icon *ngIf="totalPages>1 && page!=1" fontSet="material-icons-outlined" style="display:initial; color: #9DA9A0; padding-left: 0px;" (click)="backPage()">
+            keyboard_arrow_left
+          </mat-icon>
+        </div>
+        <div class="badge-container" id="second">
+          <div class="badge" *ngFor="let badge of badges$ | async | slice: ((page-1) * itemsPerPage) : (page * itemsPerPage); let ind = index;">
+            <img src="assets/badges/{{badge.image}}.png" [alt]="'badges.' + badge.image | translate">
+            <span class="number" *ngIf="badge.count > 1">{{badge.count}}</span>
+            <br>
+            {{'badges.' + badge.image | translate}}
+          </div>
+          <ng-container *ngIf="page == totalPages" >
+            <div class="badge" *ngFor="let i of array(lockedBadges)">
+                <img src="assets/badges/locked.png" [alt]="'badges.locked'| translate">
+                <br>
+                {{'badges.locked'| translate}}
+            </div>
+          </ng-container>
+        </div>
+        <div id="third">
+          <mat-icon *ngIf="totalPages>1 && page!=totalPages" fontSet="material-icons-outlined" style="display:initial; color: #9DA9A0; padding-left: 0px;" (click)="nextPage()">
+            keyboard_arrow_right
+          </mat-icon>
+        </div>
+      </div>
+      <div *ngIf="totalPages>1 && expanded" style="float:right; color: #9DA9A0;">Seite {{page}} von {{totalPages}}</div>
+      <div *ngIf="!expanded" class="ellipsis">
+        {{ user.username }}<br />
+        <a class="mat-primary" (click)="authService.logout()">{{
+          "user-card.logout" | translate
+        }}</a
+        ><br />
+      </div>
+    </mat-card-content>
+  </div>
+  <div class="corner bottom-right"></div>
 </mat-card>
 <ng-template #login>
-  <mat-card id="user-card">
+  <div class="content">
     <mat-card-title>
-      {{ 'user-card.guest' | translate }}
-      <mat-icon fontSet="material-icons-outlined">
-        settings
-      </mat-icon>
+      <span *ngIf="expanded">{{ "user-card.greeting" | translate }}</span>
+      {{ "user-card.guest" | translate }}
+      <mat-icon fontSet="material-icons-outlined" class="settings-icon"
+        >settings</mat-icon
+      >
     </mat-card-title>
-
-    <a class="mat-primary" (click)="authService.login()">{{ 'user-card.login' | translate }}</a><br>
-    <a class="mat-primary" (click)="authService.register()">{{ 'user-card.register' | translate }}</a>
-  </mat-card>
+    <div class="ellipsis">
+      <a class="mat-primary" (click)="authService.login()">{{
+        "user-card.login" | translate
+      }}</a
+      ><br />
+      <a class="mat-primary" (click)="authService.register()">{{
+        "user-card.register" | translate
+      }}</a>
+    </div>
+  </div>
 </ng-template>

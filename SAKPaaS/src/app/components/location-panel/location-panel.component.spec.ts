@@ -1,23 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SearchBarComponent } from './search-bar.component';
+import { LocationPanelComponent } from './location-panel.component';
+import { LocationPanelModule } from 'src/app/components/location-panel/location-panel.module';
+import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatDialogTestingModule } from 'src/app/shared/mat-dialog-testing.module';
-import { TranslateModule } from '@ngx-translate/core';
-import { SearchBarModule } from 'src/app/components/search-bar/search-bar.module';
-import { RouterTestingModule } from '@angular/router/testing';
+import {TranslateModule} from '@ngx-translate/core';
 
-describe('SearchBarComponent', () => {
-  let component: SearchBarComponent;
-  let fixture: ComponentFixture<SearchBarComponent>;
+describe('LocationPanelComponent', () => {
+  let component: LocationPanelComponent;
+  let fixture: ComponentFixture<LocationPanelComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      declarations: [],
       imports: [
+        LocationPanelModule,
+        RouterTestingModule,
         HttpClientTestingModule,
         MatDialogTestingModule,
-        RouterTestingModule,
-        SearchBarModule,
         TranslateModule.forRoot({})
       ]
     })
@@ -25,7 +26,7 @@ describe('SearchBarComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SearchBarComponent);
+    fixture = TestBed.createComponent(LocationPanelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
