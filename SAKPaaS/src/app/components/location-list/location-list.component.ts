@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Location } from 'src/app/generated/models';
+import {ListType} from '../../core/models/location-card.interface';
 
 @Component({
   selector: 'app-location-list',
@@ -9,6 +10,7 @@ import { Location } from 'src/app/generated/models';
 export class LocationListComponent implements OnInit {
 
   @Input() locations: Location[];
+  @Input() listType: ListType;
 
   constructor() { }
 
