@@ -35,7 +35,7 @@ export class UserCardComponent {
 
   numberBadges = 12; // Dies muss noch berechnet werden
   page = 1;
-  itemsPerPage = 5;
+  itemsPerPage = 3;
   totalPages = Math.ceil(this.numberBadges / this.itemsPerPage);
   lockedBadges = this.itemsPerPage * this.totalPages - this.numberBadges;
   currentLevel = 'Novize';
