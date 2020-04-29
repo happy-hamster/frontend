@@ -1,4 +1,5 @@
 <div class="location-panel">
+  <app-search-bar></app-search-bar>
   <ng-container *ngIf="hideSearchResults; else showSearchResults">
     <h1 [ngClass]="{'blur': blur}">Favoriten</h1>
     <app-location-list [locations]="mockLocationsForFavorites" [listType]="favoriteType"></app-location-list>

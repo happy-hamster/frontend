@@ -15,7 +15,6 @@ export class HomeComponent {
   selectedLocation$: Observable<Location>;
 
   @ViewChild(MapComponent) mapComp: MapComponent;
-  @ViewChild(SearchBarComponent) searchComp: SearchBarComponent;
 
   constructor(private bottomSheet: MatBottomSheet) { }
 
@@ -36,8 +35,6 @@ export class HomeComponent {
     bottomSheetRef.afterDismissed().subscribe(() => {
       if (fromMap) {
         this.mapComp.deselect();
-      } else {
-        this.searchComp.dismiss();
       }
     });
   }
