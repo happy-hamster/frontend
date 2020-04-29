@@ -96,9 +96,8 @@
     "logout": "Abmelden",
     "register": "Account erstellen",
     "guest": "Gast",
-    "level": "Rang:",
-    "one-report-remaining": "Meldung bis zum nächsten Rang",
-    "multiple-reports-remaining": "Meldungen bis zum nächsten Rang"
+    "level": "Level:",
+    "remaining-xp": "XP bis zum nächsten Level"
   },
   "image-alt": {
     "occupancy": "Auslastung",

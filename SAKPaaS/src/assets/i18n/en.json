@@ -97,8 +97,7 @@
     "register": "Create account",
     "guest": "Guest",
     "level": "Level:",
-    "one-report-remaining": "report until next level",
-    "multiple-reports-remaining": "reports until next level"
+    "remaining-xp": "XP until next level"
   },
   "image-alt": {
     "occupancy": "Occupancy",
