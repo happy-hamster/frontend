@@ -1,44 +1,69 @@
 <mat-card id="user-card">
+  <div class="corner upper-left" id="upperLeftCorner"></div>
   <div class="expand">
-    <mat-icon (click)="change()" class="expand-icon">keyboard_arrow_left</mat-icon>
+    <mat-icon (click)="change()" class="expand-icon"
+      >keyboard_arrow_left</mat-icon
+    >
   </div>
-  <div *ngIf="authService.getUser() | async as user; else login" class="content">
+  <div
+    *ngIf="authService.getUser() | async as user; else login"
+    class="content"
+  >
     <mat-card-title>
-      <span *ngIf="expanded">{{ 'user-card.greeting' | translate }}</span> {{user.firstName}}
-      <mat-icon fontSet="material-icons-outlined" class="settings-icon">settings</mat-icon>
+      <span *ngIf="expanded">{{ "user-card.greeting" | translate }}</span>
+      {{ user.firstName }}
+      <mat-icon fontSet="material-icons-outlined" class="settings-icon"
+        >settings</mat-icon
+      >
     </mat-card-title>
     <mat-card-content>
       <div class="progress-bar-container" *ngIf="expanded">
-        <div class="level-name">{{ 'user-card.level' | translate }} {{ currentLevel }}</div>
-        <mat-progress-bar mode="determinate" value="{{ currentProgress }}"></mat-progress-bar>
+        <div class="level-name">
+          {{ "user-card.level" | translate }} {{ currentLevel }}
+        </div>
+        <mat-progress-bar
+          mode="determinate"
+          value="{{ currentProgress }}"
+        ></mat-progress-bar>
         <div class="next-level">
-        <span *ngIf="remainingReports === 1">
-          {{ remainingReports }} {{ 'user-card.one-report-remaining' | translate }}
-        </span>
+          <span *ngIf="remainingReports === 1">
+            {{ remainingReports }}
+            {{ "user-card.one-report-remaining" | translate }}
+          </span>
           <span *ngIf="remainingReports !== 1">
-          {{ remainingReports }} {{ 'user-card.multiple-reports-remaining' | translate}}
-        </span>
+            {{ remainingReports }}
+            {{ "user-card.multiple-reports-remaining" | translate }}
+          </span>
         </div>
       </div>
       <div *ngIf="!expanded" class="ellipsis">
-        {{ user.username }}<br>
-        <a class="mat-primary" (click)="authService.logout()">{{ 'user-card.logout' | translate }}</a><br>
+        {{ user.username }}<br />
+        <a class="mat-primary" (click)="authService.logout()">{{
+          "user-card.logout" | translate
+        }}</a
+        ><br />
       </div>
     </mat-card-content>
   </div>
+  <div class="corner bottom-right"></div>
 </mat-card>
 <ng-template #login>
-
   <div class="content">
     <mat-card-title>
-      <span *ngIf="expanded">{{ 'user-card.greeting' | translate }}</span> {{ 'user-card.guest' | translate }}
-      <mat-icon fontSet="material-icons-outlined" class="settings-icon">settings</mat-icon>
+      <span *ngIf="expanded">{{ "user-card.greeting" | translate }}</span>
+      {{ "user-card.guest" | translate }}
+      <mat-icon fontSet="material-icons-outlined" class="settings-icon"
+        >settings</mat-icon
+      >
     </mat-card-title>
     <div class="ellipsis">
-      <a class="mat-primary" (click)="authService.login()">{{ 'user-card.login' | translate }}</a><br>
-      <a class="mat-primary" (click)="authService.register()">{{ 'user-card.register' | translate }}</a>
+      <a class="mat-primary" (click)="authService.login()">{{
+        "user-card.login" | translate
+      }}</a
+      ><br />
+      <a class="mat-primary" (click)="authService.register()">{{
+        "user-card.register" | translate
+      }}</a>
     </div>
   </div>
 </ng-template>
-<div class="corner upper-left" id="upperLeftCorner"></div>
-<div class="corner bottom-right"></div>

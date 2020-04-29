@@ -5,11 +5,10 @@
   position: absolute;
   top: 0;
   right: 0;
+  min-width: 200px;
   border-radius: 0 0 0 10px;
-  width: 11%;
-  height: 14%;
   box-shadow: none;
-  transition: all .3s;
+  transition: all 0.3s;
   a {
     color: var(--greenblue);
     text-decoration: underline;
@@ -21,16 +20,16 @@
     padding-left: 10px;
     width: 34px;
   }
-  .progress-bar-container{
+  .progress-bar-container {
     text-align: center;
     color: var(--greenblue);
-    mat-progress-bar{
+    mat-progress-bar {
       border-radius: 3px;
     }
-    .level-name{
+    .level-name {
       font-size: 12px;
     }
-    .next-level{
+    .next-level {
       font-size: 9px;
     }
   }
@@ -42,13 +41,10 @@
 
 .expand {
   float: left;
-  width: 0;
 }
 
 .content {
-  float: right;
-  width: 80%;
-  transition: text-indent .3s;
+  transition: text-indent 0.3s;
 }
 
 .ellipsis {
@@ -59,7 +55,7 @@
 
 .turned {
   transform: rotate(180deg);
-  -webkit-transform:rotate(180deg);
+  -webkit-transform: rotate(180deg);
   -moz-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   -o-transform: rotate(180deg);
@@ -76,23 +72,23 @@
   width: var(--outer-border-radius);
   height: var(--outer-border-radius);
   background-image: radial-gradient(
-      circle at 100% 100%,
-      transparent 0,
-      transparent var(--outer-border-radius),
-      white var(--outer-border-radius)
+    circle at 100% 100%,
+    transparent 0,
+    transparent var(--outer-border-radius),
+    white var(--outer-border-radius)
   );
   transform: rotate(90deg);
-  -webkit-transform:rotate(90deg);
+  -webkit-transform: rotate(90deg);
   -moz-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   -o-transform: rotate(90deg);
   &.upper-left {
     top: 0;
-    right: 11%;
-    transition: right .3s;
+    left: -14px;
+    transition: right 0.3s;
   }
   &.bottom-right {
     right: 0;
-    top: 14%;
+    bottom: -14px;
   }
 }
