@@ -4,6 +4,9 @@ import { LocationListComponent } from './location-list.component';
 import { Component } from '@angular/core';
 import { Location } from 'src/app/generated/models';
 import { LocationListModule } from 'src/app/components/location-list/location-list.module';
+import {RouterTestingModule} from '@angular/router/testing';
+import {MatDialogTestingModule} from '../../shared/mat-dialog-testing.module';
+import {TranslateModule} from '@ngx-translate/core';
 
 describe('LocationListComponent', () => {
   let component: LocationListComponent;
@@ -15,7 +18,10 @@ describe('LocationListComponent', () => {
         TestWrapperComponent
       ],
       imports: [
-        LocationListModule
+        LocationListModule,
+        RouterTestingModule,
+        MatDialogTestingModule,
+        TranslateModule.forRoot({})
       ]
     })
     .compileComponents();

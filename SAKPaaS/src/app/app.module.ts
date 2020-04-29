@@ -23,6 +23,7 @@ import { GlobalDialogModule } from 'src/app/components/global-dialog/global-dial
 import { LocateButtonModule } from 'src/app/components/locate-button/locate-button.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { LocationDetailsModule } from 'src/app/components/location-details/location-details.module';
+import {LocationCardModule} from './components/location-card/location-card.module';
 
 
 
@@ -50,6 +51,7 @@ import { LocationDetailsModule } from 'src/app/components/location-details/locat
     HomeModule,
     LocateButtonModule,
     LocationDetailsModule,
+    LocationCardModule,
     LogoModule,
     MapModule,
     OccupancyReportModule,
