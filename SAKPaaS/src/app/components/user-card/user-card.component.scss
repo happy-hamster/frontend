@@ -3,10 +3,11 @@
     display: none;
   }
   position: absolute;
-  top: 45px;
-  right: 30px;
-  border-radius: 10px;
+  top: 0;
+  right: 0;
+  border-radius: 0 0 0 10px;
   width: 12%;
+  height: 15%;
   transition: all .2s linear;
   a {
     color: var(--greenblue);
@@ -64,4 +65,31 @@
 .mat-card-title {
   font-size: 18px;
   font-weight: 400;
+}
+
+.corner {
+  position: absolute;
+  z-index: 3;
+  width: var(--outer-border-radius);
+  height: var(--outer-border-radius);
+  background-image: radial-gradient(
+      circle at 100% 100%,
+      transparent 0,
+      transparent var(--outer-border-radius),
+      white var(--outer-border-radius)
+  );
+  transform: rotate(90deg);
+  -webkit-transform:rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  &.upper-left {
+    top: 0;
+    right: 12%;
+    transition: right .2s linear;
+  }
+  &.bottom-right {
+    right: 0;
+    top: 15%;
+  }
 }

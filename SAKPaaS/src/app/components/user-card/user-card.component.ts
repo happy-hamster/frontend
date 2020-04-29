@@ -22,6 +22,7 @@ export class UserCardComponent {
     if (this.expanded) {
       this.expanded = !this.expanded;
       element.setAttribute('style', 'width: 12%;');
+      document.getElementById('upperLeftCorner').setAttribute('style', 'right: 12%;');
       document.getElementsByClassName('expand-icon')[0].classList.remove('turned');
       document.getElementsByClassName('content')[0].setAttribute('style', 'text-align: left;');
 
@@ -29,6 +30,7 @@ export class UserCardComponent {
     } else {
       this.expanded = !this.expanded;
       element.setAttribute('style', 'width: 25%;');
+      document.getElementById('upperLeftCorner').setAttribute('style', 'right: 25%;');
       document.getElementsByClassName('expand-icon')[0].classList.add('turned');
       document.getElementsByClassName('content')[0].setAttribute('style', 'text-align: center;');
     }
