@@ -20,8 +20,8 @@
         </span>
         </div>
       </div>
-      <div *ngIf="!expanded">
-        {{user.username.length > 16 ? user.username.substring(0, 15) + '…' : user.username }}<br>
+      <div *ngIf="!expanded" class="ellipsis">
+        {{ user.username }}<br>
         <a class="mat-primary" (click)="authService.logout()">{{ 'user-card.logout' | translate }}</a><br>
       </div>
     </mat-card-content>
@@ -34,9 +34,10 @@
       <span *ngIf="expanded">{{ 'user-card.greeting' | translate }}</span> {{ 'user-card.guest' | translate }}
       <mat-icon fontSet="material-icons-outlined" class="settings-icon">settings</mat-icon>
     </mat-card-title>
-
-    <a class="mat-primary" (click)="authService.login()">{{ 'user-card.login' | translate }}</a><br>
-    <a class="mat-primary" (click)="authService.register()">{{ 'user-card.register' | translate }}</a>
+    <div class="ellipsis">
+      <a class="mat-primary" (click)="authService.login()">{{ 'user-card.login' | translate }}</a><br>
+      <a class="mat-primary" (click)="authService.register()">{{ 'user-card.register' | translate }}</a>
+    </div>
   </div>
 </ng-template>
 <div class="corner upper-left" id="upperLeftCorner"></div>

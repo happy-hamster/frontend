@@ -6,8 +6,8 @@
   top: 0;
   right: 0;
   border-radius: 0 0 0 10px;
-  width: 15%;
-  height: 15%;
+  width: 11%;
+  height: 13%;
   box-shadow: none;
   transition: all .2s linear;
   a {
@@ -53,6 +53,12 @@
   float: right;
   width: 80%;
   transition: text-indent .2s linear;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .turned {
