@@ -2,14 +2,12 @@
   <form class="search-bar-form">
     <div class="category-selector-wrapper">
       <mat-form-field appearance="none" class="mat-form-field-remove-padding mat-form-field-select">
+        <mat-label>{{'search-bar.type-selector.label' | translate}}</mat-label>
         <mat-select class="custom-select">
-          <option>{{'search-bar.type-selector.default' | translate}}</option>
-          <option *ngFor="let type of []" [value]="type.value">
-            {{'search-bar.type-selector.${type.value}' | translate}}
-          </option>
-          <option>TEST</option>
-          <option>TEST2</option>
-          <option>TEST3</option>
+          <mat-option>{{'search-bar.type-selector.default' | translate}}</mat-option>
+          <mat-option *ngFor="let type of ['chemist', 'beverages', 'kiosk', 'newsagent', 'convenience']" [value]="type">
+            {{'search-bar.type-selector.types.'+type | translate}}
+          </mat-option>
         </mat-select>
       </mat-form-field>
     </div>

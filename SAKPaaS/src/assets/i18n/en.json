@@ -65,7 +65,15 @@
   "search-bar": {
     "placeholder": "Search ...",
     "type-selector": {
-      "default": "All"
+      "label": "Stores",
+      "default": "All",
+      "types": {
+        "chemist": "chemist",
+        "kiosk": "kiosk",
+        "newsagent": "newsagent",
+        "convenience": "convenience",
+        "beverages": "beverages"
+      }
     }
   },
   "snack-bar": {
