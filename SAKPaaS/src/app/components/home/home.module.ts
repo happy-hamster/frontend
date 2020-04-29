@@ -8,6 +8,7 @@ import { SearchBarModule } from 'src/app/components/search-bar/search-bar.module
 import { LocateButtonModule } from 'src/app/components/locate-button/locate-button.module';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { UserCardModule } from '../user-card/user-card.module';
+import { LocationPanelModule } from 'src/app/components/location-panel/location-panel.module';
 
 
 
@@ -23,7 +24,8 @@ import { UserCardModule } from '../user-card/user-card.module';
     SearchBarModule,
     LocateButtonModule,
     MatBottomSheetModule,
-    UserCardModule
+    UserCardModule,
+    LocationPanelModule
   ],
   exports: [
     HomeComponent
