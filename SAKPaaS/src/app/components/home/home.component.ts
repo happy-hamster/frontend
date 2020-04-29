@@ -15,7 +15,7 @@ export class HomeComponent {
   selectedLocation$: Observable<Location>;
 
   @ViewChild(MapComponent) mapComp: MapComponent;
-  
+
   constructor(private bottomSheet: MatBottomSheet) { }
 
   onLocationEmitted(location: Location, fromMap: boolean) {
