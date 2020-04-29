@@ -103,5 +103,10 @@
     "occupancy-low": "Low occupancy",
     "occupancy-medium": "Medium occupancy",
     "occupancy-high": "High occupancy"
+  },
+  "location-panel": {
+    "favorites": "Favorites",
+    "closetoyou": "Close to you",
+    "searchresults": "Search results"
   }
 }
