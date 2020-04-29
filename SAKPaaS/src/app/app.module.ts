@@ -23,6 +23,7 @@ import { GlobalDialogModule } from 'src/app/components/global-dialog/global-dial
 import { LocateButtonModule } from 'src/app/components/locate-button/locate-button.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { LocationDetailsModule } from 'src/app/components/location-details/location-details.module';
+import { ApiModule } from './generated/api.module';
 import {LocationCardModule} from './components/location-card/location-card.module';
 
 
@@ -36,6 +37,7 @@ import {LocationCardModule} from './components/location-card/location-card.modul
     AppRoutingModule,
     BrowserModule,
     // third party modules
+    ApiModule.forRoot({ rootUrl: environment.apiTarget }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     TranslateModule.forRoot({
       loader: {

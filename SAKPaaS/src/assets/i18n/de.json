@@ -58,7 +58,7 @@
     "back-to-happy-hamster": "Zurück zu Happy Hamster",
     "cancel": "Abbrechen",
     "not-here": "Bist du doch nicht hier?",
-    "pending": "Wird abgeschickt ...",
+    "pending": "Wird abgeschickt…",
     "submit": "Abschicken",
     "warning": "Warnung"
   },
@@ -107,7 +107,11 @@
     "login": "Anmelden",
     "logout": "Abmelden",
     "register": "Account erstellen",
-    "guest": "Gast"
+    "guest": "Gast",
+    "greeting": "Hallo",
+    "level": "Rang:",
+    "one-report-remaining": "Meldung bis zum nächsten Rang",
+    "multiple-reports-remaining": "Meldungen bis zum nächsten Rang"
   },
   "image-alt": {
     "occupancy": "Auslastung",
