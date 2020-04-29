@@ -40,6 +40,11 @@
 }
 
 .mat-card-title {
-  font-size: 18px;
-  font-weight: 400;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 26px;
+  text-align: center;
+  color: var(--silver);
 }
