@@ -1,7 +1,20 @@
-<form class="search-bar-form">
-  <mat-form-field>
-    <input matInput placeholder="{{ 'search-bar.placeholder' | translate }}"
-      [formControl]="searchControl" (keyup.enter)="triggerSearch()">
-    <mat-icon matSuffix (click)="triggerSearch()">search</mat-icon>
-  </mat-form-field>
-</form>
+<div class="search-bar-wrapper">
+  <form class="search-bar-form">
+    <div class="category-selector-wrapper">
+      <mat-form-field appearance="none" class="mat-form-field-remove-padding mat-form-field-select">
+        <mat-label>{{'search-bar.type-selector.label' | translate}}</mat-label>
+        <mat-select class="custom-select">
+          <mat-option>{{'search-bar.type-selector.default' | translate}}</mat-option>
+          <mat-option *ngFor="let type of ['chemist', 'beverages', 'kiosk', 'newsagent', 'convenience']" [value]="type">
+            {{'search-bar.type-selector.types.'+type | translate}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <mat-form-field class="search-form-field mat-form-field-remove-padding" appearance="none">
+      <input matInput placeholder="{{ 'search-bar.placeholder' | translate }}"
+        [formControl]="searchControl" (keyup.enter)="triggerSearch()">
+      <mat-icon class="search-icon" matSuffix (click)="triggerSearch()">search</mat-icon>
+    </mat-form-field>
+  </form>
+</div>
