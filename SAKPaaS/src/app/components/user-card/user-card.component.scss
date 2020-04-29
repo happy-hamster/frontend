@@ -9,7 +9,7 @@
   width: 11%;
   height: 13%;
   box-shadow: none;
-  transition: all .2s linear;
+  transition: all .3s;
   a {
     color: var(--greenblue);
     text-decoration: underline;
@@ -52,7 +52,7 @@
 .content {
   float: right;
   width: 80%;
-  transition: text-indent .2s linear;
+  transition: text-indent .3s;
 }
 
 .ellipsis {
@@ -92,8 +92,8 @@
   -o-transform: rotate(90deg);
   &.upper-left {
     top: 0;
-    right: 15%;
-    transition: right .2s linear;
+    right: 11%;
+    transition: right .3s;
   }
   &.bottom-right {
     right: 0;
