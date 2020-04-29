@@ -5,7 +5,7 @@
   height: auto;
   position: fixed;
   top: 40%;
-  bottom: 0px;
+  bottom: 0;
   left: 50%;
   transform: translate(-50%, 0);
 
@@ -21,4 +21,8 @@ h1 {
   letter-spacing: 0.166667px;
 
 color: #96B7D4;
+}
+
+.blur {
+  opacity: 0.2;
 }

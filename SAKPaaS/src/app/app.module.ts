@@ -24,6 +24,7 @@ import { LocateButtonModule } from 'src/app/components/locate-button/locate-butt
 import { BrowserModule } from '@angular/platform-browser';
 import { LocationDetailsModule } from 'src/app/components/location-details/location-details.module';
 import { ApiModule } from './generated/api.module';
+import {LocationCardModule} from './components/location-card/location-card.module';
 
 
 
@@ -52,6 +53,7 @@ import { ApiModule } from './generated/api.module';
     HomeModule,
     LocateButtonModule,
     LocationDetailsModule,
+    LocationCardModule,
     LogoModule,
     MapModule,
     OccupancyReportModule,

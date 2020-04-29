@@ -5,6 +5,7 @@ import { LocationPanelModule } from 'src/app/components/location-panel/location-
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatDialogTestingModule } from 'src/app/shared/mat-dialog-testing.module';
+import {TranslateModule} from '@ngx-translate/core';
 
 describe('LocationPanelComponent', () => {
   let component: LocationPanelComponent;
@@ -17,7 +18,8 @@ describe('LocationPanelComponent', () => {
         LocationPanelModule,
         RouterTestingModule,
         HttpClientTestingModule,
-        MatDialogTestingModule
+        MatDialogTestingModule,
+        TranslateModule.forRoot({})
       ]
     })
     .compileComponents();
