@@ -21,8 +21,8 @@ export class UserCardComponent {
     const element = document.getElementById('user-card');
     if (this.expanded) {
       this.expanded = !this.expanded;
-      element.setAttribute('style', 'width: 12%;');
-      document.getElementById('upperLeftCorner').setAttribute('style', 'right: 12%;');
+      element.setAttribute('style', 'width: 15%;');
+      document.getElementById('upperLeftCorner').setAttribute('style', 'right: 15%;');
       document.getElementsByClassName('expand-icon')[0].classList.remove('turned');
       document.getElementsByClassName('content')[0].setAttribute('style', 'text-align: left;');
 

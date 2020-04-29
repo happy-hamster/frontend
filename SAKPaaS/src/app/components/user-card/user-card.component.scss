@@ -6,8 +6,9 @@
   top: 0;
   right: 0;
   border-radius: 0 0 0 10px;
-  width: 12%;
+  width: 15%;
   height: 15%;
+  box-shadow: none;
   transition: all .2s linear;
   a {
     color: var(--greenblue);
@@ -85,7 +86,7 @@
   -o-transform: rotate(90deg);
   &.upper-left {
     top: 0;
-    right: 12%;
+    right: 15%;
     transition: right .2s linear;
   }
   &.bottom-right {
