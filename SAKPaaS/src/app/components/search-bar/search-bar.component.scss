@@ -1,9 +1,7 @@
 .search-bar-form {
   background-color: rgba(186, 209, 205, 0.3);
   border-radius: 40px;
-  padding: 0.35rem 1rem 0.9rem 1rem;
-  margin: 0;
-  box-shadow: 0 5px 20px 0 rgba(11, 0, 51, 0.2);
+  padding: 0.35rem 1rem 0.9rem .5rem;
 }
 
 @media (max-width: 600px) {
@@ -58,16 +56,16 @@ mat-form-field {
   position: absolute;
   width: 150px;
   background: white;
-  border-radius: 20px;
+  border-radius: 40px;
   padding: 15px;
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
 .search-form-field {
   left: 160px;
   width: calc(100% - 160px)
 }
-
 
 .custom-select {
   -moz-appearance: none;
@@ -78,27 +76,34 @@ mat-form-field {
   cursor: pointer;
   width: 100%;
 }
+
 .custom-select::-ms-expand {
   display: none;
 }
+
 .custom-select:focus::-ms-value {
   background-color: transparent;
 }
+
 .custom-select-icon {
   position: absolute;
-  right: 5px;
+  right: 5x;
   top: 50%;
   transform: translate(0%, -50%);
 }
+
 .mat-form-field-wrapper {
   padding-bottom: 0px;
 }
+
 .mat-form-field-remove-padding {
   margin-bottom: -1.34375em;
 }
+
 .mat-form-field-select {
   margin-top: -0.8em;
 }
+
 .search-icon {
-  transform: translate(0px,3px);
+  transform: translate(0px, 3px);
 }
