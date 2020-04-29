@@ -14,7 +14,7 @@
     <mat-form-field class="search-form-field mat-form-field-remove-padding" appearance="none">
       <input matInput placeholder="{{ 'search-bar.placeholder' | translate }}"
         [formControl]="searchControl" (keyup.enter)="triggerSearch()">
-      <mat-icon matSuffix (click)="triggerSearch()">search</mat-icon>
+      <mat-icon class="search-icon" matSuffix (click)="triggerSearch()">search</mat-icon>
     </mat-form-field>
   </form>
 </div>
