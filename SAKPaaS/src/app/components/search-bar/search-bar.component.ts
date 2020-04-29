@@ -22,7 +22,8 @@ export class SearchBarComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private searchService: SearchService
-    ) {}
+    ) {
+    }
 
   ngOnInit(): void {
     this.locations$ = this.locationsService.fetchLocations();

@@ -1,7 +1,7 @@
 .search-bar-form {
   background-color: rgba(186, 209, 205, 0.3);
   border-radius: 40px;
-  padding: 0.35rem 1rem 0.35rem 1rem;
+  padding: 0.35rem 1rem 0.9rem 1rem;
   margin: 0;
   box-shadow: 0 5px 20px 0 rgba(11, 0, 51, 0.2);
 }
@@ -61,7 +61,6 @@ mat-form-field {
 .category-selector-wrapper {
   position: absolute;
   width: 150px;
-  height: 36px;
   background: white;
   border-radius: 20px;
   padding: 15px;
@@ -69,13 +68,11 @@ mat-form-field {
   padding-bottom: 10px;
 }
 .search-form-field {
-  padding-left: 160px;
-  height: 36px;
+  left: 160px;
+  width: calc(100% - 160px)
 }
 
-.mat-form-field-wrapper {
-  padding-bottom: 0;
-}
+
 .custom-select {
   -moz-appearance: none;
   -webkit-appearance: none;
@@ -83,6 +80,7 @@ mat-form-field {
   border: none;
   outline: none;
   cursor: pointer;
+  width: 100%;
 }
 .custom-select::-ms-expand {
   display: none;
@@ -95,4 +93,13 @@ mat-form-field {
   right: 5px;
   top: 50%;
   transform: translate(0%, -50%);
+}
+.mat-form-field-wrapper {
+  padding-bottom: 0px;
+}
+.mat-form-field-remove-padding {
+  margin-bottom: -1.34375em;
+}
+.mat-form-field-select {
+  margin-top: -0.8em;
 }

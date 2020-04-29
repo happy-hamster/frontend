@@ -1,18 +1,19 @@
 <div class="search-bar-wrapper">
   <form class="search-bar-form">
     <div class="category-selector-wrapper">
-      <select class="custom-select">
-        <option>{{'search-bar.type-selector.default' | translate}}</option>
-        <option *ngFor="let type of []" [value]="type.value">
-          {{'search-bar.type-selector.${type.value}' | translate}}
-        </option>
-        <option>TEST</option>
-      </select>
-      <span class="material-icons custom-select-icon">
-        expand_more
-      </span>
+      <mat-form-field appearance="none" class="mat-form-field-remove-padding mat-form-field-select">
+        <mat-select class="custom-select">
+          <option>{{'search-bar.type-selector.default' | translate}}</option>
+          <option *ngFor="let type of []" [value]="type.value">
+            {{'search-bar.type-selector.${type.value}' | translate}}
+          </option>
+          <option>TEST</option>
+          <option>TEST2</option>
+          <option>TEST3</option>
+        </mat-select>
+      </mat-form-field>
     </div>
-    <mat-form-field>
+    <mat-form-field class="search-form-field mat-form-field-remove-padding" appearance="none">
       <input matInput placeholder="{{ 'search-bar.placeholder' | translate }}"
         [formControl]="searchControl" (keyup.enter)="triggerSearch()">
       <mat-icon matSuffix (click)="triggerSearch()">search</mat-icon>
