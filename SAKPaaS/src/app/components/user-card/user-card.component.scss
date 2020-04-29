@@ -35,11 +35,6 @@
     }
   }
 
-  .expand-icon {
-    margin-top: 100%;
-    margin-bottom: 0;
-  }
-
   .expand-icon:hover {
     cursor: pointer;
   }
@@ -47,7 +42,7 @@
 
 .expand {
   float: left;
-  width: 0%;
+  width: 0;
 }
 
 .content {
