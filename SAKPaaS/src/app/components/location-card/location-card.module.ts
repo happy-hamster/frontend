@@ -29,4 +29,4 @@ import {MatExpansionModule} from '@angular/material/expansion';
     LocationCardComponent
   ]
 })
-export class LocationDetailsModule { }
+export class LocationCardModule { }
