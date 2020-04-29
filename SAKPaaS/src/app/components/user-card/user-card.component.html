@@ -20,14 +20,15 @@
         </span>
         </div>
       </div>
-      <div *ngIf="!expanded" style="overflow-wrap: normal">
-        {{user.username}}<br>
+      <div *ngIf="!expanded">
+        {{user.username.length > 16 ? user.username.substring(0, 15) + '…' : user.username }}<br>
         <a class="mat-primary" (click)="authService.logout()">{{ 'user-card.logout' | translate }}</a><br>
       </div>
     </mat-card-content>
   </div>
 </mat-card>
 <ng-template #login>
+
   <div class="content">
     <mat-card-title>
       <span *ngIf="expanded">{{ 'user-card.greeting' | translate }}</span> {{ 'user-card.guest' | translate }}
