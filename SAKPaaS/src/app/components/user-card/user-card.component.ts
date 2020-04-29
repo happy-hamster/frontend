@@ -21,16 +21,15 @@ export class UserCardComponent {
     const element = document.getElementById('user-card');
     if (this.expanded) {
       this.expanded = !this.expanded;
-      element.setAttribute('style', 'width: 11%;');
-      document.getElementById('upperLeftCorner').setAttribute('style', 'right: 11%;');
+      element.classList.remove('expanded');
+      element.setAttribute('style', '');
       document.getElementsByClassName('expand-icon')[0].classList.remove('turned');
       document.getElementsByClassName('content')[0].setAttribute('style', 'text-align: left;');
 
 
     } else {
       this.expanded = !this.expanded;
-      element.setAttribute('style', 'width: 25%;');
-      document.getElementById('upperLeftCorner').setAttribute('style', 'right: 25%;');
+      element.classList.add('expanded');
       document.getElementsByClassName('expand-icon')[0].classList.add('turned');
       document.getElementsByClassName('content')[0].setAttribute('style', 'text-align: center;');
     }

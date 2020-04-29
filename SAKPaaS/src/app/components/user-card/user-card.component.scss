@@ -6,6 +6,7 @@
   top: 0;
   right: 0;
   min-width: 200px;
+  width: 11%;
   border-radius: 0 0 0 10px;
   box-shadow: none;
   transition: all 0.3s;
@@ -36,6 +37,10 @@
 
   .expand-icon:hover {
     cursor: pointer;
+  }
+
+  &.expanded {
+    width: 400px;
   }
 }
 
