@@ -15,14 +15,13 @@ export class SearchBarComponent implements OnInit {
   searchControl = new FormControl();
   locations$: Observable<Location[]>;
 
-  @Output() locationEmitted = new EventEmitter<Location>();
-
   constructor(
     private locationsService: LocationProviderService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private searchService: SearchService
-    ) {}
+    ) {
+    }
 
   ngOnInit(): void {
     this.locations$ = this.locationsService.fetchLocations();
@@ -53,25 +52,5 @@ export class SearchBarComponent implements OnInit {
     if (this.searchControl.value) {
       this.searchService.triggerSearch(this.searchControl.value);
     }
-  }
-
-  getDistance(location: Location): string {
-    const distance = this.locationsService.getDistanceToLocation(location);
-    if (distance === null) {
-      return '';
-    }
-    let dist = '' + Math.round(distance);
-    if (dist.length > 3) {
-      dist = dist.slice(0, dist.length - 2);
-      dist = dist.slice(0, dist.length - 1) + '.' + dist.slice(dist.length - 1, dist.length) + ' km';
-    } else {
-      dist = dist + ' m';
-    }
-    return '(' + dist + ')';
-  }
-
-  dismiss() {
-    this.searchControl.setValue(null);
-    (document.activeElement as HTMLElement).blur();
   }
 }
