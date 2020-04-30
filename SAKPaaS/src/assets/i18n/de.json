@@ -117,7 +117,7 @@
   },
   "location-panel": {
     "favorites": "Favoriten",
-    "closetoyou": "In der Nähe",
-    "searchresults": "Suchergebnisse"
+    "close-to-you": "In der Nähe",
+    "search-results": "Suchergebnisse"
   }
 }

@@ -7,13 +7,13 @@
         <app-location-list [locations]="mockLocationsForFavorites" [listType]="favoriteType"></app-location-list>
       </ng-container>-->
       <ng-container *ngIf="locations$ | async as locations">
-        <h1 [ngClass]="{'blur': blur}" class="sectionheading">{{"location-panel.closetoyou" | translate}}</h1>
+        <h1 [ngClass]="{'blur': blur}" class="sectionheading">{{"location-panel.close-to-you" | translate}}</h1>
         <app-location-list [locations]="locations" [listType]="nearByType"></app-location-list>
       </ng-container>
     </ng-container>
 
     <ng-template #showSearchResults>
-      <h1 [ngClass]="{'blur': blur}" class="sectionheading">{{"location-panel.searchresults" | translate}}</h1>
+      <h1 [ngClass]="{'blur': blur}" class="sectionheading">{{"location-panel.search-results" | translate}}</h1>
       <ng-container *ngIf="locations$ | async as locations">
         <app-location-list [locations]="locations" [listType]="searchType"></app-location-list>
       </ng-container>
