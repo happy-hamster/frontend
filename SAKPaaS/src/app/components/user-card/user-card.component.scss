@@ -7,7 +7,7 @@
   right: 0;
   min-width: 200px;
   width: 11%;
-  border-radius: 0 0 0 10px;
+  border-radius: 0 0 0 var(--outer-border-radius);
   box-shadow: none;
   transition: all 0.3s;
   a {
@@ -151,16 +151,11 @@
   width: var(--outer-border-radius);
   height: var(--outer-border-radius);
   background-image: radial-gradient(
-    circle at 100% 100%,
+    circle at 0% 100%,
     transparent 0,
     transparent var(--outer-border-radius),
     white var(--outer-border-radius)
   );
-  transform: rotate(90deg);
-  -webkit-transform: rotate(90deg);
-  -moz-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  -o-transform: rotate(90deg);
   &.upper-left {
     top: 0;
     left: -14px;

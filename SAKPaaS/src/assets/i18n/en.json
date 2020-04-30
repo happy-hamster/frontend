@@ -133,5 +133,11 @@
     "trusted_shop": "Favorite shop",
     "trusted_user": "We trust you!",
     "locked": "Locked"
+  },
+
+  "location-panel": {
+    "favorites": "Favorites",
+    "close-to-you": "Close to you",
+    "search-results": "Search results"
   }
 }
