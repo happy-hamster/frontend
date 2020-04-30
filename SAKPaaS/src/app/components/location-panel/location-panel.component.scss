@@ -1,4 +1,5 @@
 .location-panel {
+  z-index: 3;
   display: flex;
   flex-direction: column;
   padding: 10px 10px 0 10px;
@@ -8,7 +9,8 @@
   height: auto;
   position: fixed;
   top: 45vh;
-  bottom: 0;
+  bottom: 54px;
+  overflow: hidden;
   left: 50vw;
   transform: translate(-50%, 0);
   border-radius: 35px 35px 0 0;
