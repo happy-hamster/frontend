@@ -14,14 +14,14 @@ import { BackgroundBlurService } from 'src/app/core/services/background-blur.ser
 })
 export class HomeComponent implements OnInit {
   selectedLocation$: Observable<Location>;
-  shoudlBlurBackground$: Observable<boolean>;
+  shouldBlurBackground$: Observable<boolean>;
 
   @ViewChild(MapComponent) mapComp: MapComponent;
 
   constructor(private bottomSheet: MatBottomSheet, private backgroundBlurService: BackgroundBlurService) { }
 
   ngOnInit() {
-    this.shoudlBlurBackground$ = this.backgroundBlurService.getBlur();
+    this.shouldBlurBackground$ = this.backgroundBlurService.getBlur();
   }
 
   onLocationEmitted(location: Location, fromMap: boolean) {
