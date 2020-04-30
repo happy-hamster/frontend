@@ -1,30 +1,21 @@
 <mat-card id="user-card">
-  <div class="corner upper-left" id="upperLeftCorner"></div>
-  <div class="expand">
-    <mat-icon (click)="change()" class="expand-icon"
-      >keyboard_arrow_left</mat-icon
-    >
-  </div>
-  <div
-    *ngIf="authService.getUser() | async as user; else login"
-    class="content"
-  >
+  <div class="corner upper-left"></div>
+
+  <div *ngIf="authService.getUser() | async as user; else login" class="content">
+    <div class="expand">
+      <mat-icon (click)="change()" class="expand-icon">keyboard_arrow_left</mat-icon>
+    </div>
     <mat-card-title>
       <span *ngIf="expanded">{{ "user-card.greeting" | translate }}</span>
       {{ user.firstName }}
-      <mat-icon fontSet="material-icons-outlined" class="settings-icon"
-        >settings</mat-icon
-      >
+      <mat-icon fontSet="material-icons-outlined" class="settings-icon">settings</mat-icon>
     </mat-card-title>
     <mat-card-content>
       <div class="progress-bar-container" *ngIf="expanded">
         <div class="level-name">
           {{ "user-card.level" | translate }} {{ currentLevel }}
         </div>
-        <mat-progress-bar
-          mode="determinate"
-          value="{{ currentProgress }}"
-        ></mat-progress-bar>
+        <mat-progress-bar mode="determinate" value="{{ currentProgress }}"></mat-progress-bar>
         <div class="next-level">
           <span *ngIf="remainingReports === 1">
             {{ remainingReports }}
@@ -40,8 +31,7 @@
         {{ user.username }}<br />
         <a class="mat-primary" (click)="authService.logout()">{{
           "user-card.logout" | translate
-        }}</a
-        ><br />
+        }}</a><br />
       </div>
     </mat-card-content>
   </div>
@@ -52,15 +42,12 @@
     <mat-card-title>
       <span *ngIf="expanded">{{ "user-card.greeting" | translate }}</span>
       {{ "user-card.guest" | translate }}
-      <mat-icon fontSet="material-icons-outlined" class="settings-icon"
-        >settings</mat-icon
-      >
+      <mat-icon fontSet="material-icons-outlined" class="settings-icon">settings</mat-icon>
     </mat-card-title>
     <div class="ellipsis">
       <a class="mat-primary" (click)="authService.login()">{{
         "user-card.login" | translate
-      }}</a
-      ><br />
+      }}</a><br />
       <a class="mat-primary" (click)="authService.register()">{{
         "user-card.register" | translate
       }}</a>
