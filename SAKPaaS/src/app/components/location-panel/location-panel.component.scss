@@ -8,7 +8,7 @@
   bottom: 0;
   left: 50%;
   transform: translate(-50%, 0);
-  overflow-y: hidden;
+  overflow: hidden;
   border-radius: 35px;
 }
 
@@ -19,15 +19,21 @@
 .location-panel-inner {
   background-color: white;
   position: fixed;
-  top: 2%;
+  top: 18%;
   left: 2%;
-  width: 96%;
-  height: 96%;
+  width: 98%;
+  height: 80%;
   overflow-y: auto;
-  border-radius: 28px 28px 0px 0px;
   overflow-x: hidden;
-  padding-bottom: 3%;
+  padding-bottom: 7%;
 }
+ .small-panel {
+   top: 2%;
+   border-radius: 28px 28px 0px 0px;
+   overflow: hidden;
+   width: 96%;
+   padding-bottom: 3%;
+ }
 
 h1 {
   font-family: Roboto;
