@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthKeycloakService } from 'src/app/core/services/auth-keycloak.service';
-import { BadgeType } from 'src/app/core/services/badge.service';
-import { Badge } from 'src/app/core/models/badge.interface';
+import { BadgeType, Badge } from 'src/app/core/models/badge.interface';
 import { Observable, of } from 'rxjs';
 
 @Component({
