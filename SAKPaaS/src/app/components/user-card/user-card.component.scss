@@ -37,7 +37,7 @@
     .next-level {
       font-size: 9px;
     }
-    margin-bottom: 29px;
+    margin-bottom: 25px;
   }
 
   .expand-icon:hover {
@@ -45,7 +45,7 @@
   }
 
   &.expanded {
-    width: 400px;
+    width: auto;
   }
 }
 
@@ -92,11 +92,13 @@
         text-align: center;
         letter-spacing: 0.2px;
         word-break: break-word;
-        margin-right: 25px;
+        margin-right: 12.5px;
+        margin-left: 12.5px;
         margin-top: 12px;
-        margin-bottom: 25px;
     }
     overflow: auto;
+    vertical-align: top;
+    height: 110px;
   }
   
   .badge .number{
