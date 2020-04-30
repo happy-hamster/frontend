@@ -23,7 +23,9 @@
   background-color: #000000;
   opacity: 0;
   transition: opacity 0.3s ease;
+  pointer-events: none;
   &.blurred {
+    pointer-events: all;
     opacity: 0.3;
   }
 }
