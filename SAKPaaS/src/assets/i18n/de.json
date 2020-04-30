@@ -118,5 +118,10 @@
     "occupancy-low": "Niedrige Auslastung",
     "occupancy-medium": "Mittlere Auslastung",
     "occupancy-high": "Hohe Auslastung"
+  },
+  "location-panel": {
+    "favorites": "Favoriten",
+    "close-to-you": "In der Nähe",
+    "search-results": "Suchergebnisse"
   }
 }

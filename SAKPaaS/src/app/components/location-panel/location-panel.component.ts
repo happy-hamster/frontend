@@ -22,59 +22,6 @@ export class LocationPanelComponent implements OnInit, OnDestroy {
   blur: boolean;
   subscriptions = new Subscription();
 
-  mockLocationsForFavorites: Location[] = [
-    {
-      id: 2062223349,
-      name: 'MockLaden1',
-      details: {
-        type: 'supermarket',
-        openingHours: null,
-        brand: null
-      },
-      coordinates: {
-        latitude: 52.1038667,
-        longitude: 14.2648863
-      },
-      occupancy: {
-        value: null,
-        count: 0,
-        latestReport: null
-      },
-      address: {
-        country: '"DE"',
-        city: null,
-        postcode: null,
-        street: null,
-        housenumber: null
-      }
-    },
-    {
-      id: 97633716,
-      name: 'Mockladen2',
-      details: {
-        type: 'supermarket',
-        openingHours: 'Mo-Sa 07:00-20:00; PH,Su off',
-        brand: 'Penny'
-      },
-      coordinates: {
-        latitude: 52.1699146,
-        longitude: 14.2442584
-      },
-      occupancy: {
-        value: null,
-        count: 0,
-        latestReport: null
-      },
-      address: {
-        country: '"DE"',
-        city: 'Beeskow',
-        postcode: '15848',
-        street: 'Breitscheidstraße',
-        housenumber: '2'
-      }
-    }
-  ];
-
   constructor(
     private activatedRoute: ActivatedRoute,
     private locationService: LocationProviderService,

@@ -1,18 +1,24 @@
 <div class="location-panel">
+  <div class="location-panel-inner small-panel">
   <app-search-bar></app-search-bar>
-  <ng-container *ngIf="hideSearchResults; else showSearchResults">
-    <h1 [ngClass]="{'blur': blur}">Favoriten</h1>
-    <app-location-list [locations]="mockLocationsForFavorites" [listType]="favoriteType"></app-location-list>
-    <h1 [ngClass]="{'blur': blur}">In der Nähe</h1>
-    <ng-container *ngIf="locations$ | async as locations">
-      <app-location-list [locations]="locations" [listType]="nearByType"></app-location-list>
+  </div>
+  <div class="location-panel-inner">
+    <ng-container *ngIf="hideSearchResults; else showSearchResults">
+      <!--<ng-container *ngIf="mockLocationsForFavorites.length > 0">
+        <h1 [ngClass]="{'blur': blur}" class="sectionheading">{{"location-panel.favorites" | translate}}</h1>
+        <app-location-list [locations]="mockLocationsForFavorites" [listType]="favoriteType"></app-location-list>
+      </ng-container>-->
+      <ng-container *ngIf="locations$ | async as locations">
+        <h1 [ngClass]="{'blur': blur}" class="sectionheading">{{"location-panel.close-to-you" | translate}}</h1>
+        <app-location-list [locations]="locations" [listType]="nearByType"></app-location-list>
+      </ng-container>
     </ng-container>
-  </ng-container>
 
-  <ng-template #showSearchResults>
-    <h1 [ngClass]="{'blur': blur}">Suchergebnisse</h1>
-    <ng-container *ngIf="locations$ | async as locations">
-      <app-location-list [locations]="locations" [listType]="searchType"></app-location-list>
-    </ng-container>
-  </ng-template>
+    <ng-template #showSearchResults>
+      <h1 [ngClass]="{'blur': blur}" class="sectionheading">{{"location-panel.search-results" | translate}}</h1>
+      <ng-container *ngIf="locations$ | async as locations">
+        <app-location-list [locations]="locations" [listType]="searchType"></app-location-list>
+      </ng-container>
+    </ng-template>
+  </div>
 </div>

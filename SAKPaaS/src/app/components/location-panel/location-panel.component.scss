@@ -4,13 +4,36 @@
   background-color: white;
   height: auto;
   position: fixed;
-  top: 40%;
+  top: 45%;
   bottom: 0;
   left: 50%;
   transform: translate(-50%, 0);
-
-  overflow-y: auto;
+  overflow: hidden;
+  border-radius: 35px;
 }
+
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+.location-panel-inner {
+  background-color: white;
+  position: fixed;
+  top: 18%;
+  left: 2%;
+  width: 98%;
+  height: 80%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 7%;
+}
+ .small-panel {
+   top: 2%;
+   border-radius: 28px 28px 0px 0px;
+   overflow: hidden;
+   width: 96%;
+   padding-bottom: 3%;
+ }
 
 h1 {
   font-family: Roboto;
@@ -19,10 +42,13 @@ h1 {
   font-size: 26px;
   line-height: 30px;
   letter-spacing: 0.166667px;
-
-color: #96B7D4;
+  color: #96B7D4;
 }
 
 .blur {
   opacity: 0.2;
+}
+
+.sectionheading {
+  margin-top: 5%;
 }
