@@ -1,4 +1,5 @@
 .location-panel {
+  padding: 10px 10px 0 10px;
   max-width: 500px;
   width: 100%;
   background-color: white;
@@ -9,7 +10,7 @@
   left: 50%;
   transform: translate(-50%, 0);
   overflow: hidden;
-  border-radius: 35px;
+  border-radius: 35px 35px 0 0;
 }
 
 ::-webkit-scrollbar {
@@ -18,22 +19,12 @@
 
 .location-panel-inner {
   background-color: white;
-  position: fixed;
-  top: 18%;
-  left: 2%;
-  width: 98%;
-  height: 80%;
+  position: relative;
+  left: 0;
+  right: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  padding-bottom: 7%;
 }
- .small-panel {
-   top: 2%;
-   border-radius: 28px 28px 0px 0px;
-   overflow: hidden;
-   width: 96%;
-   padding-bottom: 3%;
- }
 
 h1 {
   font-family: Roboto;
@@ -42,7 +33,7 @@ h1 {
   font-size: 26px;
   line-height: 30px;
   letter-spacing: 0.166667px;
-  color: #96B7D4;
+  color: #96b7d4;
 }
 
 .blur {
