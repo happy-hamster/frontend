@@ -1,9 +1,10 @@
 <div id="home-wrapper">
   <app-logo></app-logo>
+  <app-user-card></app-user-card>
   <div id="home-wrapper-inner">
     <app-map (locationEmitted)="onLocationEmitted($event, true)" style="z-index: 1;"></app-map>
-    <app-user-card></app-user-card>
     <app-location-panel></app-location-panel>
+    <div id="blur-container" [class.blurred]="shoudlBlurBackground$ | async"></div>
   </div>
 </div>
 

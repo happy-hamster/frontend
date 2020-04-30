@@ -1,22 +1,28 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { Location } from '../../generated/models/location';
 import { Observable, of } from 'rxjs';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { LocationDetailsComponent } from '../location-details/location-details.component';
 import { MapComponent } from '../map/map.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { BackgroundBlurService } from 'src/app/core/services/background-blur.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   selectedLocation$: Observable<Location>;
+  shoudlBlurBackground$: Observable<boolean>;
 
   @ViewChild(MapComponent) mapComp: MapComponent;
 
-  constructor(private bottomSheet: MatBottomSheet) { }
+  constructor(private bottomSheet: MatBottomSheet, private backgroundBlurService: BackgroundBlurService) { }
+
+  ngOnInit() {
+    this.shoudlBlurBackground$ = this.backgroundBlurService.getBlur();
+  }
 
   onLocationEmitted(location: Location, fromMap: boolean) {
     this.selectedLocation$ = of(location);
