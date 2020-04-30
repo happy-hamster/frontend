@@ -2,10 +2,10 @@
   <div class="location-panel-inner">
     <app-search-bar></app-search-bar>
     <ng-container *ngIf="hideSearchResults; else showSearchResults">
-      <ng-container *ngIf="mockLocationsForFavorites.length > 0">
+      <!--<ng-container *ngIf="mockLocationsForFavorites.length > 0">
         <h1 [ngClass]="{'blur': blur}" class="sectionheading">{{"location-panel.favorites" | translate}}</h1>
         <app-location-list [locations]="mockLocationsForFavorites" [listType]="favoriteType"></app-location-list>
-      </ng-container>
+      </ng-container>-->
       <ng-container *ngIf="locations$ | async as locations">
         <h1 [ngClass]="{'blur': blur}" class="sectionheading">{{"location-panel.closetoyou" | translate}}</h1>
         <app-location-list [locations]="locations" [listType]="nearByType"></app-location-list>
