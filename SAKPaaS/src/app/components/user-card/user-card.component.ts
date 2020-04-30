@@ -33,7 +33,7 @@ export class UserCardComponent {
     ]);
   }
 
-  numberBadges = 12; // Dies muss noch berechnet werden
+  numberBadges = 12; // TODO: Dies muss noch berechnet werden
   page = 1;
   itemsPerPage = 4;
   totalPages = Math.ceil(this.numberBadges / this.itemsPerPage);
