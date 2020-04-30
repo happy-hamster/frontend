@@ -22,7 +22,11 @@
     padding-left: 10px;
     width: 34px;
   }
-  .progress-bar-container {
+
+  mat-icon:hover{
+    cursor: pointer;
+  }
+  .progress-bar-container{
     text-align: center;
     color: var(--greenblue);
     mat-progress-bar {
@@ -34,6 +38,7 @@
     .next-level {
       font-size: 9px;
     }
+    margin-bottom: 25px;
   }
 
   .expand-icon:hover {
@@ -41,7 +46,7 @@
   }
 
   &.expanded {
-    width: 400px;
+    width: 440px;
   }
 }
 
@@ -67,10 +72,83 @@
   -o-transform: rotate(180deg);
 }
 
-.mat-card-title {
-  font-size: 18px;
-  font-weight: 400;
-}
+
+  .badge-container{
+    .badge{
+        img{
+          width: 55px;
+          height: 55px;
+          margin-bottom: 3px;
+        }
+        position: relative;
+        width: 55px;
+        color: #26C485;
+        float: left;
+        clear: right;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 10px;
+        line-height: 12px;
+        text-align: center;
+        letter-spacing: 0.2px;
+        word-break: break-word;
+        margin-right: 12.5px;
+        margin-left: 12.5px;
+        margin-top: 12px;
+    }
+    overflow: hidden;
+    display: flex;
+    white-space: nowrap;
+    vertical-align: top;
+    height: 110px;
+  }
+  
+  .badge .number{
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    padding: 2.5px 5px;
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 2px;
+    border-color:white;
+    background: var(--midnight-blue);
+    color: white;
+  }
+
+  #wrapper {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+  #first {
+    float: left;
+    width: 34px;
+  }
+  #second {
+    float: left;
+  }
+  #third {
+    float: left;    
+    width: 34px;
+  }
+
+
+  .mat-badge-content {
+    background-color: #0B0033;
+    color: white;
+  }
+
+  .mat-card-title {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 26px;
+    text-align: center;
+    color: #BAD1CD;
+  }
 
 .corner {
   position: absolute;

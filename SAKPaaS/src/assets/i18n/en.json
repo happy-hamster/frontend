@@ -119,6 +119,22 @@
     "occupancy-medium": "Medium occupancy",
     "occupancy-high": "High occupancy"
   },
+  "badges": {
+    "next_level": "Next Level",
+    "next_level_class": "Next Class",
+    "report": "Reporter",
+    "new_report": "Explorer",
+    "two_shops": "Better safe than sorry",
+    "shop_first_report": "Distributor",
+    "week_1": "Once a week",
+    "week_3": "3 times per week",
+    "week_full": "24/7 active",
+    "week_special": "Every day something new",
+    "trusted_shop": "Favorite shop",
+    "trusted_user": "We trust you!",
+    "locked": "Locked"
+  },
+
   "location-panel": {
     "favorites": "Favorites",
     "close-to-you": "Close to you",
