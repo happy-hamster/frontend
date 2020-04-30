@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthKeycloakService } from 'src/app/core/services/auth-keycloak.service';
 import { BadgeType, Badge } from 'src/app/core/models/badge.interface';
 import { Observable, of } from 'rxjs';
+import { BackgroundBlurService } from 'src/app/core/services/background-blur.service';
 
 @Component({
   selector: 'app-user-card',
@@ -14,7 +15,8 @@ export class UserCardComponent {
   badges$: Observable<Badge[]>;
 
   constructor(
-    public authService: AuthKeycloakService
+    public authService: AuthKeycloakService,
+    private backgroundBlurService: BackgroundBlurService
   ) {
     this.badges$ = of([
       {image: BadgeType.NEXT_LEVEL, count: 1},
@@ -71,6 +73,8 @@ export class UserCardComponent {
       document.getElementsByClassName('expand-icon')[0].classList.add('turned');
       document.getElementsByClassName('content')[0].setAttribute('style', 'text-align: center;');
     }
+
+    this.backgroundBlurService.setBlur(this.expanded);
   }
 
 }

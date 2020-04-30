@@ -13,3 +13,17 @@
   border-radius: var(--outer-border-radius);
   overflow: hidden;
 }
+
+#blur-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #000000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  &.blurred {
+    opacity: 0.3;
+  }
+}
