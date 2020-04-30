@@ -1,15 +1,16 @@
 .location-panel {
+  display: flex;
+  flex-direction: column;
   padding: 10px 10px 0 10px;
   max-width: 500px;
   width: 100%;
   background-color: white;
   height: auto;
   position: fixed;
-  top: 45%;
+  top: 45vh;
   bottom: 0;
-  left: 50%;
+  left: 50vw;
   transform: translate(-50%, 0);
-  overflow: hidden;
   border-radius: 35px 35px 0 0;
 }
 
@@ -18,12 +19,16 @@
 }
 
 .location-panel-inner {
-  background-color: white;
-  position: relative;
-  left: 0;
-  right: 0;
+  margin-bottom: 10px;
+}
+
+.location-panel-inner:nth-child(2) {
   overflow-y: auto;
-  overflow-x: hidden;
+  bottom: 0;
+}
+
+.location-panel-inner:last-child {
+  margin-bottom: 0;
 }
 
 h1 {
@@ -41,5 +46,5 @@ h1 {
 }
 
 .sectionheading {
-  margin-top: 5%;
+  margin-top: 30px;
 }
