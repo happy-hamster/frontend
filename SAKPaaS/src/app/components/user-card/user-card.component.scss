@@ -82,7 +82,7 @@
     }
     position: relative;
     width: 55px;
-    color: #26c485;
+    color: var(--greenblue);
     float: left;
     clear: right;
     font-family: Roboto;
@@ -133,11 +133,6 @@
   width: 34px;
 }
 
-.mat-badge-content {
-  background-color: #0b0033;
-  color: white;
-}
-
 .mat-card-title {
   font-family: Roboto;
   font-style: normal;
@@ -145,7 +140,7 @@
   font-size: 22px;
   line-height: 26px;
   text-align: center;
-  color: #bad1cd;
+  color: var(--silver);
 }
 
 .corner {
