@@ -49,7 +49,7 @@ mat-form-field {
   background: white;
   border-radius: 40px;
   margin-right: 8px;
-  padding: 10px 10px 12px 14px;
+  padding: 10px 10px 10px 14px;
 }
 
 .custom-select {
@@ -70,12 +70,22 @@ mat-form-field {
   background-color: transparent;
 }
 
-.mat-form-field-wrapper {
-  padding-bottom: 0px;
+.search-bar-form ::ng-deep mat-form-field .mat-form-field-wrapper,
+.search-bar-form ::ng-deep mat-form-field .mat-form-field-infix {
+  padding: 0;
 }
 
-.mat-form-field-remove-padding {
-  margin-bottom: -1.34375em;
+.search-bar-form ::ng-deep mat-form-field input#mat-input-0 {
+  font-weight: bold;
+  color: var(--greenish-grey);
+}
+
+.search-bar-form ::ng-deep mat-form-field .mat-form-field-label {
+  position: initial;
+  font-weight: bold;
+  font-size: 12px;
+  color: var(--midnight-blue);
+  line-height: 14px;
 }
 
 .mat-form-field-select {
@@ -83,5 +93,5 @@ mat-form-field {
 }
 
 .search-icon {
-  transform: translate(0px, 3px);
+  transform: translate(0px, 6px);
 }
