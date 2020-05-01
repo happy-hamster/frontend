@@ -98,6 +98,10 @@ mat-form-field {
   .mat-form-field-suffix.ng-star-inserted > .search-icon {
     color: var(--greenish-grey);
   }
+  .mat-form-field-infix {
+    margin: auto 0;
+    border: 0;
+  }
 }
 
 .mat-form-field-select {
