@@ -70,28 +70,36 @@ mat-form-field {
   background-color: transparent;
 }
 
-.search-bar-form ::ng-deep mat-form-field .mat-form-field-wrapper,
-.search-bar-form ::ng-deep mat-form-field .mat-form-field-infix {
-  padding: 0;
-}
-
-.search-bar-form ::ng-deep mat-form-field input#mat-input-0 {
-  font-weight: bold;
-  color: var(--greenish-grey);
-}
-
-.search-bar-form ::ng-deep mat-form-field .mat-form-field-label {
-  position: initial;
-  font-weight: bold;
-  font-size: 12px;
-  color: var(--midnight-blue);
-  line-height: 14px;
+.search-bar-form ::ng-deep {
+  mat-form-field {
+    .mat-form-field-wrapper,
+    .mat-form-field-infix {
+      padding: 0;
+    }
+    input#mat-input-0 {
+      font-weight: bold;
+      color: var(--greenish-grey);
+    }
+    .mat-form-field-label {
+      position: initial;
+      font-weight: bold;
+      font-size: 12px;
+      color: var(--midnight-blue);
+      line-height: 14px;
+    }
+    .mat-form-field-wrapper,
+    .mat-form-field-flex {
+      height: 100%;
+    }
+  }
+  .mat-form-field-suffix.ng-star-inserted {
+    margin: auto 0;
+  }
+  .mat-form-field-suffix.ng-star-inserted > .search-icon {
+    color: var(--greenish-grey);
+  }
 }
 
 .mat-form-field-select {
   margin-top: -0.8em;
-}
-
-.search-icon {
-  transform: translate(0px, 6px);
 }
