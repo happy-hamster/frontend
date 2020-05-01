@@ -1,15 +1,19 @@
 .location-panel {
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 10px 0 10px;
   max-width: 500px;
   width: 100%;
   background-color: white;
   height: auto;
   position: fixed;
-  top: 45%;
-  bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 0);
+  top: 35vh;
+  bottom: 54px;
   overflow: hidden;
-  border-radius: 35px;
+  left: 50vw;
+  transform: translate(-50%, 0);
+  border-radius: 40px 40px 0 0;
 }
 
 ::-webkit-scrollbar {
@@ -17,23 +21,17 @@
 }
 
 .location-panel-inner {
-  background-color: white;
-  position: fixed;
-  top: 18%;
-  left: 2%;
-  width: 98%;
-  height: 80%;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding-bottom: 7%;
+  margin-bottom: 10px;
 }
- .small-panel {
-   top: 2%;
-   border-radius: 28px 28px 0px 0px;
-   overflow: hidden;
-   width: 96%;
-   padding-bottom: 3%;
- }
+
+.location-panel-inner:nth-child(2) {
+  overflow-y: auto;
+  bottom: 0;
+}
+
+.location-panel-inner:last-child {
+  margin-bottom: 0;
+}
 
 h1 {
   font-family: Roboto;
@@ -42,7 +40,7 @@ h1 {
   font-size: 26px;
   line-height: 30px;
   letter-spacing: 0.166667px;
-  color: #96B7D4;
+  color: var(--silver);
 }
 
 .blur {
@@ -50,5 +48,5 @@ h1 {
 }
 
 .sectionheading {
-  margin-top: 5%;
+  margin-top: 30px;
 }
