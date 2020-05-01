@@ -72,9 +72,11 @@ mat-form-field {
 
 .search-bar-form ::ng-deep {
   mat-form-field {
+    vertical-align: text-bottom;
     .mat-form-field-wrapper,
     .mat-form-field-infix {
       padding: 0;
+      overflow: hidden;
     }
     input#mat-input-0 {
       font-weight: bold;
