@@ -64,6 +64,10 @@ nav {
 .section {
   padding: 5px 15px;
   border-top: $seperator-border;
+  &.top {
+    border-top: none;
+    border-bottom: $seperator-border;
+  }
   h3 {
     margin: 5px 0 5px -5px;
     font-size: 1em;

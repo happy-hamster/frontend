@@ -4,17 +4,16 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { SidenavComponent } from './sidenav.component';
 import { HammerModule } from '@angular/platform-browser';
-import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
 @NgModule({
   declarations: [SidenavComponent],
   imports: [
-    CommonModule,
+    SharedModule,
     MatIconModule,
-    HammerModule,
-    TranslateModule
+    HammerModule
   ],
   exports: [SidenavComponent]
 })

@@ -8,6 +8,14 @@
       <p class="greeting">{{'user-card.greeting' | translate}} Gast!</p>
       <p class="email">mockmail@mail.de</p>
     </div>
+    <div class="section top">
+      <a routerLink="/" (click)="close()">
+        <div class="img-wrap">
+          <mat-icon>search</mat-icon>
+        </div>
+        {{'sidenav.search' | translate}}
+      </a>
+    </div>
   </div>
   <div class="space"></div>
   <div class="bottom">
@@ -54,8 +62,8 @@
     </div>
   </div>
   <div class="section imprint">
-    <a href="">{{'footer.impressum' | translate}}</a>
-    <a href="">{{'footer.privacy-policy' | translate}}</a>
+    <a routerLink="/legal/impressum" (click)="close()">{{'footer.impressum' | translate}}</a>
+    <a routerLink="/legal/privacy-policy" (click)="close()">{{'footer.privacy-policy' | translate}}</a>
   </div>
 </nav>
 <div class="backdrop" [class.open]="open$ | async" (click)="close()">
