@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SidenavComponent } from './sidenav.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('SidenavComponent', () => {
   let component: SidenavComponent;
@@ -8,9 +9,11 @@ describe('SidenavComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SidenavComponent ]
-    })
-    .compileComponents();
+      declarations: [SidenavComponent],
+      imports: [
+        TranslateModule.forRoot({})
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
