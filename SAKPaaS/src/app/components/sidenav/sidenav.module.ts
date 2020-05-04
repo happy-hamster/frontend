@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 import { SidenavComponent } from './sidenav.component';
 
@@ -8,7 +9,8 @@ import { SidenavComponent } from './sidenav.component';
 @NgModule({
   declarations: [SidenavComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    MatIconModule
   ],
   exports: [SidenavComponent]
 })
