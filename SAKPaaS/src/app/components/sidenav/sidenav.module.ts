@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 
 import { SidenavComponent } from './sidenav.component';
+import { HammerModule } from '@angular/platform-browser';
 
 
 
@@ -10,7 +11,8 @@ import { SidenavComponent } from './sidenav.component';
   declarations: [SidenavComponent],
   imports: [
     CommonModule,
-    MatIconModule
+    MatIconModule,
+    HammerModule
   ],
   exports: [SidenavComponent]
 })

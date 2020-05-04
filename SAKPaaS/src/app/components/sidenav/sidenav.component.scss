@@ -1,4 +1,5 @@
 $seperator-border: 2px solid var(--silver);
+$transition: 0.2s ease;
 
 nav {
   position: absolute;
@@ -13,7 +14,7 @@ nav {
     display: none;
   }
 
-  transition: transform 0.3s ease-in-out;
+  transition: transform $transition;
   transform: translateX(-100%);
   &.open {
     transform: translateX(0);
@@ -29,7 +30,7 @@ nav {
   height: 100vh;
   z-index: 99;
 
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity $transition;
   &.open {
     opacity: 0.8;
     pointer-events: all;

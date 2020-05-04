@@ -2,7 +2,7 @@
   <mat-icon>menu</mat-icon>
 </div>
 
-<nav [class.open]="open$ | async">
+<nav [class.open]="open$ | async" (swipeleft)="close()">
   <div class="top">
     <div class="user-header">
       <p class="greeting">Hallo Gast!</p>
