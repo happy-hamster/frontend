@@ -5,14 +5,14 @@
 <nav [class.open]="open$ | async" (swipeleft)="close()">
   <div class="top">
     <div class="user-header">
-      <p class="greeting">Hallo Gast!</p>
+      <p class="greeting">{{'user-card.greeting' | translate}} Gast!</p>
       <p class="email">mockmail@mail.de</p>
     </div>
   </div>
   <div class="space"></div>
   <div class="bottom">
     <div class="section">
-      <h3>Social Media</h3>
+      <h3>{{'sidenav.social-media' | translate}}</h3>
       <a target="_blank" rel="noreferrer" href="https://www.instagram.com/happyhamsterorg/">
         <div class="img-wrap">
           <img src="assets/icons/social-media/instagram.svg" alt="Instagram" />
@@ -43,19 +43,19 @@
         <div class="img-wrap">
           <mat-icon>feedback</mat-icon>
         </div>
-        Feedback
+        {{'sidenav.feedback' | translate}}
       </a>
-      <a href="">
+      <a (click)="toggleLanguage()">
         <div class="img-wrap">
           <mat-icon>language</mat-icon>
         </div>
-        Sprache wechseln
+        {{'sidenav.toggle-lang' | translate}}
       </a>
     </div>
   </div>
   <div class="section imprint">
-    <a href="">Impressum</a>
-    <a href="">Datenschutzerklärung</a>
+    <a href="">{{'footer.impressum' | translate}}</a>
+    <a href="">{{'footer.privacy-policy' | translate}}</a>
   </div>
 </nav>
 <div class="backdrop" [class.open]="open$ | async" (click)="close()">

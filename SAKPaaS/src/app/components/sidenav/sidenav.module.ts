@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { SidenavComponent } from './sidenav.component';
 import { HammerModule } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -12,7 +13,8 @@ import { HammerModule } from '@angular/platform-browser';
   imports: [
     CommonModule,
     MatIconModule,
-    HammerModule
+    HammerModule,
+    TranslateModule
   ],
   exports: [SidenavComponent]
 })

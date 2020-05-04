@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { LanguageSelectionService } from 'src/app/core/services/language-selection.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -10,7 +11,9 @@ export class SidenavComponent implements OnInit {
 
   open$ = new BehaviorSubject(false);
 
-  constructor() { }
+  constructor(
+    private languageService: LanguageSelectionService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -21,5 +24,9 @@ export class SidenavComponent implements OnInit {
 
   open() {
     this.open$.next(true);
+  }
+
+  toggleLanguage() {
+    this.languageService.toggleDeEn();
   }
 }
