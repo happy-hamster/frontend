@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-sidenav',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidenavComponent implements OnInit {
 
+  open$ = new BehaviorSubject(false);
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  close() {
+    this.open$.next(false);
+  }
+
+  open() {
+    this.open$.next(true);
+  }
 }

@@ -1,6 +1,14 @@
-<nav>
-  Sidenav &lt;3
-  <div class="top">top content</div>
+<div id="burger-menu" (click)="open()">
+  <mat-icon>menu</mat-icon>
+</div>
+
+<nav [class.open]="open$ | async">
+  <div class="top">
+    <div class="user-header">
+      <p class="greeting">Hallo Gast!</p>
+      <p class="email">mockmail@mail.de</p>
+    </div>
+  </div>
   <div class="space"></div>
   <div class="bottom">
     <div class="section">
@@ -50,6 +58,6 @@
     <a href="">Datenschutzerklärung</a>
   </div>
 </nav>
-<div class="backdrop">
+<div class="backdrop" [class.open]="open$ | async" (click)="close()">
 
 </div>

@@ -1,3 +1,5 @@
+$seperator-border: 2px solid var(--silver);
+
 nav {
   position: absolute;
   width: calc(100vw - 50px);
@@ -10,14 +12,42 @@ nav {
   @media (min-width: 601px) {
     display: none;
   }
+
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(-100%);
+  &.open {
+    transform: translateX(0);
+  }
 }
 
 .backdrop {
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: black;
+  opacity: 0;
+  pointer-events: none;
   width: 100vw;
   height: 100vh;
   z-index: 99;
+
+  transition: opacity 0.3s ease-in-out;
+  &.open {
+    opacity: 0.8;
+    pointer-events: all;
+  }
+}
+
+.user-header {
+  border-bottom: $seperator-border;
+  padding: 5px 15px;
+  p {
+    margin-bottom: 5px;
+  }
+  .greeting {
+    margin-top: 10px;
+    font-size: 1.5em;
+  }
+  .email {
+  }
 }
 
 .top {
@@ -32,7 +62,7 @@ nav {
 
 .section {
   padding: 5px 15px;
-  border-top: 1px solid var(--midnight-blue);
+  border-top: $seperator-border;
   h3 {
     margin: 5px 0 5px -5px;
     font-size: 1em;
@@ -66,4 +96,12 @@ nav {
     font-weight: 500;
     font-size: 0.8em;
   }
+}
+
+#burger-menu {
+  position: absolute;
+  background-color: white;
+  border-radius: 0 0 var(--outer-border-radius) 0;
+  z-index: 99;
+  padding: 10px 20px;
 }
