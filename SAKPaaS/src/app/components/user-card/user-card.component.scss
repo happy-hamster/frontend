@@ -3,170 +3,48 @@
     display: none;
   }
   position: absolute;
-  top: 0;
-  right: 0;
-  min-width: 200px;
-  width: 11%;
-  border-radius: 0 0 0 var(--outer-border-radius);
-  box-shadow: none;
-  transition: all 0.3s;
-  z-index: 5;
+  top: 45px;
+  right: 30px;
+  border-radius: 10px;
   a {
     color: var(--greenblue);
     text-decoration: underline;
     cursor: pointer;
   }
-  .settings-icon {
+  mat-icon {
     display: none;
     float: right;
     padding-left: 10px;
     width: 34px;
   }
-
-  mat-icon:hover{
-    cursor: pointer;
-  }
   .progress-bar-container{
     text-align: center;
-    color: var(--greenblue);
-    mat-progress-bar {
+    color: var(--greenish-grey);
+
+    mat-progress-bar{
+      margin: 0 auto;
+      margin-top: 5px;
       border-radius: 3px;
+      max-width: 180px;
     }
-    .level-name {
-      font-size: 12px;
+    .level-name{
+      font-size: 14px;
+      .level{
+        color: var(--greenblue);
+      }
     }
-    .next-level {
-      font-size: 9px;
+    .next-level{
+      font-size: 10px;
     }
-    margin-bottom: 25px;
-  }
-
-  .expand-icon:hover {
-    cursor: pointer;
-  }
-
-  &.expanded {
-    width: 440px;
   }
 }
 
-.expand {
-  float: left;
-}
-
-.content {
-  transition: text-indent 0.3s;
-}
-
-.ellipsis {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.turned {
-  transform: rotate(180deg);
-  -webkit-transform: rotate(180deg);
-  -moz-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  -o-transform: rotate(180deg);
-}
-
-
-  .badge-container{
-    .badge{
-        img{
-          width: 55px;
-          height: 55px;
-          margin-bottom: 3px;
-        }
-        position: relative;
-        width: 55px;
-        color: #26C485;
-        float: left;
-        clear: right;
-        font-family: Roboto;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 10px;
-        line-height: 12px;
-        text-align: center;
-        letter-spacing: 0.2px;
-        word-break: break-word;
-        margin-right: 12.5px;
-        margin-left: 12.5px;
-        margin-top: 12px;
-    }
-    overflow: hidden;
-    display: flex;
-    vertical-align: top;
-    height: 110px;
-  }
-  
-  .badge .number{
-    position: absolute;
-    top: -2px;
-    right: -2px;
-    padding: 2.5px 5px;
-    border-radius: 50%;
-    border-style: solid;
-    border-width: 2px;
-    border-color:white;
-    background: var(--midnight-blue);
-    color: white;
-  }
-
-  #wrapper {
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-  }
-  #first {
-    float: left;
-    width: 34px;
-  }
-  #second {
-    float: left;
-  }
-  #third {
-    float: left;    
-    width: 34px;
-  }
-
-
-  .mat-badge-content {
-    background-color: #0B0033;
-    color: white;
-  }
-
-  .mat-card-title {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 22px;
-    line-height: 26px;
-    text-align: center;
-    color: #BAD1CD;
-  }
-
-.corner {
-  position: absolute;
-  z-index: 3;
-  width: var(--outer-border-radius);
-  height: var(--outer-border-radius);
-  background-image: radial-gradient(
-    circle at 0% 100%,
-    transparent 0,
-    transparent var(--outer-border-radius),
-    white var(--outer-border-radius)
-  );
-  &.upper-left {
-    top: 0;
-    left: -14px;
-    transition: right 0.3s;
-  }
-  &.bottom-right {
-    right: 0;
-    bottom: -14px;
-  }
+.mat-card-title {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 26px;
+  text-align: center;
+  color: var(--silver);
 }
