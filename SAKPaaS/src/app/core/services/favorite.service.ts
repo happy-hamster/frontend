@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {Location} from '../../generated/models/location';
 import {UserFavoritesService} from '../../generated/services/user-favorites.service';
 
@@ -16,7 +16,7 @@ export class FavoriteService {
     userFavoritesService.usersSelfFavoritesGet().subscribe(this.favorites$);
   }
 
-  getFavorites(): BehaviorSubject<Location[]> {
+  getFavorites(): Observable<Location[]> {
     return this.favorites$;
   }
 
