@@ -26,7 +26,8 @@
             "assets": [
               "src/assets",
               "src/manifest.json",
-              "src/robots.txt"
+              "src/robots.txt",
+              "src/silent-check-sso.html"
             ],
             "styles": [
               "src/theme.scss",

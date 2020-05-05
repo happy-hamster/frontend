@@ -8,16 +8,13 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
-import { Coordinates } from '../models/coordinates';
 import { Location } from '../models/location';
 import { LocationId } from '../models/location-id';
-import { LocationSearchResult } from '../models/location-search-result';
-import { LocationType } from '../models/location-type';
 
 @Injectable({
   providedIn: 'root',
 })
-export class LocationsService extends BaseService {
+export class UserFavoritesService extends BaseService {
   constructor(
     config: ApiConfiguration,
     http: HttpClient
@@ -26,37 +23,25 @@ export class LocationsService extends BaseService {
   }
 
   /**
-   * Path part for operation searchLocations
+   * Path part for operation usersSelfFavoritesGet
    */
-  static readonly SearchLocationsPath = '/locations';
+  static readonly UsersSelfFavoritesGetPath = '/users/self/favorites';
 
   /**
-   * Searches for locations in the given range.
+   * List all favorite locations for the currently logged in user.
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `searchLocations()` instead.
+   * To access only the response body, use `usersSelfFavoritesGet()` instead.
    *
    * This method doesn't expect any request body.
    */
-  searchLocations$Response(params: {
-
-    /**
-     * Latitude
-     */
-    coordinates: Coordinates;
-
-    /**
-     * Locationtype
-     */
-    type?: Array<LocationType>;
+  usersSelfFavoritesGet$Response(params?: {
 
   }): Observable<StrictHttpResponse<Array<Location>>> {
 
-    const rb = new RequestBuilder(this.rootUrl, LocationsService.SearchLocationsPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, UserFavoritesService.UsersSelfFavoritesGetPath, 'get');
     if (params) {
 
-      rb.query('Coordinates', params.coordinates);
-      rb.query('type', params.type);
 
     }
     return this.http.request(rb.build({
@@ -71,55 +56,45 @@ export class LocationsService extends BaseService {
   }
 
   /**
-   * Searches for locations in the given range.
+   * List all favorite locations for the currently logged in user.
    *
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `searchLocations$Response()` instead.
+   * To access the full response (for headers, for example), `usersSelfFavoritesGet$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  searchLocations(params: {
-
-    /**
-     * Latitude
-     */
-    coordinates: Coordinates;
-
-    /**
-     * Locationtype
-     */
-    type?: Array<LocationType>;
+  usersSelfFavoritesGet(params?: {
 
   }): Observable<Array<Location>> {
 
-    return this.searchLocations$Response(params).pipe(
+    return this.usersSelfFavoritesGet$Response(params).pipe(
       map((r: StrictHttpResponse<Array<Location>>) => r.body as Array<Location>)
     );
   }
 
   /**
-   * Path part for operation locationsIdGet
+   * Path part for operation addFavorite
    */
-  static readonly LocationsIdGetPath = '/locations/{id}';
+  static readonly AddFavoritePath = '/users/self/favorites/{id}';
 
   /**
-   * Get details for a specific location.
+   * Add a favorite by location id for the currently logged in user.
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `locationsIdGet()` instead.
+   * To access only the response body, use `addFavorite()` instead.
    *
    * This method doesn't expect any request body.
    */
-  locationsIdGet$Response(params: {
+  addFavorite$Response(params: {
 
     /**
-     * id
+     * id of the location
      */
     id: LocationId;
 
   }): Observable<StrictHttpResponse<Location>> {
 
-    const rb = new RequestBuilder(this.rootUrl, LocationsService.LocationsIdGetPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, UserFavoritesService.AddFavoritePath, 'post');
     if (params) {
 
       rb.path('id', params.id);
@@ -137,53 +112,53 @@ export class LocationsService extends BaseService {
   }
 
   /**
-   * Get details for a specific location.
+   * Add a favorite by location id for the currently logged in user.
    *
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `locationsIdGet$Response()` instead.
+   * To access the full response (for headers, for example), `addFavorite$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  locationsIdGet(params: {
+  addFavorite(params: {
 
     /**
-     * id
+     * id of the location
      */
     id: LocationId;
 
   }): Observable<Location> {
 
-    return this.locationsIdGet$Response(params).pipe(
+    return this.addFavorite$Response(params).pipe(
       map((r: StrictHttpResponse<Location>) => r.body as Location)
     );
   }
 
   /**
-   * Path part for operation locationsSearchQueryGet
+   * Path part for operation deleteFavorite
    */
-  static readonly LocationsSearchQueryGetPath = '/locations/search/{query}';
+  static readonly DeleteFavoritePath = '/users/self/favorites/{id}';
 
   /**
-   * Returns the Coordinate and Locations around the 'Search Query'.
+   * Remove a favorite by location id for the currently logged in user.
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `locationsSearchQueryGet()` instead.
+   * To access only the response body, use `deleteFavorite()` instead.
    *
    * This method doesn't expect any request body.
    */
-  locationsSearchQueryGet$Response(params: {
+  deleteFavorite$Response(params: {
 
     /**
-     * Search query
+     * id of the location
      */
-    query: string;
+    id: LocationId;
 
-  }): Observable<StrictHttpResponse<LocationSearchResult>> {
+  }): Observable<StrictHttpResponse<Location>> {
 
-    const rb = new RequestBuilder(this.rootUrl, LocationsService.LocationsSearchQueryGetPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, UserFavoritesService.DeleteFavoritePath, 'delete');
     if (params) {
 
-      rb.path('query', params.query);
+      rb.path('id', params.id);
 
     }
     return this.http.request(rb.build({
@@ -192,30 +167,30 @@ export class LocationsService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<LocationSearchResult>;
+        return r as StrictHttpResponse<Location>;
       })
     );
   }
 
   /**
-   * Returns the Coordinate and Locations around the 'Search Query'.
+   * Remove a favorite by location id for the currently logged in user.
    *
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `locationsSearchQueryGet$Response()` instead.
+   * To access the full response (for headers, for example), `deleteFavorite$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  locationsSearchQueryGet(params: {
+  deleteFavorite(params: {
 
     /**
-     * Search query
+     * id of the location
      */
-    query: string;
+    id: LocationId;
 
-  }): Observable<LocationSearchResult> {
+  }): Observable<Location> {
 
-    return this.locationsSearchQueryGet$Response(params).pipe(
-      map((r: StrictHttpResponse<LocationSearchResult>) => r.body as LocationSearchResult)
+    return this.deleteFavorite$Response(params).pipe(
+      map((r: StrictHttpResponse<Location>) => r.body as Location)
     );
   }
 
