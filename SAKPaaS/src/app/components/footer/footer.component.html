@@ -20,32 +20,34 @@
   >
     <img src="assets/icons/social-media/youtube-grey.svg" alt="Youtube" />
   </a>
-  <a 
-  target="_blank" 
-  rel="noreferrer" 
-  href="https://github.com/SAKPaaS">
-  <img src="assets/icons/social-media/github-grey.svg" alt="GitHub" />
-</a>
+  <a target="_blank" rel="noreferrer" href="https://github.com/SAKPaaS">
+    <img src="assets/icons/social-media/github-grey.svg" alt="GitHub" />
+  </a>
 
-<div class="ml">
-  <img src="assets/icons/seperator.svg"/>
-</div>
+  <div class="ml">
+    <img src="assets/icons/seperator.svg" />
+  </div>
 
-<a class ="ml"
-  target="_blank"
-  rel="noreferrer"
-  href="https://docs.google.com/forms/d/e/1FAIpQLSekXXSN--ehheZoMnMj9oE3tzCdS0C8oQ0lg8Lpl8RxNRIPEA/viewform">
-  <img src="assets/icons/about.svg" alt="Feedback"/>
-</a>
+  <a
+    class="ml"
+    target="_blank"
+    rel="noreferrer"
+    href="https://docs.google.com/forms/d/e/1FAIpQLSekXXSN--ehheZoMnMj9oE3tzCdS0C8oQ0lg8Lpl8RxNRIPEA/viewform"
+  >
+    <img src="assets/icons/about.svg" alt="Feedback" />
+  </a>
 </div>
 <span class="rightalign-footer">
   <a [routerLink]="" (click)="toggleLanguage()">
     {{ selectedLanguage === "de" ? "EN" : "DE" }} |
   </a>
-  <div class="line-break"></div>
-  <a href="https://welcome.happyhamster.org/">{{
-    "footer.help" | translate
-  }} | </a>
-  <a href="" routerLink="/legal/impressum">{{ "footer.impressum" | translate }} |</a>
-  <a href="" routerLink="/legal/privacy-policy">{{ "footer.privacy-policy" | translate }}</a>
+  <a href="https://welcome.happyhamster.org/"
+    >{{ "footer.help" | translate }} |
+  </a>
+  <a href="" routerLink="/legal/impressum"
+    >{{ "footer.impressum" | translate }} |</a
+  >
+  <a href="" routerLink="/legal/privacy-policy">{{
+    "footer.privacy-policy" | translate
+  }}</a>
 </span>

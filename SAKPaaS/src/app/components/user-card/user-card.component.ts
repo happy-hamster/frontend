@@ -62,7 +62,6 @@ export class UserCardComponent {
     if (this.expanded) {
       this.expanded = !this.expanded;
       element.classList.remove('expanded');
-      element.setAttribute('style', '');
       document.getElementsByClassName('expand-icon')[0].classList.remove('turned');
       document.getElementsByClassName('content')[0].setAttribute('style', 'text-align: left;');
 

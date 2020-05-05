@@ -3,7 +3,7 @@
   height: 100%;
   width: 100%;
   border: 14px solid white;
-  // border-radius: 14px;
+  padding-bottom: 40px;
 }
 
 #home-wrapper-inner {
@@ -15,6 +15,7 @@
 }
 
 #blur-container {
+  z-index: 4;
   position: absolute;
   top: 0;
   left: 0;
