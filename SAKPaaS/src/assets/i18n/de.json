@@ -139,5 +139,11 @@
     "favorites": "Favoriten",
     "close-to-you": "In der Nähe",
     "search-results": "Suchergebnisse"
+  },
+
+  "badge-notification": {
+    "congratulations": "Glückwunsch!",
+    "new-badge": "Du hast ein neues Badge freigeschaltet",
+    "confirm": "Hurraaa!"
   }
 }
