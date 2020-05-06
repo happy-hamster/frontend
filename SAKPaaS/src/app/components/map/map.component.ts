@@ -32,8 +32,6 @@ export class MapComponent implements OnInit, OnDestroy {
   private static opacityOfBlurredLocations = 0.6;
   private static animationDuration = 200;
 
-  @Output() locationEmitted = new EventEmitter<Location>();
-
   customMap: Map;
   markers = new Subject<OLMapMarker[]>();
 
