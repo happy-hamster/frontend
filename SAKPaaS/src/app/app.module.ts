@@ -25,6 +25,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { LocationDetailsModule } from 'src/app/components/location-details/location-details.module';
 import { ApiModule } from './generated/api.module';
 import {LocationCardModule} from './components/location-card/location-card.module';
+import { LocationPanelModule } from './components/location-panel/location-panel.module';
+import { API_INTERCEPTOR_PROVIDER, ApiInterceptor } from './core/interceptors/api.interceptor';
 
 
 
@@ -54,6 +56,7 @@ import {LocationCardModule} from './components/location-card/location-card.modul
     LocateButtonModule,
     LocationDetailsModule,
     LocationCardModule,
+    LocationPanelModule,
     LogoModule,
     MapModule,
     OccupancyReportModule,
@@ -72,6 +75,8 @@ import {LocationCardModule} from './components/location-card/location-card.modul
       ],
       multi: true
     },
+    ApiInterceptor,
+    API_INTERCEPTOR_PROVIDER,
     CookieService,
     PwaRequestCatcherService
   ],
