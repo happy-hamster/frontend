@@ -2,7 +2,7 @@
   <div class="corner upper-left"></div>
 
   <div *ngIf="authService.getUser() | async as user; else login" class="content">
-    <div class="expand">
+    <div class="expand" *ngIf="!mobile">
       <mat-icon (click)="change()" class="expand-icon">keyboard_arrow_left</mat-icon>
     </div>
     <mat-card-title>
@@ -11,7 +11,7 @@
       <mat-icon fontSet="material-icons-outlined" class="settings-icon">settings</mat-icon>
     </mat-card-title>
     <mat-card-content>
-      <div class="progress-bar-container" *ngIf="expanded">
+      <div class="progress-bar-container" *ngIf="expanded || mobile">
         <div class="level-name">
           {{ "user-card.level" | translate }} {{ currentLevel }}
         </div>
@@ -28,7 +28,7 @@
         </div>
       </div>
 
-      <div id="wrapper" *ngIf="expanded">
+      <div id="wrapper" *ngIf="expanded || mobile">
         <div id="first">
           <mat-icon *ngIf="totalPages>1 && page!=1" fontSet="material-icons-outlined" style="display:initial; color: #9DA9A0; padding-left: 0px;" (click)="backPage()">
             keyboard_arrow_left

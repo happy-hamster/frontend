@@ -11,6 +11,7 @@ import { BackgroundBlurService } from 'src/app/core/services/background-blur.ser
 })
 export class UserCardComponent {
   expanded = false;
+  mobile = false;
 
   badges$: Observable<Badge[]>;
 
@@ -32,6 +33,10 @@ export class UserCardComponent {
       {image: BadgeType.TRUSTED_SHOP, count: 1},
       {image: BadgeType.TRUSTED_USER, count: 1}
     ]);
+
+    if (window.screen.width <= 600) {
+      this.mobile = true;
+    }
   }
 
   numberBadges = 12; // TODO: Dies muss noch berechnet werden
