@@ -5,7 +5,7 @@
   <div class="location-panel-inner small-panel" [class.searchMinimized]="minimized">
     <app-search-bar></app-search-bar>
   </div>
-  <div class="location-panel-inner" [class.listMinimized]="minimized">
+  <div class="location-panel-inner">
     <ng-container *ngIf="hideSearchResults; else showSearchResults">
       <!--<ng-container *ngIf="mockLocationsForFavorites.length > 0">
         <h1 [ngClass]="{'blur': blur}" class="sectionheading">{{"location-panel.favorites" | translate}}</h1>
