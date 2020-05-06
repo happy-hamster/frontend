@@ -5,6 +5,7 @@ import {LocationProviderService} from '../../core/services/location-provider.ser
 import {LocationCardService} from '../../core/services/location-card.service';
 import {Subscription} from 'rxjs';
 import {ListType} from '../../core/models/location-card.interface';
+import { FavoriteService } from 'src/app/core/services/favorite.service';
 
 @Component({
   selector: 'app-location-card',
@@ -17,14 +18,14 @@ export class LocationCardComponent implements OnInit, OnDestroy {
   @Input() listType: ListType;
 
   hide = true;
-  favorite = false;
   blur = false;
   subscriptions = new Subscription();
 
   constructor(
     private router: Router,
     private locationsService: LocationProviderService,
-    private locationCardService: LocationCardService
+    private locationCardService: LocationCardService,
+    private favoriteService: FavoriteService
   ) { }
 
   ngOnInit(): void {
@@ -52,19 +53,28 @@ export class LocationCardComponent implements OnInit, OnDestroy {
     );
   }
 
-  toggle() {
+  showLocationCard() {
     if (this.hide) {
       this.locationCardService.setSelectedLocationCard({
         locationId: this.location.id,
         listType: this.listType
       });
-    } else {
-      this.locationCardService.setSelectedLocationCard(null);
+    }
+  }
+
+  hideLocationCard() {
+    if (!this.hide) {
+      setTimeout(_ => this.locationCardService.setSelectedLocationCard(null), 10);
     }
   }
 
   toggleFavorite() {
-    this.favorite = !this.favorite;
+    console.log('toggleFavorite()');
+    if (this.location.favorite) {
+      // this.favoriteService.deleteFavorite(this.location.id);
+    } else {
+      this.favoriteService.addFavorite(this.location.id);
+    }
   }
 
   getDistanceString(): string {
