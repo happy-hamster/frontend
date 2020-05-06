@@ -1,0 +1,14 @@
+<div id="notification-container" *ngIf="authService.getUser() | async as user">
+    <div class="badge-container">
+        <img class="badge" src="assets/badges/new_report.png">
+    </div>
+    <h1 mat-dialog-title>{{ 'badge-notification.congratulations' | translate }}</h1>
+    <div mat-dialog-content >
+        <p class="dialog-content">
+            {{ 'badge-notification.new-badge' | translate }} {{ user.firstName }}.
+        </p>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button class="confirm-button" (click)="closeNotification()">{{ 'badge-notification.confirm' | translate }}</button>
+    </div>
+</div>

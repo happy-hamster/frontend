@@ -1,15 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LocationCardComponent } from './location-card.component';
-import {RouterTestingModule} from '@angular/router/testing';
-import {TranslateModule, TranslateService} from '@ngx-translate/core';
-import {LocationCardModule} from './location-card.module';
-import {MatDialogTestingModule} from '../../shared/mat-dialog-testing.module';
-import {Component} from '@angular/core';
-import {Occupancy} from '../../generated/models/occupancy';
-import {Location} from '../../generated/models/location';
-import {LocationId} from '../../generated/models';
-import {ListType} from '../../core/models/location-card.interface';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { LocationCardModule } from './location-card.module';
+import { MatDialogTestingModule } from '../../shared/mat-dialog-testing.module';
+import { Component } from '@angular/core';
+import { Occupancy } from '../../generated/models/occupancy';
+import { Location } from '../../generated/models/location';
+import { LocationId, LocationType } from '../../generated/models';
+import { ListType } from '../../core/models/location-card.interface';
 
 describe('LocationCardComponent', () => {
   let component: LocationCardComponent;
@@ -27,7 +27,7 @@ describe('LocationCardComponent', () => {
         TranslateModule.forRoot({})
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -50,7 +50,7 @@ class TestWrapperComponent {
     id: 2062223349,
     name: 'MockLaden1',
     details: {
-      type: 'supermarket',
+      type: LocationType.Convenience,
       openingHours: null,
       brand: null
     },
@@ -69,7 +69,8 @@ class TestWrapperComponent {
       postcode: null,
       street: null,
       housenumber: null
-    }
+    },
+    favorite: true
   };
   listType: ListType.NEAR_BY;
 }

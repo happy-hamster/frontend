@@ -82,28 +82,27 @@
 
       <div *ngIf="!expanded && !mobile" class="ellipsis">
         {{ user.username }}<br />
-        <a class="mat-primary" (click)="authService.logout()">{{
-          "user-card.logout" | translate
-        }}</a><br />
+        <a class="mat-primary" (click)="authService.logout()">
+          {{"user-card.logout" | translate}}
+        </a><br />
+        <a class="mat-primary" (click)="showNotification()">
+          Show
+        </a>
       </div>
-    </mat-card-content>
-  </div>
-  <div class="corner bottom-right"></div>
+    
+  </mat-card-content>
+</div>
 </mat-card>
 <ng-template #login>
-  <div class="content">
+  <mat-card id="user-card">
     <mat-card-title>
-      <span *ngIf="expanded">{{ "user-card.greeting" | translate }}</span>
-      {{ "user-card.guest" | translate }}
-      <mat-icon fontSet="material-icons-outlined" class="settings-icon">settings</mat-icon>
+      {{ 'user-card.guest' | translate }}
+      <mat-icon fontSet="material-icons-outlined">
+        settings
+      </mat-icon>
     </mat-card-title>
-    <div class="ellipsis">
-      <a class="mat-primary" (click)="authService.login()">{{
-        "user-card.login" | translate
-      }}</a><br />
-      <a class="mat-primary" (click)="authService.register()">{{
-        "user-card.register" | translate
-      }}</a>
-    </div>
-  </div>
+
+    <a class="mat-primary" (click)="authService.login()">{{ 'user-card.login' | translate }}</a><br>
+    <a class="mat-primary" (click)="authService.register()">{{ 'user-card.register' | translate }}</a>
+  </mat-card>
 </ng-template>

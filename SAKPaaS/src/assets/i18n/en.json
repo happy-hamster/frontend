@@ -110,8 +110,7 @@
     "guest": "Guest",
     "greeting": "Hello",
     "level": "Level:",
-    "one-report-remaining": "report until next level",
-    "multiple-reports-remaining": "reports until next level"
+    "remaining-xp": "XP until next level"
   },
   "image-alt": {
     "occupancy": "Occupancy",
@@ -139,5 +138,11 @@
     "favorites": "Favorites",
     "close-to-you": "Close to you",
     "search-results": "Search results"
+  },
+
+  "badge-notification": {
+    "congratulations": "Congratulations!",
+    "new-badge": "You unlocked a new badge,",
+    "confirm": "Hurraaay!"
   }
 }
