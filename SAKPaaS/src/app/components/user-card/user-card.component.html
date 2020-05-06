@@ -13,7 +13,10 @@
     <mat-card-content>
       <div class="progress-bar-container" *ngIf="expanded || mobile">
         <div class="level-name">
-          {{ "user-card.level" | translate }} {{ currentLevel }}
+          {{ "user-card.level" | translate }}
+          <span class="level">
+            {{ currentLevel }}
+          </span>
         </div>
         <mat-progress-bar mode="determinate" value="{{ currentProgress }}"></mat-progress-bar>
         <div class="next-level">
