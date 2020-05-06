@@ -5,6 +5,7 @@ import { HomeModule } from 'src/app/components/home/home.module';
 import { MatDialogTestingModule } from 'src/app/shared/mat-dialog-testing.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import { BadgeNotificationModule } from 'src/app/components/badge-notification/badge-notification.module';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -13,6 +14,7 @@ describe('HomeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        BadgeNotificationModule,
         HomeModule,
         MatDialogTestingModule,
         RouterTestingModule,
