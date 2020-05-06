@@ -148,5 +148,11 @@
     "favorites": "Favorites",
     "close-to-you": "Close to you",
     "search-results": "Search results"
+  },
+
+  "badge-notification": {
+    "congratulations": "Congratulations!",
+    "new-badge": "You unlocked a new badge,",
+    "confirm": "Hurraaay!"
   }
 }

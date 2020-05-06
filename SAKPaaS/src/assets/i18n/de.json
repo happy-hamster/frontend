@@ -114,5 +114,32 @@
     "occupancy-low": "Niedrige Auslastung",
     "occupancy-medium": "Mittlere Auslastung",
     "occupancy-high": "Hohe Auslastung"
+  },
+  "badges": {
+    "next_level": "Neues Level",
+    "next_level_class": "Neue Stufe",
+    "report": "Reporter",
+    "new_report": "Entdecker",
+    "two_shops": "Doppelt hält besser",
+    "shop_first_report": "Verbreiter",
+    "week_1": "1x pro Woche",
+    "week_3": "3x pro Woche",
+    "week_full": "24/7 aktiv",
+    "week_special": "Jeden Tag etwas Neues",
+    "trusted_shop": "Lieblings-Laden",
+    "trusted_user": "Wir vertrauen Dir!",
+    "locked": "Gesperrt"
+  },
+
+  "location-panel": {
+    "favorites": "Favoriten",
+    "close-to-you": "In der Nähe",
+    "search-results": "Suchergebnisse"
+  },
+
+  "badge-notification": {
+    "congratulations": "Glückwunsch!",
+    "new-badge": "Du hast ein neues Badge freigeschaltet,",
+    "confirm": "Hurraaa!"
   }
 }

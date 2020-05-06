@@ -24,9 +24,10 @@ import { LocateButtonModule } from 'src/app/components/locate-button/locate-butt
 import { BrowserModule } from '@angular/platform-browser';
 import { LocationDetailsModule } from 'src/app/components/location-details/location-details.module';
 import { ApiModule } from './generated/api.module';
-import {LocationCardModule} from './components/location-card/location-card.module';
 import { LocationPanelModule } from './components/location-panel/location-panel.module';
 import { API_INTERCEPTOR_PROVIDER, ApiInterceptor } from './core/interceptors/api.interceptor';
+import { LocationCardModule } from './components/location-card/location-card.module';
+import { BadgeNotificationModule } from './components/badge-notification/badge-notification.module';
 
 
 
@@ -50,6 +51,7 @@ import { API_INTERCEPTOR_PROVIDER, ApiInterceptor } from './core/interceptors/ap
       defaultLanguage: 'de'
     }),
     // custom component modules (not lazy loaded!)
+    BadgeNotificationModule,
     FooterModule,
     GlobalDialogModule,
     HomeModule,
