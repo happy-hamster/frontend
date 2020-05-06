@@ -17,7 +17,7 @@
 }
 
 ::-webkit-scrollbar {
-  width: 0px;
+  width: 0;
 }
 
 .location-panel-inner {
@@ -49,4 +49,44 @@ h1 {
 
 .sectionheading {
   margin-top: 30px;
+}
+
+
+.listMinimized {
+  display: none;
+}
+
+.minimized {
+  top: 85% !important;
+}
+
+.searchbarMinimized {
+  margin-top: 20px;
+}
+
+@media (min-width: 600px) {
+  .minimize {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .minimize {
+    width: 2%;
+    margin-left: 48%;
+    position: fixed;
+  }
+
+  .location-panel {
+    top: 30%;
+    transition: .3s;
+  }
+}
+
+.turned {
+  transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
 }

@@ -1,8 +1,11 @@
-<div class="location-panel">
-  <div class="location-panel-inner small-panel">
+<div class="location-panel" [class.minimized]="minimized">
+  <div class="minimize">
+    <mat-icon (click)="minimize()" class="minimize-icon" [class.turned]="minimized">keyboard_arrow_down</mat-icon>
+  </div>
+  <div class="location-panel-inner small-panel" [class.searchbarMinimized]="minimized">
   <app-search-bar></app-search-bar>
   </div>
-  <div class="location-panel-inner">
+  <div class="location-panel-inner" [class.listMinimized]="minimized">
     <ng-container *ngIf="hideSearchResults; else showSearchResults">
       <!--<ng-container *ngIf="mockLocationsForFavorites.length > 0">
         <h1 [ngClass]="{'blur': blur}" class="sectionheading">{{"location-panel.favorites" | translate}}</h1>

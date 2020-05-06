@@ -44,4 +44,8 @@ export class HomeComponent implements OnInit {
       }
     });
   }
+
+  onMinimizedForParent(minimized: boolean) {
+    this.mapComp.fillScreen(minimized);
+  }
 }

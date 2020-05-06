@@ -40,10 +40,11 @@
 }
 
 @media (max-width: 600px) {
-    .line-break {
-        display: block;
-        margin-bottom: 10px;
-    }
-    
-    
+  .footer {
+    display: none;
+  }
+
+  .rightalign-footer {
+    display: none;
+  }
 }
