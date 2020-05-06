@@ -29,6 +29,9 @@ import { ListType } from 'src/app/core/models/location-card.interface';
 })
 export class MapComponent implements OnInit, OnDestroy {
 
+  private static opacityOfBlurredLocations = 0.6;
+  private static animationDuration = 200;
+
   @Output() locationEmitted = new EventEmitter<Location>();
 
   customMap: Map;
@@ -103,8 +106,12 @@ export class MapComponent implements OnInit, OnDestroy {
         } else {
           this.vectorSourceSelected.clear();
           this.vectorSourceSelected.addFeature(new OLMapMarker(card.location));
-          this.zoomToNewLocation(card.location);
-          this.vectorLayerDefault.setOpacity(0.5);
+          this.vectorLayerDefault.setOpacity(MapComponent.opacityOfBlurredLocations);
+          // pushes the zoom operation to the next cycle of the event loop to stop
+          // it from interfering with displaying the newly selected feature
+          setTimeout(() => {
+            this.zoomToNewLocation(card.location);
+          }, 0);
         }
       })
     );
@@ -177,14 +184,14 @@ export class MapComponent implements OnInit, OnDestroy {
     this.subscriptions.add(this.mapService.getMapCenterFiltered().subscribe(center => {
       this.customMap.getView().animate({
         center: center.toOLProjectionArray(),
-        duration: 300
+        duration: MapComponent.animationDuration
       });
     }));
 
     this.subscriptions.add(this.mapService.getMapZoomLevelFiltered().subscribe(zoom => {
       this.customMap.getView().animate({
         zoom,
-        duration: 300
+        duration: MapComponent.animationDuration
       });
     }));
   }
