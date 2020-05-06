@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BadgeNotificationComponent } from './badge-notification.component';
+import { MatDialogTestingModule } from 'src/app/shared/mat-dialog-testing.module';
 
 describe('BadgeNotificationComponent', () => {
   let component: BadgeNotificationComponent;
@@ -8,7 +9,8 @@ describe('BadgeNotificationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BadgeNotificationComponent ]
+      declarations: [ BadgeNotificationComponent ],
+      imports: [ MatDialogTestingModule ]
     })
     .compileComponents();
   }));
