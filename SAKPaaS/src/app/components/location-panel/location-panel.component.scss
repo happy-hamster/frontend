@@ -51,7 +51,6 @@ h1 {
   margin-top: 30px;
 }
 
-
 .listMinimized {
   display: none;
 }
@@ -60,18 +59,14 @@ h1 {
   top: 85% !important;
 }
 
-.searchbarMinimized {
-  margin-top: 20px;
-}
-
 @media (min-width: 600px) {
-  .minimize {
+  .minimize-icon {
     display: none;
   }
 }
 
 @media (max-width: 600px) {
-  .minimize {
+  .minimize-icon {
     width: 2%;
     margin-left: 48%;
     position: fixed;

@@ -52,6 +52,7 @@ export class LocationPanelComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
+
   minimize() {
     this.minimizedForParent.emit(!this.minimized);
     this.minimized = !this.minimized;
