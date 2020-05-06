@@ -69,13 +69,14 @@
             <br>
             {{'badges.locked'| translate}}
           </div>
+          <br>
         </div>
       </div>
 
       <div *ngIf="totalPages>1 && expanded && !mobile" style="float:right; color: #9DA9A0;">
         Seite {{page}} von {{totalPages}}
       </div>
-      
+
       <div *ngIf="!expanded && !mobile" class="ellipsis">
         {{ user.username }}<br />
         <a class="mat-primary" (click)="authService.logout()">{{

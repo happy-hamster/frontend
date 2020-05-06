@@ -1,24 +1,24 @@
 #user-card {
   @media screen and (max-width: 600px) {
-    position: absolute;
     width: 100%;
     height: 100%;
+    overflow: auto;
   
     .badge-container{
       width: 100%;
       height: 100%;
-      border-top: 1px solid var(--silver);
-
+      border-top: 1px solid var(--silver);      
+      
       .row{
-        width: inherit;
-        text-align: center;
-        display: table-row;
+        width: 280px;
+        margin-left: auto;
+        margin-right: auto;
+        overflow: auto;
       }
-    }
-
-    .badge{
-      float: left;
-      clear: right;
+      .badge{
+        margin-right: 30px;
+        margin-left: 30px;
+      }
     }
   }
   position: absolute;
