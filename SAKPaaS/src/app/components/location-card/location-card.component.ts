@@ -1,10 +1,10 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {Location} from '../../generated/models/location';
-import {Router} from '@angular/router';
-import {LocationProviderService} from '../../core/services/location-provider.service';
-import {LocationCardService} from '../../core/services/location-card.service';
-import {Subscription} from 'rxjs';
-import {ListType} from '../../core/models/location-card.interface';
+import { Component, Input, OnDestroy, OnInit, ElementRef } from '@angular/core';
+import { Location } from '../../generated/models/location';
+import { Router } from '@angular/router';
+import { LocationProviderService } from '../../core/services/location-provider.service';
+import { LocationCardService } from '../../core/services/location-card.service';
+import { Subscription } from 'rxjs';
+import { ListType } from '../../core/models/location-card.interface';
 
 @Component({
   selector: 'app-location-card',
@@ -24,7 +24,8 @@ export class LocationCardComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private locationsService: LocationProviderService,
-    private locationCardService: LocationCardService
+    private locationCardService: LocationCardService,
+    private hostElement: ElementRef
   ) { }
 
   ngOnInit(): void {
@@ -39,6 +40,11 @@ export class LocationCardComponent implements OnInit, OnDestroy {
             ) {
               this.hide = false;
               this.blur = false;
+              // wait until browser has resized the element after opening it
+              // otherwise the scroll will not be calculated correctly
+              setTimeout(() => {
+                (this.hostElement.nativeElement as HTMLElement).scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }, 10);
             } else {
               this.hide = true;
               this.blur = true;

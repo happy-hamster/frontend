@@ -6,6 +6,8 @@ import { LocationDetailsComponent } from '../location-details/location-details.c
 import { MapComponent } from '../map/map.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { BackgroundBlurService } from 'src/app/core/services/background-blur.service';
+import { LocationCardService } from 'src/app/core/services/location-card.service';
+import { ListType } from 'src/app/core/models/location-card.interface';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +20,11 @@ export class HomeComponent implements OnInit {
 
   @ViewChild(MapComponent) mapComp: MapComponent;
 
-  constructor(private bottomSheet: MatBottomSheet, private backgroundBlurService: BackgroundBlurService) { }
+  constructor(
+    private bottomSheet: MatBottomSheet,
+    private backgroundBlurService: BackgroundBlurService,
+    private locationCardService: LocationCardService
+  ) { }
 
   ngOnInit() {
     this.shouldBlurBackground$ = this.backgroundBlurService.getBlur();
@@ -26,7 +32,7 @@ export class HomeComponent implements OnInit {
 
   onLocationEmitted(location: Location, fromMap: boolean) {
     this.selectedLocation$ = of(location);
-    this.openBottomSheet(fromMap);
+    this.locationCardService.setSelectedLocationCard({ locationId: location.id, listType: ListType.NEAR_BY });
     if (!fromMap) {
       this.mapComp.zoomToNewLocation(location);
     }

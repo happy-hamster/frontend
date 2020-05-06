@@ -1,11 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from 'src/app/generated/models';
-import {Observable, Subscription} from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { LocationProviderService } from 'src/app/core/services/location-provider.service';
 import { SearchService } from 'src/app/core/services/search.service';
-import {ListType} from '../../core/models/location-card.interface';
-import {LocationCardService} from '../../core/services/location-card.service';
+import { ListType } from '../../core/models/location-card.interface';
+import { LocationCardService } from '../../core/services/location-card.service';
 
 @Component({
   selector: 'app-location-panel',
