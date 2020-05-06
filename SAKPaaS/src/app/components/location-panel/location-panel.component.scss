@@ -9,12 +9,11 @@
   height: auto;
   position: fixed;
   top: 35vh;
+  bottom: 54px;
   overflow: hidden;
   left: 50vw;
   transform: translate(-50%, 0);
   border-radius: 40px 40px 0 0;
-  transition: top .3s;
-  max-height: 1000px;
 }
 
 ::-webkit-scrollbar {
@@ -67,8 +66,8 @@ h1 {
 }
 
 @media (max-width: 600px) {
-  .minimize-icon {
-
+  .location-panel {
+    bottom: 0;
   }
 
   .minimize {
