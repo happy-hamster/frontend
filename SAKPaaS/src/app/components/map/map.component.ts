@@ -37,7 +37,7 @@ export class MapComponent implements OnInit, OnDestroy {
   vectorLayerDefault: VectorLayer;
   vectorSourceDefault: VectorSource;
   vectorSourceSelected: VectorSource;
-  selectEvent: SelectEvent = null;
+  selectControl: Select;
 
   isLoadingLocations: Observable<boolean>;
 
@@ -98,12 +98,16 @@ export class MapComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.locationCardService.getSelectedLocationCard().subscribe(location => {
         if (location === null) {
+          this.selectControl.getFeatures().clear();
           this.vectorSourceSelected.clear();
           this.vectorLayerDefault.setOpacity(1);
         } else {
           this.vectorSourceSelected.clear();
-          this.vectorSourceSelected.addFeature(new OLMapMarker(location));
+          const newFeature = new OLMapMarker(location);
+          this.vectorSourceSelected.addFeature(newFeature);
           this.vectorLayerDefault.setOpacity(MapComponent.opacityOfBlurredLocations);
+          this.selectControl.getFeatures().clear();
+          this.selectControl.getFeatures().push(newFeature);
           // pushes the zoom operation to the next cycle of the event loop to stop
           // it from interfering with displaying the newly selected feature
           setTimeout(() => {
@@ -148,22 +152,21 @@ export class MapComponent implements OnInit, OnDestroy {
 
   private registerEventListeners() {
     // this listener gets triggered when the user clicks on a marker
-    const select = new Select({
+    this.selectControl = new Select({
       condition: click,
       style: null
     });
 
-    this.customMap.addInteraction(select);
+    this.customMap.addInteraction(this.selectControl);
 
-    select.on('select', (e) => {
+    this.selectControl.on('select', (e) => {
       const target = e.selected[0] as OLMapMarker;
+      console.log(target);
       if (!target) {
         this.locationCardService.setSelectedLocationCard(null);
         return;
       }
       this.locationCardService.setSelectedLocationCard(target.location);
-      // this.locationEmitted.emit(target.location);
-      this.selectEvent = e;
     });
 
     // this listener is called after the user has zoomed/panned/rotated the map
@@ -216,10 +219,10 @@ export class MapComponent implements OnInit, OnDestroy {
     });
   }
 
-  deselect(): void {
-    this.selectEvent.target.getFeatures().clear();
+  /*deselect(): void {
+    this.selectEvent?.target.getFeatures().clear();
     this.selectEvent = null;
-  }
+  }*/
 
   public zoomToNewLocation(location: Location): void {
     this.mapService.setMapCenter(PositionCoordinates.fromLocation(location));
