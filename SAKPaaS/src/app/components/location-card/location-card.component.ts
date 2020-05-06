@@ -34,8 +34,8 @@ export class LocationCardComponent implements OnInit, OnDestroy {
         locationCard => {
           if (locationCard !== null) {
             if (
-              locationCard.locationId !== null
-              && locationCard.locationId === this.location.id
+              locationCard.location.id !== null
+              && locationCard.location.id === this.location.id
               && locationCard.listType === this.listType
             ) {
               this.hide = false;
@@ -61,7 +61,7 @@ export class LocationCardComponent implements OnInit, OnDestroy {
   toggle() {
     if (this.hide) {
       this.locationCardService.setSelectedLocationCard({
-        locationId: this.location.id,
+        location: this.location,
         listType: this.listType
       });
     } else {

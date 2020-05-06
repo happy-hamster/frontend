@@ -23,7 +23,6 @@ export class HomeComponent implements OnInit {
   constructor(
     private bottomSheet: MatBottomSheet,
     private backgroundBlurService: BackgroundBlurService,
-    private locationCardService: LocationCardService
   ) { }
 
   ngOnInit() {
@@ -32,7 +31,6 @@ export class HomeComponent implements OnInit {
 
   onLocationEmitted(location: Location, fromMap: boolean) {
     this.selectedLocation$ = of(location);
-    this.locationCardService.setSelectedLocationCard({ locationId: location.id, listType: ListType.NEAR_BY });
     if (!fromMap) {
       this.mapComp.zoomToNewLocation(location);
     }

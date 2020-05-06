@@ -19,6 +19,8 @@ import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { SnackBarTypes } from 'src/app/core/models/snack-bar.interface';
 import { ActivatedRoute } from '@angular/router';
 import { PositionCoordinates } from 'src/app/core/models/position-coordinates.model';
+import { LocationCardService } from 'src/app/core/services/location-card.service';
+import { ListType } from 'src/app/core/models/location-card.interface';
 
 @Component({
   selector: 'app-map',
@@ -44,6 +46,7 @@ export class MapComponent implements OnInit, OnDestroy {
   constructor(
     private mapService: MapService,
     private locationService: LocationProviderService,
+    private locationCardService: LocationCardService,
     private snackBarService: SnackBarService,
     private route: ActivatedRoute
   ) {
@@ -90,6 +93,13 @@ export class MapComponent implements OnInit, OnDestroy {
       })
     );
 
+    this.subscriptions.add(
+      this.locationCardService.getSelectedLocationCard().pipe(filter(x => !!x)).subscribe(card => {
+        // const location = this.locationService
+        this.zoomToNewLocation(card.location);
+      })
+    );
+
     this.addRelAttributeToContributionAnchor();
   }
 
@@ -125,7 +135,8 @@ export class MapComponent implements OnInit, OnDestroy {
     select.on('select', (e) => {
       const target = e.selected[0] as OLMapMarker;
       if (!target) { return; }
-      this.locationEmitted.emit(target.location);
+      this.locationCardService.setSelectedLocationCard({ location: target.location, listType: ListType.NEAR_BY });
+      // this.locationEmitted.emit(target.location);
       this.selectEvent = e;
     });
 
@@ -142,11 +153,17 @@ export class MapComponent implements OnInit, OnDestroy {
     });
 
     this.subscriptions.add(this.mapService.getMapCenterFiltered().subscribe(center => {
-      this.customMap.getView().setCenter(center.toOLProjectionArray());
+      this.customMap.getView().animate({
+        center: center.toOLProjectionArray(),
+        duration: 300
+      });
     }));
 
     this.subscriptions.add(this.mapService.getMapZoomLevelFiltered().subscribe(zoom => {
-      this.customMap.getView().setZoom(zoom);
+      this.customMap.getView().animate({
+        zoom,
+        duration: 300
+      });
     }));
   }
 

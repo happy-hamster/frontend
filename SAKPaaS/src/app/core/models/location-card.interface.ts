@@ -1,4 +1,4 @@
-import {LocationId} from '../../generated/models/location-id';
+import { Location } from '../../generated/models/location';
 
 export enum ListType {
   SEARCH,
@@ -7,6 +7,6 @@ export enum ListType {
 }
 
 export interface LocationCardInterface {
-  locationId: LocationId;
+  location: Location;
   listType: ListType;
 }
