@@ -11,6 +11,8 @@
   },
   "footer": {
     "help": "Hilfe",
+    "impressum": "Impressum",
+    "privacy-policy": "Privacy Policy",
     "feedback": {
       "title": "Feedback"
     }
@@ -108,8 +110,7 @@
     "guest": "Gast",
     "greeting": "Hallo",
     "level": "Rang:",
-    "one-report-remaining": "Meldung bis zum nächsten Rang",
-    "multiple-reports-remaining": "Meldungen bis zum nächsten Rang"
+    "remaining-xp": "XP bis Levelaufstieg"
   },
   "image-alt": {
     "occupancy": "Auslastung",
