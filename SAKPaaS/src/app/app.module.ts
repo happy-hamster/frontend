@@ -31,7 +31,7 @@ import { BadgeNotificationModule } from './components/badge-notification/badge-n
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     // angular default imports
