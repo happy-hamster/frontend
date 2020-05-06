@@ -1,0 +1,50 @@
+#notification-container{
+    text-align: center;
+    padding-left: 60px;
+    padding-right: 60px;
+
+    .badge-container{
+        margin: 0 auto;
+        margin-bottom: 20px;
+
+        .badge{
+            width: 90px;
+            height: 90px;
+        }
+    }
+
+    h1{
+        color: var(--silver);
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .dialog-content{
+        color: var(--greenish-grey);
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+    
+    .confirm-button{
+        color: var(--midnight-blue);
+        background-color: var(--silver);
+    }
+   
+}
+
+@media screen and (max-width: 600px){
+    #notification-container{
+
+        padding-left: 10px;
+        padding-right: 10px;
+
+        .badge-container{
+            margin-bottom: 5px;
+
+            .badge{
+                width: 70px;
+                height: 70px;
+            }
+        }
+    }
+}
