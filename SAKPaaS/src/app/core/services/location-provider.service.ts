@@ -7,8 +7,6 @@ import { switchMap, catchError, filter, tap, startWith, map, share } from 'rxjs/
 import { PositionCoordinates } from '../models/position-coordinates.model';
 import { getDistance as olGetDistance } from 'ol/sphere';
 import { SearchService } from './search.service';
-import { SnackBarService } from './snack-bar.service';
-import { SnackBarTypes } from '../models/snack-bar.interface';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Injectable({
@@ -21,6 +19,7 @@ export class LocationProviderService {
   private reload$ = new BehaviorSubject<string>('init');
   private searchLocations$: Observable<Location[]>;
   private mapLocations$: Observable<Location[]>;
+  private updatedLocation$ = new BehaviorSubject<Location>(null);
 
   constructor(
     private locationApiService: LocationsService,
@@ -66,7 +65,23 @@ export class LocationProviderService {
           return this.mapLocations$;
         }
       }),
-      tap(x => { console.log('fetchLocation außen'); }),
+      switchMap((locations) => {
+        return this.updatedLocation$.pipe(
+          map((updatedLocation) => {
+            if (!updatedLocation) {
+              return locations;
+            }
+            const index = locations.findIndex(
+              (fav) => fav.id === updatedLocation.id
+            );
+            if (!index || index === -1) {
+              return locations;
+            }
+            locations[index] = updatedLocation;
+            return locations;
+          })
+        );
+      })
     );
   }
 
@@ -92,5 +107,9 @@ export class LocationProviderService {
       return olGetDistance(this.lastUpdatedPosition.toArray(), [location.coordinates.longitude, location.coordinates.latitude]);
     }
     return null;
+  }
+
+  public updateLocation(location: Location) {
+    this.updatedLocation$.next(location);
   }
 }

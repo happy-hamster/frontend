@@ -7,6 +7,7 @@ import { LocationId } from 'src/app/generated/models';
 import { SnackBarService } from './snack-bar.service';
 import { SnackBarTypes } from '../models/snack-bar.interface';
 import { AuthKeycloakService } from './auth-keycloak.service';
+import { LocationProviderService } from './location-provider.service';
 
 enum UpdateType {
   ADD,
@@ -29,7 +30,8 @@ export class FavoriteService {
   constructor(
     private userFavoritesService: UserFavoritesService,
     private snackBarService: SnackBarService,
-    private authService: AuthKeycloakService
+    private authService: AuthKeycloakService,
+    private locationService: LocationProviderService
   ) {
 
     this.favorites$ = this.authService.isLoggedIn().pipe(
@@ -92,6 +94,7 @@ export class FavoriteService {
         location,
         type: UpdateType.ADD
       });
+      this.locationService.updateLocation(location);
       this.snackBarService.sendNotification({
         messageKey: 'snack-bar.favorite.added.success',
         type: SnackBarTypes.INFO
@@ -120,6 +123,7 @@ export class FavoriteService {
         location,
         type: UpdateType.DELETE
       });
+      this.locationService.updateLocation(location);
       this.snackBarService.sendNotification({
         messageKey: 'snack-bar.favorite.deleted.success',
         type: SnackBarTypes.INFO
