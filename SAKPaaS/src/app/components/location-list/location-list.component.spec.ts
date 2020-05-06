@@ -2,11 +2,11 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LocationListComponent } from './location-list.component';
 import { Component } from '@angular/core';
-import { Location } from 'src/app/generated/models';
+import { Location, LocationType } from 'src/app/generated/models';
 import { LocationListModule } from 'src/app/components/location-list/location-list.module';
-import {RouterTestingModule} from '@angular/router/testing';
-import {MatDialogTestingModule} from '../../shared/mat-dialog-testing.module';
-import {TranslateModule} from '@ngx-translate/core';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MatDialogTestingModule } from '../../shared/mat-dialog-testing.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('LocationListComponent', () => {
   let component: LocationListComponent;
@@ -24,7 +24,7 @@ describe('LocationListComponent', () => {
         TranslateModule.forRoot({})
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -48,7 +48,7 @@ class TestWrapperComponent {
       id: 2062223349,
       name: 'MockLaden1',
       details: {
-        type: 'supermarket',
+        type: LocationType.Convenience,
         openingHours: null,
         brand: null
       },
@@ -67,13 +67,14 @@ class TestWrapperComponent {
         postcode: null,
         street: null,
         housenumber: null
-      }
+      },
+      favorite: true
     },
     {
       id: 97633716,
       name: 'Mockladen2',
       details: {
-        type: 'supermarket',
+        type: LocationType.Convenience,
         openingHours: 'Mo-Sa 07:00-20:00; PH,Su off',
         brand: 'Penny'
       },
@@ -92,7 +93,8 @@ class TestWrapperComponent {
         postcode: '66666',
         street: 'Am Mockbrunnen',
         housenumber: '42'
-      }
+      },
+      favorite: false
     }
   ];
 }
