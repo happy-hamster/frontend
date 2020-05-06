@@ -34,7 +34,9 @@ export class MapComponent implements OnInit, OnDestroy {
   customMap: Map;
   markers = new Subject<OLMapMarker[]>();
 
-  vectorSource: VectorSource;
+  vectorLayerDefault: VectorLayer;
+  vectorSourceDefault: VectorSource;
+  vectorSourceSelected: VectorSource;
   selectEvent: SelectEvent = null;
 
   isLoadingLocations: Observable<boolean>;
@@ -87,16 +89,23 @@ export class MapComponent implements OnInit, OnDestroy {
         }),
         filter(_ => this.mapService.getCurrentMapZoomLevel() > MapService.ZOOM_LIMIT)
       ).subscribe((next) => {
-        this.vectorSource.clear();
+        this.vectorSourceDefault.clear();
         const markers = next.map((locations) => new OLMapMarker(locations));
-        this.vectorSource.addFeatures(markers);
+        this.vectorSourceDefault.addFeatures(markers);
       })
     );
 
     this.subscriptions.add(
-      this.locationCardService.getSelectedLocationCard().pipe(filter(x => !!x)).subscribe(card => {
-        // const location = this.locationService
-        this.zoomToNewLocation(card.location);
+      this.locationCardService.getSelectedLocationCard().subscribe(card => {
+        if (card === null) {
+          this.vectorSourceSelected.clear();
+          this.vectorLayerDefault.setOpacity(1);
+        } else {
+          this.vectorSourceSelected.clear();
+          this.vectorSourceSelected.addFeature(new OLMapMarker(card.location));
+          this.zoomToNewLocation(card.location);
+          this.vectorLayerDefault.setOpacity(0.5);
+        }
       })
     );
 
@@ -104,8 +113,16 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   private initOLMap() {
-    this.vectorSource = new VectorSource({
+    this.vectorSourceDefault = new VectorSource({
       features: []
+    });
+
+    this.vectorSourceSelected = new VectorSource({
+      features: []
+    });
+
+    this.vectorLayerDefault = new VectorLayer({
+      source: this.vectorSourceDefault,
     });
 
     this.customMap = new Map({
@@ -114,8 +131,10 @@ export class MapComponent implements OnInit, OnDestroy {
         new TileLayer({
           source: new OSM()
         }),
+        this.vectorLayerDefault,
         new VectorLayer({
-          source: this.vectorSource
+          source: this.vectorSourceSelected,
+          opacity: 1
         })
       ]
     });
@@ -134,7 +153,10 @@ export class MapComponent implements OnInit, OnDestroy {
 
     select.on('select', (e) => {
       const target = e.selected[0] as OLMapMarker;
-      if (!target) { return; }
+      if (!target) {
+        this.locationCardService.setSelectedLocationCard(null);
+        return;
+      }
       this.locationCardService.setSelectedLocationCard({ location: target.location, listType: ListType.NEAR_BY });
       // this.locationEmitted.emit(target.location);
       this.selectEvent = e;
@@ -178,7 +200,7 @@ export class MapComponent implements OnInit, OnDestroy {
         this.closeSubject = new Subject<null>();
         // null if there is no snack bar presented by this component
         // otherwise contains a subject that is subscribed to by the snack bar and closes it when it emits
-        this.vectorSource.clear();
+        this.vectorSourceDefault.clear();
         this.snackBarService.sendNotification({
           messageKey: 'snack-bar.map.zoom',
           type: SnackBarTypes.INFO,
