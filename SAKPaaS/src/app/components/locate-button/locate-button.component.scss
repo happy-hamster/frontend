@@ -1,20 +1,20 @@
 button {
-  margin: 3px;
+  margin:5px;
   position: fixed;
-  width: 27.5px;
-  height: 27.5px;
-  right: 30px;
-  bottom: 105px;
+  width: 32px;
+  height: 32px;
+  right: 80px;
+  top: 235px;
   border: none;
-  border-radius: 7px;
-  background-color: var(--greenblue);
-  color: white;
+  border-radius: 50%;
+  background-color: white;
+  color: #26C485;
   padding: 0;
   box-shadow: 0 5px 20px 0 rgba(11, 0, 51, 0.2);
   z-index: 3;
   ::ng-deep * {
-    padding: 3.75px;
-    font-size: 20px;
+    padding: 4px;
+    font-size: 24px;
   }
   :hover {
     cursor: pointer;

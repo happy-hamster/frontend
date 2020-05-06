@@ -1,6 +1,7 @@
 <div id="home-wrapper">
   <app-logo></app-logo>
   <app-user-card></app-user-card>
+  <app-locate-button></app-locate-button>
   <div id="home-wrapper-inner">
     <app-map (locationEmitted)="onLocationEmitted($event, true)" style="z-index: 1;"></app-map>
     <app-location-panel></app-location-panel>
