@@ -13,7 +13,10 @@ export class AuthKeycloakService {
 
   constructor() {
     this.kcInstance = Keycloak('/assets/keycloak.json');
-    this.kcInstance.init({}).then(authenticated => {
+    this.kcInstance.init({
+      onLoad: 'check-sso',
+      silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html'
+    }).then(authenticated => {
       if (authenticated) {
         this.loggedIn();
       }

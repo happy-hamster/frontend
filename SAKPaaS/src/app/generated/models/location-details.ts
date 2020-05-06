@@ -1,4 +1,5 @@
 /* tslint:disable */
+import { LocationType } from './location-type';
 
 /**
  * Locaiton details
@@ -14,9 +15,5 @@ export interface LocationDetails {
    * Opening hours of the shop
    */
   openingHours?: null | string;
-
-  /**
-   * Type of the shop
-   */
-  type?: null | 'supermarket' | 'chemist';
+  type?: LocationType;
 }
