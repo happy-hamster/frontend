@@ -4,10 +4,26 @@
 
 <nav [class.open]="open$ | async" (swipeleft)="close()">
   <div class="top">
-    <div class="user-header">
-      <p class="greeting">{{'user-card.greeting' | translate}} Gast!</p>
-      <p class="email">mockmail@mail.de</p>
+    <div class="user-header" *ngIf="authService.getUser() | async as user; else anonymous">
+      <p class="greeting">{{'user-card.greeting' | translate}} {{user.firstName}}!
+        <button mat-icon-button (click)="authService.logout()">
+          <mat-icon>highlight_off</mat-icon>
+        </button>
+      </p>
+      <p class="email">{{user.email}}</p>
     </div>
+    <ng-template #anonymous>
+      <div class="user-header">
+        <p class="greeting">{{'user-card.greeting' | translate}}!</p>
+        <a class="mat-primary" (click)="authService.login()">{{
+          "user-card.login" | translate
+        }}</a>
+        <br>
+        <a class="mat-primary" (click)="authService.register()">{{
+          "user-card.register" | translate
+        }}</a>
+      </div>
+    </ng-template>
     <div class="section top">
       <a routerLink="/" (click)="close()">
         <div class="img-wrap">

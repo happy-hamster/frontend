@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { LanguageSelectionService } from 'src/app/core/services/language-selection.service';
+import { AuthKeycloakService } from 'src/app/core/services/auth-keycloak.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -12,7 +13,8 @@ export class SidenavComponent implements OnInit {
   open$ = new BehaviorSubject(false);
 
   constructor(
-    private languageService: LanguageSelectionService
+    private languageService: LanguageSelectionService,
+    public authService: AuthKeycloakService
   ) { }
 
   ngOnInit(): void {
