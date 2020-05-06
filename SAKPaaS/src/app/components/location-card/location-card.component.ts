@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { LocationProviderService } from '../../core/services/location-provider.service';
 import { LocationCardService } from '../../core/services/location-card.service';
 import { Subscription } from 'rxjs';
-import { ListType } from '../../core/models/location-card.interface';
 
 @Component({
   selector: 'app-location-card',
@@ -14,7 +13,6 @@ import { ListType } from '../../core/models/location-card.interface';
 export class LocationCardComponent implements OnInit, OnDestroy {
 
   @Input() location: Location;
-  @Input() listType: ListType;
 
   hide = true;
   favorite = false;
@@ -31,12 +29,11 @@ export class LocationCardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscriptions.add(
       this.locationCardService.getSelectedLocationCard().subscribe(
-        locationCard => {
-          if (locationCard !== null) {
+        location => {
+          if (location !== null) {
             if (
-              locationCard.location.id !== null
-              && locationCard.location.id === this.location.id
-              && locationCard.listType === this.listType
+              location.id !== null
+              && location.id === this.location.id
             ) {
               this.hide = false;
               this.blur = false;
@@ -60,10 +57,7 @@ export class LocationCardComponent implements OnInit, OnDestroy {
 
   toggle() {
     if (this.hide) {
-      this.locationCardService.setSelectedLocationCard({
-        location: this.location,
-        listType: this.listType
-      });
+      this.locationCardService.setSelectedLocationCard(this.location);
     } else {
       this.locationCardService.setSelectedLocationCard(null);
     }

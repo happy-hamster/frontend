@@ -4,7 +4,6 @@ import { Location } from 'src/app/generated/models';
 import { Observable, Subscription } from 'rxjs';
 import { LocationProviderService } from 'src/app/core/services/location-provider.service';
 import { SearchService } from 'src/app/core/services/search.service';
-import { ListType } from '../../core/models/location-card.interface';
 import { LocationCardService } from '../../core/services/location-card.service';
 
 @Component({
@@ -16,9 +15,6 @@ export class LocationPanelComponent implements OnInit, OnDestroy {
 
   hideSearchResults = true;
   locations$: Observable<Location[]>;
-  favoriteType = ListType.FAVORITES;
-  searchType = ListType.SEARCH;
-  nearByType = ListType.NEAR_BY;
   blur: boolean;
   subscriptions = new Subscription();
 

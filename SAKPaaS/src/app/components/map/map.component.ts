@@ -20,7 +20,6 @@ import { SnackBarTypes } from 'src/app/core/models/snack-bar.interface';
 import { ActivatedRoute } from '@angular/router';
 import { PositionCoordinates } from 'src/app/core/models/position-coordinates.model';
 import { LocationCardService } from 'src/app/core/services/location-card.service';
-import { ListType } from 'src/app/core/models/location-card.interface';
 
 @Component({
   selector: 'app-map',
@@ -97,18 +96,18 @@ export class MapComponent implements OnInit, OnDestroy {
     );
 
     this.subscriptions.add(
-      this.locationCardService.getSelectedLocationCard().subscribe(card => {
-        if (card === null) {
+      this.locationCardService.getSelectedLocationCard().subscribe(location => {
+        if (location === null) {
           this.vectorSourceSelected.clear();
           this.vectorLayerDefault.setOpacity(1);
         } else {
           this.vectorSourceSelected.clear();
-          this.vectorSourceSelected.addFeature(new OLMapMarker(card.location));
+          this.vectorSourceSelected.addFeature(new OLMapMarker(location));
           this.vectorLayerDefault.setOpacity(MapComponent.opacityOfBlurredLocations);
           // pushes the zoom operation to the next cycle of the event loop to stop
           // it from interfering with displaying the newly selected feature
           setTimeout(() => {
-            this.zoomToNewLocation(card.location);
+            this.zoomToNewLocation(location);
           }, 0);
         }
       })
@@ -162,7 +161,7 @@ export class MapComponent implements OnInit, OnDestroy {
         this.locationCardService.setSelectedLocationCard(null);
         return;
       }
-      this.locationCardService.setSelectedLocationCard({ location: target.location, listType: ListType.NEAR_BY });
+      this.locationCardService.setSelectedLocationCard(target.location);
       // this.locationEmitted.emit(target.location);
       this.selectEvent = e;
     });

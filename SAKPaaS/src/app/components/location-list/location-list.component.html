@@ -1,6 +1,5 @@
-
 <div *ngFor="let location of locations" class="location-card">
-  <app-location-card [location]="location" [listType]="listType"></app-location-card>
+  <app-location-card [location]="location"></app-location-card>
 </div>
 
 <div class="locations-card" *ngIf="!locations.length">
