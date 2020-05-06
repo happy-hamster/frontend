@@ -43,6 +43,7 @@ export class UserCardComponent {
   page = 1;
   itemsPerPage = 4;
   totalPages = Math.ceil(this.numberBadges / this.itemsPerPage);
+  rows = Math.ceil(this.numberBadges / 2);
   lockedBadges = this.itemsPerPage * this.totalPages - this.numberBadges;
   currentLevel = 'Novize';
   remainingReports = 1;
