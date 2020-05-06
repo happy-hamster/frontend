@@ -237,7 +237,7 @@ export class MapComponent implements OnInit, OnDestroy {
 
   fillScreen(minimized: boolean) {
     this.minimized = minimized;
-    this.resize();
+    window.setTimeout(() => {this.resize();}, 100);
   }
 }
 

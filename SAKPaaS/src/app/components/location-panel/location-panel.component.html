@@ -1,9 +1,9 @@
 <div class="location-panel" [class.minimized]="minimized">
   <div class="minimize">
-    <mat-icon (click)="minimize()" class="minimize-icon" [class.turned]="minimized">keyboard_arrow_down</mat-icon>
+    <mat-icon [inline]="true" (click)="minimize()" class="minimize-icon" [class.turned]="minimized">keyboard_arrow_down</mat-icon>
   </div>
-  <div class="location-panel-inner small-panel">
-  <app-search-bar></app-search-bar>
+  <div class="location-panel-inner small-panel" [class.searchMinimized]="minimized">
+    <app-search-bar></app-search-bar>
   </div>
   <div class="location-panel-inner" [class.listMinimized]="minimized">
     <ng-container *ngIf="hideSearchResults; else showSearchResults">
