@@ -62,7 +62,7 @@ h1 {
 }
 
 .minimized {
-  top: auto !important;
+  top: calc(100vh - 150px) !important;
 }
 
 @media (min-width: 600px) {

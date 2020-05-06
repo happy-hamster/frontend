@@ -54,8 +54,16 @@ export class LocationPanelComponent implements OnInit, OnDestroy {
   }
 
   minimize() {
-    this.minimizedForParent.emit(!this.minimized);
-    this.minimized = !this.minimized;
+    if (this.minimized) {
+      this.minimized = !this.minimized;
+      window.setTimeout(() => {
+        this.minimizedForParent.emit(this.minimized);
+      }, 150);
+    } else {
+      this.minimizedForParent.emit(!this.minimized);
+      window.setTimeout(() => {
+        this.minimized = !this.minimized;
+      }, 150);
+    }
   }
-
 }
