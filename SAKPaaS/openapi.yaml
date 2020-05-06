@@ -29,6 +29,14 @@ paths:
           explode: true
           schema:
             $ref: '#/components/schemas/Coordinates'
+        - in: query
+          name: type
+          description: Locationtype
+          required: false
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/LocationType'
       responses:
         '200':
           description: Success
@@ -112,6 +120,74 @@ paths:
         '400':
           description: Malformed request
 
+  '/users/self/favorites':
+    get:
+      description: List all favorite locations for the currently logged in user.
+      tags:
+        - "User: Favorites"
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Location'
+        '401':
+          description: "Unauthorized: Not logged in"
+  '/users/self/favorites/{id}':
+    post:
+      operationId: addFavorite
+      description: Add a favorite by location id for the currently logged in user.
+      tags:
+        - "User: Favorites"
+      parameters:
+        - in: path
+          name: id
+          description: id of the location
+          required: true
+          schema:
+            $ref: '#/components/schemas/LocationId'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '400':
+          description: Malformed request
+        '401':
+          description: "Unauthorized: Not logged in"
+        '404':
+          description: Location not found
+    delete:
+      operationId: deleteFavorite
+      description: Remove a favorite by location id for the currently logged in user.
+      tags:
+        - "User: Favorites"
+      parameters:
+        - in: path
+          name: id
+          description: id of the location
+          required: true
+          schema:
+            $ref: '#/components/schemas/LocationId'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '400':
+          description: Malformed request
+        '401':
+          description: "Unauthorized: Not logged in"
+        '404':
+          description: Location not found
+
 components:
   schemas:
     Location:
@@ -122,6 +198,7 @@ components:
       required:
         - id
         - name
+        - favorite
         - occupancy
         - coordinates
         - address
@@ -131,6 +208,14 @@ components:
         name:
           type: string
           example: LIDL Mannheim Marktplatz
+        favorite:
+          title: Favorite flag
+          description: |
+            Whether or not this Location is a favorite of the currently logged in user.
+            (Will be null if the user is not logged in.)
+          type: boolean
+          nullable: true
+          example: true
         details:
           $ref: '#/components/schemas/LocationDetails'
         coordinates:
@@ -153,13 +238,7 @@ components:
       nullable: false
       properties:
         type:
-          title: Type
-          description: Type of the shop
-          type: string
-          nullable: true
-          enum:
-            - supermarket
-            - chemist
+          $ref: '#/components/schemas/LocationType'
         brand:
           title: Brand
           description: Brand of the shop
@@ -275,6 +354,17 @@ components:
           enum:
             - IOT
             - WEB_APP
+    LocationType:
+      title: Type
+      description: Type of the shop
+      type: string
+      nullable: true
+      enum:
+        - chemist
+        - beverages
+        - kiosk
+        - newsagent
+        - convenience
     LocationSearchResult:
       title: Location Search Result
       description: The result for a search request
@@ -290,4 +380,3 @@ components:
           maxItems: 100
           items:
             $ref: '#/components/schemas/Location'
-

@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ApiConfiguration {
-  rootUrl: string = 'https://api.dev.HappyHamster.org/v2';
+  rootUrl: string = 'https://api.HappyHamster.org/v2';
 }
 
 /**
