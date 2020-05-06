@@ -81,6 +81,16 @@
       "allowed": "Thank you for your consent! :)",
       "forbidden": "From now on we will no longer store cookies in your browser. You can change this setting at any time."
     },
+    "favorite": {
+      "added": {
+        "success": "Successfully added to your favorites! :)",
+        "error": "We couldn't add the location to your favorites. Please try again!"
+      },
+      "deleted": {
+        "success": "Successfully removed from your favorites!",
+        "error": "We couldn't remove the location from your favorites. Please try again!"
+      }
+    },
     "gps": {
       "default": "HappyHamster wasn't able to locate you via GPS because of an unkown error.",
       "not-supported": "HappyHamster wasn't able to locate you via GPS because your browser doesn't support it :(",

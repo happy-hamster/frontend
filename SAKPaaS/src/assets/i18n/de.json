@@ -62,12 +62,22 @@
     "warning": "Warnung"
   },
   "search-bar": {
-    "placeholder": "Suchen…" 
+    "placeholder": "Suchen…"
   },
   "snack-bar": {
     "cookies": {
       "allowed": "Danke für deine Einwilligung! :)",
       "forbidden": "Wir speichern ab jetzt keine Cookies mehr in deinem Browser. Du kannst die Einstellung jederzeit wieder ändern."
+    },
+    "favorite": {
+      "added": {
+        "success": "Erfolgreich zu den Favoriten hinzugefügt! :)",
+        "error": "Wir es leider nicht zu deinen Favoriten hinzufügen. Probiere es bitte nocheinmal!"
+      },
+      "deleted": {
+        "success": "Erfolgreich von deinen Favoriten entfernt!",
+        "error": "Wir konnten es leider nicht von deinen Favoriten entfernen. Probiere es bitte nocheinmal!"
+      }
     },
     "gps": {
       "default": "HappyHamster konnte aus einem unbekannten Grund deine GPS-Position nicht ermitteln.",
