@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { BackgroundBlurService } from 'src/app/core/services/background-blur.service';
 import { BadgeNotificationComponent } from 'src/app/components/badge-notification/badge-notification.component';
 import { MatDialog } from '@angular/material/dialog';
-import {BreakpointObserver} from '@angular/cdk/layout';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-user-card',

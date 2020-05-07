@@ -3,7 +3,7 @@ import { Location } from '../../generated/models/location';
 import { Observable, of } from 'rxjs';
 import { MapComponent } from '../map/map.component';
 import { BackgroundBlurService } from 'src/app/core/services/background-blur.service';
-import {BreakpointObserver} from '@angular/cdk/layout';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-home',
