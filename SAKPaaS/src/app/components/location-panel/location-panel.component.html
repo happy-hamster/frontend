@@ -3,7 +3,7 @@
     <mat-icon [inline]="true" (click)="minimize()" class="minimize-icon" [class.turned]="minimized">keyboard_arrow_down</mat-icon>
   </div>
   <div class="location-panel-inner small-panel" [class.searchMinimized]="minimized">
-    <app-search-bar></app-search-bar>
+    <app-search-bar (expand)="expandIfNeeded($event)"></app-search-bar>
   </div>
   <div class="location-panel-inner">
     <ng-container *ngIf="hideSearchResults; else showSearchResults">
