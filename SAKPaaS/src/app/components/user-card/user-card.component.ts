@@ -3,6 +3,8 @@ import { AuthKeycloakService } from 'src/app/core/services/auth-keycloak.service
 import { BadgeType, Badge } from 'src/app/core/models/badge.interface';
 import { Observable, of } from 'rxjs';
 import { BackgroundBlurService } from 'src/app/core/services/background-blur.service';
+import { BadgeNotificationComponent } from 'src/app/components/badge-notification/badge-notification.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-user-card',
@@ -16,6 +18,7 @@ export class UserCardComponent {
 
   constructor(
     public authService: AuthKeycloakService,
+    public dialog: MatDialog,
     private backgroundBlurService: BackgroundBlurService
   ) {
     this.badges$ = of([
@@ -76,4 +79,7 @@ export class UserCardComponent {
     this.backgroundBlurService.setBlur(this.expanded);
   }
 
+  showNotification() {
+    this.dialog.open(BadgeNotificationComponent);
+  }
 }
