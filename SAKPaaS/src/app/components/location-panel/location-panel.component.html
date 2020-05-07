@@ -12,7 +12,7 @@
       </ng-container>
       <ng-container *ngIf="locations$ | async as locations">
         <h1 [ngClass]="{'blur': blur}" class="sectionheading">{{"location-panel.close-to-you" | translate}}</h1>
-        <app-location-list [locations]="locations"></app-location-list>
+        <app-location-list [locations]="locations" [isCloseToYouList]="true"></app-location-list>
       </ng-container>
     </ng-container>
 
