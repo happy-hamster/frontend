@@ -1,7 +1,6 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { TranslateService, TranslationChangeEvent } from '@ngx-translate/core';
-import { CookieProviderService } from 'src/app/core/services/cookie-provider.service';
-import { DOCUMENT } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { LanguageSelectionService } from 'src/app/core/services/language-selection.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-footer',
@@ -10,28 +9,18 @@ import { DOCUMENT } from '@angular/common';
 })
 export class FooterComponent implements OnInit {
 
-  public selectedLanguage = 'de';
+  public selectedLanguage$: Observable<string>;
 
   constructor(
-    private translate: TranslateService,
-    private cookieService: CookieProviderService,
-    @Inject(DOCUMENT) private document: Document
+    private languageService: LanguageSelectionService
   ) { }
 
   ngOnInit(): void {
-
-    this.selectedLanguage = this.translate.currentLang;
-
-    this.translate.onLangChange.subscribe((event: TranslationChangeEvent) => {
-      this.selectedLanguage = event.lang;
-      this.document.documentElement.lang = event.lang;
-      this.cookieService.setCookie('selected_language', event.lang);
-    });
+    this.selectedLanguage$ = this.languageService.getSelectedLanguage();
   }
 
   toggleLanguage() {
-    const newL = this.selectedLanguage === 'en' ? 'de' : 'en';
-    this.translate.use(newL);
+    this.languageService.toggleDeEn();
   }
 
 }

@@ -8,6 +8,7 @@ import { SnackBarService } from './snack-bar.service';
 import { SnackBarTypes } from '../models/snack-bar.interface';
 import { AuthKeycloakService } from './auth-keycloak.service';
 import { LocationProviderService } from './location-provider.service';
+import { LocationCardService } from './location-card.service';
 
 enum UpdateType {
   ADD,
@@ -31,7 +32,8 @@ export class FavoriteService {
     private userFavoritesService: UserFavoritesService,
     private snackBarService: SnackBarService,
     private authService: AuthKeycloakService,
-    private locationService: LocationProviderService
+    private locationService: LocationProviderService,
+    private locationCardService: LocationCardService
   ) {
 
     this.favorites$ = this.authService.isLoggedIn().pipe(
@@ -48,16 +50,25 @@ export class FavoriteService {
                 if (!updatedFavorite) {
                   return favorites;
                 }
+                this.updateFavorite$.next(null);
                 if (updatedFavorite.type === UpdateType.ADD) {
-                  favorites.push(updatedFavorite.location);
+                  const index = favorites.findIndex(
+                    (fav) => fav.id === updatedFavorite.location.id
+                  );
+                  if (index === -1) {
+                    favorites.push(updatedFavorite.location);
+                  } else {
+                    favorites[index] = updatedFavorite.location;
+                  }
+                  return favorites;
                 } else {
                   const index = favorites.findIndex(
                     (fav) => fav.id === updatedFavorite.location.id
                   );
-                  if (!index || index === -1) {
+                  if (index === -1) {
                     return favorites;
                   }
-                  favorites[index] = updatedFavorite.location;
+                  favorites.splice(index, 1);
                   return favorites;
                 }
               })
@@ -119,6 +130,7 @@ export class FavoriteService {
       if (!location) {
         return;
       }
+      this.locationCardService.setSelectedLocationCard(null);
       this.updateFavorite$.next({
         location,
         type: UpdateType.DELETE
