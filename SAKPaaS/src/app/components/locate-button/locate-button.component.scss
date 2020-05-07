@@ -1,14 +1,14 @@
 button {
   margin: 3px;
-  position: fixed;
+  position: absolute;
   width: 27.5px;
   height: 27.5px;
-  top: 30vh;
-  right: 80px;
+  bottom: 40px;
+  right: 70px;
   border: none;
   border-radius: 50%;
   background-color: white;
-  color: #26C485;
+  color: #26c485;
   padding: 0;
   box-shadow: 0 5px 20px 0 rgba(11, 0, 51, 0.2);
   z-index: 1;
