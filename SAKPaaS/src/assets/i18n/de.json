@@ -11,7 +11,8 @@
   },
   "footer": {
     "help": "Hilfe",
-    "legal": "Rechtliches",
+    "impressum": "Impressum",
+    "privacy-policy": "Datenschutzerklarung",
     "feedback": {
       "title": "Feedback"
     }
@@ -62,7 +63,18 @@
     "warning": "Warnung"
   },
   "search-bar": {
-    "placeholder": "Suchen…"
+    "placeholder": "Suchen ...",
+    "type-selector": {
+      "label": "Läden",
+      "default": "Alle",
+      "types": {
+        "chemist": "Apotheke",
+        "kiosk": "Kiosk",
+        "newsagent": "Zeitungsladen",
+        "convenience": "Supermarkt",
+        "beverages": "Getränkeladen"
+      }
+    }
   },
   "snack-bar": {
     "cookies": {
@@ -96,6 +108,7 @@
     "logout": "Abmelden",
     "register": "Account erstellen",
     "guest": "Gast",
+    "greeting": "Hallo",
     "level": "Level:",
     "remaining-xp": "XP bis zum nächsten Level"
   },
