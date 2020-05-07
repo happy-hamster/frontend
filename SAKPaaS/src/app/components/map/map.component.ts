@@ -121,9 +121,7 @@ export class MapComponent implements OnInit, OnDestroy {
     this.breakpointObserver
       .observe(['(min-width: 600px)'])
       .subscribe((state: BreakpointState) => {
-        if (state.matches) {
-          this.fillScreen(false);
-        }
+        this.fillScreen(!state.matches);
       });
   }
 
