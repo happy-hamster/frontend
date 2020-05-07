@@ -12,10 +12,10 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
-  private token$ = new ReplaySubject<string>(1);
+  private token$: Observable<string>;
 
   constructor(private authService: AuthKeycloakService) {
-    authService.getToken().subscribe(this.token$);
+    this.token$ = authService.getToken();
   }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // Apply the headers
