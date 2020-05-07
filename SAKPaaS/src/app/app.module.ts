@@ -24,6 +24,7 @@ import { LocateButtonModule } from 'src/app/components/locate-button/locate-butt
 import { BrowserModule } from '@angular/platform-browser';
 import { ApiModule } from './generated/api.module';
 import { LocationCardModule } from './components/location-card/location-card.module';
+import { BadgeNotificationModule } from './components/badge-notification/badge-notification.module';
 
 
 
@@ -47,6 +48,7 @@ import { LocationCardModule } from './components/location-card/location-card.mod
       defaultLanguage: 'de'
     }),
     // custom component modules (not lazy loaded!)
+    BadgeNotificationModule,
     FooterModule,
     GlobalDialogModule,
     HomeModule,
