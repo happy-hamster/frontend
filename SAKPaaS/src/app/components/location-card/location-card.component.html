@@ -1,10 +1,10 @@
 <ng-container>
-  <div class="card" [ngClass]="{'blur': blur}" (click)="toggle()">
+  <div class="card" [ngClass]="{'blur': blur}" (click)="showLocationCard()">
     <div class="head-row">
       <app-occupancy-view [isSearchBar]="false" [occupancy]="location.occupancy"></app-occupancy-view>
-      <span class="material-icons close-button" [ngClass]="{'hide': hide}">
-        close
-      </span>
+      <button mat-icon-button class="close-button" (click)="hideLocationCard()" [ngClass]="{'hide': hide}">
+        <mat-icon>close</mat-icon>
+      </button>
     </div>
     <div class="row">
       <div class="left">
@@ -15,9 +15,11 @@
         <div class="distance">
           {{ getDistanceString() }}
         </div>
-        <span (click)="toggleFavorite()" class="material-icons">
-          {{ favorite ? 'star' : 'star_border' }}
-        </span>
+        <button mat-icon-button (click)="toggleFavorite()">
+          <mat-icon>
+            {{ location.favorite ? 'star' : 'star_border' }}
+          </mat-icon>
+        </button>
       </div>
     </div>
     <div [ngClass]="{'hide': hide}">

@@ -4,7 +4,8 @@ import { Location } from 'src/app/generated/models';
 import { Observable, Subscription } from 'rxjs';
 import { LocationProviderService } from 'src/app/core/services/location-provider.service';
 import { SearchService } from 'src/app/core/services/search.service';
-import { LocationCardService } from '../../core/services/location-card.service';
+import {LocationCardService} from '../../core/services/location-card.service';
+import { FavoriteService } from 'src/app/core/services/favorite.service';
 
 @Component({
   selector: 'app-location-panel',
@@ -15,6 +16,7 @@ export class LocationPanelComponent implements OnInit, OnDestroy {
 
   hideSearchResults = true;
   locations$: Observable<Location[]>;
+  favorites$: Observable<Location[]>;
   blur: boolean;
   subscriptions = new Subscription();
 
@@ -25,7 +27,8 @@ export class LocationPanelComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private locationService: LocationProviderService,
     private searchService: SearchService,
-    private locationCardService: LocationCardService
+    private locationCardService: LocationCardService,
+    private favoriteService: FavoriteService
   ) { }
 
   ngOnInit(): void {
@@ -35,6 +38,8 @@ export class LocationPanelComponent implements OnInit, OnDestroy {
     });
 
     this.locations$ = this.locationService.fetchLocations();
+
+    this.favorites$ = this.favoriteService.getFavorites();
 
     this.subscriptions.add(
       this.locationCardService.getSelectedLocationCard().subscribe(
