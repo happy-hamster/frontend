@@ -1,11 +1,10 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from 'src/app/generated/models';
-import {Observable, Subscription} from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { LocationProviderService } from 'src/app/core/services/location-provider.service';
 import { SearchService } from 'src/app/core/services/search.service';
-import {ListType} from '../../core/models/location-card.interface';
-import {LocationCardService} from '../../core/services/location-card.service';
+import { LocationCardService } from '../../core/services/location-card.service';
 
 @Component({
   selector: 'app-location-panel',
@@ -16,11 +15,11 @@ export class LocationPanelComponent implements OnInit, OnDestroy {
 
   hideSearchResults = true;
   locations$: Observable<Location[]>;
-  favoriteType = ListType.FAVORITES;
-  searchType = ListType.SEARCH;
-  nearByType = ListType.NEAR_BY;
   blur: boolean;
   subscriptions = new Subscription();
+
+  minimized = false;
+  @Output() minimizedForParent = new EventEmitter<boolean>();
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -50,4 +49,25 @@ export class LocationPanelComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
+  minimize() {
+    if (this.minimized) {
+      this.minimized = !this.minimized;
+      window.setTimeout(() => {
+        this.minimizedForParent.emit(this.minimized);
+      }, 150);
+    } else {
+      this.minimizedForParent.emit(!this.minimized);
+      window.setTimeout(() => {
+        this.minimized = !this.minimized;
+      }, 150);
+    }
+  }
+
+  expandIfNeeded(event) {
+    if (event) {
+      if (this.minimized) {
+        this.minimize();
+      }
+    }
+  }
 }

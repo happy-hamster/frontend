@@ -1,0 +1,87 @@
+<div id="burger-menu" (click)="open()">
+  <mat-icon>menu</mat-icon>
+</div>
+
+<nav [class.open]="open$ | async" (swipeleft)="close()">
+  <div class="top">
+    <div class="user-header" *ngIf="authService.getUser() | async as user; else anonymous">
+      <p class="greeting">{{'user-card.greeting' | translate}} {{user.firstName}}!
+        <button mat-icon-button (click)="authService.logout()">
+          <mat-icon>highlight_off</mat-icon>
+        </button>
+      </p>
+      <p class="email">{{user.email}}</p>
+    </div>
+    <ng-template #anonymous>
+      <div class="user-header">
+        <p class="greeting">{{'user-card.greeting' | translate}}!</p>
+        <a class="mat-primary" (click)="authService.login()">{{
+          "user-card.login" | translate
+        }}</a>
+        <br>
+        <a class="mat-primary" (click)="authService.register()">{{
+          "user-card.register" | translate
+        }}</a>
+      </div>
+    </ng-template>
+    <div class="section top">
+      <a routerLink="/" (click)="close()">
+        <div class="img-wrap">
+          <mat-icon>search</mat-icon>
+        </div>
+        {{'sidenav.search' | translate}}
+      </a>
+    </div>
+  </div>
+  <div class="space"></div>
+  <div class="bottom">
+    <div class="section">
+      <h3>{{'sidenav.social-media' | translate}}</h3>
+      <a target="_blank" rel="noreferrer" href="https://www.instagram.com/happyhamsterorg/">
+        <div class="img-wrap">
+          <img src="assets/icons/social-media/instagram.svg" alt="Instagram" />
+        </div>
+        Instagram
+      </a>
+      <a target="_blank" rel="noreferrer" href="https://twitter.com/happyhamsterorg">
+        <div class="img-wrap">
+          <img src="assets/icons/social-media/twitter.svg" alt="Twitter" />
+        </div>
+        Twitter
+      </a>
+      <a target="_blank" rel="noreferrer" href="https://www.youtube.com/channel/UCEYDgvcxXbOLIrKXZcC4nCA">
+        <div class="img-wrap">
+          <img src="assets/icons/social-media/youtube.svg" alt="Youtube" />
+        </div>
+        YouTube
+      </a>
+      <a target="_blank" rel="noreferrer" href="https://github.com/SAKPaaS">
+        <div class="img-wrap">
+          <img src="assets/icons/social-media/github.svg" alt="GitHub" />
+        </div>
+        GitHub
+      </a>
+    </div>
+    <div class="section">
+      <a href="">
+        <div class="img-wrap">
+          <mat-icon>feedback</mat-icon>
+        </div>
+        {{'sidenav.feedback' | translate}}
+      </a>
+      <a (click)="toggleLanguage()">
+        <div class="img-wrap">
+          <mat-icon>language</mat-icon>
+        </div>
+        {{'sidenav.toggle-lang' | translate}}
+      </a>
+    </div>
+  </div>
+  <div class="section imprint">
+    <a routerLink="/legal/impressum" (click)="close()">{{'footer.impressum' | translate}}</a>
+    <a routerLink="/legal/privacy-policy" (click)="close()">{{'footer.privacy-policy' | translate}}</a>
+  </div>
+</nav>
+<div class="backdrop" [class.open]="open$ | async" (click)="close()">
+
+</div>

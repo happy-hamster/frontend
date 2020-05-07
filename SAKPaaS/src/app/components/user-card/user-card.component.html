@@ -17,9 +17,15 @@
       <div class="next-level">
           {{ remainingReports }} {{ 'user-card.remaining-xp' | translate }}
       </div>
+      <div *ngIf="totalPages>1 && expanded" style="float:right; color: #9DA9A0;">Seite {{page}} von {{totalPages}}</div>
+      <div *ngIf="!expanded" class="ellipsis">
+        {{ user.username }}<br />
+        <a class="mat-primary" (click)="authService.logout()">{{
+          "user-card.logout" | translate
+        }}</a><br />
+        <a class="mat-primary" (click)="showNotification()">Show</a>
+      </div>
     </div>
-    {{user.username}}<br>
-    <a class="mat-primary" (click)="authService.logout()">{{ 'user-card.logout' | translate }}</a><br>
   </mat-card-content>
 </mat-card>
 <ng-template #login>
