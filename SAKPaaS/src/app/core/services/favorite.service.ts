@@ -49,7 +49,14 @@ export class FavoriteService {
                   return favorites;
                 }
                 if (updatedFavorite.type === UpdateType.ADD) {
-                  favorites.push(updatedFavorite.location);
+                  const index = favorites.findIndex(
+                    (fav) => fav.id === updatedFavorite.location.id
+                  );
+                  if (index === -1) {
+                    favorites.push(updatedFavorite.location);
+                  } else {
+                    favorites[index] = updatedFavorite.location;
+                  }
                   return favorites;
                 } else {
                   const index = favorites.findIndex(
