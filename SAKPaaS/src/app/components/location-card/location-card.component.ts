@@ -69,9 +69,8 @@ export class LocationCardComponent implements OnInit, OnDestroy {
   }
 
   toggleFavorite() {
-    console.log('toggleFavorite()');
     if (this.location.favorite) {
-      // this.favoriteService.deleteFavorite(this.location.id);
+      this.favoriteService.deleteFavorite(this.location.id);
     } else {
       this.favoriteService.addFavorite(this.location.id);
     }

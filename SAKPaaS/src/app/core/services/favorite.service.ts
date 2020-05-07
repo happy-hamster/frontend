@@ -50,14 +50,15 @@ export class FavoriteService {
                 }
                 if (updatedFavorite.type === UpdateType.ADD) {
                   favorites.push(updatedFavorite.location);
+                  return favorites;
                 } else {
                   const index = favorites.findIndex(
                     (fav) => fav.id === updatedFavorite.location.id
                   );
-                  if (!index || index === -1) {
+                  if (index === -1) {
                     return favorites;
                   }
-                  favorites[index] = updatedFavorite.location;
+                  favorites.splice(index, 1);
                   return favorites;
                 }
               })
