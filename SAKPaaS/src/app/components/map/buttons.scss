@@ -24,3 +24,46 @@ button.ol-rotate-reset:hover {
   background-color: var(--silver);
   cursor: pointer;
 }
+
+div.ol-overlaycontainer-stopevent {
+  z-index: auto !important;
+}
+
+div.ol-zoom {
+  top: auto;
+  left: auto;
+  bottom: 40px;
+  right: 30px;
+  background-color: transparent;
+}
+
+div.ol-attribution a {
+  color: var(--greenblue);
+}
+
+div.ol-rotate {
+  top: auto;
+  left: auto;
+  right: 30px;
+  bottom: 100px;
+  background-color: transparent;
+  color: white;
+  z-index: 3;
+  button {
+    border-radius: $button-roundness;
+  }
+}
+
+div.ol-control:hover {
+  background-color: transparent;
+}
+
+@media (max-width: 600px) {
+  div.ol-zoom {
+    display: none;
+  }
+
+  div.ol-rotate {
+    display: none;
+  }
+}

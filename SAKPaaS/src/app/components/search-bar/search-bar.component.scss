@@ -13,6 +13,10 @@
     right: 15px;
     width: auto;
     max-width: 600px;
+    padding: 7px 14px 8px 14px;
+  }
+  .category-selector-wrapper {
+    border-radius: 15px !important;
   }
 }
 
@@ -103,6 +107,7 @@ mat-form-field {
   .mat-form-field-infix {
     margin: auto 0;
     border: 0;
+    width: initial;
   }
 }
 

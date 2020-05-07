@@ -5,9 +5,10 @@ import { MatListModule } from '@angular/material/list';
 import { OccupancyViewModule } from 'src/app/components/occupancy-view/occupancy-view.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
-import {LocationCardComponent} from './location-card.component';
-import {MatCardModule} from '@angular/material/card';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { LocationCardComponent } from './location-card.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -23,7 +24,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatProgressSpinnerModule,
     MatDividerModule,
     MatCardModule,
-    MatExpansionModule
+    MatButtonModule,
+    MatIconModule
   ],
   exports: [
     LocationCardComponent
