@@ -80,6 +80,10 @@ h1 {
   .location-panel {
     top: 30vh;
     transition: .3s;
+    left: 0;
+    right: 0;
+    transform: initial;
+    max-width: initial;
   }
 }
 
