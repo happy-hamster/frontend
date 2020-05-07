@@ -1,23 +1,11 @@
 <div class="footer">
-  <a
-    target="_blank"
-    rel="noreferrer"
-    href="https://www.instagram.com/happyhamsterorg/"
-  >
+  <a target="_blank" rel="noreferrer" href="https://www.instagram.com/happyhamsterorg/">
     <img src="assets/icons/social-media/instagram-grey.svg" alt="Instagram" />
   </a>
-  <a
-    target="_blank"
-    rel="noreferrer"
-    href="https://twitter.com/happyhamsterorg"
-  >
+  <a target="_blank" rel="noreferrer" href="https://twitter.com/happyhamsterorg">
     <img src="assets/icons/social-media/twitter-grey.svg" alt="Twitter" />
   </a>
-  <a
-    target="_blank"
-    rel="noreferrer"
-    href="https://www.youtube.com/channel/UCEYDgvcxXbOLIrKXZcC4nCA"
-  >
+  <a target="_blank" rel="noreferrer" href="https://www.youtube.com/channel/UCEYDgvcxXbOLIrKXZcC4nCA">
     <img src="assets/icons/social-media/youtube-grey.svg" alt="Youtube" />
   </a>
   <a target="_blank" rel="noreferrer" href="https://github.com/SAKPaaS">
@@ -28,25 +16,18 @@
     <img src="assets/icons/seperator.svg" />
   </div>
 
-  <a
-    class="ml"
-    target="_blank"
-    rel="noreferrer"
-    href="https://docs.google.com/forms/d/e/1FAIpQLSekXXSN--ehheZoMnMj9oE3tzCdS0C8oQ0lg8Lpl8RxNRIPEA/viewform"
-  >
+  <a class="ml" target="_blank" rel="noreferrer"
+    href="https://docs.google.com/forms/d/e/1FAIpQLSekXXSN--ehheZoMnMj9oE3tzCdS0C8oQ0lg8Lpl8RxNRIPEA/viewform">
     <img src="assets/icons/about.svg" alt="Feedback" />
   </a>
 </div>
 <span class="rightalign-footer">
-  <a [routerLink]="" (click)="toggleLanguage()">
-    {{ selectedLanguage === "de" ? "EN" : "DE" }} |
+  <a [routerLink]="" (click)="toggleLanguage()" *ngIf="selectedLanguage$ | async as lang">
+    {{ lang === "de" ? "EN" : "DE" }} |
   </a>
-  <a href="https://welcome.happyhamster.org/"
-    >{{ "footer.help" | translate }} |
+  <a href="https://welcome.happyhamster.org/">{{ "footer.help" | translate }} |
   </a>
-  <a href="" routerLink="/legal/impressum"
-    >{{ "footer.impressum" | translate }} |</a
-  >
+  <a href="" routerLink="/legal/impressum">{{ "footer.impressum" | translate }} |</a>
   <a href="" routerLink="/legal/privacy-policy">{{
     "footer.privacy-policy" | translate
   }}</a>
