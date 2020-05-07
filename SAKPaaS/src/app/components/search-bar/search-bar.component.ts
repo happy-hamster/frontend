@@ -1,11 +1,12 @@
 import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {Observable } from 'rxjs';
+import {Observable, EMPTY } from 'rxjs';
 import {Location} from '../../generated/models/location';
 import {LocationProviderService} from '../../core/services/location-provider.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SearchService } from 'src/app/core/services/search.service';
 import { LocationTypesService } from 'src/app/generated/services/location-types.service';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search-bar',
@@ -15,7 +16,7 @@ import { LocationTypesService } from 'src/app/generated/services/location-types.
 export class SearchBarComponent implements OnInit {
   searchControl = new FormControl();
   locations$: Observable<Location[]>;
-  types: Array<string>;
+  types$: Observable<string[]>;
 
   constructor(
     private locationsService: LocationProviderService,
@@ -28,10 +29,12 @@ export class SearchBarComponent implements OnInit {
 
   ngOnInit(): void {
     this.locations$ = this.locationsService.fetchLocations();
-    this.locationTypesService.locationsTypesGet().subscribe({
-      next: data => this.types = data,
-      error: _ => this.types = []
-    });
+    this.types$ = this.locationTypesService.locationsTypesGet().pipe(
+        catchError(error => {
+          console.log(error);
+          return EMPTY;
+        })
+      );
 
     if (this.activatedRoute.snapshot.queryParamMap.has('searchTerm')) {
       this.searchControl.setValue(this.activatedRoute.snapshot.queryParamMap.get('searchTerm'));
@@ -59,9 +62,5 @@ export class SearchBarComponent implements OnInit {
     if (this.searchControl.value) {
       this.searchService.triggerSearch(this.searchControl.value);
     }
-  }
-
-  getTypes(): Array<string> {
-    return this.types;
   }
 }

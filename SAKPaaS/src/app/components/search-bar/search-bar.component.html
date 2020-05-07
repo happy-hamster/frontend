@@ -11,7 +11,7 @@
           }}</mat-option>
           <mat-option
             *ngFor="
-              let type of getTypes()
+              let type of types$ | async
             "
             [value]="type"
           >
