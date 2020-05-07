@@ -1,6 +1,6 @@
 import { Injectable, Provider, forwardRef } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Observable, ReplaySubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { AuthKeycloakService } from '../services/auth-keycloak.service';
 
@@ -12,10 +12,10 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
-  private token$ = new ReplaySubject<string>(1);
+  private token$: Observable<string>;
 
   constructor(private authService: AuthKeycloakService) {
-    authService.getToken().subscribe(this.token$);
+    this.token$ = authService.getToken();
   }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // Apply the headers

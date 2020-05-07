@@ -1,10 +1,9 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, ElementRef} from '@angular/core';
 import {Location} from '../../generated/models/location';
 import {Router} from '@angular/router';
 import {LocationProviderService} from '../../core/services/location-provider.service';
 import {LocationCardService} from '../../core/services/location-card.service';
 import {Subscription} from 'rxjs';
-import {ListType} from '../../core/models/location-card.interface';
 import { FavoriteService } from 'src/app/core/services/favorite.service';
 import { AuthKeycloakService } from 'src/app/core/services/auth-keycloak.service';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
@@ -13,12 +12,10 @@ import { SnackBarTypes } from 'src/app/core/models/snack-bar.interface';
 @Component({
   selector: 'app-location-card',
   templateUrl: './location-card.component.html',
-  styleUrls: ['./location-card.component.scss']
+  styleUrls: ['./location-card.component.scss'],
 })
 export class LocationCardComponent implements OnInit, OnDestroy {
-
   @Input() location: Location;
-  @Input() listType: ListType;
 
   hide = true;
   blur = false;
@@ -30,21 +27,27 @@ export class LocationCardComponent implements OnInit, OnDestroy {
     private locationCardService: LocationCardService,
     private favoriteService: FavoriteService,
     private authService: AuthKeycloakService,
-    private snackbarService: SnackBarService
-  ) { }
+    private snackbarService: SnackBarService,
+    private hostElement: ElementRef
+  ) {}
 
   ngOnInit(): void {
     this.subscriptions.add(
-      this.locationCardService.getSelectedLocationCard().subscribe(
-        locationCard => {
-          if (locationCard !== null) {
-            if (
-              locationCard.locationId !== null
-              && locationCard.locationId === this.location.id
-              && locationCard.listType === this.listType
-            ) {
+      this.locationCardService
+        .getSelectedLocationCard()
+        .subscribe((location) => {
+          if (location !== null) {
+            if (location.id !== null && location.id === this.location.id) {
               this.hide = false;
               this.blur = false;
+              // wait until browser has resized the element after opening it
+              // otherwise the scroll will not be calculated correctly
+              setTimeout(() => {
+                (this.hostElement.nativeElement as HTMLElement).scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start',
+                });
+              }, 10);
             } else {
               this.hide = true;
               this.blur = true;
@@ -53,17 +56,13 @@ export class LocationCardComponent implements OnInit, OnDestroy {
             this.hide = true;
             this.blur = false;
           }
-        }
-      )
+        })
     );
   }
 
   showLocationCard() {
     if (this.hide) {
-      this.locationCardService.setSelectedLocationCard({
-        locationId: this.location.id,
-        listType: this.listType
-      });
+      this.locationCardService.setSelectedLocationCard(this.location);
     }
   }
 
@@ -74,7 +73,6 @@ export class LocationCardComponent implements OnInit, OnDestroy {
   }
 
   toggleFavorite() {
-    console.log('toggleFavorite()');
     if (!this.authService.isLoggedInInstant()) {
       this.snackbarService.sendNotification({
         messageKey: 'snack-bar.favorite.not-logged-in',
@@ -83,7 +81,7 @@ export class LocationCardComponent implements OnInit, OnDestroy {
       return;
     }
     if (this.location.favorite) {
-      // this.favoriteService.deleteFavorite(this.location.id);
+      this.favoriteService.deleteFavorite(this.location.id);
     } else {
       this.favoriteService.addFavorite(this.location.id);
     }
@@ -97,7 +95,11 @@ export class LocationCardComponent implements OnInit, OnDestroy {
     let dist = '' + Math.round(distance);
     if (dist.length > 3) {
       dist = dist.slice(0, dist.length - 2);
-      dist = dist.slice(0, dist.length - 1) + '.' + dist.slice(dist.length - 1, dist.length) + ' km';
+      dist =
+        dist.slice(0, dist.length - 1) +
+        '.' +
+        dist.slice(dist.length - 1, dist.length) +
+        ' km';
     } else {
       dist = dist + ' m';
     }
