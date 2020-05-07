@@ -72,7 +72,7 @@
     "favorite": {
       "added": {
         "success": "Erfolgreich zu den Favoriten hinzugefügt! :)",
-        "error": "Wir es leider nicht zu deinen Favoriten hinzufügen. Probiere es bitte nocheinmal!"
+        "error": "Wir konnten es leider nicht zu deinen Favoriten hinzufügen. Probiere es bitte nocheinmal!"
       },
       "deleted": {
         "success": "Erfolgreich von deinen Favoriten entfernt!",
