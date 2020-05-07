@@ -59,7 +59,7 @@ h1 {
 
 @media (max-width: 600px) {
   .minimized {
-    top: calc(100vh - 120px) !important;
+    top: calc(100vh - 80px) !important;
   }
 
   .minimize-icon {
@@ -84,8 +84,9 @@ h1 {
   }
 
   .location-panel {
+    border-radius: 23px;
     top: 30vh;
-    transition: .3s;
+    transition: 0.3s;
     left: 0;
     right: 0;
     transform: initial;
