@@ -4,7 +4,6 @@ import { Location } from 'src/app/generated/models';
 import { Observable, Subscription } from 'rxjs';
 import { LocationProviderService } from 'src/app/core/services/location-provider.service';
 import { SearchService } from 'src/app/core/services/search.service';
-import { ListType } from '../../core/models/location-card.interface';
 import { LocationCardService } from '../../core/services/location-card.service';
 
 @Component({
