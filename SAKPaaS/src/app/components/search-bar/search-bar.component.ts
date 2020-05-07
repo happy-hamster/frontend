@@ -17,6 +17,7 @@ export class SearchBarComponent implements OnInit {
   searchControl = new FormControl();
   locations$: Observable<Location[]>;
   types$: Observable<string[]>;
+  @Output() expand = new EventEmitter<boolean>();
 
   constructor(
     private locationsService: LocationProviderService,
@@ -54,6 +55,7 @@ export class SearchBarComponent implements OnInit {
   }
 
   triggerSearch(): void {
+    this.expand.emit(true);
     this.router.navigate([], {
       queryParams: {
         searchTerm: this.searchControl.value || null

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, Input } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from 'src/app/generated/models';
 import { Observable, Subscription } from 'rxjs';
@@ -17,6 +17,9 @@ export class LocationPanelComponent implements OnInit, OnDestroy {
   locations$: Observable<Location[]>;
   blur: boolean;
   subscriptions = new Subscription();
+
+  minimized = false;
+  @Output() minimizedForParent = new EventEmitter<boolean>();
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -46,4 +49,25 @@ export class LocationPanelComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
+  minimize() {
+    if (this.minimized) {
+      this.minimized = !this.minimized;
+      window.setTimeout(() => {
+        this.minimizedForParent.emit(this.minimized);
+      }, 150);
+    } else {
+      this.minimizedForParent.emit(!this.minimized);
+      window.setTimeout(() => {
+        this.minimized = !this.minimized;
+      }, 150);
+    }
+  }
+
+  expandIfNeeded(event) {
+    if (event) {
+      if (this.minimized) {
+        this.minimize();
+      }
+    }
+  }
 }
