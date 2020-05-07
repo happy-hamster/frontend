@@ -8,6 +8,7 @@ import { PositionCoordinates } from '../models/position-coordinates.model';
 import { getDistance as olGetDistance } from 'ol/sphere';
 import { SearchService } from './search.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { LocationCardService } from './location-card.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,7 @@ export class LocationProviderService {
 
   constructor(
     private locationApiService: LocationsService,
+    private locationCardService: LocationCardService,
     private mapService: MapService,
     private searchService: SearchService,
     private activatedRoute: ActivatedRoute
@@ -81,7 +83,8 @@ export class LocationProviderService {
             return locations;
           })
         );
-      })
+      }),
+      tap(locations => { this.locationCardService.deselectIfNotInList(locations); })
     );
   }
 

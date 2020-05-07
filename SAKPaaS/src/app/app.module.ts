@@ -22,11 +22,11 @@ import { LogoModule } from 'src/app/components/logo/logo.module';
 import { GlobalDialogModule } from 'src/app/components/global-dialog/global-dialog.module';
 import { LocateButtonModule } from 'src/app/components/locate-button/locate-button.module';
 import { BrowserModule } from '@angular/platform-browser';
-import { LocationDetailsModule } from 'src/app/components/location-details/location-details.module';
 import { ApiModule } from './generated/api.module';
 import { LocationPanelModule } from './components/location-panel/location-panel.module';
 import { API_INTERCEPTOR_PROVIDER, ApiInterceptor } from './core/interceptors/api.interceptor';
 import { LocationCardModule } from './components/location-card/location-card.module';
+import { SidenavModule } from './components/sidenav/sidenav.module';
 import { BadgeNotificationModule } from './components/badge-notification/badge-notification.module';
 
 
@@ -56,7 +56,6 @@ import { BadgeNotificationModule } from './components/badge-notification/badge-n
     GlobalDialogModule,
     HomeModule,
     LocateButtonModule,
-    LocationDetailsModule,
     LocationCardModule,
     LocationPanelModule,
     LogoModule,
@@ -65,6 +64,7 @@ import { BadgeNotificationModule } from './components/badge-notification/badge-n
     OccupancyViewModule,
     SearchBarModule,
     SharedModule,
+    SidenavModule,
     SnackBarModule
   ],
   providers: [
