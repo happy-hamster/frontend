@@ -5,6 +5,7 @@ import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { LocationsService } from './services/locations.service';
 import { OccupancyService } from './services/occupancy.service';
+import { LocationTypesService } from './services/location-types.service';
 import { UserFavoritesService } from './services/user-favorites.service';
 
 /**
@@ -17,6 +18,7 @@ import { UserFavoritesService } from './services/user-favorites.service';
   providers: [
     LocationsService,
     OccupancyService,
+    LocationTypesService,
     UserFavoritesService,
     ApiConfiguration
   ],

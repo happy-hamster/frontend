@@ -68,11 +68,16 @@
       "label": "Stores",
       "default": "All",
       "types": {
+        "multipolygon": "other",
+        "asian_food": "asian food",
+        "Portuguese": "portuguese",
+        "beverages": "beverages",
+        "asian": "asian",
+        "turkish": "turkish",
+        "delicatessen": "delicacies",
+        "supermarket": "supermarket",
         "chemist": "chemist",
-        "kiosk": "kiosk",
-        "newsagent": "newsagent",
-        "convenience": "convenience",
-        "beverages": "beverages"
+        "african; asian; indian": "african; asian; indian"
       }
     }
   },

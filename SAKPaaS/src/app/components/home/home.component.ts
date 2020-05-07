@@ -21,4 +21,8 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.shouldBlurBackground$ = this.backgroundBlurService.getBlur();
   }
+
+  onMinimizedForParent(minimized: boolean) {
+    this.mapComp.fillScreen(minimized);
+  }
 }

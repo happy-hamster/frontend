@@ -40,9 +40,8 @@ export class MapComponent implements OnInit, OnDestroy {
   selectControl: Select;
 
   isLoadingLocations: Observable<boolean>;
-
   closeSubject: Subject<null>;
-
+  minimized = false;
   private subscriptions = new Subscription();
 
   constructor(
@@ -278,6 +277,15 @@ export class MapComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
     this.mapService.saveMapState();
     this.closeSubject?.next();
+  }
+
+  resize() {
+    this.customMap.updateSize();
+  }
+
+  fillScreen(minimized: boolean) {
+    this.minimized = minimized;
+    window.setTimeout(() => { this.resize(); }, 100);
   }
 }
 

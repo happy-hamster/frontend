@@ -64,15 +64,21 @@
   },
   "search-bar": {
     "placeholder": "Suchen ...",
+    "placeholder": "Suchen…",
     "type-selector": {
       "label": "Läden",
       "default": "Alle",
       "types": {
+        "multipolygon": "Andere",
+        "asian_food": "Asiatisches Essen",
+        "Portuguese": "Portugiesisch",
+        "beverages": "Getränke",
+        "asian": "Asiatisch",
+        "turkish": "Türkisch",
+        "delicatessen": "Delikatessen",
+        "supermarket": "Supermarkt",
         "chemist": "Apotheke",
-        "kiosk": "Kiosk",
-        "newsagent": "Zeitungsladen",
-        "convenience": "Supermarkt",
-        "beverages": "Getränkeladen"
+        "african; asian; indian": "Afrikanisch; Asiatisch; Indisch"
       }
     }
   },
