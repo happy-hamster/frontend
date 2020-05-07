@@ -73,6 +73,7 @@ export class LocationProviderService {
             if (!updatedLocation) {
               return locations;
             }
+            this.updatedLocation$.next(null);
             const index = locations.findIndex(
               (fav) => fav.id === updatedLocation.id
             );

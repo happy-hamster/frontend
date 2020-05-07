@@ -50,6 +50,7 @@ export class FavoriteService {
                 if (!updatedFavorite) {
                   return favorites;
                 }
+                this.updateFavorite$.next(null);
                 if (updatedFavorite.type === UpdateType.ADD) {
                   const index = favorites.findIndex(
                     (fav) => fav.id === updatedFavorite.location.id
