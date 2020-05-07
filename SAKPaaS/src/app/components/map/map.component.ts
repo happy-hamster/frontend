@@ -19,6 +19,7 @@ import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { SnackBarTypes } from 'src/app/core/models/snack-bar.interface';
 import { ActivatedRoute } from '@angular/router';
 import { PositionCoordinates } from 'src/app/core/models/position-coordinates.model';
+import { LocationCardService } from 'src/app/core/services/location-card.service';
 
 @Component({
   selector: 'app-map',
@@ -27,12 +28,17 @@ import { PositionCoordinates } from 'src/app/core/models/position-coordinates.mo
 })
 export class MapComponent implements OnInit, OnDestroy {
 
-  @Output() locationEmitted = new EventEmitter<Location>();
+  private static opacityOfBlurredLocations = 0.6;
+  private static animationDuration = 200;
 
   customMap: Map;
   markers = new Subject<OLMapMarker[]>();
-  vectorSource: VectorSource;
-  selectEvent: SelectEvent = null;
+
+  vectorLayerDefault: VectorLayer;
+  vectorSourceDefault: VectorSource;
+  vectorSourceSelected: VectorSource;
+  selectControl: Select;
+
   isLoadingLocations: Observable<boolean>;
   closeSubject: Subject<null>;
   minimized = false;
@@ -41,6 +47,7 @@ export class MapComponent implements OnInit, OnDestroy {
   constructor(
     private mapService: MapService,
     private locationService: LocationProviderService,
+    private locationCardService: LocationCardService,
     private snackBarService: SnackBarService,
     private route: ActivatedRoute
   ) {
@@ -81,9 +88,31 @@ export class MapComponent implements OnInit, OnDestroy {
         }),
         filter(_ => this.mapService.getCurrentMapZoomLevel() > MapService.ZOOM_LIMIT)
       ).subscribe((next) => {
-        this.vectorSource.clear();
+        this.vectorSourceDefault.clear();
         const markers = next.map((locations) => new OLMapMarker(locations));
-        this.vectorSource.addFeatures(markers);
+        this.vectorSourceDefault.addFeatures(markers);
+      })
+    );
+
+    this.subscriptions.add(
+      this.locationCardService.getSelectedLocationCard().subscribe(location => {
+        if (location === null) {
+          this.selectControl.getFeatures().clear();
+          this.vectorSourceSelected.clear();
+          this.vectorLayerDefault.setOpacity(1);
+        } else {
+          this.vectorSourceSelected.clear();
+          const newFeature = new OLMapMarker(location);
+          this.vectorSourceSelected.addFeature(newFeature);
+          this.vectorLayerDefault.setOpacity(MapComponent.opacityOfBlurredLocations);
+          this.selectControl.getFeatures().clear();
+          this.selectControl.getFeatures().push(newFeature);
+          // pushes the zoom operation to the next cycle of the event loop to stop
+          // it from interfering with displaying the newly selected feature
+          setTimeout(() => {
+            this.zoomToNewLocation(location);
+          }, 0);
+        }
       })
     );
 
@@ -91,8 +120,16 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   private initOLMap() {
-    this.vectorSource = new VectorSource({
+    this.vectorSourceDefault = new VectorSource({
       features: []
+    });
+
+    this.vectorSourceSelected = new VectorSource({
+      features: []
+    });
+
+    this.vectorLayerDefault = new VectorLayer({
+      source: this.vectorSourceDefault,
     });
 
     this.customMap = new Map({
@@ -101,8 +138,10 @@ export class MapComponent implements OnInit, OnDestroy {
         new TileLayer({
           source: new OSM()
         }),
+        this.vectorLayerDefault,
         new VectorLayer({
-          source: this.vectorSource
+          source: this.vectorSourceSelected,
+          opacity: 1
         })
       ]
     });
@@ -112,18 +151,21 @@ export class MapComponent implements OnInit, OnDestroy {
 
   private registerEventListeners() {
     // this listener gets triggered when the user clicks on a marker
-    const select = new Select({
+    this.selectControl = new Select({
       condition: click,
       style: null
     });
 
-    this.customMap.addInteraction(select);
+    this.customMap.addInteraction(this.selectControl);
 
-    select.on('select', (e) => {
+    this.selectControl.on('select', (e) => {
       const target = e.selected[0] as OLMapMarker;
-      if (!target) { return; }
-      this.locationEmitted.emit(target.location);
-      this.selectEvent = e;
+      console.log(target);
+      if (!target) {
+        this.locationCardService.setSelectedLocationCard(null);
+        return;
+      }
+      this.locationCardService.setSelectedLocationCard(target.location);
     });
 
     // this listener is called after the user has zoomed/panned/rotated the map
@@ -139,11 +181,17 @@ export class MapComponent implements OnInit, OnDestroy {
     });
 
     this.subscriptions.add(this.mapService.getMapCenterFiltered().subscribe(center => {
-      this.customMap.getView().setCenter(center.toOLProjectionArray());
+      this.customMap.getView().animate({
+        center: center.toOLProjectionArray(),
+        duration: MapComponent.animationDuration
+      });
     }));
 
     this.subscriptions.add(this.mapService.getMapZoomLevelFiltered().subscribe(zoom => {
-      this.customMap.getView().setZoom(zoom);
+      this.customMap.getView().animate({
+        zoom,
+        duration: MapComponent.animationDuration
+      });
     }));
   }
 
@@ -158,7 +206,7 @@ export class MapComponent implements OnInit, OnDestroy {
         this.closeSubject = new Subject<null>();
         // null if there is no snack bar presented by this component
         // otherwise contains a subject that is subscribed to by the snack bar and closes it when it emits
-        this.vectorSource.clear();
+        this.vectorSourceDefault.clear();
         this.snackBarService.sendNotification({
           messageKey: 'snack-bar.map.zoom',
           type: SnackBarTypes.INFO,
@@ -170,10 +218,10 @@ export class MapComponent implements OnInit, OnDestroy {
     });
   }
 
-  deselect(): void {
-    this.selectEvent.target.getFeatures().clear();
+  /*deselect(): void {
+    this.selectEvent?.target.getFeatures().clear();
     this.selectEvent = null;
-  }
+  }*/
 
   public zoomToNewLocation(location: Location): void {
     this.mapService.setMapCenter(PositionCoordinates.fromLocation(location));

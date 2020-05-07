@@ -16,9 +16,6 @@ export class LocationPanelComponent implements OnInit, OnDestroy {
 
   hideSearchResults = true;
   locations$: Observable<Location[]>;
-  favoriteType = ListType.FAVORITES;
-  searchType = ListType.SEARCH;
-  nearByType = ListType.NEAR_BY;
   blur: boolean;
   subscriptions = new Subscription();
 

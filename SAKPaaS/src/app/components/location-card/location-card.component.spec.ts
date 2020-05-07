@@ -9,7 +9,6 @@ import { Component } from '@angular/core';
 import { Occupancy } from '../../generated/models/occupancy';
 import { Location } from '../../generated/models/location';
 import { LocationId, LocationType } from '../../generated/models';
-import { ListType } from '../../core/models/location-card.interface';
 
 describe('LocationCardComponent', () => {
   let component: LocationCardComponent;
@@ -43,7 +42,7 @@ describe('LocationCardComponent', () => {
 
 @Component({
   selector: 'app-test-wrapper-component',
-  template: '<app-location-card [location]="location" [listType]="listType"></app-location-card>'
+  template: '<app-location-card [location]="location"></app-location-card>'
 })
 class TestWrapperComponent {
   location: Location = {
@@ -72,5 +71,4 @@ class TestWrapperComponent {
     },
     favorite: true
   };
-  listType: ListType.NEAR_BY;
 }

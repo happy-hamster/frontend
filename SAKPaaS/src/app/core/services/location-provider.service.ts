@@ -10,6 +10,7 @@ import { SearchService } from './search.service';
 import { SnackBarService } from './snack-bar.service';
 import { SnackBarTypes } from '../models/snack-bar.interface';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { LocationCardService } from './location-card.service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,7 @@ export class LocationProviderService {
 
   constructor(
     private locationApiService: LocationsService,
+    private locationCardService: LocationCardService,
     private mapService: MapService,
     private searchService: SearchService,
     private activatedRoute: ActivatedRoute
@@ -67,6 +69,7 @@ export class LocationProviderService {
         }
       }),
       tap(x => { console.log('fetchLocation außen'); }),
+      tap(locations => { this.locationCardService.deselectIfNotInList(locations); })
     );
   }
 

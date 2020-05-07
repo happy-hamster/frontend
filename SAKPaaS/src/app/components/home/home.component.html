@@ -2,7 +2,7 @@
   <app-logo></app-logo>
   <app-user-card></app-user-card>
   <div id="home-wrapper-inner">
-    <app-map (locationEmitted)="onLocationEmitted($event, true)" style="z-index: 1;"></app-map>
+    <app-map style="z-index: 1;"></app-map>
     <app-location-panel (minimizedForParent)="onMinimizedForParent($event)"></app-location-panel>
     <div id="blur-container" [class.blurred]="shouldBlurBackground$ | async"></div>
   </div>
