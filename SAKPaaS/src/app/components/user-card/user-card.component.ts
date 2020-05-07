@@ -1,26 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthKeycloakService } from 'src/app/core/services/auth-keycloak.service';
 import { BadgeType, Badge } from 'src/app/core/models/badge.interface';
 import { Observable, of } from 'rxjs';
 import { BackgroundBlurService } from 'src/app/core/services/background-blur.service';
 import { BadgeNotificationComponent } from 'src/app/components/badge-notification/badge-notification.component';
 import { MatDialog } from '@angular/material/dialog';
+import {BreakpointObserver} from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-user-card',
   templateUrl: './user-card.component.html',
   styleUrls: ['./user-card.component.scss']
 })
-export class UserCardComponent {
+export class UserCardComponent implements OnInit  {
   expanded = false;
   mobile = false;
+
+  numberBadges = 12; // TODO: Dies muss noch berechnet werden
+  page = 1;
+  itemsPerPage = 4;
+  totalPages = Math.ceil(this.numberBadges / this.itemsPerPage);
+  rows = Math.ceil(this.numberBadges / 2);
+  lockedBadges = this.itemsPerPage * this.totalPages - this.numberBadges;
+  currentLevel = 'Novize';
+  remainingReports = 1;
+  currentProgress = 73;
 
   badges$: Observable<Badge[]>;
 
   constructor(
     public authService: AuthKeycloakService,
     public dialog: MatDialog,
-    private backgroundBlurService: BackgroundBlurService
+    private backgroundBlurService: BackgroundBlurService,
+    private breakpointObserver: BreakpointObserver
   ) {
     this.badges$ = of([
       {image: BadgeType.NEXT_LEVEL, count: 1},
@@ -36,21 +48,11 @@ export class UserCardComponent {
       {image: BadgeType.TRUSTED_SHOP, count: 1},
       {image: BadgeType.TRUSTED_USER, count: 1}
     ]);
-
-    if (window.screen.width <= 600) {
-      this.mobile = true;
-    }
   }
 
-  numberBadges = 12; // TODO: Dies muss noch berechnet werden
-  page = 1;
-  itemsPerPage = 4;
-  totalPages = Math.ceil(this.numberBadges / this.itemsPerPage);
-  rows = Math.ceil(this.numberBadges / 2);
-  lockedBadges = this.itemsPerPage * this.totalPages - this.numberBadges;
-  currentLevel = 'Novize';
-  remainingReports = 1;
-  currentProgress = 73;
+  ngOnInit() {
+    this.mobile = this.breakpointObserver.isMatched('(max-width: 600px)');
+  }
 
   array(n: number): any[] {
     return Array(n);

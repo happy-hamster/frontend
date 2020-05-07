@@ -29,6 +29,7 @@
             {{ "user-card.multiple-reports-remaining" | translate }}
           </span>
         </div>
+        <div class="line"*ngIf="mobile"></div>
       </div>
 
       <div id="wrapper" *ngIf="expanded && !mobile">
@@ -59,8 +60,9 @@
         </div>
       </div>
 
+      
+
       <div class="badge-container" *ngIf="mobile">
-        <div style="border-top: 1px solid var(--silver);"></div>
         <div class="row" *ngFor="let row of array(rows); index as i" >
           <div class="badge" *ngFor="let badge of badges$ | async | slice: (i * 2) : ((i+1) * 2); let ind = index;">
               <img src="assets/badges/{{badge.image}}.png" [alt]="'badges.' + badge.image | translate">

@@ -6,6 +6,7 @@ import { LocationDetailsComponent } from '../location-details/location-details.c
 import { MapComponent } from '../map/map.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { BackgroundBlurService } from 'src/app/core/services/background-blur.service';
+import {BreakpointObserver} from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-home',
@@ -18,10 +19,17 @@ export class HomeComponent implements OnInit {
 
   @ViewChild(MapComponent) mapComp: MapComponent;
 
-  constructor(private bottomSheet: MatBottomSheet, private backgroundBlurService: BackgroundBlurService) { }
+  desktop = true;
+
+  constructor(
+    private bottomSheet: MatBottomSheet,
+    private backgroundBlurService: BackgroundBlurService,
+    private breakpointObserver: BreakpointObserver
+    ) {}
 
   ngOnInit() {
     this.shouldBlurBackground$ = this.backgroundBlurService.getBlur();
+    this.desktop = this.breakpointObserver.isMatched('(min-width: 601px)');
   }
 
   onLocationEmitted(location: Location, fromMap: boolean) {
