@@ -62,7 +62,23 @@
     "warning": "Warnung"
   },
   "search-bar": {
-    "placeholder": "Suchen…"
+    "placeholder": "Suchen…",
+    "type-selector": {
+      "label": "Läden",
+      "default": "Alle",
+      "types": {
+        "multipolygon": "Andere",
+        "asian_food": "Asiatisches Essen",
+        "Portuguese": "Portugiesisch",
+        "beverages": "Getränke",
+        "asian": "Asiatisch",
+        "turkish": "Türkisch",
+        "delicatessen": "Delikatessen",
+        "supermarket": "Supermarkt",
+        "chemist": "Apotheke",
+        "african; asian; indian": "Afrikanisch; Asiatisch; Indisch"
+      }
+    }
   },
   "snack-bar": {
     "cookies": {

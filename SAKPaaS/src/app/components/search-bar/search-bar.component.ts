@@ -5,6 +5,7 @@ import {Location} from '../../generated/models/location';
 import {LocationProviderService} from '../../core/services/location-provider.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SearchService } from 'src/app/core/services/search.service';
+import { LocationTypesService } from 'src/app/generated/services/location-types.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -14,17 +15,23 @@ import { SearchService } from 'src/app/core/services/search.service';
 export class SearchBarComponent implements OnInit {
   searchControl = new FormControl();
   locations$: Observable<Location[]>;
+  types: Array<string>;
 
   constructor(
     private locationsService: LocationProviderService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private locationTypesService: LocationTypesService
     ) {
     }
 
   ngOnInit(): void {
     this.locations$ = this.locationsService.fetchLocations();
+    this.locationTypesService.locationsTypesGet().subscribe({
+      next: data => this.types = data,
+      error: _ => this.types = []
+    });
 
     if (this.activatedRoute.snapshot.queryParamMap.has('searchTerm')) {
       this.searchControl.setValue(this.activatedRoute.snapshot.queryParamMap.get('searchTerm'));
@@ -52,5 +59,9 @@ export class SearchBarComponent implements OnInit {
     if (this.searchControl.value) {
       this.searchService.triggerSearch(this.searchControl.value);
     }
+  }
+
+  getTypes(): Array<string> {
+    return this.types;
   }
 }

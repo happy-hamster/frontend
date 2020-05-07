@@ -24,14 +24,14 @@ paths:
       parameters:
         - in: query
           name: Coordinates
-          description: Latitude
+          description: Latitude and Longitude
           required: true
           explode: true
           schema:
             $ref: '#/components/schemas/Coordinates'
         - in: query
           name: type
-          description: Locationtype
+          description: Location Type
           required: false
           schema:
             type: array
@@ -75,6 +75,13 @@ paths:
       tags:
         - Locations
       parameters:
+        - in: query
+          name: Coordinates
+          description: Latitude and Longitude
+          required: false
+          explode: true
+          schema:
+            $ref: '#/components/schemas/Coordinates'
         - in: path
           name: query
           description: Search query
@@ -88,6 +95,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LocationSearchResult'
+        '400':
+          description: Bad Request
         '404':
           description: Not found
   '/locations/{id}/occupancy':
@@ -119,6 +128,21 @@ paths:
                 $ref: '#/components/schemas/Location'
         '400':
           description: Malformed request
+
+  '/locations/types':
+    get:
+      description: Location Types
+      tags:
+        - Location Types
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LocationType'
 
   '/users/self/favorites':
     get:
