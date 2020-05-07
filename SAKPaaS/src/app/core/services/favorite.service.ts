@@ -8,6 +8,7 @@ import { SnackBarService } from './snack-bar.service';
 import { SnackBarTypes } from '../models/snack-bar.interface';
 import { AuthKeycloakService } from './auth-keycloak.service';
 import { LocationProviderService } from './location-provider.service';
+import { LocationCardService } from './location-card.service';
 
 enum UpdateType {
   ADD,
@@ -31,7 +32,8 @@ export class FavoriteService {
     private userFavoritesService: UserFavoritesService,
     private snackBarService: SnackBarService,
     private authService: AuthKeycloakService,
-    private locationService: LocationProviderService
+    private locationService: LocationProviderService,
+    private locationCardService: LocationCardService
   ) {
 
     this.favorites$ = this.authService.isLoggedIn().pipe(
@@ -127,6 +129,7 @@ export class FavoriteService {
       if (!location) {
         return;
       }
+      this.locationCardService.setSelectedLocationCard(null);
       this.updateFavorite$.next({
         location,
         type: UpdateType.DELETE
