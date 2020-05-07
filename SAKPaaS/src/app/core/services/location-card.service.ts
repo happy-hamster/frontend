@@ -18,4 +18,14 @@ export class LocationCardService {
   setSelectedLocationCard(location: Location) {
     this.selectedLocationCard$.next(location);
   }
+
+  deselectIfNotInList(locations: Location[]) {
+    const selected = this.selectedLocationCard$.getValue();
+    if (selected != null) {
+      const exists = locations.some((loc) => loc.id === selected.id);
+      if (!exists) {
+        this.setSelectedLocationCard(null);
+      }
+    }
+  }
 }
