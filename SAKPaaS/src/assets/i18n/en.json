@@ -133,13 +133,17 @@
     "trusted_user": "We trust you!",
     "locked": "Locked"
   },
-
   "location-panel": {
     "favorites": "Favorites",
     "close-to-you": "Close to you",
     "search-results": "Search results"
   },
-
+  "sidenav": {
+    "social-media": "Visit us on",
+    "feedback": "Give feedback",
+    "toggle-lang": "Zu Deutsch wechseln",
+    "search": "Search"
+  },
   "badge-notification": {
     "congratulations": "Congratulations!",
     "new-badge": "You unlocked a new badge,",
