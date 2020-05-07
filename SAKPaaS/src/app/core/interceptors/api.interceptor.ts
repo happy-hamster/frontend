@@ -1,6 +1,6 @@
 import { Injectable, Provider, forwardRef } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Observable, ReplaySubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { AuthKeycloakService } from '../services/auth-keycloak.service';
 
