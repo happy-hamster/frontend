@@ -143,5 +143,10 @@
     "feedback": "Give feedback",
     "toggle-lang": "Zu Deutsch wechseln",
     "search": "Search"
+  },
+  "badge-notification": {
+    "congratulations": "Congratulations!",
+    "new-badge": "You unlocked a new badge,",
+    "confirm": "Hurraaay!"
   }
 }

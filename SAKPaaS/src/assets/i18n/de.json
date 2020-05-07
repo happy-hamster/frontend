@@ -130,5 +130,10 @@
     "feedback": "Feedback geben",
     "toggle-lang": "Switch to English",
     "search": "Ladensuche"
+  },
+  "badge-notification": {
+    "congratulations": "Glückwunsch!",
+    "new-badge": "Du hast ein neues Badge freigeschaltet,",
+    "confirm": "Hurraaa!"
   }
 }
