@@ -3,15 +3,15 @@ button {
   position: fixed;
   width: 27.5px;
   height: 27.5px;
-  right: 30px;
-  bottom: 105px;
+  top: 30vh;
+  right: 80px;
   border: none;
-  border-radius: 7px;
-  background-color: var(--greenblue);
-  color: white;
+  border-radius: 50%;
+  background-color: white;
+  color: #26C485;
   padding: 0;
   box-shadow: 0 5px 20px 0 rgba(11, 0, 51, 0.2);
-  z-index: 3;
+  z-index: 1;
   ::ng-deep * {
     padding: 3.75px;
     font-size: 20px;
@@ -23,6 +23,11 @@ button {
 
 @media (max-width: 600px) {
   button {
-    bottom: 40px;
+    right: 7.5vw;
+  }
+}
+@media (max-height: 800px) {
+  button {
+    top: 240px;
   }
 }
