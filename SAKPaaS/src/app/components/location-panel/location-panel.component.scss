@@ -55,9 +55,6 @@ h1 {
 
 }
 
-.minimized {
-  top: calc(100vh - 120px) !important;
-}
 
 @media (min-width: 600px) {
   .minimize-icon {
@@ -66,6 +63,10 @@ h1 {
 }
 
 @media (max-width: 600px) {
+  .minimized {
+    top: calc(100vh - 120px) !important;
+  }
+
   .location-panel {
     bottom: 0;
   }
@@ -77,7 +78,7 @@ h1 {
   }
 
   .location-panel {
-    top: 30%;
+    top: 30vh;
     transition: .3s;
   }
 }
