@@ -1,10 +1,9 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {Location} from '../../generated/models/location';
-import {Router} from '@angular/router';
-import {LocationProviderService} from '../../core/services/location-provider.service';
-import {LocationCardService} from '../../core/services/location-card.service';
-import {Subscription} from 'rxjs';
-import {ListType} from '../../core/models/location-card.interface';
+import { Component, Input, OnDestroy, OnInit, ElementRef } from '@angular/core';
+import { Location } from '../../generated/models/location';
+import { Router } from '@angular/router';
+import { LocationProviderService } from '../../core/services/location-provider.service';
+import { LocationCardService } from '../../core/services/location-card.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-location-card',
@@ -14,7 +13,6 @@ import {ListType} from '../../core/models/location-card.interface';
 export class LocationCardComponent implements OnInit, OnDestroy {
 
   @Input() location: Location;
-  @Input() listType: ListType;
 
   hide = true;
   favorite = false;
@@ -24,21 +22,26 @@ export class LocationCardComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private locationsService: LocationProviderService,
-    private locationCardService: LocationCardService
+    private locationCardService: LocationCardService,
+    private hostElement: ElementRef
   ) { }
 
   ngOnInit(): void {
     this.subscriptions.add(
       this.locationCardService.getSelectedLocationCard().subscribe(
-        locationCard => {
-          if (locationCard !== null) {
+        location => {
+          if (location !== null) {
             if (
-              locationCard.locationId !== null
-              && locationCard.locationId === this.location.id
-              && locationCard.listType === this.listType
+              location.id !== null
+              && location.id === this.location.id
             ) {
               this.hide = false;
               this.blur = false;
+              // wait until browser has resized the element after opening it
+              // otherwise the scroll will not be calculated correctly
+              setTimeout(() => {
+                (this.hostElement.nativeElement as HTMLElement).scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }, 10);
             } else {
               this.hide = true;
               this.blur = true;
@@ -54,10 +57,7 @@ export class LocationCardComponent implements OnInit, OnDestroy {
 
   toggle() {
     if (this.hide) {
-      this.locationCardService.setSelectedLocationCard({
-        locationId: this.location.id,
-        listType: this.listType
-      });
+      this.locationCardService.setSelectedLocationCard(this.location);
     } else {
       this.locationCardService.setSelectedLocationCard(null);
     }
