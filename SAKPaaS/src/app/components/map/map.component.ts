@@ -14,7 +14,6 @@ import VectorLayer from 'ol/layer/Vector';
 import { LocationProviderService } from 'src/app/core/services/location-provider.service';
 import { catchError, filter } from 'rxjs/operators';
 import { Location } from 'src/app/generated/models';
-import { SelectEvent } from 'ol/interaction/Select';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { SnackBarTypes } from 'src/app/core/models/snack-bar.interface';
 import { ActivatedRoute } from '@angular/router';
@@ -69,7 +68,7 @@ export class MapComponent implements OnInit, OnDestroy {
       this.loadPositionFromLocation(+this.route.snapshot.queryParamMap.get('id'));
       this.mapService.isInitial = false;
     } else if (this.mapService.isInitial) {
-      this.mapService.updateRealGpsPosition();
+      this.mapService.centerMapToGpsCoordinates();
       this.mapService.isInitial = false;
     }
 
