@@ -9,7 +9,7 @@ import {getDistance as olGetDistance} from 'ol/sphere';
 import {SearchService} from './search.service';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {LocationCardService} from './location-card.service';
-import {GpsService} from "./gps.service";
+import {GpsService} from './gps.service';
 
 @Injectable({
   providedIn: 'root'
