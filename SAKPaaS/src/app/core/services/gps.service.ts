@@ -2,88 +2,117 @@ import { Injectable } from '@angular/core';
 import { PositionCoordinates } from '../models/position-coordinates.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { PermissionsService } from './permissions.service';
+import { SnackBarService } from './snack-bar.service';
+import { SnackBarTypes } from '../models/snack-bar.interface';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GpsService {
+  /**
+   * behavior subject to store the current gps coordinates
+   * possible values:
+   * * initial: `undefined`
+   * * coordinates as: `PositionCoordinates`
+   * * if an error occurs: `null` (see `errorMessage` for more details about the error)
+   */
+  private gpsCoordinates = new BehaviorSubject<PositionCoordinates>(undefined);
 
-  private gpsCoordinates = new BehaviorSubject<PositionCoordinates>(null);
+  /**
+   * behavior subject to store the message if an error occurs while retrieving the gps coordinates
+   * possible values:
+   * * initial: `undefined`
+   * * message as: `string`
+   * * if no error occurs: `null`
+   */
+  private errorMessage = new BehaviorSubject<string>(undefined);
 
   constructor(
-    private permissionsService: PermissionsService
-  ) { }
-
-  public updateGpsPosition(): Promise<PositionCoordinates> {
-    return new Promise((resolve, reject) => {
-      this.permissionsService.getPermissions().then(result => {
-        if (result.gpsAllowed) {
-          this.getGpsPosition().then(position => {
-            this.gpsCoordinates.next(position);
-            resolve(position);
-          }).catch(reason => {
-            console.warn('couldn\'t update gps position. reason:' + reason);
-            reject(reason);
-          });
+    private permissionsService: PermissionsService,
+    private snackBarService: SnackBarService
+  ) {
+    if (navigator.geolocation) {
+      this.permissionsService.getPermissions().then((result) => {
+        if (!result.gpsAllowed) {
+          console.log('permission-denied');
+          this.errorMessage.next('permission-denied');
+          return;
         }
-      }).catch();
+        navigator.geolocation.watchPosition((position) => {
+          console.log('navigation.geolocation.watchPosition()');
+          console.log(position.coords);
+          this.gpsCoordinates.next(new PositionCoordinates(
+            position.coords.longitude,
+            position.coords.latitude
+            ));
+          this.errorMessage.next(null);
+        }, (positionError) => {
+          this.gpsCoordinates.next(null);
+          switch (positionError.code) {
+            case positionError.PERMISSION_DENIED:
+              console.log('permission-denied');
+              this.errorMessage.next('permission-denied');
+              break;
+            case positionError.POSITION_UNAVAILABLE:
+              console.log('position-unavailable');
+              this.errorMessage.next('position-unavailable');
+              break;
+            case positionError.TIMEOUT:
+              console.log('timeout');
+              this.errorMessage.next('timeout');
+              break;
+            default:
+              console.log('default');
+              this.errorMessage.next('default');
+              break;
+          }
+        });
+      });
+    } else {
+      console.log('not-supported');
+      this.errorMessage.next('not-supported');
+    }
+  }
+
+  private showErrorMessage() {
+    const errorKey = this.errorMessage.getValue();
+
+    console.log(errorKey);
+
+    if (!errorKey) {
+      return;
+    }
+    this.snackBarService.sendNotification({
+      messageKey: 'snack-bar.gps.' + errorKey,
+      type: SnackBarTypes.ERROR,
     });
   }
 
   /**
    * Returns the PositionCoordinates as Observable.
    *
-   * If the current position coordinates are null, it tries to update the gps positions
+   * @param shouldShowErrorMessage shows a snack bar message to the user. Default is `false`.
    */
-  public getGpsCoordinates(): Observable<PositionCoordinates> {
-    if (this.gpsCoordinates.getValue() === null) {
-      this.updateGpsPosition();
-    }
-    return this.gpsCoordinates;
+  public getGpsCoordinates(shouldShowErrorMessage = false): Observable<PositionCoordinates> {
+    return this.gpsCoordinates.pipe(
+      tap(coordinates => {
+        if (!coordinates && shouldShowErrorMessage) {
+          this.showErrorMessage();
+        }
+      })
+    );
   }
 
   /**
    * Returns the PositionCoordinates as a snapshot.
    *
-   * If the current position coordinates are null, it tries to update the gps positions
+   * @param shouldShowErrorMessage shows a snack bar message to the user. Default is `false`.
    */
-  public getCurrentGpsCoordinates(): PositionCoordinates {
-    if (this.gpsCoordinates.getValue() === null) {
-      this.updateGpsPosition();
+  public getCurrentGpsCoordinates(shouldShowErrorMessage = false): PositionCoordinates {
+    if (!this.gpsCoordinates.getValue() && shouldShowErrorMessage) {
+      this.showErrorMessage();
     }
     return this.gpsCoordinates.getValue();
-  }
-
-  /**
-   * calculates the gps coordinates via `navigator.geolocation.getCurrentPosition()` and returns the
-   * `PositionCoordinates` or an error message as promise.
-   */
-  private getGpsPosition(): Promise<PositionCoordinates> {
-    return new Promise((resolve, reject) => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          const longitude = position.coords.longitude;
-          const latitude = position.coords.latitude;
-          resolve(new PositionCoordinates(longitude, latitude));
-        }, (positionError) => {
-          switch (positionError.code) {
-            case positionError.PERMISSION_DENIED:
-              reject('permission-denied');
-              break;
-            case positionError.POSITION_UNAVAILABLE:
-              reject('position-unavailable');
-              break;
-            case positionError.TIMEOUT:
-              reject('timeout');
-              break;
-            default:
-              reject('default');
-              break;
-          }
-        });
-      } else {
-        reject('not-supported');
-      }
-    });
   }
 }

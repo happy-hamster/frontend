@@ -3,7 +3,7 @@ import { PositionCoordinates } from '../models/position-coordinates.model';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { SnackBarService } from './snack-bar.service';
 import { SnackBarTypes } from '../models/snack-bar.interface';
-import { map, filter } from 'rxjs/operators';
+import { map, filter, first, catchError } from 'rxjs/operators';
 import { PropagateGuard } from '../models/propagate-guard.interface';
 import { PermissionsService } from './permissions.service';
 import { GpsService } from './gps.service';
@@ -83,14 +83,15 @@ export class MapService {
   public centerMapToGpsCoordinates(isCalledByUserAction = false) {
     this.permissionsService.getPermissions().then(result => {
       if (result.gpsAllowed) {
-        this.gpsService.updateGpsPosition().then(position => {
-          this.setMapCenter(position);
-          this.setMapZoomLevel(15);
-        }).catch(reason => {
-          this.snackBarService.sendNotification({
-            messageKey: 'snack-bar.gps.' + reason,
-            type: SnackBarTypes.ERROR
-          });
+        this.gpsService.getGpsCoordinates(isCalledByUserAction).pipe(
+          filter(coordinates => coordinates !== undefined),
+          first()
+          ).subscribe(position => {
+          console.log(position);
+          if (position) {
+            this.setMapCenter(position);
+            this.setMapZoomLevel(15);
+          }
         });
       } else if (isCalledByUserAction) {
         this.snackBarService.sendNotification({
