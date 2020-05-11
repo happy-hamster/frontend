@@ -96,7 +96,7 @@
         "success": "Erfolgreich von deinen Favoriten entfernt!",
         "error": "Wir konnten es leider nicht von deinen Favoriten entfernen. Probiere es bitte nocheinmal!"
       },
-      "not-logged-in": "Bitte logge dich, für die Nutzung der Favoriten, ein."
+      "not-logged-in": "Bitte logge dich für die Nutzung der Favoriten ein."
     },
     "gps": {
       "default": "HappyHamster konnte aus einem unbekannten Grund deine GPS-Position nicht ermitteln.",
