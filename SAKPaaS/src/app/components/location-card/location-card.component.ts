@@ -5,6 +5,8 @@ import {LocationProviderService} from '../../core/services/location-provider.ser
 import {LocationCardService} from '../../core/services/location-card.service';
 import {Subscription} from 'rxjs';
 import { FavoriteService } from 'src/app/core/services/favorite.service';
+import {getDistance as olGetDistance} from 'ol/sphere';
+import {GpsService} from '../../core/services/gps.service';
 
 @Component({
   selector: 'app-location-card',
@@ -23,7 +25,8 @@ export class LocationCardComponent implements OnInit, OnDestroy {
     private locationsService: LocationProviderService,
     private locationCardService: LocationCardService,
     private favoriteService: FavoriteService,
-    private hostElement: ElementRef
+    private hostElement: ElementRef,
+    private gpsService: GpsService
   ) {}
 
   ngOnInit(): void {
@@ -76,7 +79,18 @@ export class LocationCardComponent implements OnInit, OnDestroy {
   }
 
   getDistanceString(): string {
-    const distance = this.locationsService.getDistanceToLocation(this.location);
+    let distance;
+    const currentPosition = this.gpsService.getCurrentGpsCoordinates();
+    if (currentPosition !== null) {
+      console.log('location is available, using that.');
+      console.log(currentPosition);
+      distance = olGetDistance([this.location.coordinates.longitude, this.location.coordinates.latitude],
+      currentPosition.toArray());
+    } else {
+      console.log('No location available');
+      distance = null;
+    }
+
     if (distance === null) {
       return '';
     }

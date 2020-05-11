@@ -8,7 +8,7 @@ import { PermissionsService } from './permissions.service';
 })
 export class GpsService {
 
-   private gpsCoordinates = new BehaviorSubject<PositionCoordinates>(null);
+  private gpsCoordinates = new BehaviorSubject<PositionCoordinates>(null);
 
   constructor(
     private permissionsService: PermissionsService
@@ -22,7 +22,7 @@ export class GpsService {
             this.gpsCoordinates.next(position);
             resolve(position);
           }).catch(reason => {
-            console.warn('couldn\'t update gps positions. reason:' + reason);
+            console.warn('couldn\'t update gps position. reason:' + reason);
             reject(reason);
           });
         }
