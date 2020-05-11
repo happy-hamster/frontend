@@ -9,6 +9,7 @@ import { Location } from 'src/app/generated/models';
 export class LocationListComponent implements OnInit {
 
   @Input() locations: Location[];
+  @Input() isCloseToYouList?: boolean;
 
   constructor() { }
 

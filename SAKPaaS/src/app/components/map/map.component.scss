@@ -4,6 +4,7 @@
   min-height: 300px;
   border-radius: 0 0 var(--outer-border-radius) var(--outer-border-radius);
   overflow: hidden;
+  position: relative;
 }
 
 .loading-wrapper {
@@ -12,4 +13,8 @@
   top: 0;
   width: 100%;
   z-index: 2;
+}
+
+.full {
+  height: 95vh;
 }

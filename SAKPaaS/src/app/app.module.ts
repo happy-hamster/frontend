@@ -23,9 +23,12 @@ import { GlobalDialogModule } from 'src/app/components/global-dialog/global-dial
 import { LocateButtonModule } from 'src/app/components/locate-button/locate-button.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { ApiModule } from './generated/api.module';
+import { LocationPanelModule } from './components/location-panel/location-panel.module';
+import { API_INTERCEPTOR_PROVIDER, ApiInterceptor } from './core/interceptors/api.interceptor';
 import { LocationCardModule } from './components/location-card/location-card.module';
 import { SidenavModule } from './components/sidenav/sidenav.module';
 import { BadgeNotificationModule } from './components/badge-notification/badge-notification.module';
+import { LayoutModule } from '@angular/cdk/layout';
 
 
 
@@ -55,6 +58,7 @@ import { BadgeNotificationModule } from './components/badge-notification/badge-n
     HomeModule,
     LocateButtonModule,
     LocationCardModule,
+    LocationPanelModule,
     LogoModule,
     MapModule,
     OccupancyReportModule,
@@ -62,7 +66,8 @@ import { BadgeNotificationModule } from './components/badge-notification/badge-n
     SearchBarModule,
     SharedModule,
     SidenavModule,
-    SnackBarModule
+    SnackBarModule,
+    LayoutModule
   ],
   providers: [
     {
@@ -74,6 +79,8 @@ import { BadgeNotificationModule } from './components/badge-notification/badge-n
       ],
       multi: true
     },
+    ApiInterceptor,
+    API_INTERCEPTOR_PROVIDER,
     CookieService,
     PwaRequestCatcherService
   ],

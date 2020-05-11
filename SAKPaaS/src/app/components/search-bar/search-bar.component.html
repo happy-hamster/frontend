@@ -11,13 +11,7 @@
           }}</mat-option>
           <mat-option
             *ngFor="
-              let type of [
-                'chemist',
-                'beverages',
-                'kiosk',
-                'newsagent',
-                'convenience'
-              ]
+              let type of types$ | async
             "
             [value]="type"
           >

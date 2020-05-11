@@ -1,25 +1,24 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import Map from 'ol/Map';
-import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import { OSM } from 'ol/source';
 import * as olProj from 'ol/proj';
-import { defaults as defaultInteractions, Select } from 'ol/interaction';
+import { Select } from 'ol/interaction';
 import { MapService } from 'src/app/core/services/map.service';
 import { click } from 'ol/events/condition';
 import VectorSource from 'ol/source/Vector';
 import { OLMapMarker } from './ol-map-marker';
-import { Subject, Subscription, Observable, throwError, BehaviorSubject } from 'rxjs';
+import { Subject, Subscription, Observable, throwError } from 'rxjs';
 import VectorLayer from 'ol/layer/Vector';
 import { LocationProviderService } from 'src/app/core/services/location-provider.service';
 import { catchError, filter } from 'rxjs/operators';
 import { Location } from 'src/app/generated/models';
-import { SelectEvent } from 'ol/interaction/Select';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { SnackBarTypes } from 'src/app/core/models/snack-bar.interface';
 import { ActivatedRoute } from '@angular/router';
 import { PositionCoordinates } from 'src/app/core/models/position-coordinates.model';
 import { LocationCardService } from 'src/app/core/services/location-card.service';
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-map',
@@ -40,9 +39,9 @@ export class MapComponent implements OnInit, OnDestroy {
   selectControl: Select;
 
   isLoadingLocations: Observable<boolean>;
-
   closeSubject: Subject<null>;
-
+  minimized = false;
+  wasMinimized = false;
   private subscriptions = new Subscription();
 
   constructor(
@@ -50,7 +49,8 @@ export class MapComponent implements OnInit, OnDestroy {
     private locationService: LocationProviderService,
     private locationCardService: LocationCardService,
     private snackBarService: SnackBarService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private breakpointObserver: BreakpointObserver
   ) {
   }
 
@@ -118,6 +118,17 @@ export class MapComponent implements OnInit, OnDestroy {
     );
 
     this.addRelAttributeToContributionAnchor();
+
+    this.breakpointObserver
+      .observe(['(min-width: 600px)'])
+      .subscribe((state: BreakpointState) => {
+        if (state.matches) {
+          this.wasMinimized = this.minimized;
+          this.fillScreen(false);
+        } else  if (this.wasMinimized) {
+          this.fillScreen(true);
+        }
+      });
   }
 
   private initOLMap() {
@@ -278,6 +289,15 @@ export class MapComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
     this.mapService.saveMapState();
     this.closeSubject?.next();
+  }
+
+  resize() {
+    this.customMap.updateSize();
+  }
+
+  fillScreen(minimized: boolean) {
+    this.minimized = minimized;
+    window.setTimeout(() => { this.resize(); }, 100);
   }
 }
 
