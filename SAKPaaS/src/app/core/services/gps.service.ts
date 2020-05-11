@@ -36,13 +36,10 @@ export class GpsService {
     if (navigator.geolocation) {
       this.permissionsService.getPermissions().then((result) => {
         if (!result.gpsAllowed) {
-          console.log('permission-denied');
           this.errorMessage.next('permission-denied');
           return;
         }
         navigator.geolocation.watchPosition((position) => {
-          console.log('navigation.geolocation.watchPosition()');
-          console.log(position.coords);
           this.gpsCoordinates.next(new PositionCoordinates(
             position.coords.longitude,
             position.coords.latitude
@@ -52,34 +49,27 @@ export class GpsService {
           this.gpsCoordinates.next(null);
           switch (positionError.code) {
             case positionError.PERMISSION_DENIED:
-              console.log('permission-denied');
               this.errorMessage.next('permission-denied');
               break;
             case positionError.POSITION_UNAVAILABLE:
-              console.log('position-unavailable');
               this.errorMessage.next('position-unavailable');
               break;
             case positionError.TIMEOUT:
-              console.log('timeout');
               this.errorMessage.next('timeout');
               break;
             default:
-              console.log('default');
               this.errorMessage.next('default');
               break;
           }
         });
       });
     } else {
-      console.log('not-supported');
       this.errorMessage.next('not-supported');
     }
   }
 
   private showErrorMessage() {
     const errorKey = this.errorMessage.getValue();
-
-    console.log(errorKey);
 
     if (!errorKey) {
       return;
