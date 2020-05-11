@@ -109,7 +109,13 @@
       "zoom": "Please zoom closer into the map."
     },
     "occupancy-report": {
-      "failure": "Sorry, that didn't work. Please try again!",
+      "error": {
+        "too-many-requests": {
+          "logged-in": "You cannot submit so many reports in such a short time. Please try again later.",
+          "not-logged-in": "Your Internet connection does not allow you to submit as many reports in such a short time. You think this is an error? Then please create an account!"
+        },
+        "default": "Sorry, that didn't work. Please try again!"
+      },
       "invalid": "Please tell us your personal occupancy estimation :)",
       "success": "Thank you for your feedback!"
     },

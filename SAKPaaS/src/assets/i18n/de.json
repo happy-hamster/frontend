@@ -109,7 +109,13 @@
       "zoom": "Bitte zoome näher in die Karte."
     },
     "occupancy-report": {
-      "failure": "Das hat leider nicht geklappt! Bitte versuche es erneut.",
+      "error": {
+        "too-many-requests": {
+          "logged-in": "Du kannst nicht so viele Reports in so kurzer Zeit abgeben. Bitte probiere es später nochmal.",
+          "not-logged-in": "Über deine Internetverbindung können nicht so viele Reports in so kurzer Zeit abgegeben werden. Du glaubst das ist ein Fehler? Dann erstelle dir bitte einen Account!"
+        },
+        "default": "Das hat leider nicht geklappt! Bitte versuche es erneut."
+      },
       "invalid": "Bitte sage uns deine persönliche Einschätzung der Auslastung :)",
       "success": "Vielen Dank für dein Feedback!"
     },
