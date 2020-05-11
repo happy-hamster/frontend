@@ -20,7 +20,7 @@ export class LocationListComponent implements OnInit {
 
   ngOnInit(): void {
     this.locations.forEach((value, index, array) => {
-      value.distance = LocationCardComponent.toDistanceString(olGetDistance(this.gpsService.getCurrentGpsCoordinates().toArray(),
+      value.distance$ = LocationCardComponent.toDistanceString(olGetDistance(this.gpsService.getCurrentGpsCoordinates().toArray(),
         [value.coordinates.longitude, value.coordinates.latitude]));
     });
   }

@@ -40,8 +40,6 @@ export class GpsService {
           return;
         }
         navigator.geolocation.watchPosition((position) => {
-          console.log('navigation.geolocation.watchPosition()');
-          console.log(position.coords);
           this.gpsCoordinates.next(new PositionCoordinates(
             position.coords.longitude,
             position.coords.latitude

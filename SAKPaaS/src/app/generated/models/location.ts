@@ -23,7 +23,7 @@ export interface Location {
   occupancy: Occupancy;
 
   /**
-   * Allow storage of distance
+   * Allow storage of distance$
    */
   distance: string;
 }

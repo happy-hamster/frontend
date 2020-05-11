@@ -4,9 +4,11 @@ import {Router} from '@angular/router';
 import {LocationProviderService} from '../../core/services/location-provider.service';
 import {LocationCardService} from '../../core/services/location-card.service';
 import {Subscription} from 'rxjs';
-import { FavoriteService } from 'src/app/core/services/favorite.service';
+import {FavoriteService} from 'src/app/core/services/favorite.service';
 import {getDistance as olGetDistance} from 'ol/sphere';
 import {GpsService} from '../../core/services/gps.service';
+import {Observable} from 'rxjs';
+import {nextTick} from "q";
 
 @Component({
   selector: 'app-location-card',
@@ -14,11 +16,6 @@ import {GpsService} from '../../core/services/gps.service';
   styleUrls: ['./location-card.component.scss'],
 })
 export class LocationCardComponent implements OnInit, OnDestroy {
-  @Input() location: Location;
-
-  hide = true;
-  blur = false;
-  subscriptions = new Subscription();
 
   constructor(
     private router: Router,
@@ -26,8 +23,37 @@ export class LocationCardComponent implements OnInit, OnDestroy {
     private locationCardService: LocationCardService,
     private favoriteService: FavoriteService,
     private hostElement: ElementRef,
-    private gpsService: GpsService
-  ) {}
+    private gpsService: GpsService,
+  ) {
+  }
+
+  @Input() location: Location;
+
+  hide = true;
+  blur = false;
+  subscriptions = new Subscription();
+
+  distance$ = new Observable<string>(observer => {
+    setInterval(() => observer.next(new Date().toString()), 1000);
+  })
+
+  static toDistanceString(distance: number): string {
+    if (distance === null) {
+      return '';
+    }
+    let dist = '' + Math.round(distance);
+    if (dist.length > 3) {
+      dist = dist.slice(0, dist.length - 2);
+      dist =
+        dist.slice(0, dist.length - 1) +
+        '.' +
+        dist.slice(dist.length - 1, dist.length) +
+        ' km';
+    } else {
+      dist = dist + ' m';
+    }
+    return dist;
+  }
 
   ngOnInit(): void {
     this.subscriptions.add(
@@ -81,31 +107,13 @@ export class LocationCardComponent implements OnInit, OnDestroy {
   getDistanceString(): string {
     let distance;
     const currentPosition = this.gpsService.getCurrentGpsCoordinates();
-    if (currentPosition !== null) {
-      console.log('location is available, using that.');
-      console.log(currentPosition);
+    if (currentPosition) {
       distance = olGetDistance([this.location.coordinates.longitude, this.location.coordinates.latitude],
-      currentPosition.toArray());
+        currentPosition.toArray());
     } else {
-      console.log('No location available');
       distance = null;
     }
-
-    if (distance === null) {
-      return '';
-    }
-    let dist = '' + Math.round(distance);
-    if (dist.length > 3) {
-      dist = dist.slice(0, dist.length - 2);
-      dist =
-        dist.slice(0, dist.length - 1) +
-        '.' +
-        dist.slice(dist.length - 1, dist.length) +
-        ' km';
-    } else {
-      dist = dist + ' m';
-    }
-    return dist;
+    return '';
   }
 
   getOccupancyString(): string {
