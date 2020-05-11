@@ -6,6 +6,7 @@ import { BackgroundBlurService } from 'src/app/core/services/background-blur.ser
 import { BadgeNotificationComponent } from 'src/app/components/badge-notification/badge-notification.component';
 import { MatDialog } from '@angular/material/dialog';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { Router, ActivatedRoute, UrlSegment } from '@angular/router';
 
 @Component({
   selector: 'app-user-card',
@@ -14,7 +15,6 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 })
 export class UserCardComponent implements OnInit  {
   expanded = false;
-  mobile = false;
 
   numberBadges = 12; // TODO: Dies muss noch berechnet werden
   page = 1;
@@ -32,7 +32,9 @@ export class UserCardComponent implements OnInit  {
     public authService: AuthKeycloakService,
     public dialog: MatDialog,
     private backgroundBlurService: BackgroundBlurService,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {
     this.badges$ = of([
       {image: BadgeType.NEXT_LEVEL, count: 1},
@@ -51,7 +53,7 @@ export class UserCardComponent implements OnInit  {
   }
 
   ngOnInit() {
-    this.mobile = this.breakpointObserver.isMatched('(max-width: 600px)');
+    this.expanded = this.activatedRoute.snapshot.url.includes(new UrlSegment('userCard', {}));
   }
 
   array(n: number): any[] {

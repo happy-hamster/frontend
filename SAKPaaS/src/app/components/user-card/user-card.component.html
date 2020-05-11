@@ -2,7 +2,7 @@
   <div class="corner upper-left"></div>
 
   <div *ngIf="authService.getUser() | async as user; else login" class="content">
-    <div class="expand" *ngIf="!mobile">
+    <div class="expand">
       <mat-icon (click)="change()" class="expand-icon">keyboard_arrow_left</mat-icon>
     </div>
     <mat-card-title>
@@ -11,7 +11,8 @@
       <mat-icon fontSet="material-icons-outlined" class="settings-icon">settings</mat-icon>
     </mat-card-title>
     <mat-card-content>
-      <div class="progress-bar-container" *ngIf="expanded || mobile">
+      <a (click)="change()">Toggle</a>
+      <div class="progress-bar-container" *ngIf="expanded">
         <div class="level-name">
           {{ "user-card.level" | translate }}
           <span class="level">
@@ -29,61 +30,44 @@
             {{ "user-card.multiple-reports-remaining" | translate }}
           </span>
         </div>
-        <div class="line"*ngIf="mobile"></div>
+        <div class="line"></div>
       </div>
 
-      <div id="wrapper" *ngIf="expanded && !mobile">
+      <div id="wrapper" *ngIf="expanded">
         <div id="first">
-          <mat-icon *ngIf="totalPages>1 && page!=1" fontSet="material-icons-outlined" style="display:initial; color: #9DA9A0; padding-left: 0px;" (click)="backPage()">
+          <mat-icon *ngIf="totalPages>1 && page!=1" fontSet="material-icons-outlined"
+            style="display:initial; color: #9DA9A0; padding-left: 0px;" (click)="backPage()">
             keyboard_arrow_left
           </mat-icon>
         </div>
         <div class="badge-container" id="second">
-          <div class="badge" *ngFor="let badge of badges$ | async | slice: ((page-1) * itemsPerPage) : (page * itemsPerPage); let ind = index;">
+          <div class="badge" *ngFor="let badge of badges$ | async ">
             <img src="assets/badges/{{badge.image}}.png" [alt]="'badges.' + badge.image | translate">
             <span class="number" *ngIf="badge.count > 1">{{badge.count}}</span>
             <br>
             {{'badges.' + badge.image | translate}}
           </div>
-          <ng-container *ngIf="page == totalPages" >
+          <ng-container *ngIf="page == totalPages">
             <div class="badge" *ngFor="let i of array(lockedBadges)">
-                <img src="assets/badges/locked.png" [alt]="'badges.locked'| translate">
-                <br>
-                {{'badges.locked'| translate}}
+              <img src="assets/badges/locked.png" [alt]="'badges.locked'| translate">
+              <br>
+              {{'badges.locked'| translate}}
             </div>
           </ng-container>
         </div>
         <div id="third">
-          <mat-icon *ngIf="totalPages>1 && page!=totalPages" fontSet="material-icons-outlined" style="display:initial; color: #9DA9A0; padding-left: 0px;" (click)="nextPage()">
+          <mat-icon *ngIf="totalPages>1 && page!=totalPages" fontSet="material-icons-outlined"
+            style="display:initial; color: #9DA9A0; padding-left: 0px;" (click)="nextPage()">
             keyboard_arrow_right
           </mat-icon>
         </div>
       </div>
 
-      
-
-      <div class="badge-container" *ngIf="mobile">
-        <div class="row" *ngFor="let row of array(rows); index as i" >
-          <div class="badge" *ngFor="let badge of badges$ | async | slice: (i * 2) : ((i+1) * 2); let ind = index;">
-              <img src="assets/badges/{{badge.image}}.png" [alt]="'badges.' + badge.image | translate">
-              <span class="number" *ngIf="badge.count > 1">{{badge.count}}</span>
-              <br>  
-              {{'badges.' + badge.image | translate}}
-          </div>
-          <div class="badge" *ngIf="i == rows-1  && numberBadges%2 == 1">
-            <img src="assets/badges/locked.png" [alt]="'badges.locked'| translate">
-            <br>
-            {{'badges.locked'| translate}}
-          </div>
-          <br>
-        </div>
-      </div>
-
-      <div *ngIf="totalPages>1 && expanded && !mobile" style="float:right; color: #9DA9A0;">
+      <div id="pageination" *ngIf="totalPages>1 && expanded" style="float:right; color: #9DA9A0;">
         Seite {{page}} von {{totalPages}}
       </div>
 
-      <div *ngIf="!expanded && !mobile" class="ellipsis">
+      <div *ngIf="!expanded" class="ellipsis">
         {{ user.username }}<br />
         <a class="mat-primary" (click)="authService.logout()">
           {{"user-card.logout" | translate}}
@@ -92,9 +76,9 @@
           Show
         </a>
       </div>
-    
-  </mat-card-content>
-</div>
+
+    </mat-card-content>
+  </div>
 </mat-card>
 <ng-template #login>
   <mat-card id="user-card">
