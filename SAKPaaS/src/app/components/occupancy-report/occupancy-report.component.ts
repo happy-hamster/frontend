@@ -10,6 +10,7 @@ import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { SnackBarTypes } from 'src/app/core/models/snack-bar.interface';
 import { IsLoadingService } from '@service-work/is-loading';
 import { PwaRequestPromptService } from 'src/app/core/services/pwa-request-prompt.service';
+import { AuthKeycloakService } from 'src/app/core/services/auth-keycloak.service';
 
 @Component({
   selector: 'app-occupancy-report',
@@ -33,6 +34,7 @@ export class OccupancyReportComponent implements OnInit, OnDestroy {
     private router: Router,
     private isLoadingService: IsLoadingService,
     private pwaRequestPromptService: PwaRequestPromptService,
+    private authService: AuthKeycloakService
   ) { }
 
   ngOnInit(): void {
@@ -69,10 +71,25 @@ export class OccupancyReportComponent implements OnInit, OnDestroy {
         }),
         catchError(err => {
           this.isLoadingService.remove({ key: 'sendOccupancy' });
-          this.snackBarService.sendNotification({
-            messageKey: 'snack-bar.occupancy-report.failure',
-            type: SnackBarTypes.ERROR
-          });
+          console.log(err);
+          if (err.hasOwnProperty('status') && err.status === 429) {
+            if (this.authService.isLoggedIn()) {
+              this.snackBarService.sendNotification({
+                messageKey: 'snack-bar.occupancy-report.error.too-many-requests.logged-in',
+                type: SnackBarTypes.ERROR
+              });
+            } else {
+              this.snackBarService.sendNotification({
+                messageKey: 'snack-bar.occupancy-report.error.too-many-requests.not-logged-in',
+                type: SnackBarTypes.ERROR
+              });
+            }
+          } else {
+            this.snackBarService.sendNotification({
+              messageKey: 'snack-bar.occupancy-report.error.default',
+              type: SnackBarTypes.ERROR
+            });
+          }
           return throwError(err);
         })
       ).subscribe(location => {
