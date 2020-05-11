@@ -41,6 +41,7 @@ export class MapComponent implements OnInit, OnDestroy {
   isLoadingLocations: Observable<boolean>;
   closeSubject: Subject<null>;
   minimized = false;
+  wasMinimized = false;
   private subscriptions = new Subscription();
 
   constructor(
@@ -121,7 +122,12 @@ export class MapComponent implements OnInit, OnDestroy {
     this.breakpointObserver
       .observe(['(min-width: 600px)'])
       .subscribe((state: BreakpointState) => {
-        this.fillScreen(!state.matches);
+        if (state.matches) {
+          this.wasMinimized = this.minimized;
+          this.fillScreen(false);
+        } else  if (this.wasMinimized) {
+          this.fillScreen(true);
+        }
       });
   }
 
