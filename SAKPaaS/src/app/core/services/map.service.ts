@@ -3,9 +3,10 @@ import { PositionCoordinates } from '../models/position-coordinates.model';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { SnackBarService } from './snack-bar.service';
 import { SnackBarTypes } from '../models/snack-bar.interface';
-import { map, filter } from 'rxjs/operators';
+import { map, filter, first, catchError } from 'rxjs/operators';
 import { PropagateGuard } from '../models/propagate-guard.interface';
 import { PermissionsService } from './permissions.service';
+import { GpsService } from './gps.service';
 
 @Injectable({
   providedIn: 'root'
@@ -28,13 +29,15 @@ export class MapService {
   private mapZoomLevel = new BehaviorSubject<PropagateGuard<number>>
     ({ propagate: true, val: 6 });
 
+
   // The map should only zoom to the users location on the first page load.
   // After it did that, isInitial will be false.
   public isInitial = true;
 
   constructor(
     private snackBarService: SnackBarService,
-    private permissionsService: PermissionsService
+    private permissionsService: PermissionsService,
+    private gpsService: GpsService
   ) { }
 
   public getMapCenter(): Observable<PositionCoordinates> {
@@ -77,46 +80,22 @@ export class MapService {
     this.mapZoomLevel.next({ propagate, val: level });
   }
 
-  private getGpsPosition(): Promise<PositionCoordinates> {
-    return new Promise((resolve, reject) => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          const longitude = position.coords.longitude;
-          const latitude = position.coords.latitude;
-          resolve(new PositionCoordinates(longitude, latitude));
-        }, (positionError) => {
-          switch (positionError.code) {
-            case positionError.PERMISSION_DENIED:
-              reject('permission-denied');
-              break;
-            case positionError.POSITION_UNAVAILABLE:
-              reject('position-unavailable');
-              break;
-            case positionError.TIMEOUT:
-              reject('timeout');
-              break;
-            default:
-              reject('default');
-              break;
-          }
-        });
-      } else {
-        reject('not-supported');
-      }
-    });
-  }
-
-  public updateRealGpsPosition() {
+  public centerMapToGpsCoordinates(isCalledByUserAction = false) {
     this.permissionsService.getPermissions().then(result => {
       if (result.gpsAllowed) {
-        this.getGpsPosition().then(position => {
-          this.setMapCenter(position);
-          this.setMapZoomLevel(15);
-        }).catch(reason => {
-          this.snackBarService.sendNotification({
-            messageKey: 'snack-bar.gps.' + reason,
-            type: SnackBarTypes.ERROR
-          });
+        this.gpsService.getGpsCoordinates(isCalledByUserAction).pipe(
+          filter(coordinates => coordinates !== undefined),
+          first()
+          ).subscribe(position => {
+          if (position) {
+            this.setMapCenter(position);
+            this.setMapZoomLevel(15);
+          }
+        });
+      } else if (isCalledByUserAction) {
+        this.snackBarService.sendNotification({
+          messageKey: 'snack-bar.gps.permission-denied',
+          type: SnackBarTypes.ERROR
         });
       }
     });

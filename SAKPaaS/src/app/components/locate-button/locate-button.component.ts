@@ -11,6 +11,6 @@ export class LocateButtonComponent {
   constructor(private mapService: MapService) { }
 
   loadPosition(): void {
-    this.mapService.updateRealGpsPosition();
+    this.mapService.centerMapToGpsCoordinates(true);
   }
 }

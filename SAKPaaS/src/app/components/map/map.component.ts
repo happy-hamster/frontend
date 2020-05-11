@@ -70,7 +70,7 @@ export class MapComponent implements OnInit, OnDestroy {
       this.loadPositionFromLocation(+this.route.snapshot.queryParamMap.get('id'));
       this.mapService.isInitial = false;
     } else if (this.mapService.isInitial) {
-      this.mapService.updateRealGpsPosition();
+      this.mapService.centerMapToGpsCoordinates();
       this.mapService.isInitial = false;
     }
 
