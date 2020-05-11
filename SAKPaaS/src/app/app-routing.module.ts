@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { OccupancyReportComponent } from 'src/app/components/occupancy-report/occupancy-report.component';
-import { UserCardComponent } from 'src/app/components/user-card/user-card.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -10,7 +9,6 @@ const routes: Routes = [
   {path: 'reportOccupancy/:id', component: OccupancyReportComponent},
   {path: 'legal', loadChildren: () => import('src/app/components/legal/legal.module').then(m => m.LegalModule)},
   {path: 'impressum', redirectTo: 'legal'},
-  {path: 'userCard', component: UserCardComponent},
   {path: '**', redirectTo: ''}
 ];
 

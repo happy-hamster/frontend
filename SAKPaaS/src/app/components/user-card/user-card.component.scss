@@ -6,19 +6,20 @@
     padding-top: 0;
   
     &.expanded {
+      max-width: 100%;
       min-width: 100%;
-      width: 100%;
     }
     #wrapper{
       width: 100%;
       height: 100%;
       
-      display: initial;
     }
     .badge-container{
       width: 250px;
       height: 100%;
       display: initial;
+      margin-left: auto;
+      margin-right: auto;
 
       .badge{
         margin-left: 35px;
