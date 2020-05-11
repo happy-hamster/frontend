@@ -21,4 +21,9 @@ export interface Location {
   id: LocationId;
   name: string;
   occupancy: Occupancy;
+
+  /**
+   * Allow storage of distance
+   */
+  distance: string;
 }

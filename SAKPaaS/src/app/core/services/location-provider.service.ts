@@ -9,6 +9,7 @@ import { getDistance as olGetDistance } from 'ol/sphere';
 import { SearchService } from './search.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { LocationCardService } from './location-card.service';
+import {GpsService} from "./gps.service";
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,8 @@ export class LocationProviderService {
     private locationCardService: LocationCardService,
     private mapService: MapService,
     private searchService: SearchService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private gpsService: GpsService
   ) {
     this.mapLocations$ = this.mapService.getMapCenter().pipe(
       filter(coordinates => !!coordinates),
@@ -106,7 +108,7 @@ export class LocationProviderService {
     return this.isLoadingLocations;
   }
 
-  public getDistanceToLocation(location: Location): number {
+  public getDistanceToLocation(location: Location): Observable<number> {
     if (this.lastUpdatedPosition !== null) {
       return olGetDistance(this.lastUpdatedPosition.toArray(), [location.coordinates.longitude, location.coordinates.latitude]);
     }
