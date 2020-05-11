@@ -9,6 +9,7 @@ import {getDistance as olGetDistance} from 'ol/sphere';
 import {GpsService} from '../../core/services/gps.service';
 import {Observable} from 'rxjs';
 import {nextTick} from "q";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-location-card',
@@ -16,6 +17,8 @@ import {nextTick} from "q";
   styleUrls: ['./location-card.component.scss'],
 })
 export class LocationCardComponent implements OnInit, OnDestroy {
+  // leads to errors if private
+  public distance$ = new Observable<string>();
 
   constructor(
     private router: Router,
@@ -32,10 +35,6 @@ export class LocationCardComponent implements OnInit, OnDestroy {
   hide = true;
   blur = false;
   subscriptions = new Subscription();
-
-  distance$ = new Observable<string>(observer => {
-    setInterval(() => observer.next(new Date().toString()), 1000);
-  })
 
   static toDistanceString(distance: number): string {
     if (distance === null) {
@@ -82,6 +81,9 @@ export class LocationCardComponent implements OnInit, OnDestroy {
           }
         })
     );
+    this.distance$ = this.locationsService.getDistanceToLocation(this.location).pipe(
+      map(value => LocationCardComponent.toDistanceString(value))
+    );
   }
 
   showLocationCard() {
@@ -102,18 +104,6 @@ export class LocationCardComponent implements OnInit, OnDestroy {
     } else {
       this.favoriteService.addFavorite(this.location.id);
     }
-  }
-
-  getDistanceString(): string {
-    let distance;
-    const currentPosition = this.gpsService.getCurrentGpsCoordinates();
-    if (currentPosition) {
-      distance = olGetDistance([this.location.coordinates.longitude, this.location.coordinates.latitude],
-        currentPosition.toArray());
-    } else {
-      distance = null;
-    }
-    return '';
   }
 
   getOccupancyString(): string {

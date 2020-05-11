@@ -12,8 +12,8 @@
         <p class="mat-card-subtitle">{{ location.address | address }}</p>
       </div>
       <div class="right">
-          <div *ngIf="true" class="distance">
-            {{ distance$ | async }}
+          <div *ngIf="distance$ | async as distance" class="distance">
+            {{ distance }}
           </div>
         <button mat-icon-button (click)="toggleFavorite()">
           <mat-icon>

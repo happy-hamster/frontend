@@ -3,14 +3,13 @@ import {Observable, BehaviorSubject, throwError, Subject, combineLatest} from 'r
 import {Location} from 'src/app/generated/models';
 import {LocationsService} from 'src/app/generated/services';
 import {MapService} from './map.service';
-import {switchMap, catchError, filter, tap, startWith, map, share} from 'rxjs/operators';
+import {switchMap, catchError, filter, tap, startWith, share, map} from 'rxjs/operators';
 import {PositionCoordinates} from '../models/position-coordinates.model';
 import {getDistance as olGetDistance} from 'ol/sphere';
 import {SearchService} from './search.service';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {LocationCardService} from './location-card.service';
 import {GpsService} from "./gps.service";
-import {error} from "selenium-webdriver";
 
 @Injectable({
   providedIn: 'root'
@@ -112,24 +111,16 @@ export class LocationProviderService {
   }
 
   public getDistanceToLocation(location: Location): Observable<number> {
-    const subject$ = this.gpsService.getGpsCoordinates();
-    const result$ = new Observable<number>();
-    subject$.subscribe(
-      (x) => {
-        console.log('got new position data!');
-        console.log(x);
-        subject$.push(x);
-        return olGetDistance([x.longitude, x.latitude], x.toArray());
-      },
-      (err) => {
-        console.warn('Error occurred whilst subscribed to gps position!');
-        console.warn(err);
-      },
-      () => {
-        console.log('Completed getting GPS Info');
-      }
-    );
-    return result$;
+    return this.gpsService.getGpsCoordinates().pipe(
+      map(gpsCoordinates => {
+        if (!gpsCoordinates) {
+          return null;
+        }
+        const distance = olGetDistance(gpsCoordinates.toArray(),
+          [location.coordinates.longitude, location.coordinates.latitude]);
+        return distance;
+        }
+      ));
   }
 
   public updateLocation(location: Location) {
