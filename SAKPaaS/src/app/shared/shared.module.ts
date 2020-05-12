@@ -10,10 +10,12 @@ import { ApiModule } from 'src/app/generated/api.module';
 import { AddressPipe } from 'src/app/core/pipes/address.pipe';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ReactiveFormsModule } from '@angular/forms';
+import {ReadableDistancePipe} from '../core/pipes/readableDistance.pipe';
 
 @NgModule({
   declarations: [
-    AddressPipe
+    AddressPipe,
+    ReadableDistancePipe,
   ],
   exports: [
     // angular modules
@@ -31,7 +33,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     IsLoadingPipeModule,
     TranslateModule,
     // pipes
-    AddressPipe
+    AddressPipe,
+    ReadableDistancePipe,
   ],
   providers: [],
 })
