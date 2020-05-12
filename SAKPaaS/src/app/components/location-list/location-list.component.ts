@@ -13,7 +13,6 @@ export class LocationListComponent implements OnInit {
   @Input() isCloseToYouList?: boolean;
 
   constructor(
-    private gpsService: GpsService
   ) {
   }
 
