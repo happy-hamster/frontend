@@ -19,7 +19,6 @@ export class LocationListComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.sortLocationsClosest();
   }
 
   ngOnChanges(): void {
