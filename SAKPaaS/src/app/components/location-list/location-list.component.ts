@@ -28,15 +28,14 @@ export class LocationListComponent implements OnInit, OnChanges {
   private sortLocationsClosest(): void {
     this.locations.sort((a: Location, b: Location) => {
       const actualGps = this.gpsService.getCurrentGpsCoordinates();
-      if (actualGps === null) {
-        return 0;
-      } else {
+      if (actualGps !== undefined) {
         const actualPosition = actualGps.toArray();
 
         const distA = olGetDistance([a.coordinates.longitude, a.coordinates.latitude], actualPosition);
         const distB = olGetDistance([b.coordinates.longitude, b.coordinates.latitude], actualPosition);
         return distA < distB ? -1 : 1;
       }
+      return 0;
     });
 
   }
