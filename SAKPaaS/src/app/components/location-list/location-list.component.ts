@@ -35,7 +35,6 @@ export class LocationListComponent implements OnInit, OnChanges {
 
         const distA = olGetDistance([a.coordinates.longitude, a.coordinates.latitude], actualPosition);
         const distB = olGetDistance([b.coordinates.longitude, b.coordinates.latitude], actualPosition);
-        console.log('sorting...' + this.locations.length);
         return distA < distB ? -1 : 1;
       }
     });
