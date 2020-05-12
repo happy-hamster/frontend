@@ -27,14 +27,17 @@ export class LocationListComponent implements OnInit, OnChanges {
 
   private sortLocationsClosest(): void {
     this.locations.sort((a: Location, b: Location) => {
-      const distA = olGetDistance(
-        [a.coordinates.longitude, a.coordinates.latitude], this.gpsService.getCurrentGpsCoordinates().toArray()
-      );
-      const distB = olGetDistance(
-        [b.coordinates.longitude, b.coordinates.latitude], this.gpsService.getCurrentGpsCoordinates().toArray()
-      );
-      console.log('sorting...' + this.locations.length);
-      return distA < distB ? -1 : 1;
+      const actualGps = this.gpsService.getCurrentGpsCoordinates();
+      if (actualGps === null) {
+        return 0;
+      } else {
+        const actualPosition = actualGps.toArray();
+
+        const distA = olGetDistance([a.coordinates.longitude, a.coordinates.latitude], actualPosition);
+        const distB = olGetDistance([b.coordinates.longitude, b.coordinates.latitude], actualPosition);
+        console.log('sorting...' + this.locations.length);
+        return distA < distB ? -1 : 1;
+      }
     });
 
   }
