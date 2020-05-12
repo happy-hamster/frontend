@@ -5,7 +5,6 @@ import {LocationProviderService} from '../../core/services/location-provider.ser
 import {LocationCardService} from '../../core/services/location-card.service';
 import {Subscription} from 'rxjs';
 import {FavoriteService} from 'src/app/core/services/favorite.service';
-import {GpsService} from '../../core/services/gps.service';
 import {Observable} from 'rxjs';
 
 @Component({
