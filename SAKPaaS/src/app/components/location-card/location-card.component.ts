@@ -7,7 +7,6 @@ import {Subscription} from 'rxjs';
 import {FavoriteService} from 'src/app/core/services/favorite.service';
 import {GpsService} from '../../core/services/gps.service';
 import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-location-card',
@@ -16,7 +15,7 @@ import {map} from 'rxjs/operators';
 })
 export class LocationCardComponent implements OnInit, OnDestroy {
   // leads to errors if private
-  public distance$ = new Observable<string>();
+  public distance$ = new Observable<number>();
 
   constructor(
     private router: Router,
@@ -24,7 +23,6 @@ export class LocationCardComponent implements OnInit, OnDestroy {
     private locationCardService: LocationCardService,
     private favoriteService: FavoriteService,
     private hostElement: ElementRef,
-    private gpsService: GpsService,
   ) {
   }
 
@@ -33,24 +31,6 @@ export class LocationCardComponent implements OnInit, OnDestroy {
   hide = true;
   blur = false;
   subscriptions = new Subscription();
-
-  static toDistanceString(distance: number): string {
-    if (distance === null) {
-      return '';
-    }
-    let dist = '' + Math.round(distance);
-    if (dist.length > 3) {
-      dist = dist.slice(0, dist.length - 2);
-      dist =
-        dist.slice(0, dist.length - 1) +
-        '.' +
-        dist.slice(dist.length - 1, dist.length) +
-        ' km';
-    } else {
-      dist = dist + ' m';
-    }
-    return dist;
-  }
 
   ngOnInit(): void {
     this.subscriptions.add(
@@ -79,9 +59,7 @@ export class LocationCardComponent implements OnInit, OnDestroy {
           }
         })
     );
-    this.distance$ = this.locationsService.getDistanceToLocation(this.location).pipe(
-      map(value => LocationCardComponent.toDistanceString(value))
-    );
+    this.distance$ = this.locationsService.getDistanceToLocation(this.location);
   }
 
   showLocationCard() {

@@ -13,7 +13,7 @@
       </div>
       <div class="right">
           <div *ngIf="distance$ | async as distance" class="distance">
-            {{ distance }}
+            {{ distance | readableDistance }}
           </div>
         <button mat-icon-button (click)="toggleFavorite()">
           <mat-icon>
