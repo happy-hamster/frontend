@@ -64,4 +64,8 @@ export class AuthKeycloakService {
   public getToken(): Observable<string> {
     return this.token$;
   }
+
+  public isLoggedInInstant(): boolean {
+    return !!this.user$.value;
+  }
 }

@@ -4,8 +4,12 @@ import {Router} from '@angular/router';
 import {LocationProviderService} from '../../core/services/location-provider.service';
 import {LocationCardService} from '../../core/services/location-card.service';
 import {Subscription} from 'rxjs';
-import {FavoriteService} from 'src/app/core/services/favorite.service';
+import {GpsService} from '../../core/services/gps.service';
 import {Observable} from 'rxjs';
+import { FavoriteService } from 'src/app/core/services/favorite.service';
+import { AuthKeycloakService } from 'src/app/core/services/auth-keycloak.service';
+import { SnackBarService } from 'src/app/core/services/snack-bar.service';
+import { SnackBarTypes } from 'src/app/core/models/snack-bar.interface';
 
 @Component({
   selector: 'app-location-card',
@@ -13,23 +17,25 @@ import {Observable} from 'rxjs';
   styleUrls: ['./location-card.component.scss'],
 })
 export class LocationCardComponent implements OnInit, OnDestroy {
+  @Input() location: Location;
+
   // leads to errors if private
   public distance$ = new Observable<number>();
+
+  hide = true;
+  blur = false;
+  subscriptions = new Subscription();
 
   constructor(
     private router: Router,
     private locationsService: LocationProviderService,
     private locationCardService: LocationCardService,
     private favoriteService: FavoriteService,
-    private hostElement: ElementRef,
+    private authService: AuthKeycloakService,
+    private snackbarService: SnackBarService,
+    private hostElement: ElementRef
   ) {
   }
-
-  @Input() location: Location;
-
-  hide = true;
-  blur = false;
-  subscriptions = new Subscription();
 
   ngOnInit(): void {
     this.subscriptions.add(
@@ -74,6 +80,13 @@ export class LocationCardComponent implements OnInit, OnDestroy {
   }
 
   toggleFavorite() {
+    if (!this.authService.isLoggedInInstant()) {
+      this.snackbarService.sendNotification({
+        messageKey: 'snack-bar.favorite.not-logged-in',
+        type: SnackBarTypes.INFO
+      });
+      return;
+    }
     if (this.location.favorite) {
       this.favoriteService.deleteFavorite(this.location.id);
     } else {

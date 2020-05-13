@@ -10,7 +10,7 @@ import { ApiModule } from 'src/app/generated/api.module';
 import { AddressPipe } from 'src/app/core/pipes/address.pipe';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ReactiveFormsModule } from '@angular/forms';
-import {ReadableDistancePipe} from '../core/pipes/readableDistance.pipe';
+import {ReadableDistancePipe} from '../core/pipes/readable-distance.pipe';
 
 @NgModule({
   declarations: [

@@ -28,6 +28,7 @@ import { API_INTERCEPTOR_PROVIDER, ApiInterceptor } from './core/interceptors/ap
 import { LocationCardModule } from './components/location-card/location-card.module';
 import { SidenavModule } from './components/sidenav/sidenav.module';
 import { BadgeNotificationModule } from './components/badge-notification/badge-notification.module';
+import { LayoutModule } from '@angular/cdk/layout';
 
 
 
@@ -65,7 +66,8 @@ import { BadgeNotificationModule } from './components/badge-notification/badge-n
     SearchBarModule,
     SharedModule,
     SidenavModule,
-    SnackBarModule
+    SnackBarModule,
+    LayoutModule
   ],
   providers: [
     {
