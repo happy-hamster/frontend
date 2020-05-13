@@ -5,6 +5,9 @@ import {LocationProviderService} from '../../core/services/location-provider.ser
 import {LocationCardService} from '../../core/services/location-card.service';
 import {Subscription} from 'rxjs';
 import { FavoriteService } from 'src/app/core/services/favorite.service';
+import { AuthKeycloakService } from 'src/app/core/services/auth-keycloak.service';
+import { SnackBarService } from 'src/app/core/services/snack-bar.service';
+import { SnackBarTypes } from 'src/app/core/models/snack-bar.interface';
 
 @Component({
   selector: 'app-location-card',
@@ -23,6 +26,8 @@ export class LocationCardComponent implements OnInit, OnDestroy {
     private locationsService: LocationProviderService,
     private locationCardService: LocationCardService,
     private favoriteService: FavoriteService,
+    private authService: AuthKeycloakService,
+    private snackbarService: SnackBarService,
     private hostElement: ElementRef
   ) {}
 
@@ -68,6 +73,13 @@ export class LocationCardComponent implements OnInit, OnDestroy {
   }
 
   toggleFavorite() {
+    if (!this.authService.isLoggedInInstant()) {
+      this.snackbarService.sendNotification({
+        messageKey: 'snack-bar.favorite.not-logged-in',
+        type: SnackBarTypes.INFO
+      });
+      return;
+    }
     if (this.location.favorite) {
       this.favoriteService.deleteFavorite(this.location.id);
     } else {

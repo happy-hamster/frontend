@@ -94,7 +94,8 @@
       "deleted": {
         "success": "Successfully removed from your favorites!",
         "error": "We couldn't remove the location from your favorites. Please try again!"
-      }
+      },
+      "not-logged-in": "Please log in, before you use the favorite function."
     },
     "gps": {
       "default": "HappyHamster wasn't able to locate you via GPS because of an unkown error.",
