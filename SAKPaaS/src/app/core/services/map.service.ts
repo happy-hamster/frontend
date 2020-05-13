@@ -87,7 +87,6 @@ export class MapService {
           filter(coordinates => coordinates !== undefined),
           first()
           ).subscribe(position => {
-          console.log(position);
           if (position) {
             this.setMapCenter(position);
             this.setMapZoomLevel(15);
