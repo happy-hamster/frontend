@@ -5,13 +5,14 @@ import { Observable, of } from 'rxjs';
 import { BackgroundBlurService } from 'src/app/core/services/background-blur.service';
 import { BadgeNotificationComponent } from 'src/app/components/badge-notification/badge-notification.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-card',
   templateUrl: './user-card.component.html',
   styleUrls: ['./user-card.component.scss']
 })
-export class UserCardComponent {
+export class UserCardComponent implements OnInit {
   expanded = false;
 
   numberBadges = 12; // TODO: Dies muss noch berechnet werden
@@ -30,6 +31,8 @@ export class UserCardComponent {
     public authService: AuthKeycloakService,
     public dialog: MatDialog,
     private backgroundBlurService: BackgroundBlurService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {
     this.badges$ = of([
       {image: BadgeType.NEXT_LEVEL, count: 1},
@@ -47,6 +50,15 @@ export class UserCardComponent {
     ]);
   }
 
+  ngOnInit() {
+    console.log('ngOnInit aufgerufen');
+    this.activatedRoute.queryParamMap.subscribe(params => {
+      this.expanded = params.get('showBadges') === 'true';
+      this.backgroundBlurService.setBlur(this.expanded);
+      console.log(this.expanded);
+    });
+  }
+
   array(n: number): any[] {
     return Array(n);
   }
@@ -62,22 +74,11 @@ export class UserCardComponent {
     }
   }
   change() {
-    const element = document.getElementById('user-card');
     if (this.expanded) {
-      this.expanded = !this.expanded;
-      element.classList.remove('expanded');
-      document.getElementsByClassName('expand-icon')[0].classList.remove('turned');
-      document.getElementsByClassName('content')[0].setAttribute('style', 'text-align: left;');
-
-
+      this.router.navigate(['/'], {queryParams: {}});
     } else {
-      this.expanded = !this.expanded;
-      element.classList.add('expanded');
-      document.getElementsByClassName('expand-icon')[0].classList.add('turned');
-      document.getElementsByClassName('content')[0].setAttribute('style', 'text-align: center;');
+      this.router.navigate(['/'], {queryParams: {showBadges: true}});
     }
-
-    this.backgroundBlurService.setBlur(this.expanded);
   }
 
   showNotification() {

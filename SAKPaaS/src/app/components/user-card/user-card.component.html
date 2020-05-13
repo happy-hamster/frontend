@@ -1,4 +1,4 @@
-<mat-card id="user-card">
+<mat-card id="user-card" [class.expanded]="expanded">
   <div class="corner upper-left"></div>
 
   <div *ngIf="authService.getUser() | async as user; else login" class="content">
@@ -11,7 +11,6 @@
       <mat-icon fontSet="material-icons-outlined" class="settings-icon">settings</mat-icon>
     </mat-card-title>
     <mat-card-content>
-      <a (click)="change()">Toggle expanded</a>
       <div class="progress-bar-container" *ngIf="expanded">
         <div class="level-name">
           {{ "user-card.level" | translate }}

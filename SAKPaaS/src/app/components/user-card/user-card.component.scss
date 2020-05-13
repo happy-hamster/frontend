@@ -4,35 +4,37 @@
     height: 100%;
     overflow: auto;
     padding-top: 0;
-  
+    display: none;
+
     &.expanded {
       max-width: 100%;
       min-width: 100%;
+      display: initial;
     }
-    #wrapper{
+    #wrapper {
       width: 100%;
       height: 100%;
-      
     }
-    .badge-container{
+    .badge-container {
       width: 250px;
       height: 100%;
       display: initial;
       margin-left: auto;
       margin-right: auto;
 
-      .badge{
+      .badge {
         margin-left: 35px;
         margin-right: 35px;
       }
-
     }
 
-    #first, #third, #pageination{
+    #first,
+    #third,
+    #pageination {
       display: none;
     }
 
-    .mat-card-title{
+    .mat-card-title {
       position: sticky;
       top: 0;
       background-color: white;
@@ -40,13 +42,13 @@
       z-index: 6;
     }
 
-    .progress-bar-container{
+    .progress-bar-container {
       position: sticky;
       top: 0;
       background-color: white;
       z-index: 5;
 
-      .line{
+      .line {
         border-top: 1px solid var(--silver);
       }
     }
@@ -96,121 +98,126 @@
 
   &.expanded {
     width: 440px;
+    .expand-icon {
+      transform: rotate(180deg);
+      -webkit-transform: rotate(180deg);
+      -moz-transform: rotate(180deg);
+      -ms-transform: rotate(180deg);
+      -o-transform: rotate(180deg);
+    }
+    .content {
+      text-align: center;
+    }
   }
-}
 
-.expand {
-  float: left;
-}
+  .expand {
+    float: left;
+  }
 
-.content {
-  transition: text-indent 0.3s;
-}
+  .content {
+    transition: text-indent 0.3s;
+  }
 
-.ellipsis {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+  .ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-.turned {
-  transform: rotate(180deg);
-  -webkit-transform: rotate(180deg);
-  -moz-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  -o-transform: rotate(180deg);
+  .badge-container {
+    .badge {
+      img {
+        width: 55px;
+        height: 55px;
+        margin-bottom: 3px;
+      }
+      .number {
+        position: absolute;
+        top: -2px;
+        right: -2px;
+        padding: 2.5px 5px;
+        border-radius: 50%;
+        border-style: solid;
+        border-width: 2px;
+        border-color: white;
+        background: var(--midnight-blue);
+        color: white;
+      }
+      position: relative;
+      width: 55px;
+      height: 100px;
+      color: var(--greenblue);
+      float: left;
+      clear: right;
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 10px;
+      line-height: 12px;
+      text-align: center;
+      letter-spacing: 0.2px;
+      word-break: break-word;
+      margin-top: 12px;
+    }
+    overflow-x: scroll;
+    overflow-y: hidden;
+    vertical-align: top;
+  }
+
+  #wrapper {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+  #first {
+    float: left;
+    width: 34px;
+  }
+  #second {
+    float: left;
+  }
+  #third {
+    float: left;
+    width: 34px;
+  }
+
+  .mat-card-title {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 26px;
+    text-align: center;
+    color: var(--silver);
+  }
+
+  .corner {
+    position: absolute;
+    z-index: 3;
+    width: var(--outer-border-radius);
+    height: var(--outer-border-radius);
+    background-image: radial-gradient(
+      circle at 0% 100%,
+      transparent 0,
+      transparent var(--outer-border-radius),
+      white var(--outer-border-radius)
+    );
+    &.upper-left {
+      top: 0;
+      left: -14px;
+      transition: right 0.3s;
+    }
+    &.bottom-right {
+      right: 0;
+      bottom: -14px;
+    }
+  }
 }
 
 .badge-container {
   .badge {
-    img {
-      width: 55px;
-      height: 55px;
-      margin-bottom: 3px;
-    }
-    position: relative;
-    width: 55px;
-    height: 100px;
-    color: var(--greenblue);
-    float: left;
-    clear: right;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 10px;
-    line-height: 12px;
-    text-align: center;
-    letter-spacing: 0.2px;
-    word-break: break-word;
     margin-right: 12.5px;
     margin-left: 12.5px;
-    margin-top: 12px;
   }
-  overflow-x: scroll;
-  overflow-y: hidden;
   display: flex;
-  vertical-align: top;
-  height: 130px;
-}
-
-.badge .number {
-  position: absolute;
-  top: -2px;
-  right: -2px;
-  padding: 2.5px 5px;
-  border-radius: 50%;
-  border-style: solid;
-  border-width: 2px;
-  border-color: white;
-  background: var(--midnight-blue);
-  color: white;
-}
-
-#wrapper {
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-}
-#first {
-  float: left;
-  width: 34px;
-}
-#second {
-  float: left;
-}
-#third {
-  float: left;
-  width: 34px;
-}
-
-.mat-card-title {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 22px;
-  line-height: 26px;
-  text-align: center;
-  color: var(--silver);
-}
-
-.corner {
-  position: absolute;
-  z-index: 3;
-  width: var(--outer-border-radius);
-  height: var(--outer-border-radius);
-  background-image: radial-gradient(
-    circle at 0% 100%,
-    transparent 0,
-    transparent var(--outer-border-radius),
-    white var(--outer-border-radius)
-  );
-  &.upper-left {
-    top: 0;
-    left: -14px;
-    transition: right 0.3s;
-  }
-  &.bottom-right {
-    right: 0;
-    bottom: -14px;
-  }
 }
