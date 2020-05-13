@@ -1,15 +1,15 @@
-import {Injectable} from '@angular/core';
-import {Observable, BehaviorSubject, throwError, Subject, combineLatest} from 'rxjs';
-import {Location} from 'src/app/generated/models';
-import {LocationsService} from 'src/app/generated/services';
-import {MapService} from './map.service';
-import {switchMap, catchError, filter, tap, startWith, share, map} from 'rxjs/operators';
-import {PositionCoordinates} from '../models/position-coordinates.model';
-import {getDistance as olGetDistance} from 'ol/sphere';
-import {SearchService} from './search.service';
-import {ActivatedRoute, ParamMap} from '@angular/router';
-import {LocationCardService} from './location-card.service';
-import {GpsService} from './gps.service';
+import { Injectable } from '@angular/core';
+import { Observable, BehaviorSubject, throwError, Subject, combineLatest } from 'rxjs';
+import { Location } from 'src/app/generated/models';
+import { LocationsService } from 'src/app/generated/services';
+import { MapService } from './map.service';
+import { switchMap, catchError, filter, tap, startWith, share, map } from 'rxjs/operators';
+import { PositionCoordinates } from '../models/position-coordinates.model';
+import { getDistance as olGetDistance } from 'ol/sphere';
+import { SearchService } from './search.service';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { LocationCardService } from './location-card.service';
+import { GpsService } from './gps.service';
 
 @Injectable({
   providedIn: 'root'
