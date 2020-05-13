@@ -23,6 +23,9 @@ export class PermissionsService {
       cookiesAllowed: this.cookieService.areCookiesAllowed(),
       gpsAllowed: this.cookieService.isCookieAlreadySet(PermissionsService.COOKIE_PERMISSION_GPS)
     };
+    if (this.currentPermissionsState.cookiesAllowed) {
+      this.mixpanelService.track(MixpanelId.INIT);
+    }
   }
 
   public async getPermissions(): Promise<CheckboxesDialog> {
