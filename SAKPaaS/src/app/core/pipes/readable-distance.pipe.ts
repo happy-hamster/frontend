@@ -11,10 +11,10 @@ export class ReadableDistancePipe implements PipeTransform {
     }
     const dist = Math.round(distance);
     let distStr = '';
-    if (('' + Math.floor(dist)).length > 3) {
-      distStr = '' + (dist / 1000).toFixed(1) + ' km';
+    if (dist >= 1000) {
+      distStr = (dist / 1000).toFixed(1) + ' km';
     } else {
-      distStr = '' + Math.floor(distance) + ' m';
+      distStr = Math.floor(distance) + ' m';
     }
     return distStr;
   }
