@@ -1,7 +1,7 @@
-import {Component, OnInit, Input, OnChanges} from '@angular/core';
-import {Location} from 'src/app/generated/models';
-import {getDistance as olGetDistance} from 'ol/sphere';
-import {GpsService} from '../../core/services/gps.service';
+import { getDistance as olGetDistance } from 'ol/sphere';
+import { Component, OnInit, Input } from '@angular/core';
+import { Location } from 'src/app/generated/models';
+import { GpsService } from '../../core/services/gps.service';
 
 @Component({
   selector: 'app-location-list',
@@ -15,8 +15,7 @@ export class LocationListComponent implements OnInit, OnChanges {
 
   constructor(
     private gpsService: GpsService
-  ) {
-  }
+  ) {  }
 
   ngOnInit(): void {
   }
