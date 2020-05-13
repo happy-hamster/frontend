@@ -17,25 +17,25 @@ import { SnackBarTypes } from 'src/app/core/models/snack-bar.interface';
   styleUrls: ['./location-card.component.scss'],
 })
 export class LocationCardComponent implements OnInit, OnDestroy {
+  @Input() location: Location;
+
   // leads to errors if private
   public distance$ = new Observable<number>();
+
+  hide = true;
+  blur = false;
+  subscriptions = new Subscription();
 
   constructor(
     private router: Router,
     private locationsService: LocationProviderService,
     private locationCardService: LocationCardService,
     private favoriteService: FavoriteService,
-    private hostElement: ElementRef,
     private authService: AuthKeycloakService,
     private snackbarService: SnackBarService,
     private hostElement: ElementRef
   ) {
   }
-  @Input() location: Location;
-
-  hide = true;
-  blur = false;
-  subscriptions = new Subscription();
 
   ngOnInit(): void {
     this.subscriptions.add(
