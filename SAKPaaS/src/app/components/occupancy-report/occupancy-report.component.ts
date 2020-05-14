@@ -73,7 +73,7 @@ export class OccupancyReportComponent implements OnInit, OnDestroy {
           this.isLoadingService.remove({ key: 'sendOccupancy' });
           console.log(err);
           if (err.hasOwnProperty('status') && err.status === 429) {
-            if (this.authService.isLoggedIn()) {
+            if (this.authService.isLoggedInSnap()) {
               this.snackBarService.sendNotification({
                 messageKey: 'snack-bar.occupancy-report.error.too-many-requests.logged-in',
                 type: SnackBarTypes.ERROR
