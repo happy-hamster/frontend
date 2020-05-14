@@ -1,4 +1,4 @@
-<div matSort (matSortChange)="sortData($event)" *ngFor="let location of locations.sort()" class="location-card">
+<div *ngFor="let location of locations" class="location-card">
   <app-location-card [location]="location" *ngIf="!(isCloseToYouList && location.favorite)"></app-location-card>
 </div>
 
