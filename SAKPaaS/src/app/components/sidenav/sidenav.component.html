@@ -43,7 +43,7 @@
         </div>
         Badges
       </a>
-      <a rel="noreferrer" href="https://auth.happyhamster.org/auth/realms/happyhamster/account/"  *ngIf="authService.getUser() | async">
+      <a rel="noreferrer" href="https://auth.happyhamster.org/auth/realms/happyhamster/account/"  *ngIf="authService.getUser() | async" title="{{'sidenav.settings' | translate}}">
         <div class="img-wrap">
           <mat-icon fontSet="material-icons" class="settings-icon">settings</mat-icon>
         </div>
