@@ -14,10 +14,9 @@
     cursor: pointer;
   }
   .settings-icon {
-    display: none;
+    color: var(--midnight-blue);
     float: right;
-    padding-left: 10px;
-    width: 34px;
+    width: 19px;
   }
 
   mat-icon:hover {
@@ -129,6 +128,7 @@
     line-height: 26px;
     text-align: center;
     color: var(--silver);
+    padding-top: 15px;
   }
 
   .corner {
@@ -169,6 +169,10 @@
     }
 
     #pagination {
+      display: none;
+    }
+
+    .settings-icon {
       display: none;
     }
 

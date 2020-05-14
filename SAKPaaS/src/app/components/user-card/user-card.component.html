@@ -5,10 +5,16 @@
     <div class="expand">
       <mat-icon (click)="change()" class="expand-icon">keyboard_arrow_left</mat-icon>
     </div>
+    
+    <div *ngIf="expanded">
+      <a href="https://auth.happyhamster.org/auth/realms/happyhamster/account/">
+        <mat-icon fontSet="material-icons" class="settings-icon">settings</mat-icon>
+      </a>
+    </div>
+
     <mat-card-title>
       <span *ngIf="expanded">{{ "user-card.greeting" | translate }}</span>
       {{ user.firstName }}
-      <mat-icon fontSet="material-icons-outlined" class="settings-icon">settings</mat-icon>
     </mat-card-title>
     <mat-card-content>
       <div class="progress-bar-container" *ngIf="expanded">
