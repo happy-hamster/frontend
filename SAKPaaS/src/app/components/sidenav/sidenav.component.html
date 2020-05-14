@@ -31,7 +31,7 @@
         </div>
         {{'sidenav.search' | translate}}
       </a>
-      <a routerLink="/" (click)="close()" [queryParams]="{showBadges: true}">
+      <a routerLink="/" (click)="close()" [queryParams]="{showBadges: true}" *ngIf="authService.getUser() | async">
         <div class="img-wrap">
           <mat-icon>emoji_events</mat-icon>
         </div>
