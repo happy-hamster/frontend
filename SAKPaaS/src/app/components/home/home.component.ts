@@ -14,9 +14,10 @@ export class HomeComponent implements OnInit {
 
   @ViewChild(MapComponent) mapComp: MapComponent;
 
+
   constructor(
     private backgroundBlurService: BackgroundBlurService,
-  ) { }
+    ) {}
 
   ngOnInit() {
     this.shouldBlurBackground$ = this.backgroundBlurService.getBlur();

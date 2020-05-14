@@ -25,11 +25,17 @@
       </div>
     </ng-template>
     <div class="section top">
-      <a routerLink="/" (click)="close()">
+      <a routerLink="/" (click)="close()" [queryParams]="{}">
         <div class="img-wrap">
           <mat-icon>search</mat-icon>
         </div>
         {{'sidenav.search' | translate}}
+      </a>
+      <a routerLink="/" (click)="close()" [queryParams]="{showBadges: true}" *ngIf="authService.getUser() | async">
+        <div class="img-wrap">
+          <mat-icon>emoji_events</mat-icon>
+        </div>
+        Badges
       </a>
     </div>
   </div>
