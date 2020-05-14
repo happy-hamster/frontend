@@ -1,9 +1,11 @@
-import {Component, Input, OnDestroy, OnInit, ElementRef} from '@angular/core';
-import {Location} from '../../generated/models/location';
-import {Router} from '@angular/router';
-import {LocationProviderService} from '../../core/services/location-provider.service';
-import {LocationCardService} from '../../core/services/location-card.service';
-import {Subscription} from 'rxjs';
+import { Component, Input, OnDestroy, OnInit, ElementRef } from '@angular/core';
+import { Location } from '../../generated/models/location';
+import { Router } from '@angular/router';
+import { LocationProviderService } from '../../core/services/location-provider.service';
+import { LocationCardService } from '../../core/services/location-card.service';
+import { Subscription } from 'rxjs';
+import { GpsService } from '../../core/services/gps.service';
+import { Observable } from 'rxjs';
 import { FavoriteService } from 'src/app/core/services/favorite.service';
 import { AuthKeycloakService } from 'src/app/core/services/auth-keycloak.service';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
@@ -17,6 +19,9 @@ import { SnackBarTypes } from 'src/app/core/models/snack-bar.interface';
 export class LocationCardComponent implements OnInit, OnDestroy {
   @Input() location: Location;
 
+  // leads to errors if private
+  public distance$ = new Observable<number>();
+
   hide = true;
   blur = false;
   subscriptions = new Subscription();
@@ -29,7 +34,8 @@ export class LocationCardComponent implements OnInit, OnDestroy {
     private authService: AuthKeycloakService,
     private snackbarService: SnackBarService,
     private hostElement: ElementRef
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.subscriptions.add(
@@ -58,6 +64,7 @@ export class LocationCardComponent implements OnInit, OnDestroy {
           }
         })
     );
+    this.distance$ = this.locationsService.getDistanceToLocation(this.location);
   }
 
   showLocationCard() {
@@ -85,25 +92,6 @@ export class LocationCardComponent implements OnInit, OnDestroy {
     } else {
       this.favoriteService.addFavorite(this.location.id);
     }
-  }
-
-  getDistanceString(): string {
-    const distance = this.locationsService.getDistanceToLocation(this.location);
-    if (distance === null) {
-      return '';
-    }
-    let dist = '' + Math.round(distance);
-    if (dist.length > 3) {
-      dist = dist.slice(0, dist.length - 2);
-      dist =
-        dist.slice(0, dist.length - 1) +
-        '.' +
-        dist.slice(dist.length - 1, dist.length) +
-        ' km';
-    } else {
-      dist = dist + ' m';
-    }
-    return dist;
   }
 
   getOccupancyString(): string {

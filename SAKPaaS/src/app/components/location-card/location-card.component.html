@@ -12,9 +12,9 @@
         <p class="mat-card-subtitle">{{ location.address | address }}</p>
       </div>
       <div class="right">
-        <div class="distance">
-          {{ getDistanceString() }}
-        </div>
+          <div *ngIf="distance$ | async as distance" class="distance">
+            {{ distance | readableDistance }}
+          </div>
         <button mat-icon-button (click)="toggleFavorite()">
           <mat-icon>
             {{ location.favorite ? 'star' : 'star_border' }}

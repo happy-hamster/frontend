@@ -3,12 +3,13 @@ import { Observable, BehaviorSubject, throwError, Subject, combineLatest } from 
 import { Location } from 'src/app/generated/models';
 import { LocationsService } from 'src/app/generated/services';
 import { MapService } from './map.service';
-import { switchMap, catchError, filter, tap, startWith, map, share } from 'rxjs/operators';
+import { switchMap, catchError, filter, tap, startWith, share, map } from 'rxjs/operators';
 import { PositionCoordinates } from '../models/position-coordinates.model';
 import { getDistance as olGetDistance } from 'ol/sphere';
 import { SearchService } from './search.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { LocationCardService } from './location-card.service';
+import { GpsService } from './gps.service';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,8 @@ export class LocationProviderService {
     private locationCardService: LocationCardService,
     private mapService: MapService,
     private searchService: SearchService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private gpsService: GpsService
   ) {
     this.mapLocations$ = this.mapService.getMapCenter().pipe(
       filter(coordinates => !!coordinates),
@@ -44,7 +46,7 @@ export class LocationProviderService {
       switchMap(coordinates => {
         this.updateLoadingState(true);
         console.log('Loading new locations...');
-        return this.locationApiService.searchLocations({ coordinates });
+        return this.locationApiService.searchLocations({coordinates});
       }),
       tap(_ => this.updateLoadingState(false)),
       catchError((error) => {
@@ -85,7 +87,9 @@ export class LocationProviderService {
           })
         );
       }),
-      tap(locations => { this.locationCardService.deselectIfNotInList(locations); })
+      tap(locations => {
+        this.locationCardService.deselectIfNotInList(locations);
+      })
     );
   }
 
@@ -95,7 +99,7 @@ export class LocationProviderService {
   }
 
   public fetchLocationById(id: number) {
-    return this.locationApiService.locationsIdGet({ id });
+    return this.locationApiService.locationsIdGet({id});
   }
 
   private updateLoadingState(value: boolean) {
@@ -106,11 +110,17 @@ export class LocationProviderService {
     return this.isLoadingLocations;
   }
 
-  public getDistanceToLocation(location: Location): number {
-    if (this.lastUpdatedPosition !== null) {
-      return olGetDistance(this.lastUpdatedPosition.toArray(), [location.coordinates.longitude, location.coordinates.latitude]);
-    }
-    return null;
+  public getDistanceToLocation(location: Location): Observable<number> {
+    return this.gpsService.getGpsCoordinates().pipe(
+      map(gpsCoordinates => {
+        if (!gpsCoordinates) {
+          return null;
+        }
+        const distance = olGetDistance(gpsCoordinates.toArray(),
+          [location.coordinates.longitude, location.coordinates.latitude]);
+        return distance;
+        }
+      ));
   }
 
   public updateLocation(location: Location) {

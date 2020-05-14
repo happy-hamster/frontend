@@ -10,7 +10,6 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class GpsService {
-
   /**
    * behavior subject to store the current gps coordinates
    * possible values:
@@ -106,5 +105,4 @@ export class GpsService {
     }
     return this.gpsCoordinates.getValue();
   }
-
 }

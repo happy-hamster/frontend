@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Location } from 'src/app/generated/models';
+import { GpsService } from '../../core/services/gps.service';
 
 @Component({
   selector: 'app-location-list',
@@ -11,9 +12,9 @@ export class LocationListComponent implements OnInit {
   @Input() locations: Location[];
   @Input() isCloseToYouList?: boolean;
 
-  constructor() { }
+  constructor(
+  ) { }
 
   ngOnInit(): void {
   }
-
 }
