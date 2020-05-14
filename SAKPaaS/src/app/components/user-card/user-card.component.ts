@@ -51,11 +51,9 @@ export class UserCardComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('ngOnInit aufgerufen');
     this.activatedRoute.queryParamMap.subscribe(params => {
       this.expanded = params.get('showBadges') === 'true';
       this.backgroundBlurService.setBlur(this.expanded);
-      console.log(this.expanded);
     });
   }
 
