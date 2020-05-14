@@ -1,33 +1,34 @@
-import {getDistance as olGetDistance} from 'ol/sphere';
-import {Component, OnInit, Input, OnChanges} from '@angular/core';
-import {Location} from 'src/app/generated/models';
-import {GpsService} from '../../core/services/gps.service';
-import {map} from "rxjs/operators";
-import {PositionCoordinates} from "../../core/models/position-coordinates.model";
-import {Observable} from "rxjs";
+import { getDistance as olGetDistance } from 'ol/sphere';
+import { Component, OnInit, Input, OnChanges, OnDestroy } from '@angular/core';
+import { Location } from 'src/app/generated/models';
+import { GpsService } from '../../core/services/gps.service';
+import { PositionCoordinates } from '../../core/models/position-coordinates.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-location-list',
   templateUrl: './location-list.component.html',
   styleUrls: ['./location-list.component.scss']
 })
-export class LocationListComponent implements OnInit, OnChanges {
+export class LocationListComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() locations: Location[];
   @Input() isCloseToYouList?: boolean;
+
   private latestPosition: PositionCoordinates;
+  subscriptions = new Subscription();
 
   constructor(
     private gpsService: GpsService
   ) { }
 
   ngOnInit(): void {
-    this.gpsService.getGpsCoordinates().pipe(
-      map((position) => {
-        console.log('Got new position');
-        console.log(position);
-        this.sortLocationsClosest(position);
-        this.latestPosition = position;
+    this.subscriptions.add(
+      this.gpsService.getGpsCoordinates().subscribe(position => {
+        if (position !== null) {
+          this.sortLocationsClosest(position);
+          this.latestPosition = position;
+        }
       })
     );
   }
@@ -38,14 +39,16 @@ export class LocationListComponent implements OnInit, OnChanges {
   }
 
   private sortLocationsClosest(position: PositionCoordinates): void {
-    console.log('Sorting... Position:');
-    console.log(position);
-    if (position !== undefined) {
+    if (position !== undefined && position !== null) {
       this.locations.sort((a: Location, b: Location) => {
         const distA = olGetDistance([a.coordinates.longitude, a.coordinates.latitude], position.toArray());
         const distB = olGetDistance([b.coordinates.longitude, b.coordinates.latitude], position.toArray());
         return distA < distB ? -1 : 1;
       });
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }
