@@ -9,6 +9,7 @@ import { IsLoadingService } from '@service-work/is-loading';
 import { PositionCoordinates } from 'src/app/core/models/position-coordinates.model';
 import { MapService } from 'src/app/core/services/map.service';
 import { LocationCardService } from './location-card.service';
+import { GpsService } from './gps.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,13 +26,18 @@ export class SearchService {
     private locationCardSerivce: LocationCardService,
     private snackBarService: SnackBarService,
     private isLoadingService: IsLoadingService,
-    private mapService: MapService
+    private mapService: MapService,
+    private gpsService: GpsService
   ) {
     this.searchResult$ = this.searchTerm$.pipe(
       filter(searchTerm => !!searchTerm),
       tap(_ => this.isLoadingService.add({ key: 'searchLocations' })),
       switchMap(query => {
-        return this.locationApiService.locationsSearchQueryGet({ query }).pipe(
+        const coordinates = this.gpsService.getCurrentGpsCoordinates();
+        return this.locationApiService.locationsSearchQueryGet({
+          query,
+          coordinates: coordinates || null
+         }).pipe(
           catchError(error => {
             this.isLoadingService.remove({ key: 'searchLocations' });
             if (error.status === 404) {
