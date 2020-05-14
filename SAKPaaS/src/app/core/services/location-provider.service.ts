@@ -1,14 +1,15 @@
-import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, throwError, Subject } from 'rxjs';
-import { Location } from 'src/app/generated/models';
-import { LocationsService } from 'src/app/generated/services';
-import { MapService } from './map.service';
-import { switchMap, catchError, filter, tap, startWith } from 'rxjs/operators';
-import { PositionCoordinates } from '../models/position-coordinates.model';
-import { getDistance as olGetDistance } from 'ol/sphere';
-import { SearchService } from './search.service';
-import { SnackBarService } from './snack-bar.service';
-import { SnackBarTypes } from '../models/snack-bar.interface';
+import {Injectable} from '@angular/core';
+import {Observable, BehaviorSubject, throwError, Subject, combineLatest} from 'rxjs';
+import {Location} from 'src/app/generated/models';
+import {LocationsService} from 'src/app/generated/services';
+import {MapService} from './map.service';
+import {switchMap, catchError, filter, tap, startWith, share, map} from 'rxjs/operators';
+import {PositionCoordinates} from '../models/position-coordinates.model';
+import {getDistance as olGetDistance} from 'ol/sphere';
+import {SearchService} from './search.service';
+import {ActivatedRoute, ParamMap} from '@angular/router';
+import {LocationCardService} from './location-card.service';
+import {GpsService} from './gps.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,58 +17,80 @@ import { SnackBarTypes } from '../models/snack-bar.interface';
 export class LocationProviderService {
 
   private isLoadingLocations = new BehaviorSubject<boolean>(false);
-  private locations$ = new BehaviorSubject<Location[]>([]);
   private lastUpdatedPosition?: PositionCoordinates = null;
-  private reload$ = new Subject<string>();
+  private reload$ = new BehaviorSubject<string>('init');
+  private searchLocations$: Observable<Location[]>;
+  private mapLocations$: Observable<Location[]>;
+  private updatedLocation$ = new BehaviorSubject<Location>(null);
 
   constructor(
     private locationApiService: LocationsService,
+    private locationCardService: LocationCardService,
     private mapService: MapService,
     private searchService: SearchService,
-    private snackBarService: SnackBarService
+    private activatedRoute: ActivatedRoute,
+    private gpsService: GpsService
   ) {
-    this.reload$.pipe(
-      startWith('init'),
-      switchMap(_ =>
-        this.mapService.getMapCenter().pipe(
-          filter(_ => !this.searchService.getIsInSearch()),
-          filter(coordinates => !!coordinates),
-          filter(_ => this.mapService.getCurrentMapZoomLevel() > MapService.ZOOM_LIMIT),
-          filter(newCoordinates => {
-            if (this.lastUpdatedPosition !== null
-              && olGetDistance(this.lastUpdatedPosition.toArray(), newCoordinates.toArray()) < MapService.MOVE_LIMIT) {
-              return false;
-            } else {
-              this.lastUpdatedPosition = newCoordinates;
-              return true;
-            }
-          }),
-          switchMap(coordinates => {
-            this.updateLoadingState(true);
-            console.log('Loading new locations...');
-            return this.locationApiService.searchLocations({ coordinates });
-          }),
-          tap(_ => this.updateLoadingState(false)),
-          catchError((error) => {
-            this.updateLoadingState(false);
-            return throwError(error);
-          })
-        )
-      )
-    ).subscribe(this.locations$);
+    this.mapLocations$ = this.mapService.getMapCenter().pipe(
+      filter(coordinates => !!coordinates),
+      filter(_ => this.mapService.getCurrentMapZoomLevel() > MapService.ZOOM_LIMIT),
+      filter(newCoordinates => {
+        if (this.lastUpdatedPosition !== null
+          && olGetDistance(this.lastUpdatedPosition.toArray(), newCoordinates.toArray()) < MapService.MOVE_LIMIT) {
+          return false;
+        } else {
+          this.lastUpdatedPosition = newCoordinates;
+          return true;
+        }
+      }),
+      switchMap(coordinates => {
+        this.updateLoadingState(true);
+        console.log('Loading new locations...');
+        return this.locationApiService.searchLocations({coordinates});
+      }),
+      tap(_ => this.updateLoadingState(false)),
+      catchError((error) => {
+        this.updateLoadingState(false);
+        return throwError(error);
+      }),
+      share()
+    );
 
-    this.searchService.getSearchResult().subscribe(locationSearchResult => {
-      if (locationSearchResult.locations && locationSearchResult.locations.length) {
-        this.locations$.next(locationSearchResult.locations);
-        const coords = new PositionCoordinates(locationSearchResult.coordinates.longitude, locationSearchResult.coordinates.latitude);
-        this.searchService.setIsInSearch(true);
-        this.mapService.setMapCenter(coords);
-      }
-    });
+    this.searchLocations$ = this.searchService.getLocations();
   }
 
   public fetchLocations(): Observable<Location[]> {
-    return this.locations$;
+    return this.activatedRoute.queryParamMap.pipe(
+      switchMap(result => {
+        const query: ParamMap = result;
+        if (query.has('searchTerm')) {
+          return this.searchLocations$;
+        } else {
+          return this.mapLocations$;
+        }
+      }),
+      switchMap((locations) => {
+        return this.updatedLocation$.pipe(
+          map((updatedLocation) => {
+            if (!updatedLocation) {
+              return locations;
+            }
+            this.updatedLocation$.next(null);
+            const index = locations.findIndex(
+              (fav) => fav.id === updatedLocation.id
+            );
+            if (!index || index === -1) {
+              return locations;
+            }
+            locations[index] = updatedLocation;
+            return locations;
+          })
+        );
+      }),
+      tap(locations => {
+        this.locationCardService.deselectIfNotInList(locations);
+      })
+    );
   }
 
   public reloadLocations(): void {
@@ -76,7 +99,7 @@ export class LocationProviderService {
   }
 
   public fetchLocationById(id: number) {
-    return this.locationApiService.locationsIdGet({ id });
+    return this.locationApiService.locationsIdGet({id});
   }
 
   private updateLoadingState(value: boolean) {
@@ -87,10 +110,20 @@ export class LocationProviderService {
     return this.isLoadingLocations;
   }
 
-  public getDistanceToLocation(location: Location): number {
-    if (this.lastUpdatedPosition !== null) {
-      return olGetDistance(this.lastUpdatedPosition.toArray(), [location.coordinates.longitude, location.coordinates.latitude]);
-    }
-    return null;
+  public getDistanceToLocation(location: Location): Observable<number> {
+    return this.gpsService.getGpsCoordinates().pipe(
+      map(gpsCoordinates => {
+        if (!gpsCoordinates) {
+          return null;
+        }
+        const distance = olGetDistance(gpsCoordinates.toArray(),
+          [location.coordinates.longitude, location.coordinates.latitude]);
+        return distance;
+        }
+      ));
+  }
+
+  public updateLocation(location: Location) {
+    this.updatedLocation$.next(location);
   }
 }

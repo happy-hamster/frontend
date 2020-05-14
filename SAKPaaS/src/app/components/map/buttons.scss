@@ -1,0 +1,69 @@
+button.ol-zoom-in,
+button.ol-zoom-out,
+button.ol-rotate-reset,
+button.ol-zoom-in:focus,
+button.ol-zoom-out:focus,
+button.ol-rotate-reset:focus {
+  background-color: white;
+  color: black;
+  font-size: 20px;
+  box-shadow: 0 5px 20px 0 rgba(11, 0, 51, 0.2);
+}
+
+$button-roundness: 20px;
+.ol-zoom button.ol-zoom-in {
+  border-radius: $button-roundness $button-roundness 0 0;
+}
+.ol-zoom button.ol-zoom-out {
+  border-radius: 0 0 $button-roundness $button-roundness;
+}
+
+button.ol-zoom-in:hover,
+button.ol-zoom-out:hover,
+button.ol-rotate-reset:hover {
+  background-color: var(--silver);
+  cursor: pointer;
+}
+
+div.ol-overlaycontainer-stopevent {
+  z-index: auto !important;
+}
+
+div.ol-zoom {
+  top: auto;
+  left: auto;
+  bottom: 40px;
+  right: 30px;
+  background-color: transparent;
+}
+
+div.ol-attribution a {
+  color: var(--greenblue);
+}
+
+div.ol-rotate {
+  top: auto;
+  left: auto;
+  right: 30px;
+  bottom: 100px;
+  background-color: transparent;
+  color: white;
+  z-index: 3;
+  button {
+    border-radius: $button-roundness;
+  }
+}
+
+div.ol-control:hover {
+  background-color: transparent;
+}
+
+@media (max-width: 600px) {
+  div.ol-zoom {
+    display: none;
+  }
+
+  div.ol-rotate {
+    display: none;
+  }
+}

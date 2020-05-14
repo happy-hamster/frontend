@@ -12,6 +12,7 @@ import { Coordinates } from '../models/coordinates';
 import { Location } from '../models/location';
 import { LocationId } from '../models/location-id';
 import { LocationSearchResult } from '../models/location-search-result';
+import { LocationType } from '../models/location-type';
 
 @Injectable({
   providedIn: 'root',
@@ -40,9 +41,14 @@ export class LocationsService extends BaseService {
   searchLocations$Response(params: {
 
     /**
-     * Latitude
+     * Latitude and Longitude
      */
     coordinates: Coordinates;
+
+    /**
+     * Location Type
+     */
+    type?: Array<LocationType>;
 
   }): Observable<StrictHttpResponse<Array<Location>>> {
 
@@ -50,6 +56,7 @@ export class LocationsService extends BaseService {
     if (params) {
 
       rb.query('Coordinates', params.coordinates);
+      rb.query('type', params.type);
 
     }
     return this.http.request(rb.build({
@@ -74,9 +81,14 @@ export class LocationsService extends BaseService {
   searchLocations(params: {
 
     /**
-     * Latitude
+     * Latitude and Longitude
      */
     coordinates: Coordinates;
+
+    /**
+     * Location Type
+     */
+    type?: Array<LocationType>;
 
   }): Observable<Array<Location>> {
 
@@ -162,6 +174,11 @@ export class LocationsService extends BaseService {
   locationsSearchQueryGet$Response(params: {
 
     /**
+     * Latitude and Longitude
+     */
+    coordinates?: Coordinates;
+
+    /**
      * Search query
      */
     query: string;
@@ -171,6 +188,7 @@ export class LocationsService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, LocationsService.LocationsSearchQueryGetPath, 'get');
     if (params) {
 
+      rb.query('Coordinates', params.coordinates);
       rb.path('query', params.query);
 
     }
@@ -194,6 +212,11 @@ export class LocationsService extends BaseService {
    * This method doesn't expect any request body.
    */
   locationsSearchQueryGet(params: {
+
+    /**
+     * Latitude and Longitude
+     */
+    coordinates?: Coordinates;
 
     /**
      * Search query

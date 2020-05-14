@@ -1,6 +1,12 @@
-<app-logo></app-logo>
-<app-map (locationEmitted)="onLocationEmitted($event, true)" style="z-index: 1;"></app-map>
-<app-user-card></app-user-card>
-<app-search-bar style="z-index: 2;" (locationEmitted)="onLocationEmitted($event, false)"></app-search-bar>
-<app-locate-button></app-locate-button>
+<div id="home-wrapper">
+  <app-logo></app-logo>
+  <app-user-card></app-user-card>
+  
+  <div id="home-wrapper-inner">
+    <app-map style="z-index: 1;"></app-map>
+    <app-location-panel (minimizedForParent)="onMinimizedForParent($event)"></app-location-panel>
+    <div id="blur-container" [class.blurred]="shouldBlurBackground$ | async"></div>
+  </div>
+</div>
+
 <app-footer></app-footer>

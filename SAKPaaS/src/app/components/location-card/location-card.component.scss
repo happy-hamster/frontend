@@ -1,0 +1,108 @@
+.card {
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--secondary-grey-blue);
+  cursor: pointer;
+  margin-right: 12px;
+  margin-top: 30px;
+
+  .head-row {
+    margin-top: -20px;
+    margin-left: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: -10px;
+
+    .close-button {
+      color: white;
+      background-color: var(--greenish-grey);
+      z-index: 100;
+      box-shadow: 0 0 0 2px white;
+    }
+  }
+
+  .mat-title {
+    margin-left: 25px;
+    margin-bottom: 0;
+  }
+
+  .row {
+    margin-top: -20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 100px;
+
+    .left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 20px 0;
+    }
+
+    .right {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-right: 10px;
+
+      .distance {
+        padding: 10px;
+        text-align: center;
+        background-color: white;
+        border-radius: 10px;
+        margin-right: 20px;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 14px;
+        color: black;
+        letter-spacing: 0.2px;
+        text-wrap: avoid;
+      }
+
+      .favorite-button {
+        height: 24px;
+        width: 24px;
+        background-color: transparent;
+        border: none;
+      }
+    }
+  }
+
+  .occupancy-count {
+    margin-top: 20px;
+  }
+
+  .mat-card-subtitle {
+    margin-top: 0;
+    margin-left: 25px;
+    margin-bottom: 0;
+  }
+
+  .hide {
+    display: none;
+  }
+
+  .submit {
+    margin-left: 25px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    height: 40px;
+    color: white;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    background-color: var(--greenblue);
+    text-align: center;
+    letter-spacing: 0.6px;
+    box-shadow: 0 5px 20px rgba(38, 196, 133, 0.4);
+    border-radius: 20px;
+  }
+}
+
+.blur {
+  opacity: 0.2;
+}

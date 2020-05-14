@@ -11,7 +11,8 @@
   },
   "footer": {
     "help": "Help",
-    "legal": "Legal",
+    "impressum": "Impressum",
+    "privacy-policy": "Privacy Policy",
     "feedback": {
       "title": "Feedback"
     }
@@ -48,7 +49,7 @@
       "safety-distance": "Safety distance of 1.5m mostly guaranteed.",
       "text": "Moderately busy"
     },
-    "no-data": "Unknown occupancy"
+    "no-data": "No reports"
   },
   "occupancy-report": {
     "title": "How crowded is "
@@ -62,12 +63,39 @@
     "warning": "Warning"
   },
   "search-bar": {
-    "placeholder": "Search…"
+    "placeholder": "Search ...",
+    "type-selector": {
+      "label": "Stores",
+      "default": "All",
+      "types": {
+        "multipolygon": "other",
+        "asian_food": "asian food",
+        "Portuguese": "portuguese",
+        "beverages": "beverages",
+        "asian": "asian",
+        "turkish": "turkish",
+        "delicatessen": "delicacies",
+        "supermarket": "supermarket",
+        "chemist": "chemist",
+        "african; asian; indian": "african; asian; indian"
+      }
+    }
   },
   "snack-bar": {
     "cookies": {
       "allowed": "Thank you for your consent! :)",
       "forbidden": "From now on we will no longer store cookies in your browser. You can change this setting at any time."
+    },
+    "favorite": {
+      "added": {
+        "success": "Successfully added to your favorites! :)",
+        "error": "We couldn't add the location to your favorites. Please try again!"
+      },
+      "deleted": {
+        "success": "Successfully removed from your favorites!",
+        "error": "We couldn't remove the location from your favorites. Please try again!"
+      },
+      "not-logged-in": "Please log in, before you use the favorite function."
     },
     "gps": {
       "default": "HappyHamster wasn't able to locate you via GPS because of an unkown error.",
@@ -82,7 +110,13 @@
       "zoom": "Please zoom closer into the map."
     },
     "occupancy-report": {
-      "failure": "Sorry, that didn't work. Please try again!",
+      "error": {
+        "too-many-requests": {
+          "logged-in": "You cannot submit so many reports in such a short time. Please try again later.",
+          "not-logged-in": "Your Internet connection does not allow you to submit as many reports in such a short time. You think this is an error? Then please create an account!"
+        },
+        "default": "Sorry, that didn't work. Please try again!"
+      },
       "invalid": "Please tell us your personal occupancy estimation :)",
       "success": "Thank you for your feedback!"
     },
@@ -96,6 +130,7 @@
     "logout": "Logout",
     "register": "Create account",
     "guest": "Guest",
+    "greeting": "Hello",
     "level": "Level:",
     "remaining-xp": "XP until next level"
   },
@@ -104,5 +139,36 @@
     "occupancy-low": "Low occupancy",
     "occupancy-medium": "Medium occupancy",
     "occupancy-high": "High occupancy"
+  },
+  "badges": {
+    "next_level": "Next Level",
+    "next_level_class": "Next Class",
+    "report": "Reporter",
+    "new_report": "Explorer",
+    "two_shops": "Better safe than sorry",
+    "shop_first_report": "Distributor",
+    "week_1": "Once a week",
+    "week_3": "3 times per week",
+    "week_full": "24/7 active",
+    "week_special": "Every day something new",
+    "trusted_shop": "Favorite shop",
+    "trusted_user": "We trust you!",
+    "locked": "Locked"
+  },
+  "location-panel": {
+    "favorites": "Favorites",
+    "close-to-you": "Close to you",
+    "search-results": "Search results"
+  },
+  "sidenav": {
+    "social-media": "Visit us on",
+    "feedback": "Give feedback",
+    "toggle-lang": "Zu Deutsch wechseln",
+    "search": "Search"
+  },
+  "badge-notification": {
+    "congratulations": "Congratulations!",
+    "new-badge": "You unlocked a new badge,",
+    "confirm": "Hurraaay!"
   }
 }

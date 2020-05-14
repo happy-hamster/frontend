@@ -1,0 +1,29 @@
+<div class="location-panel" [class.minimized]="minimized">
+  <div class="minimize">
+    <mat-icon [inline]="true" (click)="minimize()" class="minimize-icon" [class.turned]="minimized">keyboard_arrow_down</mat-icon>
+  </div>
+  <div class="location-panel-inner small-panel" [class.searchMinimized]="minimized">
+    <app-search-bar (expand)="expandIfNeeded($event)"></app-search-bar>
+  </div>
+  <div class="location-panel-inner">
+    <ng-container *ngIf="hideSearchResults; else showSearchResults">
+      <ng-container *ngIf="favorites$ | async as favorites">
+        <ng-container *ngIf="favorites.length">
+          <h1 [ngClass]="{'blur': blur}" class="sectionheading">{{"location-panel.favorites" | translate}}</h1>
+          <app-location-list [locations]="favorites"></app-location-list>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="locations$ | async as locations">
+        <h1 [ngClass]="{'blur': blur}" class="sectionheading">{{"location-panel.close-to-you" | translate}}</h1>
+        <app-location-list [locations]="locations" [isCloseToYouList]="true"></app-location-list>
+      </ng-container>
+    </ng-container>
+
+    <ng-template #showSearchResults>
+      <h1 [ngClass]="{'blur': blur}" class="sectionheading">{{"location-panel.search-results" | translate}}</h1>
+      <ng-container *ngIf="locations$ | async as locations">
+        <app-location-list [locations]="locations"></app-location-list>
+      </ng-container>
+    </ng-template>
+  </div>
+</div>

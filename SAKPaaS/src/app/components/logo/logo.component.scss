@@ -1,25 +1,49 @@
+$container-height: 100px;
+$container-width: $container-height * 0.8;
+
 .logo-container {
-    position: fixed;
-    z-index: 2;
-    background-color: white;
-    border-radius: 50px;
-    margin: 0;
-    top: 15px;
-    left: 15px;
-    width: 90px;
-    height: 120px;
-    padding: 5px;
-    right: auto;
-    box-shadow: 0 5px 20px 0 rgba(11, 0, 51, 0.2);
+  z-index: 5;
+  position: absolute;
 }
 
 @media (max-width: 600px) {
-    .logo-container {
-        display: none;
-    }
+  .logo-container {
+    display: none;
+  }
 }
 
 .logo-container img {
-    height: 100%;
-    width: 100%
+  align-self: center;
+  justify-self: center;
+  width: 80%;
+  margin: 0 auto;
+  height: auto;
+}
+
+.background-rect {
+  display: flex;
+  width: $container-width;
+  height: $container-height;
+  background: #ffffff;
+  border-radius: 0 0 var(--outer-border-radius) 0;
+}
+
+.corner {
+  position: absolute;
+  z-index: 3;
+  width: var(--outer-border-radius);
+  height: var(--outer-border-radius);
+  background-image: radial-gradient(
+    circle at 100% 100%,
+    transparent 0,
+    transparent var(--outer-border-radius),
+    white var(--outer-border-radius)
+  );
+  &.upper-right {
+    left: $container-width;
+    top: 0;
+  }
+  &.bottom-left {
+    top: $container-height;
+  }
 }

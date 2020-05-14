@@ -1,0 +1,41 @@
+#home-wrapper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  border: 14px solid white;
+  padding-bottom: 40px;
+}
+
+#home-wrapper-inner {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  border-radius: var(--outer-border-radius);
+  overflow: hidden;
+}
+
+#blur-container {
+  z-index: 4;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #000000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  &.blurred {
+    pointer-events: all;
+    opacity: 0.3;
+  }
+}
+
+@media (max-width: 600px) {
+  #home-wrapper {
+    border: none;
+    padding-bottom: 0;
+  }
+
+
+}

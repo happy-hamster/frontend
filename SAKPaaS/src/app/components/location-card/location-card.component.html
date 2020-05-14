@@ -1,0 +1,39 @@
+<ng-container>
+  <div class="card" [ngClass]="{'blur': blur}" (click)="showLocationCard()">
+    <div class="head-row">
+      <app-occupancy-view [isSearchBar]="false" [occupancy]="location.occupancy"></app-occupancy-view>
+      <button mat-icon-button class="close-button" (click)="hideLocationCard()" [ngClass]="{'hide': hide}">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="row">
+      <div class="left">
+        <p class="mat-title">{{ location.name }}</p>
+        <p class="mat-card-subtitle">{{ location.address | address }}</p>
+      </div>
+      <div class="right">
+          <div *ngIf="distance$ | async as distance" class="distance">
+            {{ distance | readableDistance }}
+          </div>
+        <button mat-icon-button (click)="toggleFavorite()">
+          <mat-icon>
+            {{ location.favorite ? 'star' : 'star_border' }}
+          </mat-icon>
+        </button>
+      </div>
+    </div>
+    <div [ngClass]="{'hide': hide}">
+      <div *ngIf="location.occupancy.count" class="occupancy-count">
+        <p *ngIf="location.occupancy.count === 1" class="mat-card-subtitle">
+          {{ 'occupancy.count-desktop.one-rating' | translate }}
+        </p>
+          <p *ngIf="location.occupancy.count !== 1" class="mat-card-subtitle">
+          {{ 'occupancy.count-desktop.multiple-ratings' | translate:{ count: location.occupancy.count} }}
+        </p>
+      </div>
+      <button mat-raised-button class="submit" (click)="checkIn(location)">
+        {{ 'location-details.button' | translate }}
+      </button>
+    </div>
+  </div>
+</ng-container>

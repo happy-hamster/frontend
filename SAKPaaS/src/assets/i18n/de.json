@@ -11,7 +11,8 @@
   },
   "footer": {
     "help": "Hilfe",
-    "legal": "Rechtliches",
+    "impressum": "Impressum",
+    "privacy-policy": "Datenschutzerklarung",
     "feedback": {
       "title": "Feedback"
     }
@@ -62,12 +63,39 @@
     "warning": "Warnung"
   },
   "search-bar": {
-    "placeholder": "Suchen…" 
+    "placeholder": "Suchen…",
+    "type-selector": {
+      "label": "Läden",
+      "default": "Alle",
+      "types": {
+        "multipolygon": "Andere",
+        "asian_food": "Asiatisches Essen",
+        "Portuguese": "Portugiesisch",
+        "beverages": "Getränke",
+        "asian": "Asiatisch",
+        "turkish": "Türkisch",
+        "delicatessen": "Delikatessen",
+        "supermarket": "Supermarkt",
+        "chemist": "Apotheke",
+        "african; asian; indian": "Afrikanisch; Asiatisch; Indisch"
+      }
+    }
   },
   "snack-bar": {
     "cookies": {
       "allowed": "Danke für deine Einwilligung! :)",
       "forbidden": "Wir speichern ab jetzt keine Cookies mehr in deinem Browser. Du kannst die Einstellung jederzeit wieder ändern."
+    },
+    "favorite": {
+      "added": {
+        "success": "Erfolgreich zu den Favoriten hinzugefügt! :)",
+        "error": "Wir konnten es leider nicht zu deinen Favoriten hinzufügen. Probiere es bitte nocheinmal!"
+      },
+      "deleted": {
+        "success": "Erfolgreich von deinen Favoriten entfernt!",
+        "error": "Wir konnten es leider nicht von deinen Favoriten entfernen. Probiere es bitte nocheinmal!"
+      },
+      "not-logged-in": "Bitte logge dich für die Nutzung der Favoriten ein."
     },
     "gps": {
       "default": "HappyHamster konnte aus einem unbekannten Grund deine GPS-Position nicht ermitteln.",
@@ -82,7 +110,13 @@
       "zoom": "Bitte zoome näher in die Karte."
     },
     "occupancy-report": {
-      "failure": "Das hat leider nicht geklappt! Bitte versuche es erneut.",
+      "error": {
+        "too-many-requests": {
+          "logged-in": "Du kannst nicht so viele Reports in so kurzer Zeit abgeben. Bitte probiere es später nochmal.",
+          "not-logged-in": "Über deine Internetverbindung können nicht so viele Reports in so kurzer Zeit abgegeben werden. Du glaubst das ist ein Fehler? Dann erstelle dir bitte einen Account!"
+        },
+        "default": "Das hat leider nicht geklappt! Bitte versuche es erneut."
+      },
       "invalid": "Bitte sage uns deine persönliche Einschätzung der Auslastung :)",
       "success": "Vielen Dank für dein Feedback!"
     },
@@ -96,6 +130,7 @@
     "logout": "Abmelden",
     "register": "Account erstellen",
     "guest": "Gast",
+    "greeting": "Hallo",
     "level": "Level:",
     "remaining-xp": "XP bis zum nächsten Level"
   },
@@ -104,5 +139,36 @@
     "occupancy-low": "Niedrige Auslastung",
     "occupancy-medium": "Mittlere Auslastung",
     "occupancy-high": "Hohe Auslastung"
+  },
+  "badges": {
+    "next_level": "Neues Level",
+    "next_level_class": "Neue Stufe",
+    "report": "Reporter",
+    "new_report": "Entdecker",
+    "two_shops": "Doppelt hält besser",
+    "shop_first_report": "Verbreiter",
+    "week_1": "1x pro Woche",
+    "week_3": "3x pro Woche",
+    "week_full": "24/7 aktiv",
+    "week_special": "Jeden Tag etwas Neues",
+    "trusted_shop": "Lieblings-Laden",
+    "trusted_user": "Wir vertrauen Dir!",
+    "locked": "Gesperrt"
+  },
+  "location-panel": {
+    "favorites": "Favoriten",
+    "close-to-you": "In der Nähe",
+    "search-results": "Suchergebnisse"
+  },
+  "sidenav": {
+    "social-media": "Besuche uns auf",
+    "feedback": "Feedback geben",
+    "toggle-lang": "Switch to English",
+    "search": "Ladensuche"
+  },
+  "badge-notification": {
+    "congratulations": "Glückwunsch!",
+    "new-badge": "Du hast ein neues Badge freigeschaltet,",
+    "confirm": "Hurraaa!"
   }
 }

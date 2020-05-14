@@ -1,19 +1,22 @@
 .low {
-  color: var(--greenblue);
+  color: white;
+  background-color: var(--greenblue);
+
 }
 
 .medium {
-  color: var(--midnight-blue);
+  color: white;
+  background-color: var(--grey-blue);
 }
 
 .high {
-  font-weight: bold;
-  letter-spacing: 1px;
-  color: var(--grapefruit);
+  color: white;
+  background-color: var(--grapefruit);
 }
 
 .noData {
-  color: var(--greenish-grey);
+  color: black;
+  background-color: var(--secondary-grey-blue);
 }
 
 .occupancy-count {
@@ -21,7 +24,13 @@
 }
 
 .holder {
-  width: 100%;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 12px;
+  letter-spacing: 0.2px;
+  padding: 5px;
+  border-radius: 20px;
+  box-shadow: 0 0 0 5px white;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -44,7 +53,7 @@
   .mobile {
     display: none !important;
   }
-  
+
   .desktop {
     display: inline-flex !important;
   }
