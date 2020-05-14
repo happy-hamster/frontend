@@ -61,6 +61,10 @@ export class AuthKeycloakService {
     );
   }
 
+  public isLoggedInSnap(): boolean {
+    return !!this.user$.getValue();
+  }
+
   public getToken(): Observable<string> {
     return this.token$;
   }
