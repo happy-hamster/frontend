@@ -71,7 +71,6 @@ export class OccupancyReportComponent implements OnInit, OnDestroy {
         }),
         catchError(err => {
           this.isLoadingService.remove({ key: 'sendOccupancy' });
-          console.log(err);
           if (err.hasOwnProperty('status') && err.status === 429) {
             if (this.authService.isLoggedInSnap()) {
               this.snackBarService.sendNotification({
