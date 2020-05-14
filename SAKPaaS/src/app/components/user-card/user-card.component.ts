@@ -16,7 +16,7 @@ export class UserCardComponent implements OnInit {
   expanded = false;
 
   numberBadges = 12; // TODO: Dies muss noch berechnet werden
-  page = 1;
+  page = 0;
   itemsPerPage = 4;
   totalPages = Math.ceil(this.numberBadges / this.itemsPerPage);
   rows = Math.ceil(this.numberBadges / 2);
@@ -35,18 +35,18 @@ export class UserCardComponent implements OnInit {
     private router: Router
   ) {
     this.badges$ = of([
-      {image: BadgeType.NEXT_LEVEL, count: 1},
-      {image: BadgeType.NEXT_LEVEL_CLASS, count: 2},
-      {image: BadgeType.REPORT, count: 1},
-      {image: BadgeType.NEW_REPORT, count: 4},
-      {image: BadgeType.TWO_SHOPS, count: 5},
-      {image: BadgeType.SHOP_FIRST_REPORT, count: 1},
-      {image: BadgeType.WEEK_1, count: 7},
-      {image: BadgeType.WEEK_3, count: 1},
-      {image: BadgeType.WEEK_FULL, count: 3},
-      {image: BadgeType.WEEK_SPECIAL, count: 1},
-      {image: BadgeType.TRUSTED_SHOP, count: 1},
-      {image: BadgeType.TRUSTED_USER, count: 1}
+      { image: BadgeType.NEXT_LEVEL, count: 1 },
+      { image: BadgeType.NEXT_LEVEL_CLASS, count: 2 },
+      { image: BadgeType.REPORT, count: 1 },
+      { image: BadgeType.NEW_REPORT, count: 4 },
+      { image: BadgeType.TWO_SHOPS, count: 5 },
+      { image: BadgeType.SHOP_FIRST_REPORT, count: 1 },
+      { image: BadgeType.WEEK_1, count: 7 },
+      { image: BadgeType.WEEK_3, count: 1 },
+      { image: BadgeType.WEEK_FULL, count: 3 },
+      { image: BadgeType.WEEK_SPECIAL, count: 1 },
+      { image: BadgeType.TRUSTED_SHOP, count: 1 },
+      { image: BadgeType.TRUSTED_USER, count: 1 }
     ]);
   }
 
@@ -64,20 +64,20 @@ export class UserCardComponent implements OnInit {
   }
 
   backPage() {
-    if (this.page > 1) {
+    if (this.page > 0) {
       this.page--;
     }
   }
   nextPage() {
-    if (this.page < this.totalPages) {
+    if (this.page < this.totalPages - 1) {
       this.page++;
     }
   }
   change() {
     if (this.expanded) {
-      this.router.navigate(['/'], {queryParams: {}});
+      this.router.navigate(['/'], { queryParams: {} });
     } else {
-      this.router.navigate(['/'], {queryParams: {showBadges: true}});
+      this.router.navigate(['/'], { queryParams: { showBadges: true } });
     }
   }
 

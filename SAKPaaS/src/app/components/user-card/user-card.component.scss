@@ -1,58 +1,4 @@
 #user-card {
-  @media screen and (max-width: 600px) {
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    padding-top: 0;
-    display: none;
-
-    &.expanded {
-      max-width: 100%;
-      min-width: 100%;
-      display: initial;
-    }
-    #wrapper {
-      width: 100%;
-      height: 100%;
-    }
-    .badge-container {
-      width: 250px;
-      height: 100%;
-      display: initial;
-      margin-left: auto;
-      margin-right: auto;
-
-      .badge {
-        margin-left: 35px;
-        margin-right: 35px;
-      }
-    }
-
-    #first,
-    #third,
-    #pageination {
-      display: none;
-    }
-
-    .mat-card-title {
-      position: sticky;
-      top: 0;
-      background-color: white;
-      padding-top: 16px;
-      z-index: 6;
-    }
-
-    .progress-bar-container {
-      position: sticky;
-      top: 0;
-      background-color: white;
-      z-index: 5;
-
-      .line {
-        border-top: 1px solid var(--silver);
-      }
-    }
-  }
   position: absolute;
   top: 0;
   right: 0;
@@ -97,7 +43,7 @@
   }
 
   &.expanded {
-    width: 440px;
+    width: auto;
     .expand-icon {
       transform: rotate(180deg);
       -webkit-transform: rotate(180deg);
@@ -143,42 +89,36 @@
         background: var(--midnight-blue);
         color: white;
       }
-      position: relative;
-      width: 55px;
+      .badge-inner {
+        position: relative;
+      }
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 0 0 80px;
       height: 100px;
       color: var(--greenblue);
-      float: left;
-      clear: right;
-      font-family: Roboto;
-      font-style: normal;
-      font-weight: normal;
       font-size: 10px;
       line-height: 12px;
       text-align: center;
-      letter-spacing: 0.2px;
       word-break: break-word;
-      margin-top: 12px;
     }
-    overflow-x: scroll;
-    overflow-y: hidden;
     vertical-align: top;
+    display: flex;
+    transition: all 0.3s ease-in-out;
   }
 
   #wrapper {
-    overflow: hidden;
     display: flex;
     align-items: center;
+    .badges-scroll-wrapper {
+      overflow: hidden;
+      width: 80px * 4;
+    }
   }
-  #first {
-    float: left;
-    width: 34px;
-  }
-  #second {
-    float: left;
-  }
-  #third {
-    float: left;
-    width: 34px;
+
+  .pagination-icon.hidden {
+    color: var(--silver);
   }
 
   .mat-card-title {
@@ -214,10 +154,55 @@
   }
 }
 
-.badge-container {
-  .badge {
-    margin-right: 12.5px;
-    margin-left: 12.5px;
+@media screen and (max-width: 600px) {
+  #user-card {
+    display: none;
+
+    &.expanded {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .pagination-icon {
+      display: none;
+    }
+
+    #pagination {
+      display: none;
+    }
+
+    #wrapper .badges-scroll-wrapper {
+      width: 100%;
+    }
+
+    .badge-container {
+      flex-wrap: wrap;
+      justify-content: center;
+      transform: none !important;
+      .badge {
+        flex: 0 0 33.3%;
+        min-width: 100px;
+      }
+    }
+
+    .mat-card-title {
+      position: sticky;
+      top: 0;
+      background-color: white;
+      padding-top: 16px;
+      z-index: 6;
+    }
+
+    .progress-bar-container {
+      position: sticky;
+      top: 0;
+      background-color: white;
+      z-index: 5;
+
+      .line {
+        border-top: 1px solid var(--silver);
+      }
+    }
   }
-  display: flex;
 }
