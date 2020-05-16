@@ -3,7 +3,7 @@ button {
   position: absolute;
   width: 27.5px;
   height: 27.5px;
-  bottom: 40px;
+  bottom: calc(7vh + 20px);
   right: 70px;
   border: none;
   border-radius: 50%;
@@ -24,10 +24,5 @@ button {
 @media (max-width: 600px) {
   button {
     right: 7.5vw;
-  }
-}
-@media (max-height: 800px) {
-  button {
-    top: 240px;
   }
 }
