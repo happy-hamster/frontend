@@ -15,8 +15,8 @@
   }
   .settings-icon {
     color: var(--midnight-blue);
-    float: right;
-    width: 19px;
+    position: absolute;
+    right: 0;
   }
 
   mat-icon:hover {
@@ -61,6 +61,7 @@
 
   .content {
     transition: text-indent 0.3s;
+    position: relative;
   }
 
   .ellipsis {
