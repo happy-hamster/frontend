@@ -20,16 +20,19 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <mat-form-field class="search-form-field" appearance="none">
+    <mat-form-field class="search-form-field" appearance="none" #searchfield>
       <input
         matInput
         placeholder="{{ 'search-bar.placeholder' | translate }}"
         [formControl]="searchControl"
         (keyup.enter)="triggerSearch()"
       />
-      <mat-icon class="search-icon" matSuffix (click)="triggerSearch()"
-        >search</mat-icon
-      >
+      <mat-icon class="search-icon" matSuffix (click)="triggerSearch()" *ngIf="searchControl.value === '' || searchControl.value === undefined || searchControl.value === null">
+        search
+      </mat-icon>
+      <mat-icon class="search-icon" matSuffix (click)="clearSearch()" *ngIf="searchControl.value !== '' && searchControl.value !== undefined && searchControl.value !== null">
+        close
+      </mat-icon>
     </mat-form-field>
   </form>
 </div>

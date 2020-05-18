@@ -114,3 +114,7 @@ mat-form-field {
 .mat-form-field-select {
   margin-top: -0.8em;
 }
+
+mat-icon[hidden] {
+  display: none;
+}
