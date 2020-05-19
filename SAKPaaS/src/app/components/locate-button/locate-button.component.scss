@@ -23,7 +23,17 @@ button {
 
 @media (max-width: 600px) {
   button {
-    right: 7.5vw;
-    bottom: calc(7vh + 20px);
+    right: 20px;
+    bottom: 75px;
+  }
+  .map[_ngcontent-vvb-c82] {
+    padding-bottom: 50px;
+    height: calc(30vh + 50px);
+  }
+  .ol-unselectable, .ol-viewport {
+    overflow: visible !important;
+  }
+  .ol-attribution {
+    display: none;
   }
 }
