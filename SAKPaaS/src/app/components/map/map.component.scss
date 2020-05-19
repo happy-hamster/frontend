@@ -1,4 +1,4 @@
-.map {
+#map {
   width: 100%;
   height: calc(35vh + 20px);
   border-radius: 0 0 var(--outer-border-radius) var(--outer-border-radius);
@@ -16,4 +16,11 @@
 
 .full {
   height: 95vh;
+}
+
+@media only screen and (max-width: 600px) {
+  #map {
+    padding-bottom: 50px;
+    height: calc(30vh + 50px);
+  }
 }
