@@ -23,4 +23,7 @@
     padding-bottom: 50px;
     height: calc(30vh + 50px);
   }
+  #map.full {
+    height: calc(100vh - 30px);
+  }
 }
