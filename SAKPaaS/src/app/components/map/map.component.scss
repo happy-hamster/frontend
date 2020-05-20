@@ -1,7 +1,6 @@
-.map {
+#map {
   width: 100%;
   height: calc(35vh + 20px);
-  min-height: 300px;
   border-radius: 0 0 var(--outer-border-radius) var(--outer-border-radius);
   overflow: hidden;
   position: relative;
@@ -17,4 +16,14 @@
 
 .full {
   height: 95vh;
+}
+
+@media only screen and (max-width: 600px) {
+  #map {
+    padding-bottom: 50px;
+    height: calc(30vh + 50px);
+  }
+  #map.full {
+    height: calc(100vh - 30px);
+  }
 }

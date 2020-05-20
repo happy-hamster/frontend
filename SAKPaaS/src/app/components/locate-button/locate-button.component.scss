@@ -23,11 +23,10 @@ button {
 
 @media (max-width: 600px) {
   button {
-    right: 7.5vw;
-  }
-}
-@media (max-height: 800px) {
-  button {
-    top: 240px;
+    right: 20px;
+    bottom: 70px;
+    height: 69px;
+    width: 69px;
+    margin: 0;
   }
 }
