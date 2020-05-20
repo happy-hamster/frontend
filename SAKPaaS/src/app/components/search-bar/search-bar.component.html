@@ -27,9 +27,12 @@
         [formControl]="searchControl"
         (keyup.enter)="triggerSearch()"
       />
-      <mat-icon class="search-icon" matSuffix (click)="triggerSearch()"
-        >search</mat-icon
-      >
+      <mat-icon class="search-delete-icon" matSuffix (click)="triggerSearch()" *ngIf="searchControl.value === '' || searchControl.value === undefined || searchControl.value === null">
+        search
+      </mat-icon>
+      <mat-icon class="search-delete-icon" matSuffix (click)="clearSearch()" *ngIf="searchControl.value !== '' && searchControl.value !== undefined && searchControl.value !== null">
+        close
+      </mat-icon>
     </mat-form-field>
   </form>
 </div>
