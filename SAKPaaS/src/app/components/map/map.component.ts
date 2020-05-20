@@ -193,17 +193,21 @@ export class MapComponent implements OnInit, OnDestroy {
     });
 
     this.subscriptions.add(this.mapService.getMapCenterFiltered().subscribe(center => {
-      this.customMap.getView().animate({
-        center: center.toOLProjectionArray(),
-        duration: MapComponent.animationDuration
-      });
+      setTimeout(_ => {
+        this.customMap.getView().animate({
+          center: center.toOLProjectionArray(),
+          duration: MapComponent.animationDuration
+        });
+      }, 0);
     }));
 
     this.subscriptions.add(this.mapService.getMapZoomLevelFiltered().subscribe(zoom => {
-      this.customMap.getView().animate({
-        zoom,
-        duration: MapComponent.animationDuration
-      });
+      setTimeout(_ => {
+        this.customMap.getView().animate({
+          zoom,
+          duration: MapComponent.animationDuration
+        });
+      }, 0);
     }));
   }
 
