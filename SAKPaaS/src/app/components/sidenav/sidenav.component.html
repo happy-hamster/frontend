@@ -31,16 +31,25 @@
         </div>
         {{'sidenav.search' | translate}}
       </a>
+      
+    </div>
+  </div>
+  <div class="space"></div>
+  <div class="bottom">
+    <div class="section"  *ngIf="authService.getUser() | async">
       <a routerLink="/" (click)="close()" [queryParams]="{showBadges: true}" *ngIf="authService.getUser() | async">
         <div class="img-wrap">
           <mat-icon>emoji_events</mat-icon>
         </div>
         Badges
       </a>
+      <a rel="noreferrer" href="https://auth.happyhamster.org/auth/realms/happyhamster/account/"  *ngIf="authService.getUser() | async" title="{{'sidenav.settings' | translate}}">
+        <div class="img-wrap">
+          <mat-icon fontSet="material-icons" class="settings-icon">settings</mat-icon>
+        </div>
+        {{'sidenav.settings' | translate}}
+      </a>
     </div>
-  </div>
-  <div class="space"></div>
-  <div class="bottom">
     <div class="section">
       <h3>{{'sidenav.social-media' | translate}}</h3>
       <a target="_blank" rel="noreferrer" href="https://www.instagram.com/happyhamsterorg/">

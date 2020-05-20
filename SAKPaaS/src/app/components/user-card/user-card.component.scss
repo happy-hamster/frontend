@@ -14,10 +14,9 @@
     cursor: pointer;
   }
   .settings-icon {
-    display: none;
-    float: right;
-    padding-left: 10px;
-    width: 34px;
+    color: var(--midnight-blue);
+    position: absolute;
+    right: 0;
   }
 
   mat-icon:hover {
@@ -43,7 +42,7 @@
   }
 
   &.expanded {
-    width: auto;
+    width: 400px;
     .expand-icon {
       transform: rotate(180deg);
       -webkit-transform: rotate(180deg);
@@ -62,6 +61,7 @@
 
   .content {
     transition: text-indent 0.3s;
+    position: relative;
   }
 
   .ellipsis {
@@ -129,6 +129,7 @@
     line-height: 26px;
     text-align: center;
     color: var(--silver);
+    padding-top: 15px;
   }
 
   .corner {
@@ -169,6 +170,10 @@
     }
 
     #pagination {
+      display: none;
+    }
+
+    .settings-icon {
       display: none;
     }
 
