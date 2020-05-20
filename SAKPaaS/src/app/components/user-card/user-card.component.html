@@ -1,11 +1,11 @@
-<mat-card id="user-card" [class.expanded]="expanded">
+<mat-card *ngIf="authService.getUser() | async as user; else login" id="user-card" [class.expanded]="expanded">
   <div class="corner upper-left"></div>
 
   <div *ngIf="authService.getUser() | async as user; else login" class="content">
     <div class="expand">
       <mat-icon (click)="change()" class="expand-icon">keyboard_arrow_left</mat-icon>
     </div>
-    
+
     <div *ngIf="expanded">
       <a href="https://auth.happyhamster.org/auth/realms/happyhamster/account/" title="{{'sidenav.settings' | translate}}">
         <mat-icon fontSet="material-icons" class="settings-icon">settings</mat-icon>
@@ -71,13 +71,17 @@
 
     </mat-card-content>
   </div>
+  <div class="corner bottom-right"></div>
 </mat-card>
 <ng-template #login>
   <mat-card id="user-card">
+    <div class="corner upper-left"></div>
     <mat-card-title>
       {{ 'user-card.guest' | translate }}
     </mat-card-title>
 
-    <a class="mat-primary" (click)="authService.login()">{{ 'user-card.login' | translate }} / {{ 'user-card.register' | translate }}</a>
+    <a class="mat-primary" (click)="authService.login()">{{ 'user-card.login' | translate }}</a> /
+    <a class="mat-primary" (click)="authService.register()">{{ 'user-card.register' | translate }}</a>
+    <div class="corner bottom-right"></div>
   </mat-card>
 </ng-template>
