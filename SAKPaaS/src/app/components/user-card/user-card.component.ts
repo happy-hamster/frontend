@@ -20,7 +20,7 @@ export class UserCardComponent implements OnInit {
   itemsPerPage = 4;
   totalPages = Math.ceil(this.numberBadges / this.itemsPerPage);
   currentLevel = 'Novize';
-  remainingReports = 1;
+  remainingXP = 10;
   currentProgress = 73;
 
   badges$: Observable<Badge[]>;

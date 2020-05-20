@@ -58,12 +58,28 @@ div.ol-control:hover {
   background-color: transparent;
 }
 
-@media (max-width: 600px) {
+@media only screen and (max-width: 600px) {
   div.ol-zoom {
     display: none;
   }
 
   div.ol-rotate {
     display: none;
+  }
+
+  .ol-unselectable,
+  .ol-viewport,
+  .ol-layer {
+    overflow: visible !important;
+  }
+  .ol-attribution {
+    display: none;
+  }
+  .ol-layer > canvas {
+    height: calc(100% + 50px) !important;
+  }
+  #map {
+    padding-bottom: 50px;
+    height: calc(30vh + 50px);
   }
 }

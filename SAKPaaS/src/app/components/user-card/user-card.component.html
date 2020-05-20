@@ -26,13 +26,9 @@
         </div>
         <mat-progress-bar mode="determinate" value="{{ currentProgress }}"></mat-progress-bar>
         <div class="next-level">
-          <span *ngIf="remainingReports === 1">
-            {{ remainingReports }}
-            {{ "user-card.one-report-remaining" | translate }}
-          </span>
-          <span *ngIf="remainingReports !== 1">
-            {{ remainingReports }}
-            {{ "user-card.multiple-reports-remaining" | translate }}
+          <span>
+            {{ remainingXP }}
+            {{ "user-card.remaining-xp" | translate }}
           </span>
         </div>
         <div class="line"></div>
