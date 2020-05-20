@@ -128,7 +128,7 @@
   "user-card": {
     "login": "Login",
     "logout": "Logout",
-    "register": "Create account",
+    "register": "Register",
     "guest": "Guest",
     "greeting": "Hello",
     "level": "Level:",
