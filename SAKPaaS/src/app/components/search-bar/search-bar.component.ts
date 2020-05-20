@@ -68,6 +68,7 @@ export class SearchBarComponent implements OnInit {
 
   clearSearch(): void {
     this.searchControl.setValue('');
+    this.locations$ = this.locationsService.fetchLocations();
     this.triggerSearch();
   }
 }
