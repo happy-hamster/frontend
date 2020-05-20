@@ -5,10 +5,16 @@
     <div class="expand">
       <mat-icon (click)="change()" class="expand-icon">keyboard_arrow_left</mat-icon>
     </div>
+    
+    <div *ngIf="expanded">
+      <a href="https://auth.happyhamster.org/auth/realms/happyhamster/account/" title="{{'sidenav.settings' | translate}}">
+        <mat-icon fontSet="material-icons" class="settings-icon">settings</mat-icon>
+      </a>
+    </div>
+
     <mat-card-title>
       <span *ngIf="expanded">{{ "user-card.greeting" | translate }}</span>
       {{ user.firstName }}
-      <mat-icon fontSet="material-icons-outlined" class="settings-icon">settings</mat-icon>
     </mat-card-title>
     <mat-card-content>
       <div class="progress-bar-container" *ngIf="expanded">
@@ -20,13 +26,9 @@
         </div>
         <mat-progress-bar mode="determinate" value="{{ currentProgress }}"></mat-progress-bar>
         <div class="next-level">
-          <span *ngIf="remainingReports === 1">
-            {{ remainingReports }}
-            {{ "user-card.one-report-remaining" | translate }}
-          </span>
-          <span *ngIf="remainingReports !== 1">
-            {{ remainingReports }}
-            {{ "user-card.multiple-reports-remaining" | translate }}
+          <span>
+            {{ remainingXP }}
+            {{ "user-card.remaining-xp" | translate }}
           </span>
         </div>
         <div class="line"></div>

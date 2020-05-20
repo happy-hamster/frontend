@@ -19,10 +19,8 @@ export class UserCardComponent implements OnInit {
   page = 0;
   itemsPerPage = 4;
   totalPages = Math.ceil(this.numberBadges / this.itemsPerPage);
-  rows = Math.ceil(this.numberBadges / 2);
-  lockedBadges = this.itemsPerPage * this.totalPages - this.numberBadges;
   currentLevel = 'Novize';
-  remainingReports = 1;
+  remainingXP = 10;
   currentProgress = 73;
 
   badges$: Observable<Badge[]>;
@@ -55,10 +53,6 @@ export class UserCardComponent implements OnInit {
       this.expanded = params.get('showBadges') === 'true';
       this.backgroundBlurService.setBlur(this.expanded);
     });
-  }
-
-  array(n: number): any[] {
-    return Array(n);
   }
 
   backPage() {
