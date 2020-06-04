@@ -45,6 +45,9 @@ export class LocationPanelComponent implements OnInit, OnDestroy {
       this.locationCardService.getSelectedLocationCard().subscribe(
         locationCard => {
           this.blur = locationCard !== null;
+          if (locationCard !== null) {
+            this.minimized = false;
+          }
         }
       )
     );
