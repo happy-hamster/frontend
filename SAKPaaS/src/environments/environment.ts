@@ -7,7 +7,7 @@ import { EnvironmentInterface } from './EnvironmentInterface';
 export const environment: EnvironmentInterface = {
   production: false,
   name: 'development',
-  apiTarget: 'https://api.happyhamster.org/v2'
+  apiTarget: 'https://api.dev.happyhamster.org/v2'
 };
 
 /*
