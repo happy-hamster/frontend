@@ -6,7 +6,7 @@ import { MapService } from '../../core/services/map.service';
   templateUrl: './locate-button.component.html',
   styleUrls: ['./locate-button.component.scss']
 })
-export class LocateButtonComponent{
+export class LocateButtonComponent {
 
   constructor(private mapService: MapService) { }
 
