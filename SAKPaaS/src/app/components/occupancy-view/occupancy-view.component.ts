@@ -39,10 +39,10 @@ export class OccupancyViewComponent implements OnInit {
   }
 
   getText(): string {
-    const noData: string = this.translate.instant('occupancy.no-data');
-    const low: string = this.translate.instant('occupancy.low.text');
-    const medium: string = this.translate.instant('occupancy.medium.text');
-    const high: string = this.translate.instant('occupancy.high.text');
+    const noData = 'nodata';
+    const low = 'low';
+    const medium = 'medium';
+    const high = 'high';
 
     return this.getStringForOcc(low, medium, high, noData);
   }

@@ -10,8 +10,17 @@
       <img [src]="iconPath" alt="{{ 'image-alt.occupancy' | translate }}"/>
     </div>
     <div >
-    <span>
-      {{ text }}
+    <span *ngIf="text == 'nodata'">
+      {{ 'occupancy.no-data' | translate }}
+    </span>
+    <span *ngIf="text == 'low'">
+      {{ 'occupancy.low.text' | translate }}
+    </span>
+    <span *ngIf="text == 'medium'">
+      {{ 'occupancy.medium.text' | translate }}
+    <span *ngIf="text == 'high'">
+      {{ 'occupancy.high.text' | translate }}
+    </span>
     </span>
     </div>
   </div>
