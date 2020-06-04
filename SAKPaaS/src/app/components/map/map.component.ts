@@ -129,6 +129,7 @@ export class MapComponent implements OnInit, OnDestroy {
           this.fillScreen(true);
         }
       });
+    this.delay(200).then(r => this.mapService.centerMapToGpsCoordinates(false));
   }
 
   private initOLMap() {
@@ -302,6 +303,10 @@ export class MapComponent implements OnInit, OnDestroy {
   fillScreen(minimized: boolean) {
     this.minimized = minimized;
     window.setTimeout(() => { this.resize(); }, 100);
+  }
+
+  async delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 }
 
