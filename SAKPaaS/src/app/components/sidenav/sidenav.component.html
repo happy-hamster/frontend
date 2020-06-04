@@ -7,7 +7,7 @@
     <div class="user-header" *ngIf="authService.getUser() | async as user; else anonymous">
       <p class="greeting">{{'user-card.greeting' | translate}} {{user.firstName}}!
         <button mat-icon-button (click)="authService.logout()">
-          <mat-icon>highlight_off</mat-icon>
+          <mat-icon>exit_to_app</mat-icon>
         </button>
       </p>
       <p class="email">{{user.email}}</p>
@@ -31,7 +31,7 @@
         </div>
         {{'sidenav.search' | translate}}
       </a>
-      
+
     </div>
   </div>
   <div class="space"></div>
